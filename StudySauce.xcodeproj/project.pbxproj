@@ -82,8 +82,8 @@
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				845052561BA4AA3B005377D9 /* MasterViewController.swift */,
 				845052581BA4AA3B005377D9 /* DetailViewController.swift */,
-				8450525A1BA4AA3B005377D9 /* Main.storyboard */,
 				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
+				8450525A1BA4AA3B005377D9 /* Main.storyboard */,
 				8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */,
 				845052521BA4AA3B005377D9 /* Supporting Files */,
 			);
