@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5A8893F5-4068-499E-8220-567B089D47F1</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>37A72E0A82A50285FE566490B5D10D3592C02D0B</key>
+		<string>https://bitbucket.org/StudySauce/StudySauceApp/</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>StudySauce.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>37A72E0A82A50285FE566490B5D10D3592C02D0B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/StudySauce/StudySauceApp/</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>37A72E0A82A50285FE566490B5D10D3592C02D0B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>37A72E0A82A50285FE566490B5D10D3592C02D0B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>StudySauce</string>
+		</dict>
+	</array>
+</dict>
+</plist>
