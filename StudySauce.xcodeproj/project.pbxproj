@@ -159,6 +159,8 @@
 		845052471BA4AA3B005377D9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "The Study Institute";
 				TargetAttributes = {
@@ -415,6 +417,7 @@
 				845052721BA4AA3C005377D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		845052731BA4AA3C005377D9 /* Build configuration list for PBXNativeTarget "StudySauceTests" */ = {
 			isa = XCConfigurationList;
@@ -423,6 +426,7 @@
 				845052751BA4AA3C005377D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
