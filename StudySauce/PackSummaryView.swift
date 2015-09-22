@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class PackSummaryView: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
