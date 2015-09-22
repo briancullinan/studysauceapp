@@ -15,7 +15,6 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
-    
     public func configure(logo: UIImage, title: String, creator: String) {
         logoImage.image = logo
         titleLabel.text = title
