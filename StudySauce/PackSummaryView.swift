@@ -91,11 +91,16 @@ class PackSummaryView: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
 
         let object = objects[indexPath.row] as! NSDictionary
         
-        cell.textLabel!.text = object.description
+        let url = object["artworkUrl100"] as! String
+        let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
+        let title = object["trackName"] as! String
+        let creator = object["artistName"] as! String
+        
+        cell.configure(logo, title: title, creator: creator)
         return cell
     }
 
