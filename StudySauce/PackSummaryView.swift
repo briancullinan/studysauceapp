@@ -21,7 +21,25 @@ class PackSummaryView: UITableViewController {
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
     }
-
+    
+    func getData(completionHandler: (NSArray!, NSError!) -> Void) -> Void {
+        let url: NSURL = NSURL(string: "http://itunes.apple.com/search?term=Turistforeningen&media=software")!
+        let ses = NSURLSession.sharedSession()
+        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            if (error != nil) {
+                return completionHandler(nil, error)
+            }
+            
+            do {
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+                return completionHandler(json["results"] as! NSArray, nil)
+            } catch let error as NSError {
+                return completionHandler(nil, error)
+            }
+        })
+        task.resume()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -29,6 +47,12 @@ class PackSummaryView: UITableViewController {
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
+        self.getData { (data, error) -> Void in
+            self.objects = data as [AnyObject];
+            dispatch_async(dispatch_get_main_queue(), {
+                self.tableView.reloadData()
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +93,8 @@ class PackSummaryView: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
 
-        let object = objects[indexPath.row] as! NSDate
+        let object = objects[indexPath.row] as! NSDictionary
+        
         cell.textLabel!.text = object.description
         return cell
     }
