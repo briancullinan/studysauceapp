@@ -316,6 +316,80 @@
             </objects>
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
+        <!--Card response template-->
+        <scene sceneID="eUX-WO-j8R">
+            <objects>
+                <viewController title="Card prompt template" id="gJ9-Ua-grz" userLabel="Card response template" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="C2h-7n-THx"/>
+                        <viewControllerLayoutGuide type="bottom" id="VGi-BL-dNi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hmt-iH-18B">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-4m-PU0">
+                                <rect key="frame" x="498" y="576" width="82" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a3E-wa-lDZ">
+                                <rect key="frame" x="20" y="58" width="560" height="456"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  </mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="89M-GZ-BLR">
+                                <rect key="frame" x="20" y="562" width="96" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="CgW-oc-lxx"/>
+                                    <constraint firstAttribute="height" constant="30" id="ksA-Sk-2TV"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauceBackArrow" translatesAutoresizingMaskIntoConstraints="NO" id="7l6-ud-eNj">
+                                <rect key="frame" x="20" y="20" width="60" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="CCt-6w-873"/>
+                                    <constraint firstAttribute="height" constant="40" id="uag-x7-yWm"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zla-lE-gFC">
+                                <rect key="frame" x="247" y="522" width="106" height="28"/>
+                                <color key="backgroundColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <state key="normal" title="Get answer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a3E-wa-lDZ" firstAttribute="trailing" secondItem="hmt-iH-18B" secondAttribute="trailingMargin" id="1bO-eS-YeU"/>
+                            <constraint firstItem="89M-GZ-BLR" firstAttribute="bottom" secondItem="ozO-4m-PU0" secondAttribute="bottom" id="9bR-eF-Ec9"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ozO-4m-PU0" secondAttribute="trailing" id="9tX-d6-dtc"/>
+                            <constraint firstItem="zla-lE-gFC" firstAttribute="centerX" secondItem="hmt-iH-18B" secondAttribute="centerX" id="Bme-1G-nPf"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="7l6-ud-eNj" secondAttribute="leading" id="I0j-S9-YDx"/>
+                            <constraint firstItem="a3E-wa-lDZ" firstAttribute="leading" secondItem="hmt-iH-18B" secondAttribute="leadingMargin" id="I9A-21-mrK"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="89M-GZ-BLR" secondAttribute="leading" id="QJs-XP-2eD"/>
+                            <constraint firstItem="a3E-wa-lDZ" firstAttribute="leading" secondItem="hmt-iH-18B" secondAttribute="leadingMargin" id="Wbq-OS-K55"/>
+                            <constraint firstItem="zla-lE-gFC" firstAttribute="top" secondItem="a3E-wa-lDZ" secondAttribute="bottom" constant="8" id="Zzx-QB-jCs"/>
+                            <constraint firstItem="ozO-4m-PU0" firstAttribute="top" secondItem="a3E-wa-lDZ" secondAttribute="bottom" constant="62" id="bab-N6-1Q6"/>
+                            <constraint firstItem="a3E-wa-lDZ" firstAttribute="top" secondItem="7l6-ud-eNj" secondAttribute="bottom" constant="-2" id="dbP-yi-tZe"/>
+                            <constraint firstItem="7l6-ud-eNj" firstAttribute="top" secondItem="C2h-7n-THx" secondAttribute="bottom" id="n44-e8-KEU"/>
+                            <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="89M-GZ-BLR" secondAttribute="bottom" constant="8" id="qY3-X5-L5d"/>
+                            <constraint firstItem="89M-GZ-BLR" firstAttribute="top" secondItem="a3E-wa-lDZ" secondAttribute="bottom" constant="48" id="qfy-z9-8Qy"/>
+                            <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="ozO-4m-PU0" secondAttribute="bottom" constant="8" id="sUu-he-Knc"/>
+                            <constraint firstItem="a3E-wa-lDZ" firstAttribute="trailing" secondItem="hmt-iH-18B" secondAttribute="trailingMargin" id="vPl-pF-UF5"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104" y="-1415"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
