@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; settings = {ASSET_TAGS = (); }; };
+		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
+		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
+		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; settings = {ASSET_TAGS = (); }; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
-		845052571BA4AA3B005377D9 /* PackSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryView.swift */; };
+		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
 		845052591BA4AA3B005377D9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052581BA4AA3B005377D9 /* DetailViewController.swift */; };
 		8450525C1BA4AA3B005377D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8450525A1BA4AA3B005377D9 /* Main.storyboard */; };
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
@@ -29,10 +32,13 @@
 
 /* Begin PBXFileReference section */
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
+		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
+		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
+		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
 		8450524F1BA4AA3B005377D9 /* StudySauce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudySauce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845052541BA4AA3B005377D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		845052561BA4AA3B005377D9 /* PackSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackSummaryView.swift; sourceTree = "<group>"; };
+		845052561BA4AA3B005377D9 /* PackSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackSummaryController.swift; sourceTree = "<group>"; };
 		845052581BA4AA3B005377D9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		8450525B1BA4AA3B005377D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8450525D1BA4AA3B005377D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -82,7 +88,10 @@
 			isa = PBXGroup;
 			children = (
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
-				845052561BA4AA3B005377D9 /* PackSummaryView.swift */,
+				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
+				644C4A611BB3516F00E4D52A /* CardPromptController.swift */,
+				644C4A631BB351F900E4D52A /* CardResponseController.swift */,
+				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
 				845052581BA4AA3B005377D9 /* DetailViewController.swift */,
 				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
@@ -221,8 +230,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				845052591BA4AA3B005377D9 /* DetailViewController.swift in Sources */,
+				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
+				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
+				644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */,
 				644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */,
-				845052571BA4AA3B005377D9 /* PackSummaryView.swift in Sources */,
+				845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */,
 				845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
