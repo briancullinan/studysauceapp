@@ -23,7 +23,7 @@ class PackSummaryView: UITableViewController {
     }
     
     func getData(completionHandler: (NSArray!, NSError!) -> Void) -> Void {
-        let url: NSURL = NSURL(string: "https://staging.studysauce.com/packs")!
+        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/packs")!
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if (error != nil) {
@@ -31,8 +31,8 @@ class PackSummaryView: UITableViewController {
             }
             
             do {
-                var json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                //return completionHandler(json["results"] as! NSArray, nil)
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                return completionHandler(json as! NSArray, nil)
             } catch let error as NSError {
                 return completionHandler(nil, error)
             }
@@ -95,12 +95,16 @@ class PackSummaryView: UITableViewController {
 
         let object = objects[indexPath.row] as! NSDictionary
         
-        let url = object["logo"] as! String
-        let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
         let title = object["title"] as! String
         let creator = object["creator"] as! String
+        if let url = object["logo"] as! String? where !url.isEmpty {
+            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
+            cell.configure(logo, title: title, creator: creator)
+        }
+        else {
+            cell.configure(UIImage(), title: title, creator: creator)
+        }
         
-        cell.configure(logo, title: title, creator: creator)
         return cell
     }
 
