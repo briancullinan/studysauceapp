@@ -25,13 +25,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-re-tFb">
-                                <rect key="frame" x="20" y="58" width="560" height="456"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  </string>
-                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="y04-eC-z54">
                                 <rect key="frame" x="20" y="562" width="96" height="30"/>
                                 <constraints>
@@ -63,6 +56,13 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="KdG-I2-WBM"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-re-tFb">
+                                <rect key="frame" x="20" y="58" width="560" height="456"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.  </string>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -84,10 +84,11 @@
                             <constraint firstItem="sjP-ZL-xrj" firstAttribute="top" secondItem="nsU-re-tFb" secondAttribute="bottom" constant="8" id="zgA-8p-pEh"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hj1-FT-IXE"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTz-LS-CeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104" y="-2163"/>
+            <point key="canvasLocation" x="1916" y="-2163"/>
         </scene>
         <!--Beta site blocker-->
         <scene sceneID="deM-gV-JvB">
@@ -110,8 +111,8 @@
                                     <constraint firstAttribute="width" secondItem="diy-RN-e7Q" secondAttribute="height" multiplier="1:1" id="NrQ-xX-aPd"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtm-dF-Jv8">
-                                <rect key="frame" x="255" y="425" width="91" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtm-dF-Jv8">
+                                <rect key="frame" x="255" y="467" width="91" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.29411764709999999" green="0.74901960779999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -123,8 +124,8 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="Y4n-Kq-LEM"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter activation code to begin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cNe-nA-23h">
-                                <rect key="frame" x="171" y="378" width="259" height="32"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter activation code to begin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cNe-nA-23h">
+                                <rect key="frame" x="171" y="420" width="259" height="32"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -163,52 +164,49 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-sY-eZq">
-                                            <rect key="frame" x="8" y="8" width="508" height="20"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
+                                            <rect key="frame" x="372" y="8" width="220" height="53"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-sY-eZq">
+                                            <rect key="frame" x="8" y="8" width="82" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8x-qg-tCj">
-                                            <rect key="frame" x="8" y="36" width="508" height="20"/>
+                                            <rect key="frame" x="8" y="36" width="82" height="26"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YQI-pi-o3a">
-                                            <rect key="frame" x="326" y="17" width="275" height="30"/>
-                                            <state key="normal" title="Download"/>
-                                            <connections>
-                                                <action selector="downloadClick:forEvent:" destination="Nzj-FH-25o" eventType="touchUpInside" id="fMm-4b-dba"/>
-                                            </connections>
-                                        </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
-                                            <rect key="frame" x="524" y="-1" width="68" height="69"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="bTM-fo-JmE" secondAttribute="height" multiplier="1:1" id="Wjg-eK-w4v"/>
-                                            </constraints>
-                                        </imageView>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JVn-xt-2Lb">
+                                            <rect key="frame" x="0.0" y="67" width="600" height="2"/>
+                                            <color key="progressTintColor" red="0.1803921568627451" green="0.20392156862745098" blue="0.44705882352941179" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="trackTintColor" red="0.63137254901960782" green="0.52941176470588236" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                        </progressView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="leading" secondItem="H8x-qg-tCj" secondAttribute="trailing" constant="8" symbolic="YES" id="93G-dn-k0s"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="klY-sY-eZq" secondAttribute="leading" id="DYL-am-cVV"/>
+                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="top" secondItem="klY-sY-eZq" secondAttribute="top" id="37f-to-8g1"/>
+                                        <constraint firstItem="klY-sY-eZq" firstAttribute="leading" secondItem="Ul1-7S-BDO" secondAttribute="leadingMargin" id="FsC-fi-dmm"/>
                                         <constraint firstAttribute="topMargin" secondItem="klY-sY-eZq" secondAttribute="top" id="Ie2-kt-FGW"/>
-                                        <constraint firstItem="H8x-qg-tCj" firstAttribute="top" secondItem="klY-sY-eZq" secondAttribute="bottom" constant="8" id="RzK-Fi-lFl"/>
+                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="bottom" secondItem="H8x-qg-tCj" secondAttribute="bottom" id="IgI-Hr-SIb"/>
+                                        <constraint firstItem="H8x-qg-tCj" firstAttribute="top" secondItem="klY-sY-eZq" secondAttribute="bottom" constant="8" symbolic="YES" id="RzK-Fi-lFl"/>
+                                        <constraint firstItem="H8x-qg-tCj" firstAttribute="trailing" secondItem="klY-sY-eZq" secondAttribute="trailing" id="WG2-2E-hce"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="bTM-fo-JmE" secondAttribute="trailing" id="Ycg-ci-AXi"/>
-                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="centerY" secondItem="Ul1-7S-BDO" secondAttribute="centerY" id="bYR-j5-ayC"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="H8x-qg-tCj" secondAttribute="leading" id="e4N-Sl-YTb"/>
-                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="height" secondItem="Ul1-7S-BDO" secondAttribute="height" id="e9s-c4-Xnr"/>
-                                        <constraint firstItem="bTM-fo-JmE" firstAttribute="leading" secondItem="klY-sY-eZq" secondAttribute="trailing" constant="8" symbolic="YES" id="sTZ-ya-1TS"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="H8x-qg-tCj" secondAttribute="bottom" id="adF-yR-mZx"/>
+                                        <constraint firstItem="H8x-qg-tCj" firstAttribute="leading" secondItem="Ul1-7S-BDO" secondAttribute="leadingMargin" id="i8s-cE-ap4"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="YQI-pi-o3a" secondAttribute="trailing" id="kyB-tF-P9z"/>
+                                    <constraint firstItem="JVn-xt-2Lb" firstAttribute="leading" secondItem="Nzj-FH-25o" secondAttribute="leading" id="R0E-eb-yno"/>
+                                    <constraint firstAttribute="trailing" secondItem="JVn-xt-2Lb" secondAttribute="trailing" id="UvP-tS-db9"/>
+                                    <constraint firstAttribute="bottom" secondItem="JVn-xt-2Lb" secondAttribute="bottom" id="XhL-Lv-Mpv"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="creatorLabel" destination="H8x-qg-tCj" id="Ck4-nl-P8t"/>
-                                    <outlet property="downloadButton" destination="YQI-pi-o3a" id="gEU-rC-5Sl"/>
                                     <outlet property="logoImage" destination="bTM-fo-JmE" id="tMo-zS-Grb"/>
                                     <outlet property="titleLabel" destination="klY-sY-eZq" id="8cf-cD-IvK"/>
+                                    <segue destination="yPZ-g1-GYB" kind="show" id="Q0W-3S-rf4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -290,7 +288,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="wX3-J5-TSh" kind="show" id="VJ8-TR-ph6"/>
+                                    <segue destination="yPZ-g1-GYB" kind="show" id="VJ8-TR-ph6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -357,7 +355,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="wX3-J5-TSh" kind="show" id="5My-VN-6WE"/>
+                                    <segue destination="yPZ-g1-GYB" kind="show" id="5My-VN-6WE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMj-7g-aeh">
@@ -424,6 +422,24 @@
             </objects>
             <point key="canvasLocation" x="1104" y="-669"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gDE-yQ-aGy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="yPZ-g1-GYB" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lbs-RH-Ms1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wX3-J5-TSh" kind="relationship" relationship="rootViewController" id="L1J-Ev-oqg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7O3-5d-z4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1104" y="-2163"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
@@ -432,8 +448,8 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Q0W-3S-rf4"/>
+        <segue reference="KdG-I2-WBM"/>
         <segue reference="wL7-Nq-6Gu"/>
-        <segue reference="5My-VN-6WE"/>
-        <segue reference="Y4n-Kq-LEM"/>
     </inferredMetricsTieBreakers>
 </document>

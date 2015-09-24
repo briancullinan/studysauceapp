@@ -66,6 +66,7 @@ class PackSummaryController: UITableViewController {
                     newPack!.id = pack["id"] as? NSNumber
                     newPack!.creator = pack["creator"] as? String
                     newPack!.logo = pack["logo"] as? String
+                    newPack!.created = pack["created"] as? NSDate
                     packs.insert(newPack!, atIndex: 0)
                     try moc.save()
                 }
@@ -87,11 +88,11 @@ class PackSummaryController: UITableViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
         
-        // Load menu items from database
+        // Load packs from database
         if let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
             do {
-                try objects = managedObjectContext.executeFetchRequest(fetchRequest) as! [Pack]
+                try self.objects = managedObjectContext.executeFetchRequest(fetchRequest) as! [Pack]
             }
             catch let error as NSError {
                 NSLog("Failed to retrieve record: \(error.localizedDescription)")
@@ -126,6 +127,12 @@ class PackSummaryController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let vc = segue.destinationViewController as? UINavigationController{
+            if let prompt = vc.viewControllers[0] as? CardPromptController {
+                //prompt.cards =
+            }
+        }
+
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let object = objects[indexPath.row]
