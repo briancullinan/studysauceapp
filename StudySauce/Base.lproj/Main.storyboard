@@ -110,8 +110,8 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" misplaced="YES" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8x-qg-tCj">
-                                            <rect key="frame" x="8" y="36" width="82" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8x-qg-tCj">
+                                            <rect key="frame" x="8" y="36" width="82" height="20"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -123,8 +123,8 @@
                                                 <action selector="downloadClick:forEvent:" destination="Nzj-FH-25o" eventType="touchUpInside" id="fMm-4b-dba"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
-                                            <rect key="frame" x="98" y="0.0" width="220" height="66"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
+                                            <rect key="frame" x="98" y="6" width="220" height="55"/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
