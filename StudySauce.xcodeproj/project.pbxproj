@@ -11,6 +11,11 @@
 		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; settings = {ASSET_TAGS = (); }; };
+		647515551BB37EB30058E14C /* Pack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647515511BB37EB30058E14C /* Pack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		647515561BB37EB30058E14C /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647515521BB37EB30058E14C /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
+		647515571BB37EB30058E14C /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647515531BB37EB30058E14C /* Card+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		647515581BB37EB30058E14C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647515541BB37EB30058E14C /* Card.swift */; settings = {ASSET_TAGS = (); }; };
+		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
 		845052591BA4AA3B005377D9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052581BA4AA3B005377D9 /* DetailViewController.swift */; };
@@ -35,6 +40,11 @@
 		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
 		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
+		647515511BB37EB30058E14C /* Pack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pack+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		647515521BB37EB30058E14C /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
+		647515531BB37EB30058E14C /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		647515541BB37EB30058E14C /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudySauce.xcdatamodel; sourceTree = "<group>"; };
 		8450524F1BA4AA3B005377D9 /* StudySauce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudySauce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845052541BA4AA3B005377D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +97,11 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
+				647515511BB37EB30058E14C /* Pack+CoreDataProperties.swift */,
+				647515521BB37EB30058E14C /* Pack.swift */,
+				647515531BB37EB30058E14C /* Card+CoreDataProperties.swift */,
+				647515541BB37EB30058E14C /* Card.swift */,
+				64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
 				644C4A611BB3516F00E4D52A /* CardPromptController.swift */,
@@ -230,8 +245,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				845052591BA4AA3B005377D9 /* DetailViewController.swift in Sources */,
+				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
 				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
+				647515561BB37EB30058E14C /* Pack.swift in Sources */,
+				647515571BB37EB30058E14C /* Card+CoreDataProperties.swift in Sources */,
+				647515551BB37EB30058E14C /* Pack+CoreDataProperties.swift in Sources */,
+				647515581BB37EB30058E14C /* Card.swift in Sources */,
 				644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */,
 				644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */,
 				845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */,
@@ -450,6 +470,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */,
+			);
+			currentVersion = 64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */;
+			path = StudySauce.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 845052471BA4AA3B005377D9 /* Project object */;
 }
