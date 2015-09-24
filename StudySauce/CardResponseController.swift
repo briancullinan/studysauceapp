@@ -7,14 +7,23 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 
 class CardResponseController: UIViewController {
     
+    internal var pack: Pack!
+    internal var cards = [Card]()
+    internal var card: Card!
+    
+    @IBOutlet internal weak var response: UITextView!
     // TODO: control which card comes next using local store
     
     // TODO: Store response in the database
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.response.text = self.card.response
+    }
 }
 

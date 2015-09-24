@@ -85,6 +85,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hj1-FT-IXE"/>
+                    <connections>
+                        <outlet property="prompt" destination="nsU-re-tFb" id="8Z9-nf-vDP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTz-LS-CeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -161,7 +164,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nzj-FH-25o" id="Ul1-7S-BDO">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="68.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
@@ -173,17 +176,12 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8x-qg-tCj">
-                                            <rect key="frame" x="8" y="36" width="82" height="26"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8x-qg-tCj">
+                                            <rect key="frame" x="8" y="36" width="82" height="25"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JVn-xt-2Lb">
-                                            <rect key="frame" x="0.0" y="67" width="600" height="2"/>
-                                            <color key="progressTintColor" red="0.1803921568627451" green="0.20392156862745098" blue="0.44705882352941179" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="trackTintColor" red="0.63137254901960782" green="0.52941176470588236" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
-                                        </progressView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bTM-fo-JmE" firstAttribute="top" secondItem="klY-sY-eZq" secondAttribute="top" id="37f-to-8g1"/>
@@ -197,11 +195,6 @@
                                         <constraint firstItem="H8x-qg-tCj" firstAttribute="leading" secondItem="Ul1-7S-BDO" secondAttribute="leadingMargin" id="i8s-cE-ap4"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <constraints>
-                                    <constraint firstItem="JVn-xt-2Lb" firstAttribute="leading" secondItem="Nzj-FH-25o" secondAttribute="leading" id="R0E-eb-yno"/>
-                                    <constraint firstAttribute="trailing" secondItem="JVn-xt-2Lb" secondAttribute="trailing" id="UvP-tS-db9"/>
-                                    <constraint firstAttribute="bottom" secondItem="JVn-xt-2Lb" secondAttribute="bottom" id="XhL-Lv-Mpv"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="creatorLabel" destination="H8x-qg-tCj" id="Ck4-nl-P8t"/>
                                     <outlet property="logoImage" destination="bTM-fo-JmE" id="tMo-zS-Grb"/>
@@ -317,6 +310,9 @@
                             <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="rGL-v1-iWt" secondAttribute="bottom" constant="50" id="y8g-Jo-xGm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="response" destination="a3E-wa-lDZ" id="HEo-Uk-Eqb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -448,7 +444,7 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Q0W-3S-rf4"/>
+        <segue reference="VJ8-TR-ph6"/>
         <segue reference="KdG-I2-WBM"/>
         <segue reference="wL7-Nq-6Gu"/>
     </inferredMetricsTieBreakers>

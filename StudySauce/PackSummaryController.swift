@@ -11,7 +11,6 @@ import CoreData
 
 class PackSummaryController: UITableViewController {
 
-    var detailViewController: DetailViewController? = nil
     var objects = [Pack]()
 
     override func awakeFromNib() {
@@ -129,17 +128,9 @@ class PackSummaryController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? UINavigationController{
             if let prompt = vc.viewControllers[0] as? CardPromptController {
-                //prompt.cards =
-            }
-        }
-
-        if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row]
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
+                if let cell = sender as? PackSummaryCell {
+                    prompt.pack = cell.pack
+                }
             }
         }
     }
@@ -158,17 +149,7 @@ class PackSummaryController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
 
         let object = objects[indexPath.row]
-        
-        let title = object.title
-        let creator = object.creator
-        if let url = object.logo where !url.isEmpty {
-            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            cell.configure(logo, title: title, creator: creator)
-        }
-        else {
-            cell.configure(nil, title: title, creator: creator)
-        }
-        
+        cell.configure(object)        
         return cell
     }
 
