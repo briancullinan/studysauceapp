@@ -80,6 +80,10 @@ class CardResponseController: UIViewController {
             vc.cards = self.cards
             vc.pack = self.pack
         }
+        if let vc = segue.destinationViewController as? PackResultsController {
+            vc.cards = self.cards
+            vc.pack = self.pack
+        }
     }
 
     override func viewDidLoad() {
