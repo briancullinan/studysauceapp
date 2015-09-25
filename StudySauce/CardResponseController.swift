@@ -66,10 +66,10 @@ class CardResponseController: UIViewController {
                 if least == nil || c.responses!.count < least!.responses!.count {
                     least = c
                 }
-                
             }
             if least != nil && most != nil && least!.responses!.count == most!.responses!.count {
                 self.performSegueWithIdentifier("results", sender: self)
+                return
             }
         }
         self.performSegueWithIdentifier("prompt", sender: self)
