@@ -52,9 +52,6 @@
                                     <constraint firstAttribute="width" constant="57" id="dcs-rm-Poa"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="7bK-jq-Zjz" kind="show" id="KdG-I2-WBM"/>
-                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-re-tFb">
                                 <rect key="frame" x="20" y="58" width="560" height="456"/>
@@ -91,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTz-LS-CeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-2163"/>
+            <point key="canvasLocation" x="1104" y="-2146"/>
         </scene>
         <!--Beta site blocker-->
         <scene sceneID="deM-gV-JvB">
@@ -105,17 +102,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Fh7-0O-M6u">
-                                <rect key="frame" x="0.0" y="0.0" width="1300" height="1028"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Fh7-0O-M6u">
+                                <rect key="frame" x="0.0" y="20" width="1300" height="1028"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauceLogowithwhitetext" translatesAutoresizingMaskIntoConstraints="NO" id="diy-RN-e7Q">
-                                <rect key="frame" x="163" y="70" width="275" height="275"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="diy-RN-e7Q" secondAttribute="height" multiplier="1:1" id="NrQ-xX-aPd"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtm-dF-Jv8">
-                                <rect key="frame" x="255" y="467" width="91" height="36"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtm-dF-Jv8">
+                                <rect key="frame" x="255" y="471" width="91" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.29411764709999999" green="0.74901960779999999" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -127,23 +118,43 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="Y4n-Kq-LEM"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter activation code to begin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cNe-nA-23h">
-                                <rect key="frame" x="171" y="420" width="259" height="32"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter activation code to begin" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cNe-nA-23h">
+                                <rect key="frame" x="171" y="431" width="259" height="32"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yxu-xs-UhL">
+                                <rect key="frame" x="0.0" y="20" width="600" height="78"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9jH-Kv-vHU">
+                                <rect key="frame" x="0.0" y="515" width="600" height="78"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauceLogowithwhitetext" translatesAutoresizingMaskIntoConstraints="NO" id="diy-RN-e7Q">
+                                <rect key="frame" x="163" y="106" width="275" height="275"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="diy-RN-e7Q" secondAttribute="height" multiplier="1:1" id="NrQ-xX-aPd"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="myt-zA-l9J" firstAttribute="top" relation="greaterThanOrEqual" secondItem="diy-RN-e7Q" secondAttribute="bottom" constant="110" id="BMs-FV-wC6"/>
-                            <constraint firstItem="cNe-nA-23h" firstAttribute="top" relation="lessThanOrEqual" secondItem="diy-RN-e7Q" secondAttribute="bottom" constant="75" id="IXm-Fw-GM4"/>
-                            <constraint firstItem="myt-zA-l9J" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vtm-dF-Jv8" secondAttribute="bottom" constant="10" id="doz-qZ-Ewp"/>
+                            <constraint firstItem="9jH-Kv-vHU" firstAttribute="height" secondItem="Yxu-xs-UhL" secondAttribute="height" id="1hL-bx-fMv"/>
+                            <constraint firstItem="9jH-Kv-vHU" firstAttribute="width" secondItem="y9i-gj-8Mq" secondAttribute="width" id="ACZ-In-k1y"/>
+                            <constraint firstItem="9jH-Kv-vHU" firstAttribute="centerX" secondItem="y9i-gj-8Mq" secondAttribute="centerX" id="Bpl-uD-Dk5"/>
+                            <constraint firstItem="cNe-nA-23h" firstAttribute="top" secondItem="diy-RN-e7Q" secondAttribute="bottom" constant="50" id="IXm-Fw-GM4"/>
+                            <constraint firstItem="9jH-Kv-vHU" firstAttribute="top" secondItem="vtm-dF-Jv8" secondAttribute="bottom" constant="8" symbolic="YES" id="JQ3-kg-egt"/>
+                            <constraint firstItem="diy-RN-e7Q" firstAttribute="top" secondItem="Yxu-xs-UhL" secondAttribute="bottom" constant="8" symbolic="YES" id="K0h-CJ-GuO"/>
+                            <constraint firstItem="Yxu-xs-UhL" firstAttribute="leading" secondItem="Fh7-0O-M6u" secondAttribute="leading" id="Lck-bm-8P0"/>
+                            <constraint firstItem="Yxu-xs-UhL" firstAttribute="top" secondItem="Fh7-0O-M6u" secondAttribute="top" id="W9s-4i-8ML"/>
+                            <constraint firstItem="Yxu-xs-UhL" firstAttribute="centerX" secondItem="y9i-gj-8Mq" secondAttribute="centerX" id="ZPh-HV-eaA"/>
                             <constraint firstItem="cNe-nA-23h" firstAttribute="centerX" secondItem="y9i-gj-8Mq" secondAttribute="centerX" id="frQ-gM-hhq"/>
-                            <constraint firstItem="vtm-dF-Jv8" firstAttribute="top" secondItem="cNe-nA-23h" secondAttribute="bottom" constant="15" id="gwb-79-n1I"/>
+                            <constraint firstItem="vtm-dF-Jv8" firstAttribute="top" secondItem="cNe-nA-23h" secondAttribute="bottom" constant="8" symbolic="YES" id="gwb-79-n1I"/>
+                            <constraint firstItem="Yxu-xs-UhL" firstAttribute="width" secondItem="y9i-gj-8Mq" secondAttribute="width" id="itQ-sU-4Qf"/>
+                            <constraint firstItem="myt-zA-l9J" firstAttribute="top" secondItem="9jH-Kv-vHU" secondAttribute="bottom" constant="8" symbolic="YES" id="jHd-HU-CJf"/>
+                            <constraint firstItem="Yxu-xs-UhL" firstAttribute="top" secondItem="AZG-aD-Gas" secondAttribute="bottom" id="kQE-jQ-ZU8"/>
                             <constraint firstItem="vtm-dF-Jv8" firstAttribute="centerX" secondItem="y9i-gj-8Mq" secondAttribute="centerX" id="oy7-K6-oSe"/>
                             <constraint firstItem="diy-RN-e7Q" firstAttribute="centerX" secondItem="y9i-gj-8Mq" secondAttribute="centerX" id="pdj-KY-k00"/>
-                            <constraint firstItem="diy-RN-e7Q" firstAttribute="top" secondItem="AZG-aD-Gas" secondAttribute="bottom" constant="50" id="uAl-wU-l18"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -164,7 +175,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nzj-FH-25o" id="Ul1-7S-BDO">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="68.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="bTM-fo-JmE">
@@ -199,7 +210,7 @@
                                     <outlet property="creatorLabel" destination="H8x-qg-tCj" id="Ck4-nl-P8t"/>
                                     <outlet property="logoImage" destination="bTM-fo-JmE" id="tMo-zS-Grb"/>
                                     <outlet property="titleLabel" destination="klY-sY-eZq" id="8cf-cD-IvK"/>
-                                    <segue destination="yPZ-g1-GYB" kind="show" id="Q0W-3S-rf4"/>
+                                    <segue destination="wX3-J5-TSh" kind="show" id="4dd-fB-MlG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -247,17 +258,6 @@
                                     <constraint firstAttribute="height" constant="30" id="ksA-Sk-2TV"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN2-mk-CdF">
-                                <rect key="frame" x="438" y="451" width="142" height="99"/>
-                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="85"/>
-                                <state key="normal" title="✔︎">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="ArM-tF-FuE" kind="show" id="VnU-id-id2"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGL-v1-iWt">
                                 <rect key="frame" x="20" y="451" width="142" height="99"/>
                                 <color key="backgroundColor" red="1" green="0.050980392156862744" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -270,7 +270,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ArM-tF-FuE" kind="show" id="wL7-Nq-6Gu"/>
+                                    <action selector="wrongClick:forEvent:" destination="gJ9-Ua-grz" eventType="touchUpInside" id="6A3-DG-qKP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZj-wU-gob">
@@ -280,8 +280,16 @@
                                     <constraint firstAttribute="height" constant="38" id="fys-1w-6nb"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN2-mk-CdF">
+                                <rect key="frame" x="438" y="451" width="142" height="99"/>
+                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="85"/>
+                                <state key="normal" title="✔︎">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <segue destination="yPZ-g1-GYB" kind="show" id="VJ8-TR-ph6"/>
+                                    <action selector="correctClick:forEvent:" destination="gJ9-Ua-grz" eventType="touchUpInside" id="09D-uB-AYt"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -312,11 +320,13 @@
                     </view>
                     <connections>
                         <outlet property="response" destination="a3E-wa-lDZ" id="HEo-Uk-Eqb"/>
+                        <segue destination="wX3-J5-TSh" kind="show" identifier="prompt" id="2Wv-Ig-MqG"/>
+                        <segue destination="ArM-tF-FuE" kind="show" identifier="results" id="5iv-ms-cXn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1104" y="-1415"/>
+            <point key="canvasLocation" x="1104" y="-1375"/>
         </scene>
         <!--PackResults-->
         <scene sceneID="O4q-c3-vf4">
@@ -350,9 +360,6 @@
                                 <state key="normal" title="✔︎">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="yPZ-g1-GYB" kind="show" id="5My-VN-6WE"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMj-7g-aeh">
                                 <rect key="frame" x="20" y="451" width="142" height="99"/>
@@ -365,9 +372,6 @@
                                 <state key="normal" title="✘">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="7bK-jq-Zjz" kind="show" id="d89-rx-RGb"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Job!  You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
                                 <rect key="frame" x="23" y="108" width="560" height="33"/>
@@ -418,24 +422,6 @@
             </objects>
             <point key="canvasLocation" x="1104" y="-669"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="gDE-yQ-aGy">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="yPZ-g1-GYB" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lbs-RH-Ms1">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="wX3-J5-TSh" kind="relationship" relationship="rootViewController" id="L1J-Ev-oqg"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7O3-5d-z4f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1104" y="-2163"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
@@ -444,8 +430,6 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VJ8-TR-ph6"/>
-        <segue reference="KdG-I2-WBM"/>
-        <segue reference="wL7-Nq-6Gu"/>
+        <segue reference="2Wv-Ig-MqG"/>
     </inferredMetricsTieBreakers>
 </document>

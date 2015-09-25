@@ -63,14 +63,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite")
-        
-        var failureReason = "There was an error creating or loading the application's saved data."
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
         catch let error as NSError {
             NSLog("Unresolved error \(error), \(error.userInfo)")
+            do {
+                try NSFileManager.defaultManager().removeItemAtPath(url.path!)
+                try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            }
+            catch let error as NSError {
+                NSLog("Unresolved error \(error), \(error.userInfo)")
+            }
         }
         return coordinator
         }()

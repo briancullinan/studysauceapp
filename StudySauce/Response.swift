@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  Response.swift
 //  StudySauce
 //
 //  Created by Brian Cullinan on 9/25/15.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class Card: NSManagedObject {
+class Response: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 

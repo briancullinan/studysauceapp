@@ -1,5 +1,5 @@
 //
-//  Card+CoreDataProperties.swift
+//  Response+CoreDataProperties.swift
 //  StudySauce
 //
 //  Created by Brian Cullinan on 9/25/15.
@@ -12,17 +12,15 @@
 import Foundation
 import CoreData
 
-extension Card {
+extension Response {
 
-    @NSManaged var content: String?
-    @NSManaged var content_type: String?
+    @NSManaged var answer: NSNumber?
+    @NSManaged var correct: NSNumber?
     @NSManaged var created: NSDate?
+    @NSManaged var file: NSNumber?
     @NSManaged var id: NSNumber?
-    @NSManaged var modified: NSDate?
-    @NSManaged var recurrence: String?
-    @NSManaged var response: String?
-    @NSManaged var response_type: String?
-    @NSManaged var pack: Pack?
-    @NSManaged var responses: NSSet?
+    @NSManaged var user: NSNumber?
+    @NSManaged var value: String?
+    @NSManaged var card: Card?
 
 }

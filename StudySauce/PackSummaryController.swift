@@ -126,11 +126,9 @@ class PackSummaryController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? UINavigationController{
-            if let prompt = vc.viewControllers[0] as? CardPromptController {
-                if let cell = sender as? PackSummaryCell {
-                    prompt.pack = cell.pack
-                }
+        if let vc = segue.destinationViewController as? CardPromptController {
+            if let cell = sender as? PackSummaryCell {
+                vc.pack = cell.pack
             }
         }
     }

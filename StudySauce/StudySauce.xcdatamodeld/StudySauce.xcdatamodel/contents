@@ -10,6 +10,7 @@
         <attribute name="response" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="response_type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pack" inverseName="cards" inverseEntity="Pack" syncable="YES"/>
+        <relationship name="responses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="card" inverseEntity="Response" syncable="YES"/>
     </entity>
     <entity name="Pack" representedClassName=".Pack" syncable="YES">
         <attribute name="active_from" optional="YES" attributeType="Date" syncable="YES"/>
@@ -30,10 +31,21 @@
         <attribute name="tags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="user" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="cards" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="pack" inverseEntity="Card" syncable="YES"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Card" inverseName="pack" inverseEntity="Card" syncable="YES"/>
+    </entity>
+    <entity name="Response" representedClassName=".Response" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="file" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="responses" inverseEntity="Card" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Pack" positionX="1528" positionY="-729" width="128" height="328"/>
-        <element name="Card" positionX="1539" positionY="-603" width="128" height="180"/>
+        <element name="Card" positionX="1519" positionY="-711" width="128" height="193"/>
+        <element name="Pack" positionX="1258" positionY="-697" width="128" height="328"/>
+        <element name="Response" positionX="1780" positionY="-594" width="128" height="163"/>
     </elements>
 </model>

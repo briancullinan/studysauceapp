@@ -14,8 +14,9 @@ class CardPromptController: UIViewController {
 
     @IBOutlet weak var prompt: UITextView!
     internal var pack: Pack!
+    internal var card: Card!
     internal var cards = [Card]()
-    // TODO: load the card content, display and available answers
+    // load the card content, display and available answers
     
     func getData(completionHandler: ([Card], NSError!) -> Void) -> Void {
         var packs = [Card]()
@@ -80,20 +81,45 @@ class CardPromptController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getData { (data, error) -> Void in
-            self.cards = data;
-            dispatch_async(dispatch_get_main_queue(), {
-                // randomly choose a card
-                if self.cards.count > 0 {
-                    self.prompt.text = self.cards[0].content
-                }
-            })
+        if self.cards.count == 0 {
+            self.getData { (data, error) -> Void in
+                self.cards = data;
+                dispatch_async(dispatch_get_main_queue(), {
+                    // randomly choose a card
+                    self.selectCard()
+                })
+            }
         }
+        else {
+            self.selectCard()
+        }
+    }
+    
+    func selectCard() -> Card? {
+        if self.cards.count > 0 {
+            // TODO: count the max number of responses for each card in the pack, pick the card with the least number of responses
+            var most: Card?
+            var least: Card?
+            for c in self.cards {
+                if most == nil || c.responses!.count > most!.responses!.count {
+                    most = c
+                }
+                if least == nil || c.responses!.count < least!.responses!.count {
+                    least = c
+                }
+                
+            }
+            if least != nil {
+                self.card = least
+                self.prompt.text = self.card.content
+            }
+        }
+        return nil
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? CardResponseController {
-            vc.card = self.cards[0]
+            vc.card = self.card
             vc.pack = self.pack
             vc.cards = self.cards
         }
