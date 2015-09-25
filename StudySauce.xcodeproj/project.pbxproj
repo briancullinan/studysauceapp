@@ -78,6 +78,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6401F49F1BB5DF11004E0163 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */,
+				6401F4931BB52A78004E0163 /* Response+CoreDataProperties.swift */,
+				6401F4941BB52A78004E0163 /* Response.swift */,
+				6401F4951BB52A78004E0163 /* Pack+CoreDataProperties.swift */,
+				6401F4961BB52A78004E0163 /* Pack.swift */,
+				6401F4971BB52A78004E0163 /* Card+CoreDataProperties.swift */,
+				6401F4981BB52A78004E0163 /* Card.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6401F4A01BB5DF26004E0163 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
+				644C4A611BB3516F00E4D52A /* CardPromptController.swift */,
+				644C4A631BB351F900E4D52A /* CardResponseController.swift */,
+				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6401F4A11BB5DF7F004E0163 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		845052461BA4AA3B005377D9 = {
 			isa = PBXGroup;
 			children = (
@@ -99,22 +132,10 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
-				6401F4931BB52A78004E0163 /* Response+CoreDataProperties.swift */,
-				6401F4941BB52A78004E0163 /* Response.swift */,
-				6401F4951BB52A78004E0163 /* Pack+CoreDataProperties.swift */,
-				6401F4961BB52A78004E0163 /* Pack.swift */,
-				6401F4971BB52A78004E0163 /* Card+CoreDataProperties.swift */,
-				6401F4981BB52A78004E0163 /* Card.swift */,
-				64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
-				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
-				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
-				644C4A611BB3516F00E4D52A /* CardPromptController.swift */,
-				644C4A631BB351F900E4D52A /* CardResponseController.swift */,
-				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
-				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
-				8450525A1BA4AA3B005377D9 /* Main.storyboard */,
-				8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */,
+				6401F4A01BB5DF26004E0163 /* Controllers */,
+				6401F49F1BB5DF11004E0163 /* Models */,
+				6401F4A11BB5DF7F004E0163 /* Views */,
 				845052521BA4AA3B005377D9 /* Supporting Files */,
 			);
 			path = StudySauce;
@@ -123,6 +144,9 @@
 		845052521BA4AA3B005377D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8450525A1BA4AA3B005377D9 /* Main.storyboard */,
+				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
+				8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */,
 				845052531BA4AA3B005377D9 /* Info.plist */,
 			);
 			name = "Supporting Files";
