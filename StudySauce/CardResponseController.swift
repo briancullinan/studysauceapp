@@ -22,11 +22,57 @@ class CardResponseController: UIViewController {
     // TODO: Store response in the database
     
     @IBAction func correctClick(sender: UIButton, forEvent event: UIEvent) {
-        self.performSegueWithIdentifier("prompt", sender: self)
+        do {
+            if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+                let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
+                newResponse!.correct = true
+                newResponse!.card = self.card
+                newResponse!.created = NSDate()
+                try moc.save()
+            }
+        }
+        catch let error as NSError {
+            NSLog(error.description)
+        }
+        self.selectCard()
     }
     
     @IBAction func wrongClick(sender: UIButton, forEvent event: UIEvent) {
-        
+        do {
+            if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+                let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
+                newResponse!.correct = false
+                newResponse!.card = self.card
+                newResponse!.created = NSDate()
+                try moc.save()
+            }
+        }
+        catch let error as NSError {
+            NSLog(error.description)
+        }
+        // TODO: check if all the questions are answered
+        self.selectCard()
+    }
+    
+    func selectCard() -> Void {
+        if self.cards.count > 0 {
+            // TODO: count the max number of responses for each card in the pack, pick the card with the least number of responses
+            var most: Card?
+            var least: Card?
+            for c in self.cards {
+                if most == nil || c.responses!.count > most!.responses!.count {
+                    most = c
+                }
+                if least == nil || c.responses!.count < least!.responses!.count {
+                    least = c
+                }
+                
+            }
+            if least != nil && most != nil && least!.responses!.count == most!.responses!.count {
+                self.performSegueWithIdentifier("results", sender: self)
+            }
+        }
+        self.performSegueWithIdentifier("prompt", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
