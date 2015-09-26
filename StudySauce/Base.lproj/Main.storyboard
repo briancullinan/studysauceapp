@@ -52,6 +52,9 @@
                                     <constraint firstAttribute="width" constant="57" id="dcs-rm-Poa"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <segue destination="7bK-jq-Zjz" kind="show" id="t5f-x7-oLU"/>
+                                </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-re-tFb">
                                 <rect key="frame" x="20" y="58" width="560" height="456"/>
@@ -88,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTz-LS-CeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-2146"/>
+            <point key="canvasLocation" x="1748" y="-2826"/>
         </scene>
         <!--Beta site blocker-->
         <scene sceneID="deM-gV-JvB">
@@ -228,7 +231,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1043" y="-2146"/>
+            <point key="canvasLocation" x="1015" y="-2146"/>
         </scene>
         <!--CardResponse-->
         <scene sceneID="eUX-WO-j8R">
@@ -283,6 +286,9 @@
                                     <constraint firstAttribute="height" constant="38" id="fys-1w-6nb"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <segue destination="7bK-jq-Zjz" kind="show" id="8eR-EP-pZI"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zN2-mk-CdF">
                                 <rect key="frame" x="438" y="451" width="142" height="99"/>
@@ -329,7 +335,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-1395"/>
+            <point key="canvasLocation" x="2448" y="-2815"/>
         </scene>
         <!--PackResults-->
         <scene sceneID="O4q-c3-vf4">
@@ -397,12 +403,6 @@
                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="aRG-GC-0vi" userLabel="**Bottom spacer">
                                 <rect key="frame" x="20" y="351" width="560" height="100"/>
                             </view>
-                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="n0C-ZM-FHk" userLabel="**Top spacer">
-                                <rect key="frame" x="20" y="20" width="560" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="wBo-0O-nBg"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="w5R-kD-p03" userLabel="**Above percentage spacer">
                                 <rect key="frame" x="20" y="169" width="560" height="18"/>
                             </view>
@@ -415,6 +415,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="249" verticalCompressionResistancePriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="n0C-ZM-FHk" userLabel="**Top spacer">
+                                <rect key="frame" x="20" y="20" width="560" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="wBo-0O-nBg"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -457,10 +463,13 @@
                             <constraint firstItem="d5O-Ga-XDa" firstAttribute="top" secondItem="15N-zv-MAB" secondAttribute="bottom" constant="8" symbolic="YES" id="wbT-Gp-mdI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="percent" destination="M0c-QT-Bxo" id="V1N-Bt-cbr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJX-a1-HCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1916" y="-631"/>
+            <point key="canvasLocation" x="3336" y="-2111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="z9B-Ca-LP6">
