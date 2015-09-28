@@ -34,6 +34,12 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
+        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")!
+        let ses = NSURLSession.sharedSession()
+        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            
+        })
+        task.resume()
         self.selectCard()
     }
     
@@ -50,13 +56,18 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
-        // TODO: check if all the questions are answered
+        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")!
+        let ses = NSURLSession.sharedSession()
+        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            
+        })
+        task.resume()
         self.selectCard()
     }
     
     func selectCard() -> Void {
         if self.cards.count > 0 {
-            // TODO: count the max number of responses for each card in the pack, pick the card with the least number of responses
+            // count the max number of responses for each card in the pack, if all the cards have the same number of responses, show results page
             var most: Card?
             var least: Card?
             for c in self.cards {
@@ -85,7 +96,7 @@ class CardResponseController: UIViewController {
             vc.pack = self.pack
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
