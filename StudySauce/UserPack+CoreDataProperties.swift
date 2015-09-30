@@ -1,5 +1,5 @@
 //
-//  Response+CoreDataProperties.swift
+//  UserPack+CoreDataProperties.swift
 //  StudySauce
 //
 //  Created by Brian Cullinan on 9/29/15.
@@ -12,15 +12,14 @@
 import Foundation
 import CoreData
 
-extension Response {
+extension UserPack {
 
-    @NSManaged var answer: NSNumber?
-    @NSManaged var correct: NSNumber?
+    @NSManaged var priority: NSDecimalNumber?
+    @NSManaged var retry_from: NSDate?
+    @NSManaged var retry_to: NSDate?
+    @NSManaged var downloaded: NSDate?
     @NSManaged var created: NSDate?
-    @NSManaged var file: NSNumber?
-    @NSManaged var id: NSNumber?
-    @NSManaged var value: String?
-    @NSManaged var card: Card?
     @NSManaged var user: User?
+    @NSManaged var pack: Pack?
 
 }

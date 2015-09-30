@@ -7,16 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6401F4991BB52A78004E0163 /* Response+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4931BB52A78004E0163 /* Response+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; settings = {ASSET_TAGS = (); }; };
-		6401F49B1BB52A78004E0163 /* Pack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4951BB52A78004E0163 /* Pack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
-		6401F49D1BB52A78004E0163 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4971BB52A78004E0163 /* Card+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E31BBB0CCB005F9094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DC1BBB0CCB005F9094 /* User.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DE1BBB0CCB005F9094 /* Pack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E01BBB0CCB005F9094 /* UserPack.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
+		64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E91BBB2BCE005F9094 /* NSDate.swift */; settings = {ASSET_TAGS = (); }; };
 		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
@@ -37,16 +42,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6401F4931BB52A78004E0163 /* Response+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6401F4941BB52A78004E0163 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		6401F4951BB52A78004E0163 /* Pack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pack+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
-		6401F4971BB52A78004E0163 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
 		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
+		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D219DC1BBB0CCB005F9094 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D219DE1BBB0CCB005F9094 /* Pack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Pack+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserPack+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D219E01BBB0CCB005F9094 /* UserPack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPack.swift; sourceTree = "<group>"; };
+		64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D219E91BBB2BCE005F9094 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
 		64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudySauce.xcdatamodel; sourceTree = "<group>"; };
 		8450524F1BA4AA3B005377D9 /* StudySauce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudySauce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -82,12 +92,16 @@
 			isa = PBXGroup;
 			children = (
 				64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */,
-				6401F4931BB52A78004E0163 /* Response+CoreDataProperties.swift */,
+				64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */,
 				6401F4941BB52A78004E0163 /* Response.swift */,
-				6401F4951BB52A78004E0163 /* Pack+CoreDataProperties.swift */,
+				64D219DE1BBB0CCB005F9094 /* Pack+CoreDataProperties.swift */,
 				6401F4961BB52A78004E0163 /* Pack.swift */,
-				6401F4971BB52A78004E0163 /* Card+CoreDataProperties.swift */,
+				64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */,
 				6401F4981BB52A78004E0163 /* Card.swift */,
+				64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */,
+				64D219DC1BBB0CCB005F9094 /* User.swift */,
+				64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */,
+				64D219E01BBB0CCB005F9094 /* UserPack.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -109,6 +123,14 @@
 				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		64D219EC1BBB2BDC005F9094 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				64D219E91BBB2BCE005F9094 /* NSDate.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		845052461BA4AA3B005377D9 = {
@@ -137,6 +159,7 @@
 				6401F49F1BB5DF11004E0163 /* Models */,
 				6401F4A11BB5DF7F004E0163 /* Views */,
 				845052521BA4AA3B005377D9 /* Supporting Files */,
+				64D219EC1BBB2BDC005F9094 /* Extensions */,
 			);
 			path = StudySauce;
 			sourceTree = "<group>";
@@ -272,19 +295,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
 				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
-				6401F4991BB52A78004E0163 /* Response+CoreDataProperties.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
+				64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */,
+				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				6401F49E1BB52A78004E0163 /* Card.swift in Sources */,
-				6401F49B1BB52A78004E0163 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49A1BB52A78004E0163 /* Response.swift in Sources */,
 				644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */,
+				64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */,
+				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
+				64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */,
+				64D219E31BBB0CCB005F9094 /* User.swift in Sources */,
 				644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */,
-				6401F49D1BB52A78004E0163 /* Card+CoreDataProperties.swift in Sources */,
 				845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */,
 				845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */,
+				64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

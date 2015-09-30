@@ -206,7 +206,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nzj-FH-25o" id="Ul1-7S-BDO">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="68.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-sY-eZq">
@@ -244,7 +244,6 @@
                                     <outlet property="creatorLabel" destination="H8x-qg-tCj" id="Ck4-nl-P8t"/>
                                     <outlet property="logoImage" destination="bTM-fo-JmE" id="tMo-zS-Grb"/>
                                     <outlet property="titleLabel" destination="klY-sY-eZq" id="8cf-cD-IvK"/>
-                                    <segue destination="wX3-J5-TSh" kind="show" id="4dd-fB-MlG"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -256,6 +255,10 @@
                     <navigationItem key="navigationItem" title="Knowledge packs" id="Zdf-7t-Un8">
                         <barButtonItem key="leftBarButtonItem" title="Item" id="dtG-rU-pO2"/>
                     </navigationItem>
+                    <connections>
+                        <segue destination="wX3-J5-TSh" kind="show" identifier="prompt" id="xVM-MW-pBg"/>
+                        <segue destination="ArM-tF-FuE" kind="show" identifier="results" id="Uwi-na-R2O"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -758,7 +761,8 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ose-hw-NEo"/>
+        <segue reference="xVM-MW-pBg"/>
         <segue reference="ca4-Px-eNk"/>
+        <segue reference="Uwi-na-R2O"/>
     </inferredMetricsTieBreakers>
 </document>

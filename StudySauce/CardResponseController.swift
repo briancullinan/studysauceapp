@@ -40,7 +40,12 @@ class CardResponseController: UIViewController {
             
         })
         task.resume()
-        self.selectCard()
+        if self.pack.getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user) == nil {
+            self.performSegueWithIdentifier("results", sender: self)
+        }
+        else {
+            self.performSegueWithIdentifier("prompt", sender: self)
+        }
     }
     
     @IBAction func wrongClick(sender: UIButton, forEvent event: UIEvent) {
@@ -62,37 +67,19 @@ class CardResponseController: UIViewController {
             
         })
         task.resume()
-        self.selectCard()
-    }
-    
-    func selectCard() -> Void {
-        if self.cards.count > 0 {
-            // count the max number of responses for each card in the pack, if all the cards have the same number of responses, show results page
-            var most: Card?
-            var least: Card?
-            for c in self.cards {
-                if most == nil || c.responses!.count > most!.responses!.count {
-                    most = c
-                }
-                if least == nil || c.responses!.count < least!.responses!.count {
-                    least = c
-                }
-            }
-            if least != nil && most != nil && least!.responses!.count == most!.responses!.count {
-                self.performSegueWithIdentifier("results", sender: self)
-                return
-            }
+        if self.pack.getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user) == nil {
+            self.performSegueWithIdentifier("results", sender: self)
         }
-        self.performSegueWithIdentifier("prompt", sender: self)
+        else {
+            self.performSegueWithIdentifier("prompt", sender: self)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? CardPromptController {
-            vc.cards = self.cards
             vc.pack = self.pack
         }
         if let vc = segue.destinationViewController as? PackResultsController {
-            vc.cards = self.cards
             vc.pack = self.pack
         }
     }
