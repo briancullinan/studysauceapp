@@ -745,7 +745,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you!  We will email you shortly." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bT5-nw-dwb">
-                                <rect key="frame" x="86" y="285" width="430" height="32"/>
+                                <rect key="frame" x="0.0" y="285" width="600" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -769,6 +769,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="bT5-nw-dwb" firstAttribute="width" secondItem="Aon-j8-yUW" secondAttribute="width" id="HKF-8F-AyI"/>
                             <constraint firstItem="bT5-nw-dwb" firstAttribute="centerY" secondItem="Aon-j8-yUW" secondAttribute="centerY" id="RGl-o5-Esj"/>
                             <constraint firstItem="gxm-SS-dfd" firstAttribute="centerX" secondItem="Aon-j8-yUW" secondAttribute="centerX" id="YGH-Hv-Umj"/>
                             <constraint firstItem="gxm-SS-dfd" firstAttribute="top" secondItem="bT5-nw-dwb" secondAttribute="bottom" constant="8" symbolic="YES" id="YPZ-1j-pV4"/>
