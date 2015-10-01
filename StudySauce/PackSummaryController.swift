@@ -27,7 +27,7 @@ class PackSummaryController: UITableViewController {
         var cards = forPack.cards?.allObjects as! [Card]
         completionHandler(cards, nil)
         if let moc = self.getContext() {
-            let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/cards?pack=\(forPack.id!)")!
+            let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/packs/download?pack=\(forPack.id!)")!
             let ses = NSURLSession.sharedSession()
             let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
                 if (error != nil) {
