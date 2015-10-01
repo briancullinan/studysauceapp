@@ -198,7 +198,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nzj-FH-25o" id="Ul1-7S-BDO">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="68"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-sY-eZq">
@@ -396,7 +396,7 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="ca4-Px-eNk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
                                 <rect key="frame" x="226" y="118" width="149" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -514,9 +514,6 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="MV6-Iy-bIY" kind="show" id="L5z-Z1-sIc"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guv-YR-Hxh">
                                 <rect key="frame" x="20" y="20" width="57" height="38"/>
@@ -550,6 +547,9 @@
                     </view>
                     <connections>
                         <outlet property="registrationCode" destination="CZ5-1O-yqg" id="z7L-Vb-pOk"/>
+                        <segue destination="MV6-Iy-bIY" kind="show" identifier="register" id="oMh-sk-QnC"/>
+                        <segue destination="9cv-lS-jp2" kind="presentation" identifier="error404" modalPresentationStyle="overCurrentContext" id="4vQ-EZ-g3X"/>
+                        <segue destination="3Yw-4j-SWU" kind="presentation" identifier="error501" modalPresentationStyle="overCurrentContext" id="u64-4f-MiA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kn5-vC-sfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1263,12 +1263,10 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sl0-Gk-qSX"/>
-        <segue reference="2Wv-Ig-MqG"/>
         <segue reference="AaP-eY-XLw"/>
-        <segue reference="DU5-B3-S9K"/>
         <segue reference="XRc-D6-3Ln"/>
-        <segue reference="6or-i3-upN"/>
+        <segue reference="uPD-8C-TI0"/>
+        <segue reference="DU5-B3-S9K"/>
         <segue reference="4dd-7M-SSd"/>
         <segue reference="t5f-x7-oLU"/>
         <segue reference="5iv-ms-cXn"/>
