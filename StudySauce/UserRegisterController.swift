@@ -11,7 +11,6 @@ import UIKit
 
 class UserRegisterController : UIViewController {
     
-    @IBOutlet weak var code: UITextField!
     internal var registrationCode: String?
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
@@ -20,11 +19,13 @@ class UserRegisterController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getInvite()
+        if self.registrationCode != nil {
+            self.getInvite()
+        }
     }
     
     func getInvite() -> Void {
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/packs")!
+        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/invite/\(self.registrationCode!)")!
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if (error != nil) {

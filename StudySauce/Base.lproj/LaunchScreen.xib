@@ -13,15 +13,15 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright (c) 2015 The Study Institute. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="8ie-xW-0ye">
-                    <rect key="frame" x="20" y="439" width="439" height="21"/>
+                    <rect key="frame" x="20" y="440" width="439" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="kP0-oI-UZI">
-                    <rect key="frame" x="140" y="140" width="200" height="200"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauceLogowithwhitetext" translatesAutoresizingMaskIntoConstraints="NO" id="kP0-oI-UZI">
+                    <rect key="frame" x="103" y="103" width="275" height="275"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="kP0-oI-UZI" secondAttribute="height" multiplier="200:200" id="bFA-HE-uwy"/>
+                        <constraint firstAttribute="width" secondItem="kP0-oI-UZI" secondAttribute="height" multiplier="2:2" id="bFA-HE-uwy"/>
                     </constraints>
                 </imageView>
             </subviews>
@@ -39,6 +39,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Logo" width="191" height="200"/>
+        <image name="StudySauceLogowithwhitetext" width="275" height="275"/>
     </resources>
 </document>

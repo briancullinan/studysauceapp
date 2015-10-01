@@ -11,11 +11,11 @@ import UIKit
 
 class UserInviteController : UIViewController {
     
-    @IBOutlet weak var code: UITextField!
+    @IBOutlet weak var registrationCode: UITextField!
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? UserRegisterController {
-            vc.registrationCode = code.text
+            vc.registrationCode = self.registrationCode.text
         }
     }
     
