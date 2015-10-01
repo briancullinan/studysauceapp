@@ -580,6 +580,9 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-jG-ov5">
                                 <rect key="frame" x="20" y="248" width="51" height="31"/>
                                 <color key="onTintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="childSwitchOn:" destination="MV6-Iy-bIY" eventType="valueChanged" id="8FZ-Ii-PHg"/>
+                                </connections>
                             </switch>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-B6-21P">
                                 <rect key="frame" x="20" y="120" width="275" height="50"/>
@@ -687,6 +690,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="childFirst" destination="uBf-cE-xhK" id="kpG-JK-jKj"/>
+                        <outlet property="childLast" destination="1h7-Zh-Hs5" id="E23-pq-lOI"/>
+                        <outlet property="childSwitch" destination="rDe-jG-ov5" id="m7B-WQ-0Fz"/>
                         <outlet property="email" destination="EjC-OO-MWE" id="4RC-tV-eLa"/>
                         <outlet property="firstName" destination="i5D-B6-21P" id="9Zy-eW-jJQ"/>
                         <outlet property="lastName" destination="umH-Qo-rtw" id="3Uh-T4-SeJ"/>
@@ -1264,9 +1270,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AaP-eY-XLw"/>
-        <segue reference="DU5-B3-S9K"/>
+        <segue reference="Oc6-ro-oKa"/>
         <segue reference="XRc-D6-3Ln"/>
-        <segue reference="6or-i3-upN"/>
+        <segue reference="DU5-B3-S9K"/>
         <segue reference="4dd-7M-SSd"/>
         <segue reference="t5f-x7-oLU"/>
         <segue reference="5iv-ms-cXn"/>
