@@ -514,6 +514,9 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="MV6-Iy-bIY" kind="show" id="GKn-r5-HbB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guv-YR-Hxh">
                                 <rect key="frame" x="20" y="20" width="57" height="38"/>
@@ -1269,14 +1272,13 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaP-eY-XLw"/>
+        <segue reference="DU5-B3-S9K"/>
+        <segue reference="oMh-sk-QnC"/>
         <segue reference="XRc-D6-3Ln"/>
         <segue reference="uPD-8C-TI0"/>
-        <segue reference="Oc6-ro-oKa"/>
-        <segue reference="XRc-D6-3Ln"/>
-        <segue reference="DU5-B3-S9K"/>
         <segue reference="4dd-7M-SSd"/>
         <segue reference="t5f-x7-oLU"/>
         <segue reference="5iv-ms-cXn"/>
+        <segue reference="AaP-eY-XLw"/>
     </inferredMetricsTieBreakers>
 </document>
