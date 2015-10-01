@@ -582,7 +582,7 @@
                                 <color key="onTintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </switch>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-B6-21P">
-                                <rect key="frame" x="20" y="120" width="275" height="50"/>
+                                <rect key="frame" x="20" y="120" width="276" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="gga-BT-W1J"/>
@@ -602,7 +602,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umH-Qo-rtw">
-                                <rect key="frame" x="305" y="120" width="275" height="50"/>
+                                <rect key="frame" x="304" y="120" width="276" height="50"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="p9D-ff-Jhu"/>
@@ -675,14 +675,14 @@
                             <constraint firstAttribute="leadingMargin" secondItem="WLF-wa-yXu" secondAttribute="leading" id="fQQ-Xf-0YT"/>
                             <constraint firstItem="EJy-2L-83Z" firstAttribute="centerX" secondItem="1DC-Hk-dOg" secondAttribute="centerX" id="ilx-uD-Hpu"/>
                             <constraint firstItem="WLF-wa-yXu" firstAttribute="top" secondItem="HGi-r1-HMk" secondAttribute="bottom" id="iwd-Ig-DSe"/>
-                            <constraint firstItem="umH-Qo-rtw" firstAttribute="leading" secondItem="i5D-B6-21P" secondAttribute="trailing" constant="10" id="k76-hX-27R"/>
+                            <constraint firstItem="umH-Qo-rtw" firstAttribute="leading" secondItem="i5D-B6-21P" secondAttribute="trailing" constant="8" symbolic="YES" id="k76-hX-27R"/>
                             <constraint firstAttribute="leadingMargin" secondItem="uBf-cE-xhK" secondAttribute="leading" id="lBf-zX-60Y"/>
                             <constraint firstAttribute="leadingMargin" secondItem="i5D-B6-21P" secondAttribute="leading" id="lXp-dE-vnv"/>
                             <constraint firstAttribute="trailingMargin" secondItem="umH-Qo-rtw" secondAttribute="trailing" id="leR-jt-sE6"/>
                             <constraint firstItem="i5D-B6-21P" firstAttribute="width" secondItem="umH-Qo-rtw" secondAttribute="width" id="lml-xu-Fdw"/>
                             <constraint firstItem="rDe-jG-ov5" firstAttribute="top" secondItem="EjC-OO-MWE" secondAttribute="bottom" constant="20" id="nP2-rI-qip"/>
                             <constraint firstItem="EJy-2L-83Z" firstAttribute="top" secondItem="1h7-Zh-Hs5" secondAttribute="bottom" constant="32" id="po9-oV-Mbl"/>
-                            <constraint firstItem="EjC-OO-MWE" firstAttribute="top" secondItem="i5D-B6-21P" secondAttribute="bottom" constant="8" id="uIT-A1-aNt"/>
+                            <constraint firstItem="EjC-OO-MWE" firstAttribute="top" secondItem="i5D-B6-21P" secondAttribute="bottom" constant="8" symbolic="YES" id="uIT-A1-aNt"/>
                             <constraint firstAttribute="leadingMargin" secondItem="1h7-Zh-Hs5" secondAttribute="leading" id="y9O-1n-U8S"/>
                         </constraints>
                     </view>
@@ -1042,8 +1042,8 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="t5f-x7-oLU"/>
-        <segue reference="4dd-7M-SSd"/>
+        <segue reference="sl0-Gk-qSX"/>
+        <segue reference="2Wv-Ig-MqG"/>
         <segue reference="5iv-ms-cXn"/>
         <segue reference="H2U-7l-d0h"/>
         <segue reference="DU5-B3-S9K"/>
