@@ -199,7 +199,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nzj-FH-25o" id="Ul1-7S-BDO">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="68"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="klY-sY-eZq">
@@ -283,7 +283,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LAx-Bu-P3t" id="Cop-dO-w2C">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="68"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaP-jp-FHw">
@@ -503,7 +503,7 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="ca4-Px-eNk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
                                 <rect key="frame" x="226" y="118" width="149" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1390,20 +1390,12 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jlk-vB-qPn"/>
-        <segue reference="TYo-M7-jfE"/>
-        <segue reference="PEd-e9-90k"/>
-        <segue reference="Oc6-ro-oKa"/>
         <segue reference="Ose-hw-NEo"/>
         <segue reference="Qjf-dF-IVu"/>
-        <segue reference="ca4-Px-eNk"/>
-        <segue reference="4dd-7M-SSd"/>
-        <segue reference="t5f-x7-oLU"/>
-        <segue reference="Qjf-dF-IVu"/>
-        <segue reference="DU5-B3-S9K"/>
-        <segue reference="oMh-sk-QnC"/>
+        <segue reference="zNs-cT-8wh"/>
+        <segue reference="Jlk-vB-qPn"/>
         <segue reference="XRc-D6-3Ln"/>
         <segue reference="uPD-8C-TI0"/>
-        <segue reference="AaP-eY-XLw"/>
+        <segue reference="eBr-BZ-NSV"/>
     </inferredMetricsTieBreakers>
 </document>
