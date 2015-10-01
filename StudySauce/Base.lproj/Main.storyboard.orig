@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -397,8 +396,8 @@
                                     <segue destination="7bK-jq-Zjz" kind="show" id="ca4-Px-eNk"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
-                                <rect key="frame" x="226" y="119" width="149" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
+                                <rect key="frame" x="226" y="118" width="149" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -410,7 +409,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="M0c-QT-Bxo">
-                                <rect key="frame" x="216" y="163" width="169" height="96"/>
+                                <rect key="frame" x="216" y="162" width="169" height="96"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -515,9 +514,6 @@
                                 <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="submitCode:" destination="pyw-KZ-FSd" eventType="touchUpInside" id="AN9-AF-uXV"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guv-YR-Hxh">
                                 <rect key="frame" x="20" y="20" width="57" height="38"/>
@@ -553,7 +549,7 @@
                         <outlet property="registrationCode" destination="CZ5-1O-yqg" id="z7L-Vb-pOk"/>
                         <segue destination="MV6-Iy-bIY" kind="show" identifier="register" id="oMh-sk-QnC"/>
                         <segue destination="9cv-lS-jp2" kind="presentation" identifier="error404" modalPresentationStyle="overCurrentContext" id="4vQ-EZ-g3X"/>
-                        <segue destination="3Yw-4j-SWU" kind="presentation" identifier="error301" modalPresentationStyle="overCurrentContext" id="u64-4f-MiA"/>
+                        <segue destination="3Yw-4j-SWU" kind="presentation" identifier="error501" modalPresentationStyle="overCurrentContext" id="u64-4f-MiA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kn5-vC-sfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -659,7 +655,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="MOp-Mx-Mq1"/>
+                                    <segue destination="hEQ-Fu-DIV" kind="show" id="DU5-B3-S9K"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -700,12 +696,11 @@
                         <outlet property="email" destination="EjC-OO-MWE" id="4RC-tV-eLa"/>
                         <outlet property="firstName" destination="i5D-B6-21P" id="9Zy-eW-jJQ"/>
                         <outlet property="lastName" destination="umH-Qo-rtw" id="3Uh-T4-SeJ"/>
-                        <segue destination="hEQ-Fu-DIV" kind="show" identifier="home" id="Jlk-vB-qPn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1943" y="-5858"/>
+            <point key="canvasLocation" x="1943" y="-5875"/>
         </scene>
         <!--Password reset page-->
         <scene sceneID="aWy-tY-LZB">
@@ -1000,6 +995,9 @@
                                 <state key="normal" title="Log in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="hEQ-Fu-DIV" kind="show" id="A0K-yH-0aJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ai9-OZ-uI0">
                                 <rect key="frame" x="20" y="20" width="57" height="38"/>
@@ -1039,9 +1037,6 @@
                             <constraint firstItem="g30-OR-S5R" firstAttribute="centerX" secondItem="2LD-Jo-Wpk" secondAttribute="centerX" id="ypg-Yq-c8i"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <segue destination="hEQ-Fu-DIV" kind="show" identifier="home" id="4rx-AZ-jpg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1C8-j0-MdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1192,9 +1187,6 @@
                                 <state key="normal" title="Try again">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="pyw-KZ-FSd" kind="custom" customClass="DismissSegue" id="TYo-M7-jfE"/>
-                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -1213,7 +1205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRT-sc-bI0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1923" y="-6709"/>
+            <point key="canvasLocation" x="1943" y="-6688"/>
         </scene>
         <!--ModalIncorrectAuthenticationCode-->
         <scene sceneID="vOa-c4-GTn">
@@ -1229,45 +1221,38 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2Z-Lz-8oK" userLabel="Black background">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSm-rL-cuy">
-                                        <rect key="frame" x="200" y="300" width="200" height="50"/>
-                                        <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="34o-0u-JfM"/>
-                                            <constraint firstAttribute="width" constant="200" id="KSf-BP-dok"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Log in instead">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="JIk-eY-fER" kind="show" id="PEd-e9-90k"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="OSm-rL-cuy" firstAttribute="top" secondItem="i2Z-Lz-8oK" secondAttribute="centerY" id="VlG-0F-URZ"/>
-                                    <constraint firstItem="OSm-rL-cuy" firstAttribute="centerX" secondItem="i2Z-Lz-8oK" secondAttribute="centerX" id="xOb-pc-gh0"/>
-                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing account found" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A7-Oz-lhM">
-                                <rect key="frame" x="20" y="209" width="560" height="32"/>
+                                <rect key="frame" x="20" y="208" width="560" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSm-rL-cuy">
+                                <rect key="frame" x="200" y="300" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="34o-0u-JfM"/>
+                                    <constraint firstAttribute="width" constant="200" id="KSf-BP-dok"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Log in instead">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="3A7-Oz-lhM" secondAttribute="trailing" id="2HC-yM-Hg9"/>
                             <constraint firstItem="3A7-Oz-lhM" firstAttribute="centerX" secondItem="017-Mu-Mm7" secondAttribute="centerX" id="9eq-Bg-91I"/>
                             <constraint firstItem="3A7-Oz-lhM" firstAttribute="bottom" secondItem="ugr-u4-4eZ" secondAttribute="top" multiplier="0.4" id="AFO-t7-4G3"/>
                             <constraint firstItem="i2Z-Lz-8oK" firstAttribute="leading" secondItem="017-Mu-Mm7" secondAttribute="leadingMargin" constant="-20" id="LzW-1d-EQA"/>
+                            <constraint firstItem="OSm-rL-cuy" firstAttribute="top" secondItem="ugr-u4-4eZ" secondAttribute="top" multiplier="0.5" id="SCK-5J-jsi"/>
                             <constraint firstItem="ugr-u4-4eZ" firstAttribute="top" secondItem="i2Z-Lz-8oK" secondAttribute="bottom" id="UNE-5f-Z7U"/>
                             <constraint firstItem="i2Z-Lz-8oK" firstAttribute="top" secondItem="o6J-OY-QVG" secondAttribute="bottom" constant="-20" id="WUY-R9-udJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i2Z-Lz-8oK" secondAttribute="trailing" constant="-20" id="bJa-mh-Lyz"/>
+                            <constraint firstItem="OSm-rL-cuy" firstAttribute="centerX" secondItem="017-Mu-Mm7" secondAttribute="centerX" id="fG0-8m-lex"/>
                             <constraint firstAttribute="leadingMargin" secondItem="3A7-Oz-lhM" secondAttribute="leading" id="nOD-p6-Hy2"/>
                         </constraints>
                     </view>
@@ -1284,12 +1269,17 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Jlk-vB-qPn"/>
-        <segue reference="TYo-M7-jfE"/>
-        <segue reference="PEd-e9-90k"/>
+        <segue reference="AaP-eY-XLw"/>
+<<<<<<< HEAD
+        <segue reference="XRc-D6-3Ln"/>
+        <segue reference="uPD-8C-TI0"/>
+=======
         <segue reference="Oc6-ro-oKa"/>
-        <segue reference="Ose-hw-NEo"/>
-        <segue reference="Qjf-dF-IVu"/>
-        <segue reference="ca4-Px-eNk"/>
+        <segue reference="XRc-D6-3Ln"/>
+>>>>>>> 9cc887ff9cb84aeada8b52ccc2a28a08ee4206ba
+        <segue reference="DU5-B3-S9K"/>
+        <segue reference="4dd-7M-SSd"/>
+        <segue reference="t5f-x7-oLU"/>
+        <segue reference="5iv-ms-cXn"/>
     </inferredMetricsTieBreakers>
 </document>

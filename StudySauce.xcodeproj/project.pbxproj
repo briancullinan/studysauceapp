@@ -10,6 +10,7 @@
 		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; settings = {ASSET_TAGS = (); }; };
+		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -49,6 +50,7 @@
 		6401F4941BB52A78004E0163 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		642354101BBDD12200B068DB /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
 		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				64D219E91BBB2BCE005F9094 /* NSDate.swift */,
 				64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */,
 				64D219EF1BBCAE34005F9094 /* UIViewController.swift */,
+				642354101BBDD12200B068DB /* DismissSegue.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
+				642354111BBDD12200B068DB /* DismissSegue.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
 				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
