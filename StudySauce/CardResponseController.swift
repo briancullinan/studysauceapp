@@ -23,7 +23,7 @@ class CardResponseController: UIViewController {
     
     @IBAction func correctClick(sender: UIButton, forEvent event: UIEvent) {
         do {
-            if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+            if let moc = self.getContext() {
                 let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
                 newResponse!.correct = true
                 newResponse!.card = self.card
@@ -50,7 +50,7 @@ class CardResponseController: UIViewController {
     
     @IBAction func wrongClick(sender: UIButton, forEvent event: UIEvent) {
         do {
-            if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+            if let moc = self.getContext() {
                 let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
                 newResponse!.correct = false
                 newResponse!.card = self.card

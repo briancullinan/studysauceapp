@@ -414,16 +414,17 @@
                     </view>
                     <connections>
                         <outlet property="percent" destination="M0c-QT-Bxo" id="V1N-Bt-cbr"/>
+                        <outlet property="retry" destination="Qcj-H6-ldI" id="EE6-mF-GIL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJX-a1-HCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2743" y="-1807"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--TableLayoutFix-->
         <scene sceneID="z9B-Ca-LP6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="uVi-1y-pNw" sceneMemberID="viewController">
+                <navigationController title="TableLayoutFix" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="uVi-1y-pNw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="wg2-sv-QIX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -438,10 +439,10 @@
             </objects>
             <point key="canvasLocation" x="2743" y="-5074"/>
         </scene>
-        <!--Authorization code?-->
+        <!--UserInvite-->
         <scene sceneID="Dhj-gM-B1U">
             <objects>
-                <viewController id="pyw-KZ-FSd" userLabel="Authorization code?" sceneMemberID="viewController">
+                <viewController title="UserInvite" id="pyw-KZ-FSd" customClass="UserInviteController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="43G-l9-Y6g"/>
                         <viewControllerLayoutGuide type="bottom" id="gDe-rh-8DV"/>
@@ -524,15 +525,18 @@
                             <constraint firstItem="WIo-S9-tOa" firstAttribute="centerX" secondItem="Lhf-mT-Bct" secondAttribute="centerX" id="zBV-I2-eMs"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="code" destination="CZ5-1O-yqg" id="6FX-5I-e5r"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kn5-vC-sfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-5875"/>
         </scene>
-        <!--RegisterPage-->
+        <!--UserRegister-->
         <scene sceneID="abd-q8-m6B">
             <objects>
-                <viewController title="RegisterPage" id="MV6-Iy-bIY" userLabel="RegisterPage" sceneMemberID="viewController">
+                <viewController title="UserRegister" id="MV6-Iy-bIY" customClass="UserRegisterController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HGi-r1-HMk"/>
                         <viewControllerLayoutGuide type="bottom" id="C9U-g6-Ibl"/>
@@ -659,6 +663,11 @@
                             <constraint firstAttribute="leadingMargin" secondItem="1h7-Zh-Hs5" secondAttribute="leading" id="y9O-1n-U8S"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="email" destination="EjC-OO-MWE" id="VXE-WF-HCn"/>
+                        <outlet property="firstName" destination="i5D-B6-21P" id="JqC-P2-PXI"/>
+                        <outlet property="lastName" destination="umH-Qo-rtw" id="QrH-ml-trb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -849,10 +858,10 @@
             </objects>
             <point key="canvasLocation" x="1943" y="-5074"/>
         </scene>
-        <!--Log in screen-->
+        <!--UserLogin-->
         <scene sceneID="OsQ-Ym-rtE">
             <objects>
-                <viewController id="JIk-eY-fER" userLabel="Log in screen" sceneMemberID="viewController">
+                <viewController title="UserLogin" id="JIk-eY-fER" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Mzx-Hk-Dve"/>
                         <viewControllerLayoutGuide type="bottom" id="qJg-50-cH3"/>
@@ -952,10 +961,10 @@
     <inferredMetricsTieBreakers>
         <segue reference="DU5-B3-S9K"/>
         <segue reference="H2U-7l-d0h"/>
-        <segue reference="2Wv-Ig-MqG"/>
-        <segue reference="5iv-ms-cXn"/>
-        <segue reference="t5f-x7-oLU"/>
+        <segue reference="uPD-8C-TI0"/>
+        <segue reference="zNs-cT-8wh"/>
+        <segue reference="Qjf-dF-IVu"/>
+        <segue reference="Ose-hw-NEo"/>
         <segue reference="AaP-eY-XLw"/>
-        <segue reference="Oc6-ro-oKa"/>
     </inferredMetricsTieBreakers>
 </document>

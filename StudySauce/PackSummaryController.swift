@@ -26,7 +26,7 @@ class PackSummaryController: UITableViewController {
     func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
         completionHandler(cards, nil)
-        if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+        if let moc = self.getContext() {
             let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/cards?pack=\(forPack.id!)")!
             let ses = NSURLSession.sharedSession()
             let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
@@ -57,7 +57,6 @@ class PackSummaryController: UITableViewController {
                         newCard!.id = card["id"] as? NSNumber
                         newCard!.pack = forPack
                         newCard!.created = card["created"] as? NSDate
-                        try moc.save()
                     }
                     
                     // remove cards that no longer exist
@@ -67,6 +66,7 @@ class PackSummaryController: UITableViewController {
                             cards.removeAtIndex(cards.indexOf(p)!)
                         }
                     }
+                    try moc.save()
                     completionHandler(cards, nil)
                 }
                 catch let error as NSError {
@@ -79,7 +79,7 @@ class PackSummaryController: UITableViewController {
     
     func getPacks(completionHandler: ([Pack], NSError!) -> Void) -> Void {
         var packs = [Pack]()
-        if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+        if let moc = self.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
             do {
                 for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
@@ -120,7 +120,7 @@ class PackSummaryController: UITableViewController {
                         newPack!.creator = pack["creator"] as? String
                         newPack!.logo = pack["logo"] as? String
                         newPack!.created = pack["created"] as? NSDate
-                        try moc.save()
+                        newPack!.modified = pack["modified"] as? NSDate
                     }
                     
                     // remove packs that no longer exist
@@ -130,6 +130,7 @@ class PackSummaryController: UITableViewController {
                             packs.removeAtIndex(packs.indexOf(p)!)
                         }
                     }
+                    try moc.save()
                     completionHandler(packs, nil)
                 }
                 catch let error as NSError {
@@ -140,21 +141,14 @@ class PackSummaryController: UITableViewController {
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        self.navigationItem.rightBarButtonItem = addButton
         
         // Load packs from database
-        if let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
+        if let moc = self.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
             do {
-                try self.objects = managedObjectContext.executeFetchRequest(fetchRequest) as! [Pack]
+                try self.objects = moc.executeFetchRequest(fetchRequest) as! [Pack]
             }
             catch let error as NSError {
                 NSLog("Failed to retrieve record: \(error.localizedDescription)")
@@ -207,27 +201,49 @@ class PackSummaryController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = objects[indexPath.row]
-        if pack.cards!.count == 0 {
-            self.getCards(pack, completionHandler: {(data, error) -> Void in
-                if data.count == 0 || error != nil {
-                    return
+        var up = pack.getUserPackForUser(self.getUser())
+        if let moc = self.getContext() {
+            if up == nil {
+                up = NSEntityDescription.insertNewObjectForEntityForName("UserPack", inManagedObjectContext: moc) as? UserPack
+                up!.pack = self.pack
+                up!.user = self.getUser()
+                do {
+                    try moc.save()
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    if self.objects[indexPath.row].getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user) == nil {
-                        self.performSegueWithIdentifier("results", sender: self)
-                    }
-                    else {
-                        self.performSegueWithIdentifier("prompt", sender: self)
-                    }
-                })
-            })
-        }
-        else {
-            if self.objects[indexPath.row].getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user) == nil {
-                self.performSegueWithIdentifier("results", sender: self)
+                catch let error as NSError {
+                    NSLog("\(error.localizedDescription)")
+                }
+            }
+            if pack.cards!.count == 0 || up!.downloaded == nil || (pack.modified != nil
+                && pack.modified!.isGreaterThanDate(up!.downloaded!)) {
+                    self.getCards(pack, completionHandler: {(data, error) -> Void in
+                        up!.downloaded = NSDate()
+                        do {
+                            try moc.save()
+                        }
+                        catch let error as NSError {
+                            NSLog("\(error.localizedDescription)")
+                        }
+                        if data.count == 0 || error != nil {
+                            return
+                        }
+                        dispatch_async(dispatch_get_main_queue(), {
+                            if self.objects[indexPath.row].getCardForUser(self.getUser()) == nil {
+                                self.performSegueWithIdentifier("results", sender: self)
+                            }
+                            else {
+                                self.performSegueWithIdentifier("prompt", sender: self)
+                            }
+                        })
+                    })
             }
             else {
-                self.performSegueWithIdentifier("prompt", sender: self)
+                if self.objects[indexPath.row].getCardForUser(self.getUser()) == nil {
+                    self.performSegueWithIdentifier("results", sender: self)
+                }
+                else {
+                    self.performSegueWithIdentifier("prompt", sender: self)
+                }
             }
         }
     }

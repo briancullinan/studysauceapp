@@ -7,13 +7,14 @@
 //
 
 import Foundation
-
+import CoreData
 import UIKit
 
 class PackResultsController: UIViewController {
     internal var pack: Pack!
     
     @IBOutlet weak var percent: UILabel!
+    @IBOutlet weak var retry: UIButton!
     // TODO: display a summery of the results
     
     // TODO: trigger synchronize data with server
@@ -29,36 +30,30 @@ class PackResultsController: UIViewController {
         
         var correct = 0
         var wrong = 0
-        var retryFrom: NSDate? = nil
-        var retryTo: NSDate? = nil
         for c in self.pack.cards?.allObjects as! [Card] {
-            let last = c.responses!.allObjects[c.responses!.count-1] as! Response
+            let last = c.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)])[0] as! Response
             if last.correct == 1 {
                 correct++
             }
             else {
                 wrong++
-                if retryFrom == nil || last.created!.isLessThanDate(retryFrom!) {
-                    retryFrom = last.created
-                }
-                if retryTo == nil || last.created!.isGreaterThanDate(retryTo!) {
-                    retryTo = last.created
-                }
             }
         }
         
+        if wrong == 0 {
+            retry.hidden = true
+        }
+        
         // set from and to times for retry wrong answers
-        if retryFrom != nil && retryTo != nil {
-            let up = pack.getUserPackForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user)
-            if let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext {
-                up?.retry_from = retryFrom
-                up?.retry_to = retryTo
-                do {
-                    try moc.save()
-                }
-                catch let error as NSError {
-                    NSLog("\(error.localizedDescription)")
-                }
+        let up = pack.getUserPackForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user)
+        if let moc = self.getContext() {
+            up!.retry_from = NSDate()
+            up!.retry_to = NSDate()
+            do {
+                try moc.save()
+            }
+            catch let error as NSError {
+                NSLog("\(error.localizedDescription)")
             }
         }
         

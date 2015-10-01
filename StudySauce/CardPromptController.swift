@@ -21,9 +21,8 @@ class CardPromptController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.card = self.pack.getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user)
+        self.card = self.pack.getCardForUser(self.getUser())
         self.prompt.text = self.card.content
-        self.scalePromptText()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -31,10 +30,6 @@ class CardPromptController: UIViewController {
             vc.card = self.card
             vc.pack = self.pack
         }
-    }
-
-    func scalePromptText() -> Void {
-        
     }
     
 }

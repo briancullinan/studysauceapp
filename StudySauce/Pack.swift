@@ -15,7 +15,7 @@ class Pack: NSManagedObject {
     func getUserPackForUser(user: User?) -> UserPack? {
         let up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
             if let up = obj as? UserPack {
-                return up.user!.id == user?.id
+                return up.user == user
             }
             return false
         }))?.first as? UserPack
@@ -23,7 +23,7 @@ class Pack: NSManagedObject {
     }
 
     func getCardForUser(user: User?) -> Card? {
-        let cards = self.cards?.allObjects as! [Card]
+        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
         if cards.count > 0 {
             let up = self.getUserPackForUser(user)
             
@@ -33,12 +33,10 @@ class Pack: NSManagedObject {
                     return c
                 }
                 // check for answers within the date range
-                else if  up != nil {
-                    if let r = c.responses!.allObjects[c.responses!.count-1] as? Response {
+                else if  up != nil && up!.retry_to != nil {
+                    let responses = c.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)])
+                    if let r = responses[0] as? Response {
                         if r.created!.isLessThanDate(up!.retry_to!) && r.correct! == false {
-                            return c
-                        }
-                        if r.created!.isLessThanDate(up!.retry_to!) {
                             return c
                         }
                     }
