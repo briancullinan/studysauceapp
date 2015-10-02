@@ -11,6 +11,8 @@
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; settings = {ASSET_TAGS = (); }; };
 		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; settings = {ASSET_TAGS = (); }; };
+		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
+		642354181BBE189100B068DB /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354171BBE189100B068DB /* UserLoginController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -30,7 +32,6 @@
 		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
-		8450525C1BA4AA3B005377D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8450525A1BA4AA3B005377D9 /* Main.storyboard */; };
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
 		845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */; };
 		8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */; };
@@ -51,6 +52,8 @@
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		642354101BBDD12200B068DB /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
+		642354151BBDFDD800B068DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		642354171BBE189100B068DB /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
 		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
@@ -72,7 +75,6 @@
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845052541BA4AA3B005377D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		845052561BA4AA3B005377D9 /* PackSummaryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackSummaryController.swift; sourceTree = "<group>"; };
-		8450525B1BA4AA3B005377D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8450525D1BA4AA3B005377D9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		845052601BA4AA3B005377D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		845052661BA4AA3C005377D9 /* StudySauceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +127,7 @@
 				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				64D219F11BBCD05F005F9094 /* UserInviteController.swift */,
 				64D219F31BBCD133005F9094 /* UserRegisterController.swift */,
+				642354171BBE189100B068DB /* UserLoginController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -182,7 +185,7 @@
 		845052521BA4AA3B005377D9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8450525A1BA4AA3B005377D9 /* Main.storyboard */,
+				642354141BBDFDD800B068DB /* Main.storyboard */,
 				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
 				8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */,
 				845052531BA4AA3B005377D9 /* Info.plist */,
@@ -290,7 +293,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8450525C1BA4AA3B005377D9 /* Main.storyboard in Resources */,
+				642354161BBDFDD800B068DB /* Main.storyboard in Resources */,
 				845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */,
 				8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */,
 			);
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642354181BBE189100B068DB /* UserLoginController.swift in Sources */,
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				642354111BBDD12200B068DB /* DismissSegue.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
@@ -355,10 +359,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8450525A1BA4AA3B005377D9 /* Main.storyboard */ = {
+		642354141BBDFDD800B068DB /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8450525B1BA4AA3B005377D9 /* Base */,
+				642354151BBDFDD800B068DB /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

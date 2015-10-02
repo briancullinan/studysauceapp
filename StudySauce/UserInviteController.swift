@@ -44,16 +44,27 @@ class UserInviteController : UIViewController {
             if error != nil {
                 NSLog("\(error?.description)")
             }
-            //if (response as? NSHTTPURLResponse)?.statusCode == 404 {
-            //    dispatch_async(dispatch_get_main_queue(), {
-            //        return self.performSegueWithIdentifier("error404", sender: self)
-            //    })
-            //}
+            if (response as? NSHTTPURLResponse)?.statusCode == 404 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    return self.performSegueWithIdentifier("error404", sender: self)
+                })
+                return
+            }
+            if (response as? NSHTTPURLResponse)?.statusCode == 301 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    return self.performSegueWithIdentifier("error301", sender: self)
+                })
+                return
+            }
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
                     self.token = json["csrf_token"] as? String
+                    if json["redirect"] as? String == "/home" {
+                        self.mail = json["email"] as? String
+                        return self.performSegueWithIdentifier("home", sender: self)
+                    }
                     if json["activated"] as? Bool != nil {
                         self.mail = json["email"] as? String
                         return self.performSegueWithIdentifier("error301", sender: self)

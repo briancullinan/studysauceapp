@@ -73,6 +73,12 @@ class UserRegisterController : UIViewController {
             if (error != nil) {
                 NSLog("\(error?.description)")
             }
+            if (response as? NSHTTPURLResponse)?.statusCode == 301 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    return self.performSegueWithIdentifier("error301", sender: self)
+                })
+                return
+            }
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 dispatch_async(dispatch_get_main_queue(), {
