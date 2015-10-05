@@ -21,7 +21,7 @@ class CardPromptController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.card = self.pack.getCardForUser(self.getUser())
+        self.card = self.pack.getCardForUser(AppDelegate.getUser())
         self.prompt.text = self.card.content
     }
     

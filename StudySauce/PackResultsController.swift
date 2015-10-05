@@ -46,7 +46,7 @@ class PackResultsController: UIViewController {
         
         // set from and to times for retry wrong answers
         let up = pack.getUserPackForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user)
-        if let moc = self.getContext() {
+        if let moc = AppDelegate.getContext() {
             up!.retry_from = NSDate()
             up!.retry_to = NSDate()
             do {

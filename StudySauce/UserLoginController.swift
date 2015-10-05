@@ -8,10 +8,11 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class UserLoginController : UIViewController {
     
-    internal var token: String?
+    internal static var token: String?
     internal var email: String?
     internal var pass: String?
     
@@ -26,11 +27,15 @@ class UserLoginController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.login()
+        UserLoginController.login()
     }
     
-    func login() {
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/login?XDEBUG_SESSION_START=PHPSTORM")!
+    internal static func login() {
+        return self.login {()}
+    }
+    
+    internal static func login(done: () -> Void) {
+        let url = AppDelegate.studySauceCom("/login")
         let request = NSMutableURLRequest(URL: url)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         let ses = NSURLSession.sharedSession()
@@ -38,23 +43,34 @@ class UserLoginController : UIViewController {
             if (error != nil) {
                 NSLog("\(error?.description)")
             }
-            if (response as? NSHTTPURLResponse)?.statusCode == 301 {
-                dispatch_async(dispatch_get_main_queue(), {
-                    return self.performSegueWithIdentifier("error301", sender: self)
-                })
-                return
-            }
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                dispatch_async(dispatch_get_main_queue(), {
-                    if json["csrf_token"] as? String != nil {
-                        self.token = json["csrf_token"] as? String
-                    }
-                    if json["error"] as? String != nil {
-                        if json["error"] as! String == "Bad credentials" {
-                            self.performSegueWithIdentifier("incorrect", sender: self)
+                // TODO: create user entity in database
+                if json["csrf_token"] as? String != nil {
+                    self.token = json["csrf_token"] as? String
+                }
+                if let moc = AppDelegate.getContext() {
+                    var user: User? = nil
+                    let fetchRequest = NSFetchRequest(entityName: "User")
+                    for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
+                        if u.email == json["email"] as? String {
+                            user = u
                         }
                     }
+                    if user == nil {
+                        user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
+                    }
+                    if json["email"] as? String != nil {
+                        user!.email = json["email"] as? String
+                        user!.id = json["id"] as? NSNumber
+                        user!.first = json["first"] as? String
+                        user!.last = json["last"] as? String
+                        (UIApplication.sharedApplication().delegate as! AppDelegate).user = user
+                        try moc.save()
+                    }
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    done()
                 })
             }
             catch let error as NSError {
@@ -69,8 +85,8 @@ class UserLoginController : UIViewController {
         //let code = self.registrationCode!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let pass = self.pass!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let email = self.email!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let token = self.token!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/authenticate?XDEBUG_SESSION_START=PHPSTORM")!
+        let token = UserLoginController.token!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let url = AppDelegate.studySauceCom("/authenticate")
         let postData = "email=\(email)&pass=\(pass)&_remember_me=on&csrf_token=\(token)".dataUsingEncoding(NSUTF8StringEncoding)
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"
@@ -96,8 +112,13 @@ class UserLoginController : UIViewController {
                     if json["redirect"] as? String != nil && json["redirect"] as! String == "/home" {
                         self.performSegueWithIdentifier("home", sender: self)
                     }
-                    if json["redirect"] as? String != nil && json["redirect"] as! String == "/login" {
-                        self.login()
+                    if json["csrf_token"] as? String != nil {
+                        UserLoginController.token = json["csrf_token"] as? String
+                    }
+                    if json["exception"] as? String != nil {
+                        if json["exception"] as! String == "Bad credentials" {
+                            self.performSegueWithIdentifier("incorrect", sender: self)
+                        }
                     }
                 })
             }

@@ -26,8 +26,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
         completionHandler(cards, nil)
-        if let moc = self.getContext() {
-            let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/packs/download?pack=\(forPack.id!)")!
+        if let moc = AppDelegate.getContext() {
+            let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
             let ses = NSURLSession.sharedSession()
             let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
                 if (error != nil) {
@@ -79,7 +79,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     func getPacks(completionHandler: ([Pack], NSError!) -> Void) -> Void {
         var packs = [Pack]()
-        if let moc = self.getContext() {
+        if let moc = AppDelegate.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
             do {
                 for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
@@ -90,7 +90,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             catch let error as NSError {
                 NSLog("Failed to retrieve record: \(error.localizedDescription)")
             }
-            let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/packs")!
+            let url = AppDelegate.studySauceCom("/packs")
             let ses = NSURLSession.sharedSession()
             let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
                 if (error != nil) {
@@ -145,7 +145,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         // Load packs from database
-        if let moc = self.getContext() {
+        if let moc = AppDelegate.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
             do {
                 try self.objects = moc.executeFetchRequest(fetchRequest) as! [Pack]
@@ -197,12 +197,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = objects[indexPath.row]
-        var up = pack.getUserPackForUser(self.getUser())
-        if let moc = self.getContext() {
+        var up = pack.getUserPackForUser(AppDelegate.getUser())
+        if let moc = AppDelegate.getContext() {
             if up == nil {
                 up = NSEntityDescription.insertNewObjectForEntityForName("UserPack", inManagedObjectContext: moc) as? UserPack
                 up!.pack = self.pack
-                up!.user = self.getUser()
+                up!.user = AppDelegate.getUser()
                 do {
                     try moc.save()
                 }
@@ -224,7 +224,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             return
                         }
                         dispatch_async(dispatch_get_main_queue(), {
-                            if self.objects[indexPath.row].getCardForUser(self.getUser()) == nil {
+                            if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
                                 self.performSegueWithIdentifier("results", sender: self)
                             }
                             else {
@@ -234,7 +234,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     })
             }
             else {
-                if self.objects[indexPath.row].getCardForUser(self.getUser()) == nil {
+                if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
                     self.performSegueWithIdentifier("results", sender: self)
                 }
                 else {

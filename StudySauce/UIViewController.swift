@@ -11,11 +11,5 @@ import UIKit
 import CoreData
 
 extension UIViewController {
-    func getUser() -> User? {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).user
-    }
     
-    func getContext() -> NSManagedObjectContext? {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-    }
 }

@@ -23,7 +23,7 @@ class CardResponseController: UIViewController {
     
     @IBAction func correctClick(sender: UIButton, forEvent event: UIEvent) {
         do {
-            if let moc = self.getContext() {
+            if let moc = AppDelegate.getContext() {
                 let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
                 newResponse!.correct = true
                 newResponse!.card = self.card
@@ -34,7 +34,7 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")!
+        let url = AppDelegate.studySauceCom("/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             
@@ -50,7 +50,7 @@ class CardResponseController: UIViewController {
     
     @IBAction func wrongClick(sender: UIButton, forEvent event: UIEvent) {
         do {
-            if let moc = self.getContext() {
+            if let moc = AppDelegate.getContext() {
                 let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
                 newResponse!.correct = false
                 newResponse!.card = self.card
@@ -61,7 +61,7 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")!
+        let url = AppDelegate.studySauceCom("/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=0")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             

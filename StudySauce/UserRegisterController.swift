@@ -60,7 +60,7 @@ class UserRegisterController : UIViewController {
         let last = self.last!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let email = self.mail!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let token = self.token!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/account/create")!
+        let url = AppDelegate.studySauceCom("/account/create")
         let postData = "code=\(code)&first=\(first)&last=\(last)&email=\(email)&csrf_token=\(token)".dataUsingEncoding(NSUTF8StringEncoding)
         let request = NSMutableURLRequest(URL: url)
         request.HTTPMethod = "POST"

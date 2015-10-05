@@ -36,7 +36,7 @@ class UserInviteController : UIViewController {
     
     func getInvite() -> Void {
         let encoded = self.regCode!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url: NSURL = NSURL(string: "https://cerebro.studysauce.com/register?_code=\(encoded)")!
+        let url = AppDelegate.studySauceCom("/register?_code=\(encoded)")
         let request = NSMutableURLRequest(URL: url)
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         let ses = NSURLSession.sharedSession()
