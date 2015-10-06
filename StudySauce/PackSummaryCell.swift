@@ -15,7 +15,7 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
-    @IBOutlet weak var modifiedLabel: UILabel!
+    //@IBOutlet weak var modifiedLabel: UILabel!
     
     weak var pack: Pack!
         
@@ -35,8 +35,8 @@ public class PackSummaryCell: UITableViewCell {
             logoImage.image = nil
         }
 
-        modifiedLabel.text = modified?.description
-        titleLabel.text = title
-        creatorLabel.text = creator
+        //self.modifiedLabel.text = modified!.description
+        self.titleLabel.text = title
+        self.creatorLabel.text = creator
     }
 }
