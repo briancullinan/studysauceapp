@@ -17,11 +17,13 @@ class UserSettingsController: UITableViewController {
         self.tableView.backgroundView = nil
         
         
-        //self.firstName.text = AppDelegate.getUser().first
-        //self.lastName.text = AppDelegate.getUser().last
-        //self.firstName.text = AppDelegate.getUser().email
+        self.firstName.text = AppDelegate.getUser()!.first
+        self.lastName.text = AppDelegate.getUser()!.last
+        self.userEmail.text = AppDelegate.getUser()!.email
         //self.childFirstName.text = AppDelegate.getUser().childFirst
         //self.childLastName.text = AppDelegate.getUser().childLast
+    
+    
     }
     @IBOutlet weak var firstName: UILabel!
     @IBOutlet weak var lastName: UILabel!
