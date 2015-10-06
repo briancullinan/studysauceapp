@@ -17,7 +17,6 @@
 		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; settings = {ASSET_TAGS = (); }; };
-		64CAD0A01BC33DB300268D81 /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CAD09F1BC33DB300268D81 /* NSDateFormatter.swift */; settings = {ASSET_TAGS = (); }; };
 		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
 		64D219E31BBB0CCB005F9094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DC1BBB0CCB005F9094 /* User.swift */; settings = {ASSET_TAGS = (); }; };
 		64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
@@ -60,7 +59,6 @@
 		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
 		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
-		64CAD09F1BC33DB300268D81 /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
 		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D219DC1BBB0CCB005F9094 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -152,7 +150,6 @@
 				64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */,
 				64D219EF1BBCAE34005F9094 /* UIViewController.swift */,
 				642354101BBDD12200B068DB /* DismissSegue.swift */,
-				64CAD09F1BC33DB300268D81 /* NSDateFormatter.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -327,7 +324,6 @@
 				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
 				64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */,
-				64CAD0A01BC33DB300268D81 /* NSDateFormatter.swift in Sources */,
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				6401F49E1BB52A78004E0163 /* Card.swift in Sources */,
