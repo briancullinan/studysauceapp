@@ -35,6 +35,7 @@
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
 		845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */; };
 		8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */; };
+		9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		845052661BA4AA3C005377D9 /* StudySauceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8450526B1BA4AA3C005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySauceTests.swift; sourceTree = "<group>"; };
+		9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				64D219F11BBCD05F005F9094 /* UserInviteController.swift */,
 				64D219F31BBCD133005F9094 /* UserRegisterController.swift */,
 				642354171BBE189100B068DB /* UserLoginController.swift */,
+				9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				6401F49E1BB52A78004E0163 /* Card.swift in Sources */,
+				9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */,
 				6401F49A1BB52A78004E0163 /* Response.swift in Sources */,
 				644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */,
 				64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */,

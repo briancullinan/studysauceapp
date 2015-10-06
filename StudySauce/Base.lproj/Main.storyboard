@@ -66,7 +66,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="y04-eC-z54" firstAttribute="centerY" secondItem="9nS-4x-Ngd" secondAttribute="centerY" id="0sL-IR-cKS"/>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="trailing" secondItem="i1p-6h-Rg9" secondAttribute="trailingMargin" id="1me-Su-18C"/>
@@ -278,7 +278,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="d4B-bi-vai" firstAttribute="leading" secondItem="1uh-MO-8Iu" secondAttribute="leadingMargin" constant="-20" id="MO8-1q-9WA"/>
                             <constraint firstItem="0Sd-aP-wBA" firstAttribute="top" secondItem="d4B-bi-vai" secondAttribute="bottom" id="Qyu-sR-8Vq"/>
@@ -979,7 +979,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5Zw-yK-yYh" firstAttribute="top" secondItem="1E1-MO-do9" secondAttribute="bottom" id="EbX-kn-csk"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5Zw-yK-yYh" secondAttribute="leading" id="WJf-x5-PYu"/>
@@ -1207,10 +1207,10 @@
             </objects>
             <point key="canvasLocation" x="319" y="-4280"/>
         </scene>
-        <!--Table View Controller-->
+        <!--UserSettings-->
         <scene sceneID="8wP-63-8oe">
             <objects>
-                <tableViewController id="7bU-J0-4YG" sceneMemberID="viewController">
+                <tableViewController title="UserSettings" id="7bU-J0-4YG" customClass="UserSettingsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="oIb-cn-bKt">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="534"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1385,10 +1385,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="nEl-2O-GDS"/>
+                    <connections>
+                        <outlet property="childFirstName" destination="V0T-1O-L2d" id="LdO-on-H2V"/>
+                        <outlet property="childLastName" destination="meq-xk-sh5" id="j9L-BL-GUv"/>
+                        <outlet property="firstName" destination="Aem-fP-KYx" id="hIe-sr-aNC"/>
+                        <outlet property="lastName" destination="gCu-6d-Qbe" id="4MP-Nl-2dH"/>
+                        <outlet property="userEmail" destination="ncP-Nq-w0h" id="zhP-25-kmB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gyi-ff-Qpw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1923" y="-3519"/>
+            <point key="canvasLocation" x="1943" y="-3516"/>
         </scene>
         <!--ModalIncorrectAuthenticationCode-->
         <scene sceneID="adq-J4-QBf">
@@ -1508,10 +1515,10 @@
             </objects>
             <point key="canvasLocation" x="2771" y="-6688"/>
         </scene>
-        <!--View Controller-->
+        <!--SettingsTop-->
         <scene sceneID="2oi-FJ-g3S">
             <objects>
-                <viewController id="9uY-OX-AMx" sceneMemberID="viewController">
+                <viewController title="SettingsTop" id="9uY-OX-AMx" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2Dn-ax-pYf"/>
                         <viewControllerLayoutGuide type="bottom" id="zno-Rg-jCn"/>
@@ -1538,7 +1545,7 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="b84-sm-QmN" firstAttribute="top" secondItem="2Dn-ax-pYf" secondAttribute="bottom" id="0Kh-fn-hsq"/>
                             <constraint firstItem="9T4-y2-6fP" firstAttribute="top" secondItem="2Dn-ax-pYf" secondAttribute="bottom" constant="46" id="3uF-Df-pEO"/>
@@ -1561,13 +1568,13 @@
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaP-eY-XLw"/>
         <segue reference="yl6-TZ-ZzN"/>
         <segue reference="Gdc-QN-ycI"/>
         <segue reference="Kyk-ub-bbY"/>
-        <segue reference="2QF-sh-1Qc"/>
+        <segue reference="Nvs-XI-A3p"/>
+        <segue reference="LKA-iK-vlk"/>
         <segue reference="pG3-AL-0cd"/>
         <segue reference="zs8-xV-mfP"/>
-        <segue reference="LKA-iK-vlk"/>
+        <segue reference="AaP-eY-XLw"/>
     </inferredMetricsTieBreakers>
 </document>
