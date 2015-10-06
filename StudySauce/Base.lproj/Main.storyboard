@@ -823,6 +823,7 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="MOp-Mx-Mq1"/>
+                                    <segue destination="Sh1-gC-bac" kind="show" id="dnG-be-y3y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1124,6 +1125,7 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="loginClick:" destination="JIk-eY-fER" eventType="touchUpInside" id="kCZ-cU-C5t"/>
+                                    <segue destination="Sh1-gC-bac" kind="show" id="AVN-qG-3CP"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ai9-OZ-uI0">
@@ -1328,7 +1330,7 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="7bU-J0-4YG" kind="show" id="VXk-yN-IEW"/>
+                                    <segue destination="9uY-OX-AMx" kind="show" id="kQq-ae-1lG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7E7-03-KKX">
@@ -1758,13 +1760,13 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VXk-yN-IEW"/>
+        <segue reference="gLJ-ho-CAW"/>
+        <segue reference="dnG-be-y3y"/>
         <segue reference="Ffu-HO-BMd"/>
-        <segue reference="XRc-D6-3Ln"/>
-        <segue reference="uPD-8C-TI0"/>
-        <segue reference="GQz-t5-qGU"/>
         <segue reference="Gdc-QN-ycI"/>
         <segue reference="2Wv-Ig-MqG"/>
         <segue reference="5iv-ms-cXn"/>
+        <segue reference="GQz-t5-qGU"/>
+        <segue reference="Oc6-ro-oKa"/>
     </inferredMetricsTieBreakers>
 </document>
