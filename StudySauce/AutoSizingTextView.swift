@@ -11,6 +11,9 @@ import UIKit
 
 class AutoSizingTextView: UITextView {
     
+    var minSize: CGFloat = 12
+    var maxSize: CGFloat = 32
+    
     func calcFontSize() -> Void {
         if self.font == nil {
             return
@@ -29,7 +32,7 @@ class AutoSizingTextView: UITextView {
                 })!)
             }
         }
-        var size = CGFloat(9)
+        var size = self.minSize
         repeat {
             size = size + 0.1
             let font = UIFont(name: self.font!.fontName, size: size)
@@ -42,11 +45,11 @@ class AutoSizingTextView: UITextView {
             if origLines == nil {
                 origLines = numberOfLines
             }
-        } while expectSize.height < maximumLabelHeight.height - fontHeight
+        } while size < self.maxSize && expectSize.height < maximumLabelHeight.height - fontHeight
             && expectSize.height < maximumLabelWidth.width - fontHeight
             && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
                 // resize but don't allow the words per line to increase
-                || numberOfLines == origLines!)
+                || numberOfLines == origLines! || CGFloat(words.count) / numberOfLines / 2 > self.bounds.width / self.bounds.height)
         // TODO: if it goes over even on a small setting, turn scrollable back on.
         // TODO: center resized box in container?
         // TODO: all of this when textbox changes

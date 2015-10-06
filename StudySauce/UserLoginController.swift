@@ -50,17 +50,17 @@ class UserLoginController : UIViewController {
                     self.token = json["csrf_token"] as? String
                 }
                 if let moc = AppDelegate.getContext() {
-                    var user: User? = nil
-                    let fetchRequest = NSFetchRequest(entityName: "User")
-                    for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
-                        if u.email == json["email"] as? String {
-                            user = u
-                        }
-                    }
-                    if user == nil {
-                        user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
-                    }
                     if json["email"] as? String != nil {
+                        var user: User? = nil
+                        let fetchRequest = NSFetchRequest(entityName: "User")
+                        for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
+                            if u.email == json["email"] as? String {
+                                user = u
+                            }
+                        }
+                        if user == nil {
+                            user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
+                        }
                         user!.email = json["email"] as? String
                         user!.id = json["id"] as? NSNumber
                         user!.first = json["first"] as? String
@@ -78,7 +78,6 @@ class UserLoginController : UIViewController {
             }
         })
         task.resume()
-
     }
     
     func authenticate() {
@@ -110,7 +109,9 @@ class UserLoginController : UIViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil && json["redirect"] as! String == "/home" {
-                        self.performSegueWithIdentifier("home", sender: self)
+                        UserLoginController.login({
+                            self.performSegueWithIdentifier("home", sender: self)
+                        })
                     }
                     if json["csrf_token"] as? String != nil {
                         UserLoginController.token = json["csrf_token"] as? String
