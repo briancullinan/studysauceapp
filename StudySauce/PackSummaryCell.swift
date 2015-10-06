@@ -15,6 +15,7 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
+    @IBOutlet weak var modifiedLabel: UILabel!
     
     weak var pack: Pack!
         
@@ -22,6 +23,10 @@ public class PackSummaryCell: UITableViewCell {
         self.pack = object
         let title = object.title
         let creator = object.creator
+        var modified = object.modified
+        if modified == nil {
+            modified = object.created
+        }
         if let url = object.logo where !url.isEmpty {
             let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
             logoImage.image = logo
@@ -30,10 +35,8 @@ public class PackSummaryCell: UITableViewCell {
             logoImage.image = nil
         }
 
+        modifiedLabel.text = modified?.description
         titleLabel.text = title
         creatorLabel.text = creator
-        
     }
-    
-    
 }

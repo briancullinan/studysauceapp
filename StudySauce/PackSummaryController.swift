@@ -119,8 +119,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newPack!.id = pack["id"] as? NSNumber
                         newPack!.creator = pack["creator"] as? String
                         newPack!.logo = pack["logo"] as? String
-                        newPack!.created = pack["created"] as? NSDate
-                        newPack!.modified = pack["modified"] as? NSDate
+                        newPack!.created = NSDateFormatter.parse(pack["created"] as? String)
+                        newPack!.modified = NSDateFormatter.parse(pack["modified"] as? String)
                     }
                     
                     // remove packs that no longer exist
@@ -143,7 +143,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Load packs from database
         if let moc = AppDelegate.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
@@ -162,10 +162,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
         // refresh data from server
         self.getPacks { (data, error) -> Void in
-            if data.count > 0 {
-                self.objects = data;
-            }
             dispatch_async(dispatch_get_main_queue(), {
+                if data.count > 0 {
+                    self.objects = data;
+                }
                 self.tableView.reloadData()
             })
         }
