@@ -128,10 +128,10 @@
                                     <segue destination="pyw-KZ-FSd" kind="show" id="XRc-D6-3Ln"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="3Rh-2w-q3F">
-                                <rect key="frame" x="167" y="58" width="272" height="250"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauceLogowithwhitetext" translatesAutoresizingMaskIntoConstraints="NO" id="3Rh-2w-q3F">
+                                <rect key="frame" x="180" y="58" width="240" height="250"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="3Rh-2w-q3F" secondAttribute="height" multiplier="177:184" constant="31.483695652173907" id="mEO-WE-NW3"/>
+                                    <constraint firstAttribute="width" secondItem="3Rh-2w-q3F" secondAttribute="height" multiplier="177:184" id="mEO-WE-NW3"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="pee-EB-TEN"/>
                                 </constraints>
                             </imageView>
@@ -154,7 +154,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="3Rh-2w-q3F" firstAttribute="bottom" secondItem="23S-Fb-aqk" secondAttribute="top" multiplier="0.5" constant="8" symbolic="YES" id="0eH-TY-KK8"/>
-                            <constraint firstItem="3Rh-2w-q3F" firstAttribute="centerX" secondItem="FWh-z8-jjW" secondAttribute="centerX" constant="3" id="37y-dj-iOz"/>
+                            <constraint firstItem="3Rh-2w-q3F" firstAttribute="centerX" secondItem="FWh-z8-jjW" secondAttribute="centerX" id="37y-dj-iOz"/>
                             <constraint firstItem="fab-0R-fLt" firstAttribute="centerX" secondItem="FWh-z8-jjW" secondAttribute="centerX" id="7Aq-Ki-NrP"/>
                             <constraint firstItem="xLC-Bm-8Kl" firstAttribute="width" secondItem="fab-0R-fLt" secondAttribute="width" id="A1X-sj-uDH"/>
                             <constraint firstItem="xLC-Bm-8Kl" firstAttribute="centerX" secondItem="FWh-z8-jjW" secondAttribute="centerX" id="EEO-uA-RD7"/>
@@ -1755,16 +1755,17 @@ support@studysauce.com
         <image name="Great_Hearts_logo" width="220" height="55"/>
         <image name="StudySauce Sketch" width="1811" height="1626"/>
         <image name="StudySauceBackArrow" width="500" height="300"/>
+        <image name="StudySauceLogowithwhitetext" width="275" height="275"/>
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5iv-ms-cXn"/>
-        <segue reference="2Wv-Ig-MqG"/>
-        <segue reference="XRc-D6-3Ln"/>
+        <segue reference="gLJ-ho-CAW"/>
+        <segue reference="Ffu-HO-BMd"/>
+        <segue reference="VXk-yN-IEW"/>
         <segue reference="uPD-8C-TI0"/>
         <segue reference="GQz-t5-qGU"/>
         <segue reference="Gdc-QN-ycI"/>
-        <segue reference="VXk-yN-IEW"/>
-        <segue reference="Ffu-HO-BMd"/>
+        <segue reference="5iv-ms-cXn"/>
+        <segue reference="2Wv-Ig-MqG"/>
     </inferredMetricsTieBreakers>
 </document>
