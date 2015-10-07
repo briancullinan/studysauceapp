@@ -58,4 +58,19 @@ extension NSDate
         //Return Result
         return dateWithHoursAdded
     }
+    
+    static var RFC: String {
+        get {
+            return "EEE, dd MMM yyyy HH:mm:ss xx"
+        }
+    }
+    
+    static func parse(date: String?) -> NSDate? {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = self.RFC
+        if date != nil {
+            return formatter.dateFromString(date!)
+        }
+        return nil
+    }
 }

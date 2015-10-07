@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         // TODO: check the local copy of the session timeout
         UserLoginController.login { () -> Void in
-            let viewController = storyboard.instantiateViewControllerWithIdentifier("Home")
+            let viewController = storyboard.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Login" : "Home")
             self.window!.rootViewController = viewController;
             self.window!.makeKeyAndVisible();
         }
