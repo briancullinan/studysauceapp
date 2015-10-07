@@ -22,7 +22,10 @@ public class PackSummaryCell: UITableViewCell {
     internal func configure(object: Pack) {
         self.pack = object
         let title = object.title
-        let creator = object.creator
+        var creator = object.creator
+        if creator == nil || creator == "" {
+            creator = " "
+        }
         var modified = object.modified
         if modified == nil {
             modified = object.created

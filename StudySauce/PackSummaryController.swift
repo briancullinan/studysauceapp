@@ -81,11 +81,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         var packs = [Pack]()
         if let moc = AppDelegate.getContext() {
             let fetchRequest = NSFetchRequest(entityName: "Pack")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
             do {
                 for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
                     packs.insert(p, atIndex: 0)
                 }
-                completionHandler(packs, nil)
             }
             catch let error as NSError {
                 NSLog("Failed to retrieve record: \(error.localizedDescription)")
