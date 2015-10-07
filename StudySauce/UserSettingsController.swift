@@ -25,9 +25,9 @@ class UserSettingsController: UITableViewController {
     
     
     }
-    @IBOutlet weak var firstName: UILabel!
-    @IBOutlet weak var lastName: UILabel!
-    @IBOutlet weak var userEmail: UILabel!
-    @IBOutlet weak var childFirstName: UILabel!
-    @IBOutlet weak var childLastName: UILabel!
+    @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var userEmail: UITextField!
+    @IBOutlet weak var childFirstName: UITextField!
+    @IBOutlet weak var childLastName: UITextField!
 }
