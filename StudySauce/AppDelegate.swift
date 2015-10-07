@@ -30,14 +30,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         //let splitViewController = self.window!.rootViewController as! UINavigationController
-        //splitViewController.delegate = self
-        self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //splitViewController.delegate = self        
         // TODO: check the local copy of the session timeout
         UserLoginController.login { () -> Void in
-            let viewController = storyboard.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-            self.window!.rootViewController = viewController;
-            self.window!.makeKeyAndVisible();
+            if self.window == nil {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                let viewController = storyboard.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+                self.window!.rootViewController = viewController;
+                self.window!.makeKeyAndVisible();
+            }
         }
         // contact server login page
         return true
