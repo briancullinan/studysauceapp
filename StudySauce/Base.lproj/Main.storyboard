@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="qYh-Jy-Edn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -408,12 +408,6 @@
                                     <segue destination="7bU-J0-4YG" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="O5l-yW-I8n"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
-                                <rect key="frame" x="243" y="29" width="115" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qFc-U7-VFK">
                                 <rect key="frame" x="20" y="58" width="560" height="522"/>
                                 <string key="text">What information do we collect?
@@ -503,9 +497,15 @@ United States
 support@studysauce.com
 (480) 331-8570</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
+                                <rect key="frame" x="243" y="29" width="115" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -1243,6 +1243,10 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCI-QK-qc2" userLabel="Black background">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Incorrect password" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lV5-mR-62G">
                                 <rect key="frame" x="20" y="208" width="560" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -1265,10 +1269,6 @@ support@studysauce.com
                                     <segue destination="JIk-eY-fER" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="9vX-n2-6Mm"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GCI-QK-qc2" userLabel="Black background">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
-                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="lV5-mR-62G" firstAttribute="centerX" secondItem="0cJ-Ib-PsP" secondAttribute="centerX" id="3Em-0a-REg"/>
@@ -1288,10 +1288,10 @@ support@studysauce.com
             </objects>
             <point key="canvasLocation" x="319" y="-4280"/>
         </scene>
-        <!--View Controller-->
+        <!--Home-->
         <scene sceneID="O2B-J0-79P">
             <objects>
-                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sh1-gC-bac" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sh1-gC-bac" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UQS-i6-XZb"/>
                         <viewControllerLayoutGuide type="bottom" id="89T-UU-IpT"/>
@@ -1304,16 +1304,16 @@ support@studysauce.com
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="UwA-oP-fTz">
-                                <rect key="frame" x="157" y="28" width="287" height="270"/>
+                                <rect key="frame" x="164" y="28" width="271" height="272"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="UwA-oP-fTz" secondAttribute="height" multiplier="277:261" id="scI-5H-fch"/>
+                                    <constraint firstAttribute="width" secondItem="UwA-oP-fTz" secondAttribute="height" multiplier="277:261" constant="-17.471264367816104" id="scI-5H-fch"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaD-s5-p2L">
                                 <rect key="frame" x="0.0" y="330" width="600" height="90"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="My packs">
+                                <state key="normal" title="My study packs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1335,7 +1335,7 @@ support@studysauce.com
                                 <rect key="frame" x="0.0" y="420" width="600" height="90"/>
                                 <color key="backgroundColor" red="0.0" green="0.45098039215686275" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="Enter new code">
+                                <state key="normal" title="New study packs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1349,8 +1349,10 @@ support@studysauce.com
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="top" secondItem="UQS-i6-XZb" secondAttribute="bottom" constant="8" symbolic="YES" id="2r8-OM-cFE"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="3zI-1v-Bww"/>
                             <constraint firstItem="Bre-Wd-a5Y" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" id="4Kp-fI-pBI"/>
+                            <constraint firstItem="UwA-oP-fTz" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.5" id="6SQ-3D-9bW"/>
+                            <constraint firstItem="89T-UU-IpT" firstAttribute="top" secondItem="zlc-Gr-gBx" secondAttribute="bottom" id="82x-Dc-xB9"/>
                             <constraint firstItem="7E7-03-KKX" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="8IT-wJ-osR"/>
-                            <constraint firstItem="UwA-oP-fTz" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" multiplier="0.45" id="DW4-lX-0nk"/>
+                            <constraint firstItem="UwA-oP-fTz" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" multiplier="0.45" constant="15" id="DW4-lX-0nk"/>
                             <constraint firstItem="WaD-s5-p2L" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.7" id="EEA-QJ-8Py"/>
                             <constraint firstItem="zlc-Gr-gBx" firstAttribute="centerY" secondItem="Bf3-KJ-GSS" secondAttribute="centerY" id="HhJ-q9-N6Q"/>
                             <constraint firstItem="Bre-Wd-a5Y" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="KOC-rg-owC"/>
@@ -1759,15 +1761,15 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaP-eY-XLw"/>
-        <segue reference="CCF-VB-FyI"/>
+        <segue reference="Ffu-HO-BMd"/>
+        <segue reference="dnG-be-y3y"/>
         <segue reference="gLJ-ho-CAW"/>
-        <segue reference="ihc-uQ-X2J"/>
-        <segue reference="u64-4f-MiA"/>
-        <segue reference="J3N-wP-OLv"/>
-        <segue reference="Nvs-XI-A3p"/>
-        <segue reference="LKA-iK-vlk"/>
-        <segue reference="Kyk-ub-bbY"/>
+        <segue reference="Gdc-QN-ycI"/>
+        <segue reference="9vX-n2-6Mm"/>
+        <segue reference="Oc6-ro-oKa"/>
+        <segue reference="CCF-VB-FyI"/>
+        <segue reference="2Wv-Ig-MqG"/>
+        <segue reference="5iv-ms-cXn"/>
         <segue reference="O5l-yW-I8n"/>
     </inferredMetricsTieBreakers>
 </document>

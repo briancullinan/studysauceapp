@@ -25,7 +25,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // load the card content, display and available answers
     func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        completionHandler(cards, nil)
         if let moc = AppDelegate.getContext() {
             let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
             let ses = NSURLSession.sharedSession()
