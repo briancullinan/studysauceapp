@@ -37,6 +37,7 @@
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
 		845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */; };
 		8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */; };
+		9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */; settings = {ASSET_TAGS = (); }; };
 		9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		845052661BA4AA3C005377D9 /* StudySauceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8450526B1BA4AA3C005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySauceTests.swift; sourceTree = "<group>"; };
+		9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsController.swift; sourceTree = "<group>"; };
 		9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +138,7 @@
 				642354171BBE189100B068DB /* UserLoginController.swift */,
 				9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */,
 				64291C5E1BC595EB005AA348 /* UserResetController.swift */,
+				9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				642354111BBDD12200B068DB /* DismissSegue.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
+				9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
 				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,

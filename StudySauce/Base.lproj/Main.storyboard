@@ -191,7 +191,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LAx-Bu-P3t" id="Cop-dO-w2C">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="68"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaP-jp-FHw">
@@ -496,18 +496,18 @@ Scottsdale, Arizona 85255
 United States
 support@studysauce.com
 (480) 331-8570</string>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
-                                <rect key="frame" x="243" y="29" width="115" height="21"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <rect key="frame" x="236" y="29" width="128" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="qFc-U7-VFK" secondAttribute="leading" id="0SE-DH-Eiu"/>
                             <constraint firstItem="Vzk-BC-IMD" firstAttribute="top" secondItem="Lyi-QE-a6J" secondAttribute="bottom" constant="9" id="31O-dp-IJi"/>
@@ -566,7 +566,7 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
-                                <rect key="frame" x="226" y="119" width="149" height="34"/>
+                                <rect key="frame" x="226" y="118" width="149" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -578,7 +578,7 @@ support@studysauce.com
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="M0c-QT-Bxo">
-                                <rect key="frame" x="216" y="163" width="169" height="96"/>
+                                <rect key="frame" x="216" y="162" width="169" height="96"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1304,7 +1304,7 @@ support@studysauce.com
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="UwA-oP-fTz">
-                                <rect key="frame" x="164" y="28" width="271" height="272"/>
+                                <rect key="frame" x="157" y="15" width="285" height="285"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="UwA-oP-fTz" secondAttribute="height" multiplier="277:261" constant="-17.471264367816104" id="scI-5H-fch"/>
                                 </constraints>
@@ -1346,7 +1346,6 @@ support@studysauce.com
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7E7-03-KKX" firstAttribute="leading" secondItem="Bf3-KJ-GSS" secondAttribute="leadingMargin" constant="-20" id="1FH-gB-PnY"/>
-                            <constraint firstItem="UwA-oP-fTz" firstAttribute="top" secondItem="UQS-i6-XZb" secondAttribute="bottom" constant="8" symbolic="YES" id="2r8-OM-cFE"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="3zI-1v-Bww"/>
                             <constraint firstItem="Bre-Wd-a5Y" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" id="4Kp-fI-pBI"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.5" id="6SQ-3D-9bW"/>
@@ -1385,10 +1384,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Basic information" id="BTy-7d-dQQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xSV-jN-HWd">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xSV-jN-HWd" id="XU1-QP-8j2">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mt-PH-TfB">
@@ -1414,10 +1413,10 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zJp-FK-9yM">
-                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="94" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJp-FK-9yM" id="ybY-Zq-emd">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkq-iX-Hha">
@@ -1446,10 +1445,10 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lgW-Vk-SzC">
-                                        <rect key="frame" x="0.0" y="137.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="138" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgW-Vk-SzC" id="4h4-2R-VOr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" text="johndoe@mailinator.com" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ncP-Nq-w0h">
@@ -1482,10 +1481,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Child information" id="hKr-42-xBk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qY0-eA-xul">
-                                        <rect key="frame" x="0.0" y="231.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="233" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qY0-eA-xul" id="pf3-OW-VZG">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiW-fh-aXa">
@@ -1511,10 +1510,10 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JNr-I0-zUv">
-                                        <rect key="frame" x="0.0" y="275.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="277" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-I0-zUv" id="8mO-KZ-AQc">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhY-7U-t3H">
@@ -1547,10 +1546,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Privacy" id="F3V-vC-eWK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="45V-80-3rm">
-                                        <rect key="frame" x="0.0" y="369.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="372" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45V-80-3rm" id="W63-qk-s9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-dm-T1H">
@@ -1567,6 +1566,33 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="suA-OJ-sYL" kind="presentation" modalPresentationStyle="overCurrentContext" id="GUn-jj-oex"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Support" id="fxT-ql-DSK">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gsZ-sM-Rcm">
+                                        <rect key="frame" x="0.0" y="467" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gsZ-sM-Rcm" id="geq-rR-o0q">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JS-3M-U9M">
+                                                    <rect key="frame" x="8" y="11" width="89" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="2JS-3M-U9M" secondAttribute="leading" id="KkA-Fc-EC6"/>
+                                                <constraint firstItem="2JS-3M-U9M" firstAttribute="centerY" secondItem="geq-rR-o0q" secondAttribute="centerY" id="wOQ-nb-fIL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5Dr-EB-zmH" kind="show" id="tEg-YC-ecd"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1753,6 +1779,185 @@ support@studysauce.com
             </objects>
             <point key="canvasLocation" x="1135" y="-3516"/>
         </scene>
+        <!--NoInternetConnection-->
+        <scene sceneID="usR-gb-juP">
+            <objects>
+                <viewController title="NoInternetConnection" id="HZd-Yd-WLg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Tlo-NJ-9vd"/>
+                        <viewControllerLayoutGuide type="bottom" id="cow-oO-G8W"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9qG-T7-Cnf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6W-dw-tfK" userLabel="Black background">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzM-kw-zvO">
+                                <rect key="frame" x="20" y="208" width="560" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBW-g2-1yd">
+                                <rect key="frame" x="200" y="300" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="UC9-AR-8Gs"/>
+                                    <constraint firstAttribute="width" constant="200" id="mpW-aR-m1W"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Try again">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="cow-oO-G8W" firstAttribute="top" secondItem="i6W-dw-tfK" secondAttribute="bottom" id="2D4-YU-0di"/>
+                            <constraint firstItem="KzM-kw-zvO" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="4U9-H6-2Zg"/>
+                            <constraint firstItem="i6W-dw-tfK" firstAttribute="leading" secondItem="9qG-T7-Cnf" secondAttribute="leadingMargin" constant="-20" id="5tT-lg-5oz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="i6W-dw-tfK" secondAttribute="trailing" constant="-20" id="A7I-lO-0gR"/>
+                            <constraint firstItem="KzM-kw-zvO" firstAttribute="bottom" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.4" id="EgY-WD-OYo"/>
+                            <constraint firstItem="eBW-g2-1yd" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="Ou3-eV-LJd"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="KzM-kw-zvO" secondAttribute="leading" id="XYy-VF-h1P"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KzM-kw-zvO" secondAttribute="trailing" id="ieZ-w2-YZs"/>
+                            <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.5" id="wNF-56-jbV"/>
+                            <constraint firstItem="i6W-dw-tfK" firstAttribute="top" secondItem="Tlo-NJ-9vd" secondAttribute="bottom" constant="-20" id="wkU-Qo-Rbj"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w2A-fa-No8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-7403"/>
+        </scene>
+        <!--ContactUs-->
+        <scene sceneID="HDs-Sx-EdA">
+            <objects>
+                <viewController title="ContactUs" id="5Dr-EB-zmH" customClass="ContactUsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="POz-tH-pPV"/>
+                        <viewControllerLayoutGuide type="bottom" id="PhD-z4-txW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="G2k-cE-b9f">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJk-DO-RNa">
+                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Rhf-ad-a7b"/>
+                                    <constraint firstAttribute="width" constant="57" id="ojw-nI-ea7"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-KT-nha">
+                                <rect key="frame" x="251" y="29" width="99" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
+                                <rect key="frame" x="20" y="80" width="87" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKi-0L-j2x">
+                                <rect key="frame" x="20" y="214" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3P-lr-anK">
+                                <rect key="frame" x="20" y="176" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="JaI-ZR-JgB"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY">
+                                <rect key="frame" x="20" y="109" width="560" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="6ia-oj-SVa"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lZE-Yy-NWH">
+                                <rect key="frame" x="20" y="243" width="560" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="120" id="Slf-dg-oE9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="b7e-mJ-RDE"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l49-oY-aGI">
+                                <rect key="frame" x="20" y="147" width="115" height="21"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBp-mM-08E">
+                                <rect key="frame" x="200" y="411" width="200" height="50"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="eBg-Fu-ioh"/>
+                                    <constraint firstAttribute="width" constant="200" id="nfP-2Q-zcg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginClick:" destination="JIk-eY-fER" eventType="touchUpInside" id="D2V-tk-AY9"/>
+                                    <action selector="sendEmail:" destination="5Dr-EB-zmH" eventType="touchUpInside" id="t7w-Er-v8h"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="sOL-3O-ryY" firstAttribute="top" secondItem="eEn-Rh-4rQ" secondAttribute="bottom" constant="8" symbolic="YES" id="0qX-e8-2st"/>
+                            <constraint firstItem="k3P-lr-anK" firstAttribute="top" secondItem="l49-oY-aGI" secondAttribute="bottom" constant="8" symbolic="YES" id="4dY-5a-NsI"/>
+                            <constraint firstItem="9pl-KT-nha" firstAttribute="centerX" secondItem="G2k-cE-b9f" secondAttribute="centerX" id="4qp-Kh-Sto"/>
+                            <constraint firstItem="UKi-0L-j2x" firstAttribute="top" secondItem="k3P-lr-anK" secondAttribute="bottom" constant="8" symbolic="YES" id="5z4-jq-fZ9"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="sOL-3O-ryY" secondAttribute="leading" id="77C-WP-TIo"/>
+                            <constraint firstItem="LBp-mM-08E" firstAttribute="centerX" secondItem="G2k-cE-b9f" secondAttribute="centerX" id="8Ae-1P-Fhk"/>
+                            <constraint firstItem="9pl-KT-nha" firstAttribute="centerY" secondItem="bJk-DO-RNa" secondAttribute="centerY" id="CrJ-UW-2wt"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sOL-3O-ryY" secondAttribute="trailing" id="DK1-mB-814"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="l49-oY-aGI" secondAttribute="leading" id="E5f-II-2bH"/>
+                            <constraint firstItem="l49-oY-aGI" firstAttribute="top" secondItem="sOL-3O-ryY" secondAttribute="bottom" constant="8" symbolic="YES" id="Ed8-zs-10R"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="k3P-lr-anK" secondAttribute="leading" id="H1a-35-g6c"/>
+                            <constraint firstItem="9pl-KT-nha" firstAttribute="top" secondItem="POz-tH-pPV" secondAttribute="bottom" constant="9" id="KNj-td-hBG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lZE-Yy-NWH" secondAttribute="trailing" id="QuI-Qr-Lc3"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="lZE-Yy-NWH" secondAttribute="leading" id="Sf8-nb-gIZ"/>
+                            <constraint firstItem="lZE-Yy-NWH" firstAttribute="top" secondItem="UKi-0L-j2x" secondAttribute="bottom" constant="8" symbolic="YES" id="YRC-1K-365"/>
+                            <constraint firstItem="eEn-Rh-4rQ" firstAttribute="top" secondItem="bJk-DO-RNa" secondAttribute="bottom" constant="22" id="e1d-oc-UTk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="k3P-lr-anK" secondAttribute="trailing" id="kao-4J-hY5"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="bJk-DO-RNa" secondAttribute="leading" id="nbH-YF-4as"/>
+                            <constraint firstItem="bJk-DO-RNa" firstAttribute="top" secondItem="POz-tH-pPV" secondAttribute="bottom" id="q55-fF-z8z"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="UKi-0L-j2x" secondAttribute="leading" id="rHz-68-cbl"/>
+                            <constraint firstItem="LBp-mM-08E" firstAttribute="top" secondItem="lZE-Yy-NWH" secondAttribute="bottom" constant="48" id="sy3-K1-JP7"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="eEn-Rh-4rQ" secondAttribute="leading" id="u0s-md-gQI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="email" destination="k3P-lr-anK" id="46K-Vl-l1H"/>
+                        <outlet property="message" destination="lZE-Yy-NWH" id="9nq-xA-T1I"/>
+                        <outlet property="name" destination="sOL-3O-ryY" id="6Hb-SU-KLc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UDB-TO-K7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-2747"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
@@ -1761,15 +1966,15 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ffu-HO-BMd"/>
-        <segue reference="dnG-be-y3y"/>
-        <segue reference="gLJ-ho-CAW"/>
-        <segue reference="Gdc-QN-ycI"/>
+        <segue reference="O5l-yW-I8n"/>
+        <segue reference="CCF-VB-FyI"/>
         <segue reference="9vX-n2-6Mm"/>
         <segue reference="Oc6-ro-oKa"/>
-        <segue reference="CCF-VB-FyI"/>
-        <segue reference="2Wv-Ig-MqG"/>
+        <segue reference="XRc-D6-3Ln"/>
+        <segue reference="dnG-be-y3y"/>
+        <segue reference="Gdc-QN-ycI"/>
+        <segue reference="Ffu-HO-BMd"/>
         <segue reference="5iv-ms-cXn"/>
-        <segue reference="O5l-yW-I8n"/>
+        <segue reference="2Wv-Ig-MqG"/>
     </inferredMetricsTieBreakers>
 </document>
