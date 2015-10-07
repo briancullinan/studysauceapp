@@ -84,7 +84,9 @@ class UserRegisterController : UIViewController {
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil && json["redirect"] as! String == "/home" {
-                        self.performSegueWithIdentifier("home", sender: self)
+                        UserLoginController.login({
+                            self.performSegueWithIdentifier("home", sender: self)
+                        })
                     }
                 })
             }

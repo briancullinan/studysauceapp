@@ -63,7 +63,10 @@ class UserInviteController : UIViewController {
                     self.token = json["csrf_token"] as? String
                     if json["redirect"] as? String == "/home" {
                         self.mail = json["email"] as? String
-                        return self.performSegueWithIdentifier("home", sender: self)
+                        UserLoginController.login({
+                            return self.performSegueWithIdentifier("home", sender: self)
+                        })
+                        return
                     }
                     if json["activated"] as? Bool != nil {
                         self.mail = json["email"] as? String
