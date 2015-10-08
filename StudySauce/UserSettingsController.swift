@@ -30,4 +30,16 @@ class UserSettingsController: UITableViewController {
     @IBOutlet weak var userEmail: UITextField!
     @IBOutlet weak var childFirstName: UITextField!
     @IBOutlet weak var childLastName: UITextField!
+    
+    internal func edit() -> Void {
+        self.firstName.enabled = true
+        self.lastName.enabled = true
+        self.userEmail.enabled = true
+        self.childFirstName.enabled = true
+        self.childLastName.enabled = true
+    }
+    
+    internal func save() -> Void {
+        
+    }
 }
