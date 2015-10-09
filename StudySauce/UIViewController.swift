@@ -18,8 +18,8 @@ extension UIViewController {
         })
     }
     
-    func goHome() {
-        if AppDelegate.getUser() != nil {
+    func goHome(refetch: Bool = false) {
+        if !refetch && AppDelegate.getUser() != nil {
             let home = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
             dispatch_async(dispatch_get_main_queue(),{
                 self.presentViewController(home, animated: true, completion: {})
@@ -52,7 +52,7 @@ extension UIViewController {
             if (err != nil) {
                 NSLog("\(err?.description)")
             }
-            if (response as? NSHTTPURLResponse)?.statusCode != 200 {
+            if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
                 error(code: (response as! NSHTTPURLResponse).statusCode)
             }
             do {

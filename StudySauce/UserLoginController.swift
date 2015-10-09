@@ -94,7 +94,7 @@ class UserLoginController : UIViewController {
                 }
             }, redirect: {(path) in
                 if path == "/home" {
-                    self.goHome()
+                    self.goHome(true)
                 }
             }, done: {(json) in
                 if json["csrf_token"] as? String != nil {

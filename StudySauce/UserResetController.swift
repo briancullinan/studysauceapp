@@ -20,6 +20,7 @@ class UserResetController: UIViewController {
         self.showNoConnectionDialog({
             self.postJson("/reset", params: ["email": self.mail], done: {(json) in 
                 self.showDialog("Your password has been reset.  Please check your email.", button: "Go home", done: {
+                    // password resets don't change users until code is entered so don't bother refetching
                     self.goHome()
                     return true
                 })

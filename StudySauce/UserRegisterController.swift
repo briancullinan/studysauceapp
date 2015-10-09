@@ -66,7 +66,7 @@ class UserRegisterController : UIViewController {
             ], redirect: {(path) in
                 // login was a success!
                 if path == "/home" {
-                    self.goHome()
+                    self.goHome(true)
                 }
             }, error: {(code) in
                 if code == 301 {

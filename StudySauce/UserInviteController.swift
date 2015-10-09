@@ -18,9 +18,15 @@ class UserInviteController : UIViewController {
     internal var token: String?
 
     @IBOutlet weak var registrationCode: UITextField!
+    @IBAction func goHomeClick(sender: UIButton) {
+        self.goHome()
+    }
     
     @IBAction func submitCode(sender: UIButton) {
         self.regCode = self.registrationCode.text
+        if self.regCode == "" {
+            return
+        }
         self.showNoConnectionDialog({
             self.getInvite()
         })
@@ -55,7 +61,7 @@ class UserInviteController : UIViewController {
             }, redirect: {(path) in
                 is_error_or_redirect = true
                 if path == "/home" {
-                    self.goHome()
+                    self.goHome(true)
                     return
                 }
             }, done: {(json) in

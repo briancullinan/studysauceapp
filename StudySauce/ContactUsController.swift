@@ -11,15 +11,17 @@ import Foundation
 import CoreData
 import UIKit
 import MessageUI
+import QuartzCore
 
 class ContactUsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let radius = self.email.layer.cornerRadius
         self.message.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
-        self.message.layer.borderWidth = 1
-        self.message.layer.cornerRadius = 8
+        self.message.layer.borderWidth = 0.5
+        self.message.layer.cornerRadius = 5
     }
     
     override func didReceiveMemoryWarning() {

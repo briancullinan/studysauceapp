@@ -25,7 +25,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
     }
     
-    static func studySauceCom(path_and_query: String) -> NSURL! {
+    static func studySauceCom(var path_and_query: String) -> NSURL! {
+        if path_and_query.containsString("?") {
+            path_and_query = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
+        }
+        else {
+            path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
+        }
         return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
     }
     
