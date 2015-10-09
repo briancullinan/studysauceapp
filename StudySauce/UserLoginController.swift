@@ -26,8 +26,9 @@ class UserLoginController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        UserLoginController.login()
+        self.showNoConnectionDialog({
+            UserLoginController.login()
+        })
     }
     
     internal static func login() {
@@ -118,7 +119,7 @@ class UserLoginController : UIViewController {
                     }
                     if json["exception"] as? String != nil {
                         if json["exception"] as! String == "Bad credentials" {
-                            self.performSegueWithIdentifier("incorrect", sender: self)
+                            self.showDialog("Incorrect password", button: "Try again")
                         }
                     }
                 })

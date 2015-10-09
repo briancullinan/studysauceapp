@@ -17,41 +17,13 @@ class UserResetController: UIViewController {
     
     @IBAction func resetClick(sender: UIButton) {
         self.mail = email.text
-        self.reset({
-            self.performSegueWithIdentifier("reset", sender: self)
-        })
-    }
-    
-    func reset(done: () -> Void) -> Void {
-        let email = self.mail!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url = AppDelegate.studySauceCom("/reset")
-        let postData = "email=\(email)".dataUsingEncoding(NSUTF8StringEncoding)
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = postData
-        request.setValue(String(postData!.length), forHTTPHeaderField: "Content-Length")
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if (error != nil) {
-                NSLog("\(error?.description)")
-            }
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                // TODO: create user entity in database
-                if json["csrf_token"] as? String != nil {
-                    
-                }
-                dispatch_async(dispatch_get_main_queue(), {
-                    done()
+        self.showNoConnectionDialog({
+            self.postJson("/reset", params: ["email": self.mail], done: {
+                self.showDialog("Your password has been reset.  Please check your email.", button: "Go home", done: {
+                    self.performSegueWithIdentifier("home", sender: self)
+                    return true
                 })
-            }
-            catch let error as NSError {
-                NSLog("\(error.description)")
-            }
+            })
         })
-        task.resume()
-
     }
 }

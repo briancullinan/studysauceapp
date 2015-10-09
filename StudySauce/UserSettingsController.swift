@@ -30,6 +30,8 @@ class UserSettingsController: UITableViewController {
     @IBOutlet weak var userEmail: UITextField!
     @IBOutlet weak var childFirstName: UITextField!
     @IBOutlet weak var childLastName: UITextField!
+    @IBOutlet weak var privacyCell: UITableViewCell!
+    @IBOutlet weak var supportCell: UITableViewCell!
     
     internal func edit() -> Void {
         self.firstName.enabled = true
@@ -37,9 +39,57 @@ class UserSettingsController: UITableViewController {
         self.userEmail.enabled = true
         self.childFirstName.enabled = true
         self.childLastName.enabled = true
+        self.privacyCell.hidden = true
+        self.supportCell.hidden = true
+        self.tableView.allowsSelection = false
+        self.tableView.reloadData()
     }
     
     internal func save() -> Void {
-        
+        self.firstName.enabled = false
+        self.lastName.enabled = false
+        self.userEmail.enabled = false
+        self.childFirstName.enabled = false
+        self.childLastName.enabled = false
+        self.privacyCell.hidden = false
+        self.supportCell.hidden = false
+        self.tableView.allowsSelection = true
+        self.tableView.reloadData()
+        if AppDelegate.isConnectedToNetwork() {
+        }
+        else {
+            self.performSegueWithIdentifier("error503", sender: self)
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.privacyCell.hidden {
+            if indexPath.section >= 2 {
+                return 0
+            }
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.privacyCell.hidden {
+            if section >= 2 {
+                return Optional(nil)!
+            }
+        }
+        return super.tableView(tableView, titleForHeaderInSection: section)
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        //if indexPath.section < 3 {
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+        //}
+        if self.privacyCell.hidden {
+            if indexPath.section >= 2 {
+                cell.hidden = true
+            }
+        }
+        return cell
     }
 }

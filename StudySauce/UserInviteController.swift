@@ -21,7 +21,9 @@ class UserInviteController : UIViewController {
     
     @IBAction func submitCode(sender: UIButton) {
         self.regCode = self.registrationCode.text
-        self.getInvite()
+        self.showNoConnectionDialog({
+            self.getInvite()
+        })
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -45,14 +47,13 @@ class UserInviteController : UIViewController {
                 NSLog("\(error?.description)")
             }
             if (response as? NSHTTPURLResponse)?.statusCode == 404 {
-                dispatch_async(dispatch_get_main_queue(), {
-                    return self.performSegueWithIdentifier("error404", sender: self)
-                })
+                self.showDialog("No matching code found", button: "Try again")
                 return
             }
             if (response as? NSHTTPURLResponse)?.statusCode == 301 {
-                dispatch_async(dispatch_get_main_queue(), {
-                    return self.performSegueWithIdentifier("error301", sender: self)
+                self.showDialog("Existing account found", button: "Log in instead", done: {
+                    self.performSegueWithIdentifier("login", sender: self)
+                    return false
                 })
                 return
             }
@@ -70,10 +71,15 @@ class UserInviteController : UIViewController {
                     }
                     if json["activated"] as? Bool != nil {
                         self.mail = json["email"] as? String
-                        return self.performSegueWithIdentifier("error301", sender: self)
+                        self.showDialog("Existing account found", button: "Log in instead", done: {
+                            self.performSegueWithIdentifier("login", sender: self)
+                            return true
+                        })
+                        return
                     }
                     if json["code"] as? String == nil {
-                        return self.performSegueWithIdentifier("error404", sender: self)
+                        self.showDialog("No matching code found", button: "Try again")
+                        return
                     }
                     self.first = json["first"] as? String
                     self.last = json["last"] as? String

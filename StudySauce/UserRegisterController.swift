@@ -28,7 +28,9 @@ class UserRegisterController : UIViewController {
         self.first = self.firstName.text
         self.mail = self.email.text
         self.last = self.lastName.text
-        self.registerUser()
+        self.showNoConnectionDialog({
+            self.registerUser()
+        })
     }
     
     @IBAction func childSwitchOn(sender: AnyObject) {
@@ -55,46 +57,27 @@ class UserRegisterController : UIViewController {
     }
     
     func registerUser() {
-        let code = self.registrationCode!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let first = self.first!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let last = self.last!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let email = self.mail!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let token = self.token!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        let url = AppDelegate.studySauceCom("/account/create")
-        let postData = "code=\(code)&first=\(first)&last=\(last)&email=\(email)&csrf_token=\(token)".dataUsingEncoding(NSUTF8StringEncoding)
-        let request = NSMutableURLRequest(URL: url)
-        request.HTTPMethod = "POST"
-        request.HTTPBody = postData
-        request.setValue(String(postData!.length), forHTTPHeaderField: "Content-Length")
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if (error != nil) {
-                NSLog("\(error?.description)")
-            }
-            if (response as? NSHTTPURLResponse)?.statusCode == 301 {
-                dispatch_async(dispatch_get_main_queue(), {
-                    return self.performSegueWithIdentifier("error301", sender: self)
-                })
-                return
-            }
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                dispatch_async(dispatch_get_main_queue(), {
-                    // change this if we want to register without a code
-                    if json["redirect"] as? String != nil && json["redirect"] as! String == "/home" {
-                        UserLoginController.login({
-                            self.performSegueWithIdentifier("home", sender: self)
-                        })
-                    }
-                })
-            }
-            catch let error as NSError {
-                NSLog("\(error.description)")
-            }
-        })
-        task.resume()
+        self.postJson("/account/create", params: [
+            "code" : self.registrationCode,
+            "first" : self.first,
+            "last" : self.last,
+            "email" : self.mail,
+            "csrf_token" : self.token
+            ], redirect: {(path) in
+                // login was a success!
+                if path == "/home" {
+                    UserLoginController.login({
+                        self.performSegueWithIdentifier("home", sender: self)
+                    })
+                }
+            }, error: {(code) in
+                if code == 301 {
+                    self.showDialog("Existing account found", button: "Log in instead", done: {
+                        self.performSegueWithIdentifier("login", sender: self)
+                        return false
+                    })
+                }
+            })
     }
     
 }

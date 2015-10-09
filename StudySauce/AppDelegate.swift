@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import SystemConfiguration
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
@@ -33,6 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         //splitViewController.delegate = self        
         // TODO: check the local copy of the session timeout
         UserLoginController.login { () -> Void in
+        dispatch_async(dispatch_get_main_queue(), {
             if self.window == nil {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
@@ -40,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.rootViewController = viewController;
                 self.window!.makeKeyAndVisible();
             }
+            })
         }
         // contact server login page
         return true
@@ -131,5 +134,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             }
         }
     }
+    
+    static  func isConnectedToNetwork() -> Bool {
+        
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        guard let defaultRouteReachability = withUnsafePointer(&zeroAddress, {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+        }) else {
+            return false
+        }
+        
+        var flags: SCNetworkReachabilityFlags = []
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags) {
+            return false
+        }
+        
+        let isReachable = flags.contains(SCNetworkReachabilityFlags.Reachable)
+        let needsConnection = flags.contains(SCNetworkReachabilityFlags.ConnectionRequired)
+        
+        return isReachable && !needsConnection
+    }
+
 }
 

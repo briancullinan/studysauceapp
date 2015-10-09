@@ -16,6 +16,8 @@ class UserSettingsContainerController: UIViewController {
     //  It's declared to be an implicitly unwrapped optional
     //  because it doesn't make sense to give it a non-nil initial value.
     private var embeddedViewController: UserSettingsController!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? UserSettingsController {
@@ -29,8 +31,15 @@ class UserSettingsContainerController: UIViewController {
         
     }
     
+    @IBAction func saveClick(sender: UIButton) {
+        self.editButton.hidden = false
+        self.saveButton.hidden = true
+        self.embeddedViewController.save()
+    }
+    
     @IBAction func editClick(sender: UIButton) {
-        
+        self.editButton.hidden = true
+        self.saveButton.hidden = false
         self.embeddedViewController.edit()
     }
 }

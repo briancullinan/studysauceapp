@@ -194,10 +194,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    // MARK: - Table View
-        
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.pack = objects[indexPath.row]
+    func getUserPack() -> UserPack?
+    {
         var up = pack.getUserPackForUser(AppDelegate.getUser())
         if let moc = AppDelegate.getContext() {
             if up == nil {
@@ -211,36 +209,45 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     NSLog("\(error.localizedDescription)")
                 }
             }
-            if pack.cards!.count == 0 || up!.downloaded == nil || (pack.modified != nil
-                && pack.modified!.isGreaterThanDate(up!.downloaded!)) {
-                    self.getCards(pack, completionHandler: {(data, error) -> Void in
-                        up!.downloaded = NSDate()
+        }
+        return up
+    }
+    
+    // MARK: - Table View
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.pack = objects[indexPath.row]
+        let up = self.getUserPack()
+        if pack.cards!.count == 0 || up!.downloaded == nil || (pack.modified != nil
+            && pack.modified!.isGreaterThanDate(up!.downloaded!)) {
+                self.getCards(pack, completionHandler: {(data, error) -> Void in
+                    up!.downloaded = NSDate()
+                    if let moc = AppDelegate.getContext() {
                         do {
                             try moc.save()
                         }
                         catch let error as NSError {
                             NSLog("\(error.localizedDescription)")
                         }
-                        if data.count == 0 || error != nil {
-                            return
+                    }
+                    if data.count == 0 || error != nil {
+                        return
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+                            self.performSegueWithIdentifier("results", sender: self)
                         }
-                        dispatch_async(dispatch_get_main_queue(), {
-                            if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
-                                self.performSegueWithIdentifier("results", sender: self)
-                            }
-                            else {
-                                self.performSegueWithIdentifier("prompt", sender: self)
-                            }
-                        })
+                        else {
+                            self.performSegueWithIdentifier("prompt", sender: self)
+                        }
                     })
+                })
+        }
+        else {
+            if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+                self.performSegueWithIdentifier("results", sender: self)
             }
             else {
-                if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
-                    self.performSegueWithIdentifier("results", sender: self)
-                }
-                else {
-                    self.performSegueWithIdentifier("prompt", sender: self)
-                }
+                self.performSegueWithIdentifier("prompt", sender: self)
             }
         }
     }
