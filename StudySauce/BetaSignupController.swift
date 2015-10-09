@@ -13,9 +13,9 @@ class BetaSignupController: UIViewController {
     
     @IBOutlet weak var email: UITextField!
     @IBAction func emailClick(sender: UIButton) {
-        self.postJson("/signup", params: ["email" : self.email.text], done: {
+        self.postJson("/signup-beta", params: ["email" : self.email.text], done: {(json) in 
             self.showDialog("Thank you! We will email you shortly.", button: "Go home", done: {
-                self.performSegueWithIdentifier("home", sender: self)
+                self.goHome()
                 return true
             })
         })

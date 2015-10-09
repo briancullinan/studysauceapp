@@ -1519,10 +1519,19 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6W-dw-tfK" userLabel="Black background">
+                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZ5-gf-er7">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
-                            </view>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backgroundClick:" destination="HZd-Yd-WLg" eventType="touchUpInside" id="7iE-mq-Yza"/>
+                                    <action selector="buttonClick:" destination="HZd-Yd-WLg" eventType="touchUpInside" id="72y-jh-uKP"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzM-kw-zvO">
                                 <rect key="frame" x="20" y="208" width="560" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -1547,19 +1556,20 @@ support@studysauce.com
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="cow-oO-G8W" firstAttribute="top" secondItem="i6W-dw-tfK" secondAttribute="bottom" id="2D4-YU-0di"/>
                             <constraint firstItem="KzM-kw-zvO" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="4U9-H6-2Zg"/>
-                            <constraint firstItem="i6W-dw-tfK" firstAttribute="leading" secondItem="9qG-T7-Cnf" secondAttribute="leadingMargin" constant="-20" id="5tT-lg-5oz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="i6W-dw-tfK" secondAttribute="trailing" constant="-20" id="A7I-lO-0gR"/>
                             <constraint firstItem="KzM-kw-zvO" firstAttribute="bottom" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.4" id="EgY-WD-OYo"/>
+                            <constraint firstItem="UZ5-gf-er7" firstAttribute="height" secondItem="9qG-T7-Cnf" secondAttribute="height" id="M52-QU-OKO"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="Ou3-eV-LJd"/>
                             <constraint firstAttribute="leadingMargin" secondItem="KzM-kw-zvO" secondAttribute="leading" id="XYy-VF-h1P"/>
+                            <constraint firstItem="UZ5-gf-er7" firstAttribute="width" secondItem="9qG-T7-Cnf" secondAttribute="width" id="Zan-cT-Ell"/>
+                            <constraint firstItem="UZ5-gf-er7" firstAttribute="centerY" secondItem="9qG-T7-Cnf" secondAttribute="centerY" id="eLe-1a-0qo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KzM-kw-zvO" secondAttribute="trailing" id="ieZ-w2-YZs"/>
+                            <constraint firstItem="UZ5-gf-er7" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="nbX-GM-20W"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.5" id="wNF-56-jbV"/>
-                            <constraint firstItem="i6W-dw-tfK" firstAttribute="top" secondItem="Tlo-NJ-9vd" secondAttribute="bottom" constant="-20" id="wkU-Qo-Rbj"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundButton" destination="UZ5-gf-er7" id="vXc-uf-7Na"/>
                         <outlet property="messageLabel" destination="KzM-kw-zvO" id="4Hx-ll-bzA"/>
                         <outlet property="primaryButton" destination="eBW-g2-1yd" id="fWY-bY-dYs"/>
                     </connections>
@@ -1588,7 +1598,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="7bU-J0-4YG" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="vJ0-zm-jCZ"/>
+                                    <segue destination="7bU-J0-4YG" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="vJ0-zm-jCZ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-KT-nha">
@@ -1702,13 +1712,13 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaP-eY-XLw"/>
         <segue reference="H2U-7l-d0h"/>
-        <segue reference="J3N-wP-OLv"/>
         <segue reference="ihc-uQ-X2J"/>
+        <segue reference="J3N-wP-OLv"/>
+        <segue reference="BQQ-23-9C5"/>
         <segue reference="5iv-ms-cXn"/>
         <segue reference="Ose-hw-NEo"/>
-        <segue reference="BQQ-23-9C5"/>
         <segue reference="vJ0-zm-jCZ"/>
+        <segue reference="AaP-eY-XLw"/>
     </inferredMetricsTieBreakers>
 </document>

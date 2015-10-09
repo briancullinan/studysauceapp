@@ -14,6 +14,7 @@ import SystemConfiguration
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
     var window: UIWindow?
+    var storyboard: UIStoryboard?
     var user: User?
     
     static func getUser() -> User? {
@@ -35,10 +36,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // TODO: check the local copy of the session timeout
         UserLoginController.login { () -> Void in
         dispatch_async(dispatch_get_main_queue(), {
+            if self.storyboard == nil {
+                self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+            }
             if self.window == nil {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-                let viewController = storyboard.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+                let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
                 self.window!.rootViewController = viewController;
                 self.window!.makeKeyAndVisible();
             }

@@ -10,13 +10,23 @@ import Foundation
 import UIKit
 
 class DialogController: UIViewController {
-
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var primaryButton: UIButton!
+    
     var button: String! = ""
     var message: String! = ""
     var click: () -> Bool = {
         return true
+    }
+    
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var primaryButton: UIButton!
+    @IBOutlet weak var backgroundButton: UIButton!
+    
+    @IBAction func backgroundClick(sender: UIButton) {
+        if click() {
+            self.dismissViewControllerAnimated(true, completion: {
+                
+            })
+        }
     }
     
     override func viewDidLoad() {

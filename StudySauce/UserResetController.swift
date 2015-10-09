@@ -18,9 +18,9 @@ class UserResetController: UIViewController {
     @IBAction func resetClick(sender: UIButton) {
         self.mail = email.text
         self.showNoConnectionDialog({
-            self.postJson("/reset", params: ["email": self.mail], done: {
+            self.postJson("/reset", params: ["email": self.mail], done: {(json) in 
                 self.showDialog("Your password has been reset.  Please check your email.", button: "Go home", done: {
-                    self.performSegueWithIdentifier("home", sender: self)
+                    self.goHome()
                     return true
                 })
             })

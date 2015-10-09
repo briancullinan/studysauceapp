@@ -66,15 +66,15 @@ class UserRegisterController : UIViewController {
             ], redirect: {(path) in
                 // login was a success!
                 if path == "/home" {
-                    UserLoginController.login({
-                        self.performSegueWithIdentifier("home", sender: self)
-                    })
+                    self.goHome()
                 }
             }, error: {(code) in
                 if code == 301 {
                     self.showDialog("Existing account found", button: "Log in instead", done: {
-                        self.performSegueWithIdentifier("login", sender: self)
-                        return false
+                        dispatch_async(dispatch_get_main_queue(),{
+                            self.performSegueWithIdentifier("login", sender: self)
+                        })
+                        return true
                     })
                 }
             })

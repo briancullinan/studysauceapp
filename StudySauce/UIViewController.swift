@@ -18,7 +18,24 @@ extension UIViewController {
         })
     }
     
-    func postJson (url: String, params: Dictionary<String, AnyObject?>, done: () -> Void = {(code) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
+    func goHome() {
+        if AppDelegate.getUser() != nil {
+            let home = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
+            dispatch_async(dispatch_get_main_queue(),{
+                self.presentViewController(home, animated: true, completion: {})
+            })
+        }
+        else {
+        UserLoginController.login({
+            let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+            dispatch_async(dispatch_get_main_queue(),{
+                self.presentViewController(home, animated: true, completion: {})
+            })
+        })
+        }
+    }
+    
+    func postJson (url: String, params: Dictionary<String, AnyObject?>, done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
         var postData = ""
         for (k, v) in params {
             postData = postData + (postData == "" ? "&" : "") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
@@ -39,13 +56,13 @@ extension UIViewController {
                 error(code: (response as! NSHTTPURLResponse).statusCode)
             }
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
                         redirect(path: json["redirect"] as! String)
                     }
-                    done()
+                    done(json: json)
                 })
             }
             catch let error as NSError {
@@ -63,9 +80,7 @@ extension UIViewController {
         dialog.click = done
         dialog.modalPresentationStyle = .OverCurrentContext
         dispatch_async(dispatch_get_main_queue(),{
-            self.presentViewController(dialog, animated: true, completion: {
-            
-            })
+            self.presentViewController(dialog, animated: true, completion: {})
         })
         return dialog
     }
