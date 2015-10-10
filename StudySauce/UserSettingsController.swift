@@ -17,9 +17,9 @@ class UserSettingsController: UITableViewController {
         self.tableView.backgroundView = nil
         
         
-        self.firstName.text = AppDelegate.getUser()!.first
-        self.lastName.text = AppDelegate.getUser()!.last
-        self.userEmail.text = AppDelegate.getUser()!.email
+        self.firstName.text = AppDelegate.getUser()?.first
+        self.lastName.text = AppDelegate.getUser()?.last
+        self.userEmail.text = AppDelegate.getUser()?.email
         //self.childFirstName.text = AppDelegate.getUser().childFirst
         //self.childLastName.text = AppDelegate.getUser().childLast
     
@@ -60,6 +60,32 @@ class UserSettingsController: UITableViewController {
         else {
             self.performSegueWithIdentifier("error503", sender: self)
         }
+    }
+    
+    var cacheResetTime: NSDate? = nil
+    var cacheResetCount: Int = 0
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 && indexPath.section == 0 {
+            let twentyMinutesAgo = NSDate().dateByAddingTimeInterval(-20)
+            if cacheResetTime == nil || cacheResetTime!.isLessThanDate(twentyMinutesAgo) {
+                cacheResetTime = NSDate()
+                cacheResetCount = 0
+            }
+            cacheResetCount++
+            if cacheResetCount == 10 {
+                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+                for c in storage.cookies! {
+                    storage.deleteCookie(c)
+                }
+                NSUserDefaults.standardUserDefaults()
+                AppDelegate.managedObjectContext = nil
+                AppDelegate.resetLocalStore()
+                (UIApplication.sharedApplication().delegate as! AppDelegate).user = nil
+                self.goHome(true)
+            }
+        }
+        //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

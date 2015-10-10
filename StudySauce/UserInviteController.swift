@@ -65,9 +65,11 @@ class UserInviteController : UIViewController {
                     return
                 }
             }, done: {(json) in
-                self.first = json["first"] as? String
-                self.last = json["last"] as? String
-                self.mail = json["email"] as? String
+                if json as? NSDictionary != nil {
+                self.first = json!["first"] as? String
+                self.last = json!["last"] as? String
+                self.mail = json!["email"] as? String
+                }
                 if !is_error_or_redirect {
                     self.performSegueWithIdentifier("register", sender: self)
                 }

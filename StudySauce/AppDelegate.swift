@@ -15,14 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
 
     var window: UIWindow?
     var storyboard: UIStoryboard?
-    var user: User?
+    var user: User? {
+        didSet {
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            userDefaults.setValue(user?.email, forKey: "user")
+            userDefaults.synchronize() // don't forget this!!!!
+        }
+    }
     
     static func getUser() -> User? {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).user
     }
     
     static func getContext() -> NSManagedObjectContext? {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        return AppDelegate.managedObjectContext
     }
     
     static func studySauceCom(var path_and_query: String) -> NSURL! {
@@ -38,10 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         //let splitViewController = self.window!.rootViewController as! UINavigationController
-        //splitViewController.delegate = self        
+        //splitViewController.delegate = self
         // TODO: check the local copy of the session timeout
-        UserLoginController.login { () -> Void in
-        dispatch_async(dispatch_get_main_queue(), {
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        let email = userDefaults.valueForKey("user") as? String
+        let user = UserLoginController.getUserByEmail(email)
+        let done = {
             if self.storyboard == nil {
                 self.storyboard = UIStoryboard(name: "Main", bundle: nil)
             }
@@ -51,11 +59,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.rootViewController = viewController;
                 self.window!.makeKeyAndVisible();
             }
-            })
+        }
+        if user != nil {
+            self.user = user
+            done()
+        }
+        else {
+            UserLoginController.login { () -> Void in
+                dispatch_async(dispatch_get_main_queue(), done)
+            }
         }
         // contact server login page
         return true
-    
+        
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -82,24 +98,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
 
     // MARK: - Split view
     
-    lazy var applicationDocumentsDirectory: NSURL = {
+    static var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.appcoda.Coredata" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.CachesDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
         }()
     
-    lazy var managedObjectModel: NSManagedObjectModel = {
+    static private var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("StudySauce", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
         }()
     
-
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+    private static func getPersistentStoreCoordinator() -> NSPersistentStoreCoordinator? {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
-        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
@@ -114,23 +129,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             }
         }
         return coordinator
-        }()
+    }
     
-    lazy var managedObjectContext: NSManagedObjectContext? = {
+    internal static func resetLocalStore()
+    {
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(url.path!)
+            let coordinator = AppDelegate.getPersistentStoreCoordinator()
+            if coordinator == nil {
+                self.managedObjectContext = nil
+            }
+            let managedObjectContext = NSManagedObjectContext()
+            managedObjectContext.persistentStoreCoordinator = coordinator
+            self.managedObjectContext = managedObjectContext
+        }
+        catch let error as NSError {
+            NSLog("Unresolved error \(error), \(error.userInfo)")
+        }
+
+    }
+    
+    static var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
-        let coordinator = self.persistentStoreCoordinator
+        let coordinator = AppDelegate.getPersistentStoreCoordinator()
         if coordinator == nil {
             return nil
         }
-        var managedObjectContext = NSManagedObjectContext()
+        let managedObjectContext = NSManagedObjectContext()
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()
     
     // MARK: - Core Data Saving support
     
-    func saveContext () {
-        if let moc = self.managedObjectContext {
+    static func saveContext () {
+        if let moc = AppDelegate.managedObjectContext {
             do {
                 if moc.hasChanges {
                     try moc.save()
@@ -144,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
-    static  func isConnectedToNetwork() -> Bool {
+    static func isConnectedToNetwork() -> Bool {
         
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))

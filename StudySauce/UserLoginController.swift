@@ -50,24 +50,13 @@ class UserLoginController : UIViewController {
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
-                if let moc = AppDelegate.getContext() {
-                    if json["email"] as? String != nil {
-                        var user: User? = nil
-                        let fetchRequest = NSFetchRequest(entityName: "User")
-                        for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
-                            if u.email == json["email"] as? String {
-                                user = u
-                            }
-                        }
-                        if user == nil {
-                            user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
-                        }
-                        user!.email = json["email"] as? String
-                        user!.id = json["id"] as? NSNumber
-                        user!.first = json["first"] as? String
-                        user!.last = json["last"] as? String
+                if json["email"] as? String != nil {
+                    if let user = UserLoginController.getUserByEmail(json["email"] as? String) {
+                        user.id = json["id"] as? NSNumber
+                        user.first = json["first"] as? String
+                        user.last = json["last"] as? String
                         (UIApplication.sharedApplication().delegate as! AppDelegate).user = user
-                        try moc.save()
+                        AppDelegate.saveContext()
                     }
                 }
                 dispatch_async(dispatch_get_main_queue(), {
@@ -79,6 +68,31 @@ class UserLoginController : UIViewController {
             }
         })
         task.resume()
+    }
+    
+    static func getUserByEmail(email: String?) -> User? {
+        var user: User? = nil
+        do {
+            if email != nil {
+                if let moc = AppDelegate.getContext() {
+                    let fetchRequest = NSFetchRequest(entityName: "User")
+                    for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
+                        if u.email == email {
+                            user = u
+                            break
+                        }
+                    }
+                    if user == nil {
+                        user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
+                    }
+                    user!.email = email
+                }
+            }
+        }
+        catch let error as NSError {
+            NSLog("\(error.description)")
+        }
+        return user
     }
     
     func authenticate() {
@@ -97,8 +111,8 @@ class UserLoginController : UIViewController {
                     self.goHome(true)
                 }
             }, done: {(json) in
-                if json["csrf_token"] as? String != nil {
-                        UserLoginController.token = json["csrf_token"] as? String
+                if json?["csrf_token"] as? String != nil {
+                        UserLoginController.token = json!["csrf_token"] as? String
                     }
             })
     }

@@ -26,19 +26,19 @@ extension UIViewController {
             })
         }
         else {
-        UserLoginController.login({
-            let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-            dispatch_async(dispatch_get_main_queue(),{
-                self.presentViewController(home, animated: true, completion: {})
+            UserLoginController.login({
+                let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.presentViewController(home, animated: true, completion: {})
+                })
             })
-        })
         }
     }
     
-    func postJson (url: String, params: Dictionary<String, AnyObject?>, done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
+    func postJson (url: String, params: Dictionary<String, AnyObject?>, done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
         var postData = ""
         for (k, v) in params {
-            postData = postData + (postData == "" ? "&" : "") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         }
         let data = postData.dataUsingEncoding(NSUTF8StringEncoding)
         let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom(url))
@@ -55,6 +55,7 @@ extension UIViewController {
             if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
                 error(code: (response as! NSHTTPURLResponse).statusCode)
             }
+            if data != nil {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
                 dispatch_async(dispatch_get_main_queue(), {
@@ -67,6 +68,10 @@ extension UIViewController {
             }
             catch let error as NSError {
                 NSLog("\(error.description)")
+            }
+            }
+            else {
+                done(json: nil)
             }
         })
         task.resume()
