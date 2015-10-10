@@ -20,16 +20,23 @@ class UserInviteController : UIViewController {
     @IBOutlet weak var registrationCode: UITextField!
     @IBAction func goHomeClick(sender: UIButton) {
         self.goHome()
+
     }
     
     @IBAction func submitCode(sender: UIButton) {
+        self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text
         if self.regCode == "" {
             return
         }
+        
         self.showNoConnectionDialog({
             self.getInvite()
         })
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
