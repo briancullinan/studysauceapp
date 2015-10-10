@@ -16,6 +16,7 @@ class UserResetController: UIViewController {
     @IBOutlet weak var email: UITextField!
     
     @IBAction func resetClick(sender: UIButton) {
+        self.email.resignFirstResponder()
         self.mail = email.text
         self.showNoConnectionDialog({
             self.postJson("/reset", params: ["email": self.mail], done: {(json) in 
@@ -26,5 +27,8 @@ class UserResetController: UIViewController {
                 })
             })
         })
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

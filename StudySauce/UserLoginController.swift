@@ -22,6 +22,12 @@ class UserLoginController : UIViewController {
         self.email = username.text
         self.pass = password.text
         self.authenticate()
+        self.username.resignFirstResponder()
+        self.password.resignFirstResponder()
+    }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     override func viewDidLoad() {

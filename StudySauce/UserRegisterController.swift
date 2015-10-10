@@ -25,11 +25,16 @@ class UserRegisterController : UIViewController {
     @IBOutlet weak var childLast: UITextField!
     
     @IBAction func registerClick(sender: UIButton) {
+        self.lastName.resignFirstResponder()
+        self.firstName.resignFirstResponder()
+        self.email.resignFirstResponder()
+        self.childFirst.resignFirstResponder()
+        self.childLast.resignFirstResponder()
         self.first = self.firstName.text
         self.mail = self.email.text
         self.last = self.lastName.text
         self.showNoConnectionDialog({
-            self.registerUser()
+        self.registerUser()
         })
     }
     
@@ -79,5 +84,7 @@ class UserRegisterController : UIViewController {
                 }
             })
     }
-    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
