@@ -6,39 +6,25 @@
 //  Copyright © 2015 The Study Institute. All rights reserved.
 //
 
+func <(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedAscending
+}
+
+func <=(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedAscending || a.compare(b) == NSComparisonResult.OrderedSame
+}
+
+func >(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedDescending
+}
+
+func >=(a: NSDate, b: NSDate) -> Bool {
+    return a.compare(b) == NSComparisonResult.OrderedDescending || a.compare(b) == NSComparisonResult.OrderedSame
+}
+
 import Foundation
 extension NSDate
 {
-    func isGreaterThanDate(dateToCompare : NSDate) -> Bool
-    {
-        //Declare Variables
-        var isGreater = false
-        
-        //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedDescending
-        {
-            isGreater = true
-        }
-        
-        //Return Result
-        return isGreater
-    }
-    
-    
-    func isLessThanDate(dateToCompare : NSDate) -> Bool
-    {
-        //Declare Variables
-        var isLess = false
-        
-        //Compare Values
-        if self.compare(dateToCompare) == NSComparisonResult.OrderedAscending
-        {
-            isLess = true
-        }
-        
-        //Return Result
-        return isLess
-    }
     
     func addDays(daysToAdd : Int) -> NSDate
     {
@@ -48,7 +34,6 @@ extension NSDate
         //Return Result
         return dateWithDaysAdded
     }
-    
     
     func addHours(hoursToAdd : Int) -> NSDate
     {

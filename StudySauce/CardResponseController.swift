@@ -12,6 +12,8 @@ import UIKit
 
 class CardResponseController: UIViewController {
     
+    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var packTitle: UILabel!
     internal var pack: Pack!
     internal var cards = [Card]()
     internal var card: Card!
@@ -28,6 +30,7 @@ class CardResponseController: UIViewController {
                 newResponse!.correct = true
                 newResponse!.card = self.card
                 newResponse!.created = NSDate()
+                newResponse!.user = AppDelegate.getUser()
                 try moc.save()
             }
         }
@@ -55,6 +58,7 @@ class CardResponseController: UIViewController {
                 newResponse!.correct = false
                 newResponse!.card = self.card
                 newResponse!.created = NSDate()
+                newResponse!.user = AppDelegate.getUser()
                 try moc.save()
             }
         }
@@ -86,8 +90,16 @@ class CardResponseController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let url = self.pack.logo where !url.isEmpty {
+            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
+            self.logoImage.image = logo
+        }
+        else {
+            self.logoImage.image = nil
+        }
         self.response.text = self.card.response
+        self.packTitle.text = self.pack.title
+        
     }
 }
 

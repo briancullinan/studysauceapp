@@ -18,14 +18,23 @@ class UserInviteController : UIViewController {
     internal var token: String?
 
     @IBOutlet weak var registrationCode: UITextField!
-    @IBAction func goHomeClick(sender: UIButton) {
-        self.goHome()
-
-    }
+    @IBOutlet weak var registrationCode2: UITextField!
     
     @IBAction func submitCode(sender: UIButton) {
         self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text
+        if self.regCode == "" {
+            return
+        }
+        
+        self.showNoConnectionDialog({
+            self.getInvite()
+        })
+    }
+    
+    @IBAction func submitCode2(sender: UIButton) {
+        self.registrationCode2.resignFirstResponder()
+        self.regCode = self.registrationCode2.text
         if self.regCode == "" {
             return
         }
@@ -41,7 +50,7 @@ class UserInviteController : UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? UserRegisterController {
-            vc.registrationCode = self.registrationCode.text
+            vc.registrationCode = self.regCode
             vc.first = self.first
             vc.last = self.last
             vc.mail = self.mail

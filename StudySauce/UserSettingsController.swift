@@ -68,7 +68,7 @@ class UserSettingsController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0 && indexPath.section == 0 {
             let twentyMinutesAgo = NSDate().dateByAddingTimeInterval(-20)
-            if cacheResetTime == nil || cacheResetTime!.isLessThanDate(twentyMinutesAgo) {
+            if cacheResetTime == nil || cacheResetTime! < twentyMinutesAgo {
                 cacheResetTime = NSDate()
                 cacheResetCount = 0
             }

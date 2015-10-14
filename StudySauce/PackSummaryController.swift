@@ -11,7 +11,7 @@ import CoreData
 
 class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var objects = [Pack]()
+    var packs = [Pack]()
     var pack: Pack!
     @IBOutlet weak var tableView: UITableView!
     
@@ -76,41 +76,29 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func getPacks(completionHandler: ([Pack], NSError!) -> Void) -> Void {
-        var packs = [Pack]()
-        if let moc = AppDelegate.getContext() {
-            let fetchRequest = NSFetchRequest(entityName: "Pack")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
-            do {
-                for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
-                    packs.insert(p, atIndex: 0)
-                }
+    func getPacks(completionHandler: () -> Void) -> Void {
+        let url = AppDelegate.studySauceCom("/packs")
+        let ses = NSURLSession.sharedSession()
+        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            if error != nil {
+                return completionHandler()
             }
-            catch let error as NSError {
-                NSLog("Failed to retrieve record: \(error.localizedDescription)")
-            }
-            let url = AppDelegate.studySauceCom("/packs")
-            let ses = NSURLSession.sharedSession()
-            let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-                if (error != nil) {
-                    return completionHandler([], error)
-                }
                 
-                do {
-                    var ids = [NSNumber]()
+            do {
+                var ids = [NSNumber]()
                     
-                    // load packs from server
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                // load packs from server
+                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                if let moc = AppDelegate.getContext() {
                     for pack in json as! NSArray {
                         var newPack: Pack?
-                        for p in packs {
+                        for p in self.packs {
                             if p.id == pack["id"] as? NSNumber {
                                 newPack = p
                             }
                         }
                         if newPack == nil {
                             newPack = NSEntityDescription.insertNewObjectForEntityForName("Pack", inManagedObjectContext: moc) as? Pack
-                            packs.insert(newPack!, atIndex: 0)
                         }
                         
                         ids.insert(pack["id"] as! NSNumber, atIndex: 0)
@@ -123,21 +111,39 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                     
                     // remove packs that no longer exist
-                    for p in packs {
+                    for p in self.packs {
                         if ids.indexOf(p.id!) == nil {
                             moc.deleteObject(p)
-                            packs.removeAtIndex(packs.indexOf(p)!)
+                            self.packs.removeAtIndex(self.packs.indexOf(p)!)
                         }
                     }
                     try moc.save()
-                    completionHandler(packs, nil)
+                    completionHandler()
                 }
-                catch let error as NSError {
-                    completionHandler([], error)
+            }
+            catch _ as NSError {
+                completionHandler()
+            }
+        })
+        task.resume()
+    }
+
+    private func getPacksFromLocalStore() -> [Pack]
+    {
+        var packs = [Pack]()
+        if let moc = AppDelegate.getContext() {
+            let fetchRequest = NSFetchRequest(entityName: "Pack")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+            do {
+                for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
+                    packs.insert(p, atIndex: 0)
                 }
-            })
-            task.resume()
+            }
+            catch let error as NSError {
+                NSLog("Failed to retrieve record: \(error.localizedDescription)")
+            }
         }
+        return packs
     }
     
     override func viewDidLoad() {
@@ -146,15 +152,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.backgroundView = nil
         
         // Load packs from database
-        if let moc = AppDelegate.getContext() {
-            let fetchRequest = NSFetchRequest(entityName: "Pack")
-            do {
-                try self.objects = moc.executeFetchRequest(fetchRequest) as! [Pack]
-            }
-            catch let error as NSError {
-                NSLog("Failed to retrieve record: \(error.localizedDescription)")
-            }
-        }
+        self.packs = getPacksFromLocalStore()
         
         // Make the cell self size
         self.tableView.estimatedRowHeight = 66.0
@@ -162,11 +160,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.layoutIfNeeded()
         
         // refresh data from server
-        self.getPacks { (data, error) -> Void in
+        self.getPacks { () -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                if data.count > 0 {
-                    self.objects = data;
-                }
+                self.packs = self.getPacksFromLocalStore()
                 self.tableView.reloadData()
             })
         }
@@ -215,10 +211,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.pack = objects[indexPath.row]
+        self.pack = self.packs[indexPath.row]
         let up = self.getUserPack()
-        if pack.cards!.count == 0 || up!.downloaded == nil || (pack.modified != nil
-            && pack.modified!.isGreaterThanDate(up!.downloaded!)) {
+        if pack.cards!.count == 0 || up!.downloaded == nil
+            || (pack.modified != nil && pack.modified! > up!.downloaded!) {
                 self.getCards(pack, completionHandler: {(data, error) -> Void in
                     up!.downloaded = NSDate()
                     if let moc = AppDelegate.getContext() {
@@ -233,7 +229,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         return
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+                        if self.packs[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
                             self.performSegueWithIdentifier("results", sender: self)
                         }
                         else {
@@ -243,7 +239,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 })
         }
         else {
-            if self.objects[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+            if self.packs[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
                 self.performSegueWithIdentifier("results", sender: self)
             }
             else {
@@ -253,13 +249,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return self.packs.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
-        let object = objects[indexPath.row]
+        let object = self.packs[indexPath.row]
         cell.configure(object)
         return cell
     }
@@ -271,7 +267,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
+            self.packs.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.

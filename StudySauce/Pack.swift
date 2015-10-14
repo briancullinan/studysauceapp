@@ -29,21 +29,24 @@ class Pack: NSManagedObject {
             
             // if a card hasn't been answered, return the next card
             for c in cards {
-                if c.responses!.count == 0 {
+                let response = c.getResponseForUser(user)
+                if response == nil {
+                    return c
+                }
+                else if up != nil && up!.retry_from == nil
+                    // retry from is nil because all the answers are correct so restart the set
+                    && up!.retry_to != nil && response!.created! < up!.retry_to! {
                     return c
                 }
                 // check for answers within the date range
-                else if  up != nil && up!.retry_to != nil {
-                    let responses = c.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)])
-                    if let r = responses[0] as? Response {
-                        if r.created!.isLessThanDate(up!.retry_to!) && r.correct! == false {
-                            return c
-                        }
-                    }
+                else if up != nil && up!.retry_to != nil
+                    // only return cards that haven't been retried and the last answer was incorrect
+                    && response!.created! < up!.retry_to! && response!.correct! == false {
+                    return c
                 }
             }
         }
-        return Card?()
+        return nil
     }
     
 }

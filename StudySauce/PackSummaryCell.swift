@@ -15,22 +15,22 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
-    //@IBOutlet weak var modifiedLabel: UILabel!
+    @IBOutlet weak var modifiedLabel: UILabel!
     
     weak var pack: Pack!
         
-    internal func configure(object: Pack) {
-        self.pack = object
-        let title = object.title
-        var creator = object.creator
+    internal func configure(pack: Pack) {
+        self.pack = pack
+        let title = pack.title
+        var creator = pack.creator
         if creator == nil || creator == "" {
             creator = " "
         }
-        var modified = object.modified
+        var modified = pack.modified
         if modified == nil {
-            modified = object.created
+            modified = pack.created
         }
-        if let url = object.logo where !url.isEmpty {
+        if let url = pack.logo where !url.isEmpty {
             let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
             logoImage.image = logo
         }
@@ -38,7 +38,7 @@ public class PackSummaryCell: UITableViewCell {
             logoImage.image = nil
         }
 
-        //self.modifiedLabel.text = modified!.description
+        self.modifiedLabel.text = modified!.description
         self.titleLabel.text = title
         self.creatorLabel.text = creator
     }

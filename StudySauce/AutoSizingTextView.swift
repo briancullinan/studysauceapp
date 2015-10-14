@@ -9,14 +9,16 @@
 import Foundation
 import UIKit
 
+@IBDesignable
 class AutoSizingTextView: UITextView {
     
     var minSize: CGFloat = 12
     var maxSize: CGFloat = 32
+    var isCalculating = false
     
-    func calcFontSize() -> Void {
+    func getFontSize() -> CGFloat? {
         if self.font == nil {
-            return
+            return nil
         }
         let maximumLabelWidth = CGSizeMake(CGRectGetWidth(self.frame), 0)
         let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.size.height)
@@ -34,7 +36,7 @@ class AutoSizingTextView: UITextView {
         }
         var size = self.minSize
         repeat {
-            size = size + 0.1
+            size = size + 0.5
             let font = UIFont(name: self.font!.fontName, size: size)
             fontHeight = (font!.ascender - font!.descender) + 1
             expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
@@ -50,10 +52,26 @@ class AutoSizingTextView: UITextView {
             && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
                 // resize but don't allow the words per line to increase
                 || numberOfLines == origLines! || CGFloat(words.count) / numberOfLines / 2 > self.bounds.width / self.bounds.height)
+        return size - 0.1
+    }
+    
+    func calcFontSize() -> Void {
+        
         // TODO: if it goes over even on a small setting, turn scrollable back on.
         // TODO: center resized box in container?
         // TODO: all of this when textbox changes
-        self.font = UIFont(name: self.font!.fontName, size: size - 0.1)
+        if !self.isCalculating {
+            self.isCalculating = true
+        
+            if let size = self.getFontSize() {
+                self.font = UIFont(name: self.font!.fontName, size: size)
+            }
+            var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
+            topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
+            self.contentOffset = CGPoint(x: 0, y: -topCorrect)
+        
+            self.isCalculating = false
+        }
     }
     
     override var text: String! {
@@ -67,4 +85,6 @@ class AutoSizingTextView: UITextView {
             self.calcFontSize()
         }
     }
+    
+    
 }

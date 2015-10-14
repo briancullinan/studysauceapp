@@ -74,6 +74,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
     }
     
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return true
+    }
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if url.getKeyVals()["token"] != nil {
+            let reset = self.storyboard!.instantiateViewControllerWithIdentifier("PasswordReset") as! UserResetController
+            reset.token = url.getKeyVals()["token"]!
+            reset.mail = url.getKeyVals()["email"]!
+            self.window?.rootViewController!.presentViewController(reset, animated: true, completion: {})
+            return true
+        }
+        return true
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

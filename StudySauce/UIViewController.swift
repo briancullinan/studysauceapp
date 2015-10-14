@@ -38,7 +38,9 @@ extension UIViewController {
     func postJson (url: String, params: Dictionary<String, AnyObject?>, done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
         var postData = ""
         for (k, v) in params {
-            postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+            postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + (v == nil
+                ? ""
+                : v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
         }
         let data = postData.dataUsingEncoding(NSUTF8StringEncoding)
         let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom(url))

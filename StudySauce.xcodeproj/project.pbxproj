@@ -10,6 +10,7 @@
 		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; settings = {ASSET_TAGS = (); }; };
+		642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642290BC1BCDC4ED00CD7898 /* NSUrl.swift */; settings = {ASSET_TAGS = (); }; };
 		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; settings = {ASSET_TAGS = (); }; };
 		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		642354181BBE189100B068DB /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354171BBE189100B068DB /* UserLoginController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -59,6 +60,7 @@
 		6401F4941BB52A78004E0163 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		642290BC1BCDC4ED00CD7898 /* NSUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUrl.swift; sourceTree = "<group>"; };
 		642354101BBDD12200B068DB /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		642354151BBDFDD800B068DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		642354171BBE189100B068DB /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				64D219EF1BBCAE34005F9094 /* UIViewController.swift */,
 				642354101BBDD12200B068DB /* DismissSegue.swift */,
 				64570BDB1BC64B4D00F9C6EB /* String.swift */,
+				642290BC1BCDC4ED00CD7898 /* NSUrl.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				64570BE01BC6F13400F9C6EB /* BetaSignupController.swift in Sources */,
 				64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */,
+				642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */,
 				64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */,
 				6401F49E1BB52A78004E0163 /* Card.swift in Sources */,
 				9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */,
@@ -503,7 +507,7 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "studysauce.com.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -518,7 +522,7 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "studysauce.com.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
