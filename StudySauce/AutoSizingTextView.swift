@@ -36,7 +36,7 @@ class AutoSizingTextView: UITextView {
         }
         var size = self.minSize
         repeat {
-            size = size + 0.5
+            size = size + 1
             let font = UIFont(name: self.font!.fontName, size: size)
             fontHeight = (font!.ascender - font!.descender) + 1
             expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
@@ -52,7 +52,7 @@ class AutoSizingTextView: UITextView {
             && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
                 // resize but don't allow the words per line to increase
                 || numberOfLines == origLines! || CGFloat(words.count) / numberOfLines / 2 > self.bounds.width / self.bounds.height)
-        return size - 0.1
+        return size - 1
     }
     
     func calcFontSize() -> Void {

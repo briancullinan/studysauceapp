@@ -213,8 +213,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = self.packs[indexPath.row]
         let up = self.getUserPack()
-        if pack.cards!.count == 0 || up!.downloaded == nil
-            || (pack.modified != nil && pack.modified! > up!.downloaded!) {
+        if self.pack.cards!.count == 0 || up!.downloaded == nil
+            || (self.pack.modified != nil && self.pack.modified! > up!.downloaded!) {
                 self.getCards(pack, completionHandler: {(data, error) -> Void in
                     up!.downloaded = NSDate()
                     if let moc = AppDelegate.getContext() {

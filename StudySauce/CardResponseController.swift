@@ -37,7 +37,7 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
-        let url = AppDelegate.studySauceCom("/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")
+        let url = AppDelegate.studySauceCom("/packs/responses?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=1")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             
@@ -65,7 +65,7 @@ class CardResponseController: UIViewController {
         catch let error as NSError {
             NSLog(error.description)
         }
-        let url = AppDelegate.studySauceCom("/response?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=0")
+        let url = AppDelegate.studySauceCom("/packs/responses?pack=\(self.pack.id!)&card=\(self.card.id!)&correct=0")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             
