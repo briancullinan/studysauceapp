@@ -107,12 +107,11 @@ class UserLoginController : UIViewController {
                 "email"        : self.email,
                 "pass"         : self.pass,
                 "_remember_me" : "on",
-                "csrf_token"   : UserLoginController.token],
-            error: {(code) in
-                if code == 500 {
+                "csrf_token"   : UserLoginController.token]
+            , redirect: {(path) in
+                if path == "/login" {
                     self.showDialog("Incorrect password", button: "Try again")
                 }
-            }, redirect: {(path) in
                 if path == "/home" {
                     self.goHome(true)
                 }
