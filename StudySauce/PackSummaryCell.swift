@@ -15,9 +15,8 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
-    @IBOutlet weak var modifiedLabel: UILabel!
     
-    weak var pack: Pack!
+    weak var pack: Pack? = nil
         
     internal func configure(pack: Pack) {
         self.pack = pack
@@ -38,7 +37,6 @@ public class PackSummaryCell: UITableViewCell {
             logoImage.image = nil
         }
 
-        self.modifiedLabel.text = modified!.description
         self.titleLabel.text = title
         self.creatorLabel.text = creator
     }

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -208,25 +207,14 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y0i-dL-Boc">
-                                                    <rect key="frame" x="497" y="54" width="31" height="15"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-O5-iPD">
-                                                    <rect key="frame" x="432" y="-5" width="160" height="80"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="80" id="Baa-h0-VJQ"/>
-                                                        <constraint firstAttribute="width" secondItem="v1A-O5-iPD" secondAttribute="height" multiplier="2:1" id="uAh-20-LfS"/>
-                                                    </constraints>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalCompressionResistancePriority="250" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-O5-iPD">
+                                                    <rect key="frame" x="372" y="8" width="220" height="53"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Y0i-dL-Boc" secondAttribute="centerY" id="6sk-7r-1Oi"/>
-                                                <constraint firstItem="v1A-O5-iPD" firstAttribute="centerY" secondItem="Cop-dO-w2C" secondAttribute="centerY" id="Cq3-7M-hVn"/>
+                                                <constraint firstItem="v1A-O5-iPD" firstAttribute="top" secondItem="zaP-jp-FHw" secondAttribute="top" id="0cV-AC-Xfi"/>
                                                 <constraint firstAttribute="topMargin" secondItem="zaP-jp-FHw" secondAttribute="top" id="FwX-Zl-axk"/>
-                                                <constraint firstItem="Y0i-dL-Boc" firstAttribute="centerX" secondItem="v1A-O5-iPD" secondAttribute="centerX" id="Kp6-j0-zyD"/>
+                                                <constraint firstItem="v1A-O5-iPD" firstAttribute="bottom" secondItem="9HB-8t-yWW" secondAttribute="bottom" id="LHE-Mx-CEJ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="v1A-O5-iPD" secondAttribute="trailing" id="QzW-mO-g3U"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="9HB-8t-yWW" secondAttribute="bottom" id="VEz-AT-Pyg"/>
                                                 <constraint firstItem="9HB-8t-yWW" firstAttribute="leading" secondItem="Cop-dO-w2C" secondAttribute="leadingMargin" id="d0d-5e-xAL"/>
@@ -252,7 +240,6 @@
                                         <connections>
                                             <outlet property="creatorLabel" destination="9HB-8t-yWW" id="2XI-pN-9Zp"/>
                                             <outlet property="logoImage" destination="v1A-O5-iPD" id="zti-K3-VFB"/>
-                                            <outlet property="modifiedLabel" destination="Y0i-dL-Boc" id="Qzp-Ol-ORT"/>
                                             <outlet property="titleLabel" destination="zaP-jp-FHw" id="Gqd-wz-yT8"/>
                                         </connections>
                                     </tableViewCell>
@@ -1916,11 +1903,11 @@ support@studysauce.com
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="H2U-7l-d0h"/>
-        <segue reference="5iv-ms-cXn"/>
-        <segue reference="1gj-gl-xg6"/>
+        <segue reference="Kyk-ub-bbY"/>
         <segue reference="xPb-Xh-Fmi"/>
+        <segue reference="FIi-mi-o0y"/>
+        <segue reference="LKA-iK-vlk"/>
         <segue reference="b42-hi-3ZP"/>
-        <segue reference="5Q1-aA-R4W"/>
         <segue reference="AaP-eY-XLw"/>
         <segue reference="vjw-L6-fSU"/>
     </inferredMetricsTieBreakers>
