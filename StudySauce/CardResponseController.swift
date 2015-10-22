@@ -12,7 +12,7 @@ import UIKit
 
 class CardResponseController: UIViewController {
     
-    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var packTitle: UILabel!
     internal var pack: Pack!
     internal var cards = [Card]()
@@ -90,13 +90,9 @@ class CardResponseController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let url = self.pack.logo where !url.isEmpty {
-            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            self.logoImage.image = logo
-        }
-        else {
-            self.logoImage.image = nil
-        }
+        let index = self.pack.getIndexForCard(self.card, user: AppDelegate.getUser())
+        let count = self.pack.getCardCount(AppDelegate.getUser())
+        self.countLabel.text = "\(index) of \(count)"
         self.response.text = self.card.response
         self.packTitle.text = self.pack.title
         

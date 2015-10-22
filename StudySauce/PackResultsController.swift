@@ -22,27 +22,6 @@ class PackResultsController: UIViewController {
     
     // TODO: trigger synchronize data with server
     @IBAction func retryClick(sender: UIButton) {
-        var earliest: NSDate? = nil
-        for c in self.pack.cards?.allObjects as! [Card] {
-            if let last = c.getResponseForUser(AppDelegate.getUser()) {
-                if last.correct == 0 && (earliest == nil || last.created! < earliest!) {
-                    earliest = last.created!
-                }
-            }
-        }
-        
-        // set from and to times for retry wrong answers
-        let up = pack.getUserPackForUser(AppDelegate.getUser())
-        if let moc = AppDelegate.getContext() {
-            up!.retry_from = earliest
-            up!.retry_to = NSDate()
-            do {
-                try moc.save()
-            }
-            catch let error as NSError {
-                NSLog("\(error.localizedDescription)")
-            }
-        }
         
         self.performSegueWithIdentifier("prompt", sender: self)
     }
@@ -78,6 +57,28 @@ class PackResultsController: UIViewController {
         
         if wrong == 0 {
             review.text = "Start over?"
+        }
+        
+        var earliest: NSDate? = nil
+        for c in self.pack.cards?.allObjects as! [Card] {
+            if let last = c.getResponseForUser(AppDelegate.getUser()) {
+                if last.correct == 0 && (earliest == nil || last.created! < earliest!) {
+                    earliest = last.created!
+                }
+            }
+        }
+        
+        // set from and to times for retry wrong answers
+        let up = pack.getUserPackForUser(AppDelegate.getUser())
+        if let moc = AppDelegate.getContext() {
+            up!.retry_from = earliest
+            up!.retry_to = NSDate()
+            do {
+                try moc.save()
+            }
+            catch let error as NSError {
+                NSLog("\(error.localizedDescription)")
+            }
         }
         
         let score = Int32(round(Double(correct) / Double(correct + wrong) * 100.0));

@@ -15,6 +15,7 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
     
     weak var pack: Pack? = nil
         
@@ -31,13 +32,19 @@ public class PackSummaryCell: UITableViewCell {
         }
         if let url = pack.logo where !url.isEmpty {
             let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            logoImage.image = logo
+            self.logoImage.image = logo
+            self.logoImage.hidden = false
+            self.creatorLabel.hidden = true
         }
         else {
-            logoImage.image = nil
+            self.logoImage.image = nil
+            self.logoImage.hidden = true
+            self.creatorLabel.text = creator
+            self.creatorLabel.hidden = false
         }
-
+        let count = pack.getCardCount(AppDelegate.getUser())
+        let s = count > 1 ? "s" : ""
+        self.countLabel.text = "\(count) card\(s)";
         self.titleLabel.text = title
-        self.creatorLabel.text = creator
     }
 }

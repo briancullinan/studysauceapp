@@ -12,7 +12,7 @@ import UIKit
 
 class CardPromptController: UIViewController {
 
-    @IBOutlet weak var logoImage: UIImageView!
+    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var packTitle: UILabel!
     @IBOutlet weak var prompt: UITextView!
     internal var pack: Pack!
@@ -26,13 +26,9 @@ class CardPromptController: UIViewController {
         self.card = self.pack.getCardForUser(AppDelegate.getUser())
         self.prompt.text = self.card.content
         self.packTitle.text = self.pack.title
-        if let url = self.pack.logo where !url.isEmpty {
-            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            self.logoImage.image = logo
-        }
-        else {
-            self.logoImage.image = nil
-        }
+        let index = self.pack.getIndexForCard(self.card, user: AppDelegate.getUser())
+        let count = self.pack.getCardCount(AppDelegate.getUser())
+        self.countLabel.text = "\(index) of \(count)"
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

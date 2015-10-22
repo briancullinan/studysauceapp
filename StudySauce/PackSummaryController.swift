@@ -77,7 +77,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func getPacks(completionHandler: () -> Void) -> Void {
-        let url = AppDelegate.studySauceCom("/packs")
+        let url = AppDelegate.studySauceCom("/packs/list")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if error != nil {
