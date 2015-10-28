@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Xcode 7.0">
+    <entity name="Answer" representedClassName=".Answer" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="modified" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="response" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="answers" inverseEntity="Card" syncable="YES"/>
+        <relationship name="responses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="answer" inverseEntity="Response" syncable="YES"/>
+    </entity>
     <entity name="Card" representedClassName=".Card" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="content_type" optional="YES" attributeType="String" syncable="YES"/>
@@ -9,6 +20,7 @@
         <attribute name="recurrence" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="response" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="response_type" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="answers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answer" inverseName="card" inverseEntity="Answer" syncable="YES"/>
         <relationship name="pack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pack" inverseName="cards" inverseEntity="Pack" syncable="YES"/>
         <relationship name="responses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="card" inverseEntity="Response" syncable="YES"/>
     </entity>
@@ -35,12 +47,12 @@
         <relationship name="user_packs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserPack" inverseName="pack" inverseEntity="UserPack" syncable="YES"/>
     </entity>
     <entity name="Response" representedClassName=".Response" syncable="YES">
-        <attribute name="answer" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="correct" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="file" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="answer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Answer" inverseName="responses" inverseEntity="Answer" syncable="YES"/>
         <relationship name="card" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Card" inverseName="responses" inverseEntity="Card" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="responses" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -69,10 +81,11 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="user_packs" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Card" positionX="1519" positionY="-711" width="128" height="195"/>
+        <element name="Card" positionX="1519" positionY="-711" width="128" height="210"/>
         <element name="Pack" positionX="1258" positionY="-697" width="128" height="345"/>
         <element name="Response" positionX="1780" positionY="-594" width="128" height="165"/>
         <element name="User" positionX="1458" positionY="-567" width="128" height="240"/>
         <element name="UserPack" positionX="1467" positionY="-558" width="128" height="150"/>
+        <element name="Answer" positionX="1458" positionY="-567" width="128" height="180"/>
     </elements>
 </model>

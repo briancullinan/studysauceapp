@@ -75,7 +75,7 @@ class UserRegisterController : UIViewController {
                 }
             }, error: {(code) in
                 if code == 301 {
-                    self.showDialog("Existing account found", button: "Log in instead", done: {
+                    self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
                         dispatch_async(dispatch_get_main_queue(),{
                             self.performSegueWithIdentifier("login", sender: self)
                         })

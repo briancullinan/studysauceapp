@@ -7,43 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; settings = {ASSET_TAGS = (); }; };
-		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; settings = {ASSET_TAGS = (); }; };
-		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; settings = {ASSET_TAGS = (); }; };
-		642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642290BC1BCDC4ED00CD7898 /* NSUrl.swift */; settings = {ASSET_TAGS = (); }; };
-		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; settings = {ASSET_TAGS = (); }; };
-		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
-		642354181BBE189100B068DB /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354171BBE189100B068DB /* UserLoginController.swift */; settings = {ASSET_TAGS = (); }; };
-		64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C5E1BC595EB005AA348 /* UserResetController.swift */; settings = {ASSET_TAGS = (); }; };
-		64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C601BC5A2CD005AA348 /* SaucyButton.swift */; settings = {ASSET_TAGS = (); }; };
-		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; settings = {ASSET_TAGS = (); }; };
-		644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardPromptController.swift */; settings = {ASSET_TAGS = (); }; };
-		644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A631BB351F900E4D52A /* CardResponseController.swift */; settings = {ASSET_TAGS = (); }; };
-		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; settings = {ASSET_TAGS = (); }; };
-		64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDB1BC64B4D00F9C6EB /* String.swift */; settings = {ASSET_TAGS = (); }; };
-		64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDD1BC64C6100F9C6EB /* DialogController.swift */; settings = {ASSET_TAGS = (); }; };
-		64570BE01BC6F13400F9C6EB /* BetaSignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDF1BC6F13400F9C6EB /* BetaSignupController.swift */; settings = {ASSET_TAGS = (); }; };
-		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E31BBB0CCB005F9094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DC1BBB0CCB005F9094 /* User.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DE1BBB0CCB005F9094 /* Pack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E01BBB0CCB005F9094 /* UserPack.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E91BBB2BCE005F9094 /* NSDate.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219EF1BBCAE34005F9094 /* UIViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F11BBCD05F005F9094 /* UserInviteController.swift */; settings = {ASSET_TAGS = (); }; };
-		64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F31BBCD133005F9094 /* UserRegisterController.swift */; settings = {ASSET_TAGS = (); }; };
-		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
+		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; };
+		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; };
+		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; };
+		642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642290BC1BCDC4ED00CD7898 /* NSUrl.swift */; };
+		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; };
+		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; };
+		642354181BBE189100B068DB /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354171BBE189100B068DB /* UserLoginController.swift */; };
+		64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C5E1BC595EB005AA348 /* UserResetController.swift */; };
+		64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C601BC5A2CD005AA348 /* SaucyButton.swift */; };
+		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; };
+		644C4A621BB3516F00E4D52A /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardController.swift */; };
+		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; };
+		64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDB1BC64B4D00F9C6EB /* String.swift */; };
+		64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDD1BC64C6100F9C6EB /* DialogController.swift */; };
+		64570BE01BC6F13400F9C6EB /* BetaSignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDF1BC6F13400F9C6EB /* BetaSignupController.swift */; };
+		649B093D1BE07C1700A3F9A4 /* CardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B093C1BE07C1700A3F9A4 /* CardSegue.swift */; };
+		649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */; };
+		649B09411BE08D8700A3F9A4 /* CardSelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09401BE08D8700A3F9A4 /* CardSelfController.swift */; };
+		649B09431BE0970E00A3F9A4 /* CardTrueFalseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */; };
+		649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09441BE12DA000A3F9A4 /* CardBlankController.swift */; };
+		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; };
+		64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */; };
+		64D0C0DC1BDFCECB006FEF44 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0DA1BDFCECB006FEF44 /* Answer.swift */; };
+		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; };
+		64D219E31BBB0CCB005F9094 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DC1BBB0CCB005F9094 /* User.swift */; };
+		64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */; };
+		64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DE1BBB0CCB005F9094 /* Pack+CoreDataProperties.swift */; };
+		64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */; };
+		64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E01BBB0CCB005F9094 /* UserPack.swift */; };
+		64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */; };
+		64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E91BBB2BCE005F9094 /* NSDate.swift */; };
+		64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */; };
+		64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219EF1BBCAE34005F9094 /* UIViewController.swift */; };
+		64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F11BBCD05F005F9094 /* UserInviteController.swift */; };
+		64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F31BBCD133005F9094 /* UserRegisterController.swift */; };
+		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
 		845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */; };
 		8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */; };
-		9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */; settings = {ASSET_TAGS = (); }; };
-		9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */; settings = {ASSET_TAGS = (); }; };
+		9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */; };
+		9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,13 +73,19 @@
 		64291C5E1BC595EB005AA348 /* UserResetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResetController.swift; sourceTree = "<group>"; };
 		64291C601BC5A2CD005AA348 /* SaucyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaucyButton.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
-		644C4A611BB3516F00E4D52A /* CardPromptController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPromptController.swift; sourceTree = "<group>"; };
-		644C4A631BB351F900E4D52A /* CardResponseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardResponseController.swift; sourceTree = "<group>"; };
+		644C4A611BB3516F00E4D52A /* CardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
 		64570BDB1BC64B4D00F9C6EB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		64570BDD1BC64C6100F9C6EB /* DialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
 		64570BDF1BC6F13400F9C6EB /* BetaSignupController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetaSignupController.swift; sourceTree = "<group>"; };
+		649B093C1BE07C1700A3F9A4 /* CardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSegue.swift; sourceTree = "<group>"; };
+		649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMultipleController.swift; sourceTree = "<group>"; };
+		649B09401BE08D8700A3F9A4 /* CardSelfController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSelfController.swift; sourceTree = "<group>"; };
+		649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTrueFalseController.swift; sourceTree = "<group>"; };
+		649B09441BE12DA000A3F9A4 /* CardBlankController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBlankController.swift; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
+		64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		64D0C0DA1BDFCECB006FEF44 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D219DC1BBB0CCB005F9094 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		64D219DD1BBB0CCB005F9094 /* Card+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Card+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -132,6 +144,8 @@
 				64D219DC1BBB0CCB005F9094 /* User.swift */,
 				64D219DF1BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift */,
 				64D219E01BBB0CCB005F9094 /* UserPack.swift */,
+				64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */,
+				64D0C0DA1BDFCECB006FEF44 /* Answer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -140,8 +154,11 @@
 			isa = PBXGroup;
 			children = (
 				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
-				644C4A611BB3516F00E4D52A /* CardPromptController.swift */,
-				644C4A631BB351F900E4D52A /* CardResponseController.swift */,
+				644C4A611BB3516F00E4D52A /* CardController.swift */,
+				649B09401BE08D8700A3F9A4 /* CardSelfController.swift */,
+				649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */,
+				649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */,
+				649B09441BE12DA000A3F9A4 /* CardBlankController.swift */,
 				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				64D219F11BBCD05F005F9094 /* UserInviteController.swift */,
 				64D219F31BBCD133005F9094 /* UserRegisterController.swift */,
@@ -174,6 +191,7 @@
 				642354101BBDD12200B068DB /* DismissSegue.swift */,
 				64570BDB1BC64B4D00F9C6EB /* String.swift */,
 				642290BC1BCDC4ED00CD7898 /* NSUrl.swift */,
+				649B093C1BE07C1700A3F9A4 /* CardSegue.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -341,30 +359,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				642354181BBE189100B068DB /* UserLoginController.swift in Sources */,
+				649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */,
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				642354111BBDD12200B068DB /* DismissSegue.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
 				9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
-				644C4A621BB3516F00E4D52A /* CardPromptController.swift in Sources */,
+				644C4A621BB3516F00E4D52A /* CardController.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
+				649B09431BE0970E00A3F9A4 /* CardTrueFalseController.swift in Sources */,
 				64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */,
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
+				649B09411BE08D8700A3F9A4 /* CardSelfController.swift in Sources */,
+				64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */,
 				64570BE01BC6F13400F9C6EB /* BetaSignupController.swift in Sources */,
 				64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */,
 				642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */,
 				64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */,
 				6401F49E1BB52A78004E0163 /* Card.swift in Sources */,
+				64D0C0DC1BDFCECB006FEF44 /* Answer.swift in Sources */,
 				9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */,
 				6401F49A1BB52A78004E0163 /* Response.swift in Sources */,
-				644C4A641BB351F900E4D52A /* CardResponseController.swift in Sources */,
+				649B093D1BE07C1700A3F9A4 /* CardSegue.swift in Sources */,
 				64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */,
 				64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */,
 				64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */,
 				64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */,
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
+				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
 				64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */,
 				64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */,
 				64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */,

@@ -2,7 +2,7 @@
 //  Pack+CoreDataProperties.swift
 //  StudySauce
 //
-//  Created by Brian Cullinan on 9/30/15.
+//  Created by Brian Cullinan on 10/27/15.
 //  Copyright © 2015 The Study Institute. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu

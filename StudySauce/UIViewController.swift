@@ -98,7 +98,7 @@ extension UIViewController {
         }
         else {
             var timer: NSTimer? = nil
-            let dialog = self.showDialog("No internet connection".localized, button: "Try again".localized, done: {
+            let dialog = self.showDialog(NSLocalizedString("No internet connection", comment: "Message when internet connection is needed but not available"), button: NSLocalizedString("Try again", comment: "Dismiss no internet connection and try again"), done: {
                 let result = AppDelegate.isConnectedToNetwork()
                 if result {
                     timer?.invalidate()

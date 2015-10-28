@@ -63,16 +63,8 @@ class UserInviteController : UIViewController {
         self.postJson("/register", params: ["_code": self.regCode], error: {(code) in
             is_error_or_redirect = true
             if code == 404 {
-                self.showDialog("No matching code found", button: "Try again")
+                self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), button: NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
                 return
-            }
-            if code == 301 {
-                self.showDialog("Existing account found", button: "Log in instead", done: {
-                    dispatch_async(dispatch_get_main_queue(),{
-                        self.performSegueWithIdentifier("login", sender: self)
-                    })
-                    return true
-                })
             }
             }, redirect: {(path) in
                 is_error_or_redirect = true
@@ -81,11 +73,9 @@ class UserInviteController : UIViewController {
                     return
                 }
             }, done: {(json) in
-                if json as? NSDictionary != nil {
                 self.first = json!["first"] as? String
                 self.last = json!["last"] as? String
                 self.mail = json!["email"] as? String
-                }
                 if !is_error_or_redirect {
                     self.performSegueWithIdentifier("register", sender: self)
                 }

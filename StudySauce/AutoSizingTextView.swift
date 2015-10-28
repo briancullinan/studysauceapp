@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-@IBDesignable
+
 class AutoSizingTextView: UITextView {
     
     var minSize: CGFloat = 12
@@ -51,7 +51,7 @@ class AutoSizingTextView: UITextView {
             && expectSize.height < maximumLabelWidth.width - fontHeight
             && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
                 // resize but don't allow the words per line to increase
-                || numberOfLines == origLines! || CGFloat(words.count) / numberOfLines / 2 > self.bounds.width / self.bounds.height)
+                || numberOfLines <= origLines! || CGFloat(words.count) / numberOfLines / 4 > self.bounds.width / self.bounds.height)
         return size - 1
     }
     

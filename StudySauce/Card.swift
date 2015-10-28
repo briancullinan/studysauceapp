@@ -24,4 +24,12 @@ class Card: NSManagedObject {
         return nil;
     }
     
+    func getCorrect() -> Answer? {
+        for a in self.answers!.allObjects as! [Answer] {
+            if a.correct == 1 {
+                return a;
+            }
+        }
+        return nil
+    }
 }

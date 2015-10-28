@@ -1,5 +1,5 @@
 //
-//  Response+CoreDataProperties.swift
+//  Answer+CoreDataProperties.swift
 //  StudySauce
 //
 //  Created by Brian Cullinan on 10/27/15.
@@ -12,15 +12,16 @@
 import Foundation
 import CoreData
 
-extension Response {
+extension Answer {
 
+    @NSManaged var id: NSNumber?
+    @NSManaged var content: String?
+    @NSManaged var response: String?
+    @NSManaged var value: String?
     @NSManaged var correct: NSNumber?
     @NSManaged var created: NSDate?
-    @NSManaged var file: NSNumber?
-    @NSManaged var id: NSNumber?
-    @NSManaged var value: String?
+    @NSManaged var modified: NSDate?
     @NSManaged var card: Card?
-    @NSManaged var user: User?
-    @NSManaged var answer: Answer?
+    @NSManaged var responses: NSSet?
 
 }

@@ -110,7 +110,7 @@ class UserLoginController : UIViewController {
                 "csrf_token"   : UserLoginController.token]
             , redirect: {(path) in
                 if path == "/login" {
-                    self.showDialog("Incorrect password", button: "Try again")
+                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails"))
                 }
                 if path == "/home" {
                     self.goHome(true)

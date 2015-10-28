@@ -23,6 +23,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     // load the card content, display and available answers
+    // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
+    //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
         if let moc = AppDelegate.getContext() {
@@ -51,11 +53,47 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                         
                         ids.insert(card["id"] as! NSNumber, atIndex: 0)
+                        newCard!.id = card["id"] as? NSNumber
                         newCard!.content = card["content"] as? String
                         newCard!.response = card["response"] as? String
-                        newCard!.id = card["id"] as? NSNumber
+                        newCard!.response_type = card["response_type"] as? String
                         newCard!.pack = forPack
-                        newCard!.created = card["created"] as? NSDate
+                        newCard!.created = NSDate.parse(card["created"] as? String)
+                        newCard!.modified = NSDate.parse(card["modified"] as? String)
+                        
+                        // TODO: create anwers
+                        var answers = newCard!.answers?.allObjects as! [Answer]
+                        var answerIds = [NSNumber]()
+                        for answer in card["answers"] as! NSArray {
+                            var newAnswer: Answer?
+                            for a in answers {
+                                if a.id == answer["id"] as? NSNumber {
+                                    newAnswer = a
+                                }
+                            }
+                            if newAnswer == nil {
+                                newAnswer = NSEntityDescription.insertNewObjectForEntityForName("Answer", inManagedObjectContext: moc) as? Answer
+                                answers.insert(newAnswer!, atIndex: 0)
+                            }
+                            
+                            answerIds.insert(answer["id"] as! NSNumber, atIndex: 0)
+                            newAnswer!.id = answer["id"] as? NSNumber
+                            //newAnswer!.content = answer["content"] as? String
+                            //newAnswer!.response = answer["response"] as? String
+                            newAnswer!.value = answer["value"] as? String
+                            newAnswer!.card = newCard!
+                            newAnswer!.correct = answer["correct"] as? NSNumber
+                            newAnswer!.created = NSDate.parse(answer["created"] as? String)
+                            newAnswer!.modified = NSDate.parse(answer["modified"] as? String)
+                       }
+                        
+                        // remove answers that no longer exist
+                        for a in answers {
+                            if answerIds.indexOf(a.id!) == nil {
+                                moc.deleteObject(a)
+                                answers.removeAtIndex(answers.indexOf(a)!)
+                            }
+                        }
                     }
                     
                     // remove cards that no longer exist
@@ -65,6 +103,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             cards.removeAtIndex(cards.indexOf(p)!)
                         }
                     }
+                    
                     try moc.save()
                     completionHandler(cards, nil)
                 }
@@ -102,8 +141,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                         
                         ids.insert(pack["id"] as! NSNumber, atIndex: 0)
-                        newPack!.title = pack["title"] as? String
                         newPack!.id = pack["id"] as? NSNumber
+                        newPack!.title = pack["title"] as? String
                         newPack!.creator = pack["creator"] as? String
                         newPack!.logo = pack["logo"] as? String
                         newPack!.created = NSDate.parse(pack["created"] as? String)
@@ -182,7 +221,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? CardPromptController {
+        if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
         }
         if let vc = segue.destinationViewController as? PackResultsController {
@@ -233,7 +272,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             self.performSegueWithIdentifier("results", sender: self)
                         }
                         else {
-                            self.performSegueWithIdentifier("prompt", sender: self)
+                            self.performSegueWithIdentifier("card", sender: self)
                         }
                     })
                 })
@@ -243,7 +282,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 self.performSegueWithIdentifier("results", sender: self)
             }
             else {
-                self.performSegueWithIdentifier("prompt", sender: self)
+                self.performSegueWithIdentifier("card", sender: self)
             }
         }
     }

@@ -23,11 +23,11 @@ class PackResultsController: UIViewController {
     // TODO: trigger synchronize data with server
     @IBAction func retryClick(sender: UIButton) {
         
-        self.performSegueWithIdentifier("prompt", sender: self)
+        self.performSegueWithIdentifier("card", sender: self)
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? CardPromptController {
+        if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
         }
     }
