@@ -38,7 +38,7 @@ class Pack: NSManagedObject {
                     && response!.created! < up!.retry_to! {
                         // retry from is nil because all the answers are correct so restart the set
                         // only return cards that haven't been retried and the last answer was incorrect
-                        if up!.retry_from == nil || response!.correct! == false {
+                        if up!.retry_from == nil || !(response!.correct == 1) {
                             return c
                         }
                 }
@@ -61,7 +61,7 @@ class Pack: NSManagedObject {
                 }
                 else if up != nil {
                     // retry from is nil because all the answers are correct so restart the set
-                    if up!.retry_to == nil || up!.retry_from == nil || response!.correct! == false {
+                    if up!.retry_to == nil || up!.retry_from == nil || !(response!.correct == 1) || response!.created! >= up!.retry_to! {
                         count++
                     }
                 }
@@ -87,11 +87,14 @@ class Pack: NSManagedObject {
                 }
                 else if up != nil && up!.retry_to != nil {
                     // retry from is nil because all the answers are correct so restart the set
-                    if up!.retry_from == nil || response!.correct! == false {
+                    if up!.retry_from == nil || !(response!.correct == 1) || response!.created! >= up!.retry_to! {
                         count++
                     }
                 }
             }
+        }
+        if count == 0 {
+            return Int(self.count!)
         }
         return count
     }

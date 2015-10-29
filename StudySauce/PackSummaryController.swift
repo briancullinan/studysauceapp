@@ -147,6 +147,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newPack!.logo = pack["logo"] as? String
                         newPack!.created = NSDate.parse(pack["created"] as? String)
                         newPack!.modified = NSDate.parse(pack["modified"] as? String)
+                        newPack!.count = pack["count"] as? NSNumber
                     }
                     
                     // remove packs that no longer exist

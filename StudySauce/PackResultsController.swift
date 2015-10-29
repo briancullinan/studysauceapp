@@ -62,7 +62,7 @@ class PackResultsController: UIViewController {
         var earliest: NSDate? = nil
         for c in self.pack.cards?.allObjects as! [Card] {
             if let last = c.getResponseForUser(AppDelegate.getUser()) {
-                if last.correct == 0 && (earliest == nil || last.created! < earliest!) {
+                if last.correct != 1 && (earliest == nil || last.created! < earliest!) {
                     earliest = last.created!
                 }
             }

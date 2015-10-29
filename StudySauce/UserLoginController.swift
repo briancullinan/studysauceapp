@@ -89,9 +89,8 @@ class UserLoginController : UIViewController {
                         }
                     }
                     if user == nil {
-                        user = NSEntityDescription.insertNewObjectForEntityForName("User", inManagedObjectContext: moc) as? User
+                        user = nil
                     }
-                    user!.email = email
                 }
             }
         }

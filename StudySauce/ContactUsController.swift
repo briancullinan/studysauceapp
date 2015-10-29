@@ -32,6 +32,9 @@ class ContactUsController: UIViewController {
     @IBOutlet weak var message: UITextView!
     
     @IBAction func sendEmail(sender: AnyObject) {
+        if self.email.text == nil || self.email.text == "" || self.name.text == nil || self.name.text == "" || self.message.text == nil || self.message.text == "" {
+            return
+        }
         self.showNoConnectionDialog({
             self.postJson("/contact/send", params: [
                 "name": self.name.text,

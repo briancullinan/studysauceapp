@@ -36,7 +36,7 @@ class AutoSizingTextView: UITextView {
         }
         var size = self.minSize
         repeat {
-            size = size + 1
+            size = size + 0.5
             let font = UIFont(name: self.font!.fontName, size: size)
             fontHeight = (font!.ascender - font!.descender) + 1
             expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
@@ -51,8 +51,8 @@ class AutoSizingTextView: UITextView {
             && expectSize.height < maximumLabelWidth.width - fontHeight
             && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
                 // resize but don't allow the words per line to increase
-                || numberOfLines <= origLines! || CGFloat(words.count) / numberOfLines / 4 > self.bounds.width / self.bounds.height)
-        return size - 1
+                || numberOfLines <= origLines! || CGFloat(words.count) / numberOfLines / 6 > self.bounds.width / self.bounds.height)
+        return size - 0.5
     }
     
     func calcFontSize() -> Void {
@@ -62,13 +62,15 @@ class AutoSizingTextView: UITextView {
         // TODO: all of this when textbox changes
         if !self.isCalculating {
             self.isCalculating = true
-        
+            self.scrollEnabled = true
+            self.scrollRangeToVisible(NSMakeRange(self.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding), 0));
+            
             if let size = self.getFontSize() {
                 self.font = UIFont(name: self.font!.fontName, size: size)
             }
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
             topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
-            self.contentOffset = CGPoint(x: 0, y: -topCorrect)
+            self.contentInset = UIEdgeInsets(top: topCorrect, left: 0,bottom: 0,right: 0)
         
             self.isCalculating = false
         }

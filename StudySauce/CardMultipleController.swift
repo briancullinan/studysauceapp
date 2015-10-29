@@ -24,22 +24,26 @@ class CardMultipleController: UIViewController {
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
-                content!.text = vc.card?.content
+                self.content!.text = vc.card?.content
             }
-            if response != nil {
-                response!.text = "\(vc.card!.getCorrect()!.value!)\n\r\(vc.card!.response!)"
+            if self.response != nil {
+                self.response!.text = "\(vc.card!.getCorrect()!.value!)\n\r\(vc.card!.response!)"
             }
-            if answer1 != nil && vc.card?.answers?.count > 0 {
-                answer1!.setTitle((vc.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
+            if self.answer1 != nil && vc.card?.answers?.count > 0 {
+                self.answer1!.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.answer1!.setTitle((vc.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
             }
-            if answer2 != nil && vc.card?.answers?.count > 1 {
-                answer2!.setTitle((vc.card?.answers!.allObjects[1] as! Answer).value, forState: .Normal)
+            if self.answer2 != nil && vc.card?.answers?.count > 1 {
+                self.answer2!.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.answer2!.setTitle((vc.card?.answers!.allObjects[1] as! Answer).value, forState: .Normal)
             }
-            if answer3 != nil && vc.card?.answers?.count > 2 {
-                answer3!.setTitle((vc.card?.answers!.allObjects[2] as! Answer).value, forState: .Normal)
+            if self.answer3 != nil && vc.card?.answers?.count > 2 {
+                self.answer3!.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.answer3!.setTitle((vc.card?.answers!.allObjects[2] as! Answer).value, forState: .Normal)
             }
-            if answer4 != nil && vc.card?.answers?.count > 3 {
-                answer4!.setTitle((vc.card?.answers!.allObjects[3] as! Answer).value, forState: .Normal)
+            if self.answer4 != nil && vc.card?.answers?.count > 3 {
+                self.answer4!.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.answer4!.setTitle((vc.card?.answers!.allObjects[3] as! Answer).value, forState: .Normal)
             }
             self.card = vc.card
         }

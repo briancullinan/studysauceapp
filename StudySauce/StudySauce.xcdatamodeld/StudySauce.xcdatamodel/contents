@@ -27,6 +27,7 @@
     <entity name="Pack" representedClassName=".Pack" syncable="YES">
         <attribute name="active_from" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="active_to" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="creator" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
@@ -81,11 +82,11 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="user_packs" inverseEntity="User" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Answer" positionX="1458" positionY="-567" width="128" height="180"/>
         <element name="Card" positionX="1519" positionY="-711" width="128" height="210"/>
-        <element name="Pack" positionX="1258" positionY="-697" width="128" height="345"/>
+        <element name="Pack" positionX="1258" positionY="-697" width="128" height="360"/>
         <element name="Response" positionX="1780" positionY="-594" width="128" height="165"/>
         <element name="User" positionX="1458" positionY="-567" width="128" height="240"/>
         <element name="UserPack" positionX="1467" positionY="-558" width="128" height="150"/>
-        <element name="Answer" positionX="1458" positionY="-567" width="128" height="180"/>
     </elements>
 </model>
