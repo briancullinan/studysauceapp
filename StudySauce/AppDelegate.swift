@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.makeKeyAndVisible();
             }
         }
-        if user != nil {
+        if user != nil && user!.id != nil {
             self.user = user
             done()
         }
