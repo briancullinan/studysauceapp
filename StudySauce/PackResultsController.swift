@@ -13,7 +13,6 @@ import UIKit
 class PackResultsController: UIViewController {
     internal var pack: Pack!
     
-    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var packTitle: UILabel!
     @IBOutlet weak var percent: UILabel!
     @IBOutlet weak var review: UILabel!
@@ -34,13 +33,6 @@ class PackResultsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let url = self.pack.logo where !url.isEmpty {
-            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            self.logoImage.image = logo
-        }
-        else {
-            self.logoImage.image = nil
-        }
         self.packTitle.text = self.pack.title
         var correct = 0
         var wrong = 0
