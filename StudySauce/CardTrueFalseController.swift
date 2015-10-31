@@ -13,7 +13,6 @@ import UIKit
 class CardTrueFalseController: UIViewController {
     
     
-    @IBOutlet weak var response: AutoSizingTextView? = nil
     @IBOutlet weak var content: AutoSizingTextView? = nil
     weak var card: Card? = nil
   
@@ -21,9 +20,6 @@ class CardTrueFalseController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
                 content!.text = vc.card?.content
-            }
-            if response != nil {
-                response!.text = "\(vc.card!.getCorrect()!.value!)\n\r\(vc.card!.response!)"
             }
             self.card = vc.card
         }
@@ -63,11 +59,5 @@ class CardTrueFalseController: UIViewController {
     
     @IBAction func trueClick(sender: UIButton) {
         self.saveResponse("True")
-    }
-    
-    @IBAction func continueClick(sender: UIButton) {
-        if let vc = self.parentViewController as? CardController {
-            vc.submitResponse(vc.intermediateResponse!)
-        }
     }
 }

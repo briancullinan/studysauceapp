@@ -19,11 +19,13 @@ class CardController: UIViewController {
     internal var pack: Pack!
     internal var card: Card? = nil
     internal var subview: UIViewController? = nil
+    var transitionManager: CardTransitionManager? = nil
 
     // TODO: check the answer for correctness
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         if card == nil {
             self.card = self.pack.getCardForUser(AppDelegate.getUser())
         }
@@ -78,8 +80,11 @@ class CardController: UIViewController {
         }
         else {
             let nextCard = self.storyboard!.instantiateViewControllerWithIdentifier("Card") as? CardController
+            let manager = CardTransitionManager()
             nextCard!.pack = self.pack
             nextCard!.card = card
+            nextCard?.transitioningDelegate = manager
+            self.transitioningDelegate = manager
             self.presentViewController(nextCard!, animated: true, completion: { () -> Void in
                 
             })

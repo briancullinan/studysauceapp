@@ -133,15 +133,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         do {
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
-        catch let error as NSError {
-            NSLog("Unresolved error \(error), \(error.userInfo)")
-            do {
-                try NSFileManager.defaultManager().removeItemAtPath(url.path!)
-                try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
-            }
-            catch let error as NSError {
-                NSLog("Unresolved error \(error), \(error.userInfo)")
-            }
+        catch _ as NSError {
+            self.resetLocalStore()
         }
         return coordinator
     }

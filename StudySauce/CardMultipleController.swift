@@ -13,7 +13,6 @@ import UIKit
 class CardMultipleController: UIViewController {
 
     
-    @IBOutlet weak var response: AutoSizingTextView? = nil
     @IBOutlet weak var content: AutoSizingTextView? = nil
     @IBOutlet weak var answer1: UIButton? = nil
     @IBOutlet weak var answer2: UIButton? = nil
@@ -25,9 +24,8 @@ class CardMultipleController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
                 self.content!.text = vc.card?.content
-            }
-            if self.response != nil {
-                self.response!.text = "\(vc.card!.getCorrect()!.value!)\n\r\(vc.card!.response!)"
+                vc.transitionManager = CardTransitionManager()
+                vc.transitionManager!.sourceViewController = vc
             }
             if self.answer1 != nil && vc.card?.answers?.count > 0 {
                 self.answer1!.titleLabel?.adjustsFontSizeToFitWidth = true
@@ -76,13 +74,7 @@ class CardMultipleController: UIViewController {
             }
         }
     }
-    
-    @IBAction func continueClick(sender: UIButton) {
-        if let vc = self.parentViewController as? CardController {
-            vc.submitResponse(vc.intermediateResponse!)
-        }
-    }
-    
+        
     @IBAction func answer1Click(sender: UIButton) {
         self.saveResponse(sender.titleForState(.Normal)!)
     }

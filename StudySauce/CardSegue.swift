@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class CardSegue : UIStoryboardSegue {
-    
+ 
     override func perform() {
         let sourceViewController = self.sourceViewController;
         if let parent = sourceViewController.parentViewController as? CardController {
@@ -19,11 +19,21 @@ class CardSegue : UIStoryboardSegue {
             card.card = parent.card
             card.intermediateResponse = parent.intermediateResponse
             card.subview = self.destinationViewController
-            //parent.navigationController?.pushViewController(card, animated: true)
-            parent.presentViewController(card, animated: true, completion: { () -> Void in
-            })
-            //parent.presentingViewController!.dismissViewControllerAnimated(true, completion: nil)
+            
+            if parent.transitionManager == nil {
+                parent.transitionManager = CardTransitionManager()
+                //parent.transitionManager!.sourceViewController = parent
+            }
+            else {
+                parent.transitionManager!.destinationViewController = card
+            }
+            
+            card.transitioningDelegate = parent.transitionManager
+            parent.transitioningDelegate = parent.transitionManager
+            
+            parent.presentViewController(card, animated: true, completion: nil)
         }
     }
-    
 }
+
+

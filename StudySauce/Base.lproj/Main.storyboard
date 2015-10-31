@@ -12,7 +12,7 @@
         <!--CardPrompt-->
         <scene sceneID="3eO-Mn-zxo">
             <objects>
-                <viewController storyboardIdentifier="Default" title="CardPrompt" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wX3-J5-TSh" customClass="CardSelfController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Default" title="CardPrompt" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wX3-J5-TSh" customClass="CardSelfController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="777-2Q-Nzj"/>
                         <viewControllerLayoutGuide type="bottom" id="Ra8-u8-VIr"/>
@@ -22,42 +22,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="nsU-re-tFb" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="494"/>
+                                <rect key="frame" x="20" y="20" width="560" height="572"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sjP-ZL-xrj">
-                                <rect key="frame" x="233" y="522" width="135" height="36"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Get answer">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="gJ9-Ua-grz" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="JC3-1I-1fZ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="trailing" secondItem="i1p-6h-Rg9" secondAttribute="trailingMargin" id="1me-Su-18C"/>
-                            <constraint firstItem="sjP-ZL-xrj" firstAttribute="centerX" secondItem="i1p-6h-Rg9" secondAttribute="centerX" id="3DZ-vz-OMx"/>
-                            <constraint firstItem="Ra8-u8-VIr" firstAttribute="top" secondItem="sjP-ZL-xrj" secondAttribute="bottom" constant="42" id="3IG-Hr-AZe"/>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="leading" secondItem="i1p-6h-Rg9" secondAttribute="leadingMargin" id="5F9-J5-20v"/>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="leading" secondItem="i1p-6h-Rg9" secondAttribute="leadingMargin" id="CqW-uy-dge"/>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="trailing" secondItem="i1p-6h-Rg9" secondAttribute="trailingMargin" id="gWe-Ji-j3X"/>
                             <constraint firstItem="nsU-re-tFb" firstAttribute="top" secondItem="777-2Q-Nzj" secondAttribute="bottom" id="sWL-C9-If6"/>
-                            <constraint firstItem="sjP-ZL-xrj" firstAttribute="top" secondItem="nsU-re-tFb" secondAttribute="bottom" constant="8" symbolic="YES" id="zgA-8p-pEh"/>
+                            <constraint firstItem="Ra8-u8-VIr" firstAttribute="top" secondItem="nsU-re-tFb" secondAttribute="bottom" constant="8" symbolic="YES" id="zw3-Pt-BaS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hj1-FT-IXE"/>
                     <connections>
                         <outlet property="content" destination="nsU-re-tFb" id="eFR-Pq-Qxb"/>
+                        <segue destination="gJ9-Ua-grz" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="QYQ-pB-fpW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FTz-LS-CeX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,25 +61,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUA-GS-MUN">
-                                <rect key="frame" x="212" y="461" width="176" height="99"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="99" id="0dk-zX-u00"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Choose answer">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="c3m-EN-MOK" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="dCT-Uh-HQL"/>
-                                </connections>
-                            </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="Or4-Dg-uRD" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="433"/>
+                                <rect key="frame" x="20" y="20" width="560" height="572"/>
                                 <animations/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -106,17 +74,16 @@
                         <constraints>
                             <constraint firstItem="Or4-Dg-uRD" firstAttribute="leading" secondItem="R1F-uT-Ciq" secondAttribute="leadingMargin" id="2GI-ze-ZNw"/>
                             <constraint firstItem="Or4-Dg-uRD" firstAttribute="top" secondItem="EZh-bc-c8W" secondAttribute="bottom" id="L0D-fY-LJb"/>
-                            <constraint firstItem="ZUA-GS-MUN" firstAttribute="top" secondItem="Or4-Dg-uRD" secondAttribute="bottom" constant="8" symbolic="YES" id="LfB-02-xmT"/>
                             <constraint firstItem="Or4-Dg-uRD" firstAttribute="leading" secondItem="R1F-uT-Ciq" secondAttribute="leadingMargin" id="OLF-Hc-DDt"/>
                             <constraint firstItem="Or4-Dg-uRD" firstAttribute="trailing" secondItem="R1F-uT-Ciq" secondAttribute="trailingMargin" id="ZRW-OU-YCD"/>
-                            <constraint firstItem="ZUA-GS-MUN" firstAttribute="centerX" secondItem="R1F-uT-Ciq" secondAttribute="centerX" id="cfm-FW-JiI"/>
-                            <constraint firstItem="pce-J4-xey" firstAttribute="top" secondItem="ZUA-GS-MUN" secondAttribute="bottom" constant="40" id="mWX-YM-azp"/>
                             <constraint firstItem="Or4-Dg-uRD" firstAttribute="trailing" secondItem="R1F-uT-Ciq" secondAttribute="trailingMargin" id="qqV-9Z-vY0"/>
+                            <constraint firstItem="pce-J4-xey" firstAttribute="top" secondItem="Or4-Dg-uRD" secondAttribute="bottom" constant="8" symbolic="YES" id="reA-gp-gLX"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="znY-c9-Aon"/>
                     <connections>
                         <outlet property="content" destination="Or4-Dg-uRD" id="yBc-hD-Hwd"/>
+                        <segue destination="c3m-EN-MOK" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="eGk-xN-5zU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lGY-Xx-rTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,10 +102,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXH-st-0Tk">
-                                <rect key="frame" x="520" y="33" width="60" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXH-st-0Tk">
+                                <rect key="frame" x="506" y="31" width="74" height="17"/>
                                 <animations/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -167,7 +134,7 @@
                             </label>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xZf-1v-2Bu" firstAttribute="centerX" secondItem="OTz-Qt-2Wn" secondAttribute="centerX" id="Cgv-7X-myv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="N5W-jj-VWV" secondAttribute="leading" id="EPH-na-VQr"/>
@@ -326,8 +293,8 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-8t-yWW">
-                                                    <rect key="frame" x="514" y="26" width="78" height="19"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-8t-yWW">
+                                                    <rect key="frame" x="514" y="25" width="78" height="19"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -428,7 +395,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QyN-eE-dnk">
-                                <rect key="frame" x="438" y="481" width="142" height="99"/>
+                                <rect key="frame" x="438" y="493" width="142" height="99"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="85"/>
@@ -440,7 +407,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syo-QG-qXe">
-                                <rect key="frame" x="20" y="481" width="142" height="99"/>
+                                <rect key="frame" x="20" y="493" width="142" height="99"/>
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -456,7 +423,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " translatesAutoresizingMaskIntoConstraints="NO" id="a3E-wa-lDZ" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="453"/>
+                                <rect key="frame" x="20" y="20" width="560" height="465"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -467,8 +434,7 @@
                         <constraints>
                             <constraint firstItem="a3E-wa-lDZ" firstAttribute="trailing" secondItem="hmt-iH-18B" secondAttribute="trailingMargin" id="1bO-eS-YeU"/>
                             <constraint firstItem="Syo-QG-qXe" firstAttribute="height" secondItem="QyN-eE-dnk" secondAttribute="height" id="A6h-yF-D3q"/>
-                            <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="QyN-eE-dnk" secondAttribute="bottom" constant="20" id="Eky-79-uy5"/>
-                            <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="Syo-QG-qXe" secondAttribute="bottom" constant="20" id="GGG-01-u7u"/>
+                            <constraint firstItem="VGi-BL-dNi" firstAttribute="top" secondItem="Syo-QG-qXe" secondAttribute="bottom" constant="8" symbolic="YES" id="GGG-01-u7u"/>
                             <constraint firstItem="a3E-wa-lDZ" firstAttribute="leading" secondItem="hmt-iH-18B" secondAttribute="leadingMargin" id="I9A-21-mrK"/>
                             <constraint firstItem="a3E-wa-lDZ" firstAttribute="top" secondItem="C2h-7n-THx" secondAttribute="bottom" id="Sxf-Yk-6ww"/>
                             <constraint firstItem="Syo-QG-qXe" firstAttribute="width" secondItem="QyN-eE-dnk" secondAttribute="width" id="TW6-KB-l31"/>
@@ -482,119 +448,12 @@
                     </view>
                     <connections>
                         <outlet property="response" destination="a3E-wa-lDZ" id="C9g-A4-VI3"/>
+                        <segue destination="wX3-J5-TSh" kind="custom" identifier="last" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="hbg-M8-4U6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-3516"/>
-        </scene>
-        <!--CardResponse-->
-        <scene sceneID="PJN-8h-juF">
-            <objects>
-                <viewController title="CardResponse" id="hIA-xr-zlD" customClass="CardMultipleController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RmW-De-Ta7"/>
-                        <viewControllerLayoutGuide type="bottom" id="I8P-8E-8zO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Oop-dg-TkN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " translatesAutoresizingMaskIntoConstraints="NO" id="WDB-b5-cB4" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="496"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3TW-mw-x6P">
-                                <rect key="frame" x="245" y="524" width="111" height="36"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Continue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="continueClick:" destination="hIA-xr-zlD" eventType="touchUpInside" id="vKM-eE-g6B"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="3TW-mw-x6P" firstAttribute="centerX" secondItem="Oop-dg-TkN" secondAttribute="centerX" id="1XK-mr-2pw"/>
-                            <constraint firstItem="WDB-b5-cB4" firstAttribute="leading" secondItem="Oop-dg-TkN" secondAttribute="leadingMargin" id="7YO-l4-pL8"/>
-                            <constraint firstItem="WDB-b5-cB4" firstAttribute="top" secondItem="RmW-De-Ta7" secondAttribute="bottom" id="DMH-Qj-Rnu"/>
-                            <constraint firstItem="3TW-mw-x6P" firstAttribute="top" secondItem="WDB-b5-cB4" secondAttribute="bottom" constant="8" symbolic="YES" id="PUb-hY-XgP"/>
-                            <constraint firstItem="WDB-b5-cB4" firstAttribute="trailing" secondItem="Oop-dg-TkN" secondAttribute="trailingMargin" id="a6a-Yv-1wA"/>
-                            <constraint firstItem="I8P-8E-8zO" firstAttribute="top" secondItem="3TW-mw-x6P" secondAttribute="bottom" constant="40" id="kSL-12-9b2"/>
-                            <constraint firstItem="WDB-b5-cB4" firstAttribute="trailing" secondItem="Oop-dg-TkN" secondAttribute="trailingMargin" id="kbg-Uj-dxw"/>
-                            <constraint firstItem="WDB-b5-cB4" firstAttribute="leading" secondItem="Oop-dg-TkN" secondAttribute="leadingMargin" id="qEy-Wo-drI"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="response" destination="WDB-b5-cB4" id="qtZ-F4-qII"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x1h-jb-hZM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3527" y="-2705"/>
-        </scene>
-        <!--CardResponse-->
-        <scene sceneID="NuB-Uq-Iep">
-            <objects>
-                <viewController title="CardResponse" id="f1R-R5-luV" customClass="CardTrueFalseController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FEi-od-7HX"/>
-                        <viewControllerLayoutGuide type="bottom" id="6xz-MK-yjT"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GI3-5i-vll">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="USU-Ky-R7p" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="496"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="raR-o4-OnR">
-                                <rect key="frame" x="245" y="524" width="111" height="36"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Continue">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="continueClick:" destination="f1R-R5-luV" eventType="touchUpInside" id="zOT-1U-ioB"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="USU-Ky-R7p" firstAttribute="leading" secondItem="GI3-5i-vll" secondAttribute="leadingMargin" id="DgP-Tk-4Gt"/>
-                            <constraint firstItem="USU-Ky-R7p" firstAttribute="leading" secondItem="GI3-5i-vll" secondAttribute="leadingMargin" id="Dnc-tQ-h46"/>
-                            <constraint firstItem="raR-o4-OnR" firstAttribute="centerX" secondItem="GI3-5i-vll" secondAttribute="centerX" id="Mn9-dU-yGM"/>
-                            <constraint firstItem="6xz-MK-yjT" firstAttribute="top" secondItem="raR-o4-OnR" secondAttribute="bottom" constant="40" id="efA-bH-qg4"/>
-                            <constraint firstItem="raR-o4-OnR" firstAttribute="top" secondItem="USU-Ky-R7p" secondAttribute="bottom" constant="8" symbolic="YES" id="fQU-ky-ygj"/>
-                            <constraint firstItem="USU-Ky-R7p" firstAttribute="trailing" secondItem="GI3-5i-vll" secondAttribute="trailingMargin" id="srW-MH-1lK"/>
-                            <constraint firstItem="USU-Ky-R7p" firstAttribute="top" secondItem="FEi-od-7HX" secondAttribute="bottom" id="vmX-f3-lHA"/>
-                            <constraint firstItem="USU-Ky-R7p" firstAttribute="trailing" secondItem="GI3-5i-vll" secondAttribute="trailingMargin" id="y51-Sm-QJj"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="response" destination="USU-Ky-R7p" id="sWm-wK-H2i"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yJO-Jc-fso" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3527" y="-1929"/>
         </scene>
         <!--CardResponse-->
         <scene sceneID="n6t-C9-aLD">
@@ -609,7 +468,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwQ-i7-uLx">
-                                <rect key="frame" x="20" y="100" width="560" height="90"/>
+                                <rect key="frame" x="0.0" y="100" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
@@ -623,7 +482,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxh-pq-PQd">
-                                <rect key="frame" x="20" y="210" width="560" height="90"/>
+                                <rect key="frame" x="0.0" y="210" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
@@ -637,7 +496,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvk-wA-8rf">
-                                <rect key="frame" x="20" y="320" width="560" height="90"/>
+                                <rect key="frame" x="0.0" y="320" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
@@ -651,7 +510,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndr-5k-eWw">
-                                <rect key="frame" x="20" y="430" width="560" height="90"/>
+                                <rect key="frame" x="0.0" y="430" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
@@ -668,22 +527,22 @@
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="nxh-pq-PQd" firstAttribute="leading" secondItem="LWU-2f-3p2" secondAttribute="leadingMargin" id="6Ca-6o-6gJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nxh-pq-PQd" secondAttribute="trailing" id="6Yy-Vx-NdN"/>
+                            <constraint firstItem="nxh-pq-PQd" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="3dH-i8-bIm"/>
                             <constraint firstItem="ndr-5k-eWw" firstAttribute="top" secondItem="tvk-wA-8rf" secondAttribute="bottom" constant="20" id="84S-DG-n0r"/>
                             <constraint firstItem="ndr-5k-eWw" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="APO-Wo-RK4"/>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="top" secondItem="nwQ-i7-uLx" secondAttribute="bottom" constant="20" id="GMo-Ej-QRM"/>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="IY6-h0-NGh"/>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="bottom" secondItem="LWU-2f-3p2" secondAttribute="centerY" id="J1J-oj-lMd"/>
                             <constraint firstItem="tvk-wA-8rf" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="MJG-yM-ZmC"/>
+                            <constraint firstItem="ndr-5k-eWw" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="NbW-P8-Njg"/>
                             <constraint firstItem="nwQ-i7-uLx" firstAttribute="height" secondItem="LWU-2f-3p2" secondAttribute="height" multiplier="0.15" id="SN4-Ym-0fT"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ndr-5k-eWw" secondAttribute="trailing" id="bCw-4J-q0J"/>
-                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="leading" secondItem="LWU-2f-3p2" secondAttribute="leadingMargin" id="bLm-yr-mV9"/>
+                            <constraint firstItem="nxh-pq-PQd" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="STm-DI-jb3"/>
+                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="Tle-14-JSG"/>
+                            <constraint firstItem="tvk-wA-8rf" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="ZRR-5d-Lwe"/>
                             <constraint firstItem="tvk-wA-8rf" firstAttribute="top" secondItem="nxh-pq-PQd" secondAttribute="bottom" constant="20" id="cT5-Jb-mDv"/>
-                            <constraint firstItem="tvk-wA-8rf" firstAttribute="leading" secondItem="LWU-2f-3p2" secondAttribute="leadingMargin" id="gpy-i4-7Qo"/>
-                            <constraint firstItem="ndr-5k-eWw" firstAttribute="leading" secondItem="LWU-2f-3p2" secondAttribute="leadingMargin" id="tfD-yk-ABL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tvk-wA-8rf" secondAttribute="trailing" id="x3H-8p-Pxc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="nwQ-i7-uLx" secondAttribute="trailing" id="xf1-dF-RJc"/>
+                            <constraint firstItem="tvk-wA-8rf" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="ej0-4c-vVh"/>
+                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="jMi-b3-hiw"/>
+                            <constraint firstItem="ndr-5k-eWw" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="x7h-5B-FBu"/>
                         </constraints>
                     </view>
                     <connections>
@@ -691,7 +550,8 @@
                         <outlet property="answer2" destination="nxh-pq-PQd" id="fsu-Fz-gCM"/>
                         <outlet property="answer3" destination="tvk-wA-8rf" id="io9-sZ-GUI"/>
                         <outlet property="answer4" destination="ndr-5k-eWw" id="mx5-NT-h1O"/>
-                        <segue destination="hIA-xr-zlD" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="nnV-Ah-2U9"/>
+                        <segue destination="enV-og-4wM" kind="custom" identifier="last" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="EKu-vU-bf1"/>
+                        <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="I3T-Nz-Fid"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zO-eF-hWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1636,26 +1496,26 @@ support@studysauce.com
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="7E7-03-KKX" firstAttribute="leading" secondItem="Bf3-KJ-GSS" secondAttribute="leadingMargin" constant="-20" id="1FH-gB-PnY"/>
+                            <constraint firstItem="7E7-03-KKX" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="3uO-DU-mW6"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="3zI-1v-Bww"/>
                             <constraint firstItem="Bre-Wd-a5Y" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" id="4Kp-fI-pBI"/>
                             <constraint firstItem="89T-UU-IpT" firstAttribute="top" secondItem="zlc-Gr-gBx" secondAttribute="bottom" id="82x-Dc-xB9"/>
                             <constraint firstItem="7E7-03-KKX" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="8IT-wJ-osR"/>
+                            <constraint firstItem="7E7-03-KKX" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="Ao6-fT-ygp"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" multiplier="0.45" constant="15" id="DW4-lX-0nk"/>
                             <constraint firstItem="WaD-s5-p2L" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.7" id="EEA-QJ-8Py"/>
                             <constraint firstItem="zlc-Gr-gBx" firstAttribute="centerY" secondItem="Bf3-KJ-GSS" secondAttribute="centerY" id="HhJ-q9-N6Q"/>
                             <constraint firstItem="Bre-Wd-a5Y" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="KOC-rg-owC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="7E7-03-KKX" secondAttribute="trailing" constant="-20" id="MdN-bq-gD8"/>
+                            <constraint firstItem="WaD-s5-p2L" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="Q2R-40-1Tn"/>
                             <constraint firstItem="zlc-Gr-gBx" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="RCk-wL-pwL"/>
                             <constraint firstItem="zlc-Gr-gBx" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="TXt-Xe-8XR"/>
                             <constraint firstItem="zlc-Gr-gBx" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" id="Wk4-uC-2bX"/>
                             <constraint firstItem="WaD-s5-p2L" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.55" id="XyW-ka-6kq"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="WaD-s5-p2L" secondAttribute="trailing" constant="-20" id="Y61-yF-R7t"/>
-                            <constraint firstItem="WaD-s5-p2L" firstAttribute="leading" secondItem="Bf3-KJ-GSS" secondAttribute="leadingMargin" constant="-20" id="ccu-y0-62n"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Bre-Wd-a5Y" secondAttribute="trailing" constant="-20" id="dYQ-hj-oU0"/>
+                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="iLB-01-Dsy"/>
                             <constraint firstItem="7E7-03-KKX" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.7" id="nTs-rZ-Uu1"/>
-                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="leading" secondItem="Bf3-KJ-GSS" secondAttribute="leadingMargin" constant="-20" id="qwm-gN-c1I"/>
+                            <constraint firstItem="WaD-s5-p2L" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="rHK-W5-AGn"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.5" id="rNP-rJ-Jhh"/>
+                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="tPH-Zt-ip4"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -2320,15 +2180,20 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="wIJ-jl-BKz" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="453"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSg-TN-Foe">
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
                                 <animations/>
-                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <color key="backgroundColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <state key="normal" title="False">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="falseClick:" destination="WFa-kw-IKE" eventType="touchUpInside" id="R1K-PB-HVV"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtg-gQ-K4n">
-                                <rect key="frame" x="438" y="481" width="142" height="99"/>
+                                <rect key="frame" x="0.0" y="420" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
@@ -2339,45 +2204,35 @@ support@studysauce.com
                                     <action selector="trueClick:" destination="WFa-kw-IKE" eventType="touchUpInside" id="h6s-WH-Cjc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSg-TN-Foe">
-                                <rect key="frame" x="20" y="481" width="142" height="99"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="wIJ-jl-BKz" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="560" height="392"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="99" id="POa-Jg-owx"/>
-                                    <constraint firstAttribute="width" constant="142" id="dF8-GP-jYr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <state key="normal" title="False">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="falseClick:" destination="WFa-kw-IKE" eventType="touchUpInside" id="R1K-PB-HVV"/>
-                                </connections>
-                            </button>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wIJ-jl-BKz" firstAttribute="top" secondItem="sH1-G6-pBD" secondAttribute="bottom" id="2KW-xu-cHu"/>
-                            <constraint firstItem="BUC-bc-Kci" firstAttribute="top" secondItem="Gtg-gQ-K4n" secondAttribute="bottom" constant="20" id="56l-Y6-2C2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gtg-gQ-K4n" secondAttribute="trailing" id="C7f-pR-jUi"/>
+                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="centerX" secondItem="lLW-Od-gsJ" secondAttribute="centerX" id="2RR-bQ-vSd"/>
+                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="bottom" secondItem="BUC-bc-Kci" secondAttribute="top" multiplier="0.85" id="56l-Y6-2C2"/>
                             <constraint firstItem="wIJ-jl-BKz" firstAttribute="trailing" secondItem="lLW-Od-gsJ" secondAttribute="trailingMargin" id="Ktt-F7-6UC"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="rSg-TN-Foe" secondAttribute="leading" id="VKE-xu-b4I"/>
-                            <constraint firstItem="wIJ-jl-BKz" firstAttribute="bottom" secondItem="rSg-TN-Foe" secondAttribute="top" constant="-8" id="VN1-NU-IjV"/>
-                            <constraint firstItem="rSg-TN-Foe" firstAttribute="width" secondItem="Gtg-gQ-K4n" secondAttribute="width" id="Vmx-kN-VI2"/>
-                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="top" secondItem="rSg-TN-Foe" secondAttribute="top" id="WGK-Vy-unM"/>
+                            <constraint firstItem="rSg-TN-Foe" firstAttribute="bottom" secondItem="BUC-bc-Kci" secondAttribute="top" id="MpN-R2-Aqa"/>
+                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="top" secondItem="wIJ-jl-BKz" secondAttribute="bottom" constant="8" symbolic="YES" id="Ruo-b6-6Cm"/>
+                            <constraint firstItem="rSg-TN-Foe" firstAttribute="centerX" secondItem="lLW-Od-gsJ" secondAttribute="centerX" id="VHX-Az-M0t"/>
+                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="width" secondItem="lLW-Od-gsJ" secondAttribute="width" id="abV-J8-DBs"/>
+                            <constraint firstItem="rSg-TN-Foe" firstAttribute="width" secondItem="lLW-Od-gsJ" secondAttribute="width" id="bmr-mO-ohT"/>
                             <constraint firstItem="wIJ-jl-BKz" firstAttribute="leading" secondItem="lLW-Od-gsJ" secondAttribute="leadingMargin" id="eUh-3L-wk0"/>
-                            <constraint firstItem="BUC-bc-Kci" firstAttribute="top" secondItem="rSg-TN-Foe" secondAttribute="bottom" constant="20" id="l6X-TD-KJE"/>
-                            <constraint firstItem="rSg-TN-Foe" firstAttribute="height" secondItem="Gtg-gQ-K4n" secondAttribute="height" id="nVs-qf-4MT"/>
-                            <constraint firstItem="wIJ-jl-BKz" firstAttribute="trailing" secondItem="lLW-Od-gsJ" secondAttribute="trailingMargin" id="pd0-le-iXK"/>
-                            <constraint firstItem="wIJ-jl-BKz" firstAttribute="leading" secondItem="lLW-Od-gsJ" secondAttribute="leadingMargin" id="r5L-OF-xmR"/>
+                            <constraint firstItem="rSg-TN-Foe" firstAttribute="top" secondItem="BUC-bc-Kci" secondAttribute="top" multiplier="0.85" id="l6X-TD-KJE"/>
+                            <constraint firstItem="Gtg-gQ-K4n" firstAttribute="top" secondItem="BUC-bc-Kci" secondAttribute="top" multiplier="0.7" id="s8c-ig-4G8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="QGt-bv-bFW"/>
                     <connections>
                         <outlet property="content" destination="wIJ-jl-BKz" id="Huf-IL-Si2"/>
-                        <segue destination="f1R-R5-luV" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Pxn-Bx-Cnt"/>
+                        <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="DnL-J9-off"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRj-rI-p6U" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2413,7 +2268,7 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Eqc-ZA-AZS" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="ill-z4-rqM"/>
+                                    <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="ill-z4-rqM"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="P40-UO-hGX">
@@ -2451,7 +2306,7 @@ support@studysauce.com
         <!--CardResponse-->
         <scene sceneID="zdp-BQ-pw3">
             <objects>
-                <viewController title="CardResponse" id="Eqc-ZA-AZS" sceneMemberID="viewController">
+                <viewController title="CardResponse" id="Eqc-ZA-AZS" customClass="CardSelfController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FsY-dl-AbK"/>
                         <viewControllerLayoutGuide type="bottom" id="E16-8c-FZ2"/>
@@ -2470,8 +2325,11 @@ support@studysauce.com
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="continueClick:" destination="Eqc-ZA-AZS" eventType="touchUpInside" id="xFj-a5-X2j"/>
+                                </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " translatesAutoresizingMaskIntoConstraints="NO" id="U7c-w6-Xqx" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U7c-w6-Xqx" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="20" width="560" height="496"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -2479,7 +2337,7 @@ support@studysauce.com
                             </textView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="U7c-w6-Xqx" firstAttribute="top" secondItem="FsY-dl-AbK" secondAttribute="bottom" id="JXC-Cw-XfG"/>
                             <constraint firstItem="U7c-w6-Xqx" firstAttribute="trailing" secondItem="Pcb-LE-HGS" secondAttribute="trailingMargin" id="MFv-QX-di1"/>
@@ -2491,10 +2349,13 @@ support@studysauce.com
                             <constraint firstItem="jTo-hU-bxY" firstAttribute="top" secondItem="U7c-w6-Xqx" secondAttribute="bottom" constant="8" symbolic="YES" id="dw1-FX-Om4"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="response" destination="U7c-w6-Xqx" id="4AF-mY-n3L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLM-5S-ywR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3527" y="-1151"/>
+            <point key="canvasLocation" x="3527" y="-2705"/>
         </scene>
     </scenes>
     <resources>
@@ -2504,13 +2365,14 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AaP-eY-XLw"/>
-        <segue reference="Ffu-HO-BMd"/>
-        <segue reference="FIi-mi-o0y"/>
-        <segue reference="b42-hi-3ZP"/>
-        <segue reference="aNX-LU-Mfo"/>
-        <segue reference="Kyk-ub-bbY"/>
-        <segue reference="H2U-7l-d0h"/>
         <segue reference="vjw-L6-fSU"/>
+        <segue reference="I3T-Nz-Fid"/>
+        <segue reference="b42-hi-3ZP"/>
+        <segue reference="FIi-mi-o0y"/>
+        <segue reference="Ad3-zr-pm4"/>
+        <segue reference="8QO-Rt-Ftp"/>
+        <segue reference="jVs-Lw-C2J"/>
+        <segue reference="H2U-7l-d0h"/>
+        <segue reference="AaP-eY-XLw"/>
     </inferredMetricsTieBreakers>
 </document>

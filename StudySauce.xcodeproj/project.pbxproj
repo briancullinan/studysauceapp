@@ -16,6 +16,8 @@
 		642354181BBE189100B068DB /* UserLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354171BBE189100B068DB /* UserLoginController.swift */; };
 		64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C5E1BC595EB005AA348 /* UserResetController.swift */; };
 		64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64291C601BC5A2CD005AA348 /* SaucyButton.swift */; };
+		64292E111BE2F3C60038505B /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64292E101BE2F3C60038505B /* CardTransitionManager.swift */; };
+		643C20401BE461CE00A89A3F /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C203F1BE461CE00A89A3F /* UIColor.swift */; };
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; };
 		644C4A621BB3516F00E4D52A /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardController.swift */; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; };
@@ -72,6 +74,8 @@
 		642354171BBE189100B068DB /* UserLoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLoginController.swift; sourceTree = "<group>"; };
 		64291C5E1BC595EB005AA348 /* UserResetController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserResetController.swift; sourceTree = "<group>"; };
 		64291C601BC5A2CD005AA348 /* SaucyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaucyButton.swift; sourceTree = "<group>"; };
+		64292E101BE2F3C60038505B /* CardTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
+		643C203F1BE461CE00A89A3F /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
@@ -154,12 +158,12 @@
 			isa = PBXGroup;
 			children = (
 				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
+				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				644C4A611BB3516F00E4D52A /* CardController.swift */,
 				649B09401BE08D8700A3F9A4 /* CardSelfController.swift */,
 				649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */,
 				649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */,
 				649B09441BE12DA000A3F9A4 /* CardBlankController.swift */,
-				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				64D219F11BBCD05F005F9094 /* UserInviteController.swift */,
 				64D219F31BBCD133005F9094 /* UserRegisterController.swift */,
 				642354171BBE189100B068DB /* UserLoginController.swift */,
@@ -192,6 +196,8 @@
 				64570BDB1BC64B4D00F9C6EB /* String.swift */,
 				642290BC1BCDC4ED00CD7898 /* NSUrl.swift */,
 				649B093C1BE07C1700A3F9A4 /* CardSegue.swift */,
+				64292E101BE2F3C60038505B /* CardTransitionManager.swift */,
+				643C203F1BE461CE00A89A3F /* UIColor.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -372,6 +378,7 @@
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				649B09411BE08D8700A3F9A4 /* CardSelfController.swift in Sources */,
+				64292E111BE2F3C60038505B /* CardTransitionManager.swift in Sources */,
 				64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */,
 				64570BE01BC6F13400F9C6EB /* BetaSignupController.swift in Sources */,
 				64291C5F1BC595EB005AA348 /* UserResetController.swift in Sources */,
@@ -386,6 +393,7 @@
 				64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */,
 				64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */,
 				64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */,
+				643C20401BE461CE00A89A3F /* UIColor.swift in Sources */,
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
 				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
