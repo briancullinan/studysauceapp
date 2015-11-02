@@ -51,21 +51,22 @@ class CardMultipleController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             do {
                 if let moc = AppDelegate.getContext() {
-                    let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
+                    let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as! Response
                     for a in self.card!.answers!.allObjects as! [Answer] {
                         if a.value == value {
-                            newResponse!.correct = a.correct
-                            newResponse!.answer = a
+                            newResponse.correct = a.correct
+                            newResponse.answer = a
                             break
                         }
                     }
-                    newResponse!.value = value
-                    newResponse!.card = self.card
-                    newResponse!.created = NSDate()
-                    newResponse!.user = AppDelegate.getUser()
+                    newResponse.value = value
+                    newResponse.card = self.card
+                    newResponse.created = NSDate()
+                    newResponse.user = AppDelegate.getUser()
                     try moc.save()
                     // store intermediate and don't call this until after the correct answer is shown
-                    vc.intermediateResponse = newResponse;
+                    vc.intermediateResponse = newResponse
+                    vc.submitResponse(newResponse)
                     self.performSegueWithIdentifier("correct", sender: self)
                 }
             }

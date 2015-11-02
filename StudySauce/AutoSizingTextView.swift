@@ -15,6 +15,7 @@ class AutoSizingTextView: UITextView {
     var minSize: CGFloat = 12
     var maxSize: CGFloat = 32
     var isCalculating = false
+    internal var setManually = false
     
     func getFontSize() -> CGFloat? {
         if self.font == nil {
@@ -65,7 +66,7 @@ class AutoSizingTextView: UITextView {
             self.scrollEnabled = true
             self.scrollRangeToVisible(NSMakeRange(self.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding), 0));
             
-            if let size = self.getFontSize() {
+            if let size = self.getFontSize() where !setManually {
                 self.font = UIFont(name: self.font!.fontName, size: size)
             }
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);

@@ -15,6 +15,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var interactive = false
     
     private var enterPanGesture: UIScreenEdgePanGestureRecognizer!
+    private var flashView: AutoSizingTextView? = nil
     
     var sourceViewController: CardController! {
         didSet {
@@ -64,7 +65,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             // return flag to false and finish the transition
             self.interactive = false
-            if(d > 0.4 || d < -0.4){
+            if(d > 0.2 || d < -0.2){
                 // threshold crossed: finish
                 self.finishInteractiveTransition()
             }
@@ -96,7 +97,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
         default: // .Ended, .Cancelled, .Failed ...
             self.interactive = false
-            if(d > 0.4 || d < -0.4){
+            if(d > 0.2 || d < -0.2){
                 self.finishInteractiveTransition()
             }
             else {
@@ -132,12 +133,18 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         container!.addSubview(last.view)
         container!.addSubview(next.view)
+        if last.intermediateResponse != nil {
+            self.setupCorrectFlash(last.intermediateResponse!.correct == 1, container: container!)
+        }
+        //self.setupShadow(container)
         
         let duration = self.transitionDuration(transitionContext)
         
         // perform the animation!
         UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: {
-            
+            if self.flashView != nil {
+                self.flashView!.alpha = 0
+            }
             if self.presenting {
                 next.embeddedView.transform = CGAffineTransformIdentity
                 last.embeddedView.transform = self.offStage(-last.view.frame.width)
@@ -167,6 +174,40 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 
         })
         
+    }
+    
+    /*
+    func setupShadow(container: CardController) -> Void {
+        let shadowPath = UIBezierPath(rect: last.embeddedView.bounds)
+        last.embeddedView.clipsToBounds = false
+        last.embeddedView.layer.masksToBounds = false
+        last.embeddedView.layer.shadowColor = UIColor.blackColor().CGColor
+        last.embeddedView.layer.shadowOffset = CGSizeMake(10, 0)
+        last.embeddedView.layer.shadowRadius = 5
+        last.embeddedView.layer.shadowOpacity = 0.4
+        last.embeddedView.layer.shadowPath = shadowPath.CGPath;
+        last.view.layer.masksToBounds = false
+        last.view.clipsToBounds = false
+    }
+*/
+    
+    func setupCorrectFlash(correct: Bool, container: UIView) {
+        self.flashView = AutoSizingTextView()
+        container.addSubview(self.flashView!)
+        self.flashView!.setManually = true // only use vertical center alignment benefits of this control, do not automatically set fond size
+        self.flashView!.alpha = 1.0
+        self.flashView!.textColor = UIColor.whiteColor()
+        self.flashView!.textAlignment = NSTextAlignment.Center
+        self.flashView!.font = UIFont.systemFontOfSize(100.0)
+        self.flashView!.frame = CGRect(x: 0, y: 0, width: container.frame.width, height: container.frame.height)
+        if correct {
+            self.flashView!.text = "✔︎"
+            self.flashView!.backgroundColor = UIColor(netHex:0x078600)
+        }
+        else {
+            self.flashView!.text = "✘"
+            self.flashView!.backgroundColor = UIColor(netHex:0xFF0D00)
+        }
     }
     
     func offStage(amount: CGFloat) -> CGAffineTransform {

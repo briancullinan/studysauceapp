@@ -74,21 +74,6 @@ class CardController: UIViewController {
             
         })
         task.resume()
-        let card = self.pack.getCardForUser((UIApplication.sharedApplication().delegate as! AppDelegate).user)
-        if card == nil {
-            self.performSegueWithIdentifier("results", sender: self)
-        }
-        else {
-            let nextCard = self.storyboard!.instantiateViewControllerWithIdentifier("Card") as? CardController
-            let manager = CardTransitionManager()
-            nextCard!.pack = self.pack
-            nextCard!.card = card
-            nextCard?.transitioningDelegate = manager
-            self.transitioningDelegate = manager
-            self.presentViewController(nextCard!, animated: true, completion: { () -> Void in
-                
-            })
-        }
     }
 
 }
