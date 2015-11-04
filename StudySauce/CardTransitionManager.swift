@@ -13,16 +13,27 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     private var presenting = false
     private var interactive = false
+    private var flashView: AutoSizingTextView? = nil
+    internal var reversed: Bool = false
     
     private var enterPanGesture: UIScreenEdgePanGestureRecognizer!
-    private var flashView: AutoSizingTextView? = nil
-    
+    private var tap: UITapGestureRecognizer!
     var sourceViewController: CardController! {
         didSet {
-            self.enterPanGesture = UIScreenEdgePanGestureRecognizer()
-            self.enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-            self.enterPanGesture.edges = UIRectEdge.Right
+            if self.enterPanGesture == nil {
+                self.enterPanGesture = UIScreenEdgePanGestureRecognizer()
+                self.enterPanGesture.addTarget(self, action:"handleOnstagePan:")
+                self.enterPanGesture.edges = UIRectEdge.Right
+                self.tap = UITapGestureRecognizer()
+                self.tap.addTarget(self, action: "handleOnstageTap:")
+                self.tap.numberOfTapsRequired = 1
+            }
+            else if oldValue != nil {
+                oldValue.view.removeGestureRecognizer(self.enterPanGesture)
+                oldValue.view.removeGestureRecognizer(self.tap)
+            }
             self.sourceViewController.view.addGestureRecognizer(self.enterPanGesture)
+            self.sourceViewController.view.addGestureRecognizer(self.tap)
         }
     }
     
@@ -30,11 +41,20 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     var destinationViewController: CardController! {
         didSet {
-            self.exitPanGesture = UIScreenEdgePanGestureRecognizer()
-            self.exitPanGesture.addTarget(self, action:"handleOffstagePan:")
-            self.exitPanGesture.edges = UIRectEdge.Left
+            if self.exitPanGesture == nil {
+                self.exitPanGesture = UIScreenEdgePanGestureRecognizer()
+                self.exitPanGesture.addTarget(self, action:"handleOffstagePan:")
+                self.exitPanGesture.edges = UIRectEdge.Left
+            }
+            else if oldValue != nil {
+                oldValue.view.addGestureRecognizer(self.exitPanGesture)
+            }
             self.destinationViewController.view.addGestureRecognizer(self.exitPanGesture)
         }
+    }
+    
+    func handleOnstageTap(tap: UITapGestureRecognizer) {
+        self.sourceViewController.subview?.performSegueWithIdentifier("next", sender: self)
     }
     
     func handleOnstagePan(pan: UIPanGestureRecognizer){
@@ -65,7 +85,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             // return flag to false and finish the transition
             self.interactive = false
-            if(d > 0.2 || d < -0.2){
+            if(d > 0.1 || d < -0.1){
                 // threshold crossed: finish
                 self.finishInteractiveTransition()
             }
@@ -97,7 +117,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
         default: // .Ended, .Cancelled, .Failed ...
             self.interactive = false
-            if(d > 0.2 || d < -0.2){
+            if(d > 0.1 || d < -0.1){
                 self.finishInteractiveTransition()
             }
             else {
@@ -119,24 +139,38 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         // assign references to our menu view controller and the 'bottom' view controller from the tuple
         // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
-        let next = !self.presenting ? screens.from as! CardController : screens.to as! CardController
-        let last = !self.presenting ? screens.to as! CardController : screens.from as! CardController
-        
-        // prepare menu items to slide in
-        let origColor = next.view.backgroundColor
-        if (self.presenting){
-            next.embeddedView.transform = self.offStage(last.view.frame.width)
-        }
-        next.view.backgroundColor = UIColor.clearColor()
+        var next = !self.presenting ? screens.from : screens.to 
+        var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
-        
         container!.addSubview(last.view)
         container!.addSubview(next.view)
-        if last.intermediateResponse != nil {
-            self.setupCorrectFlash(last.intermediateResponse!.correct == 1, container: container!)
+        
+        let parent = next
+        let origLast = last
+        let origColor = parent.view.backgroundColor
+        if last as? CardController != nil && next as? CardController != nil {
+            parent.view.backgroundColor = UIColor.clearColor()
+            last = (last as! CardController).subview!
+            next = (next as! CardController).subview!
         }
+        
         //self.setupShadow(container)
+
+        // prepare menu items to slide in
+        if (self.presenting){
+            last.view.transform = self.offStage(0.0)
+            next.view.transform = self.offStage(last.view.frame.width)
+        }
+        else {
+            last.view.transform = self.offStage(-next.view.frame.width)
+            next.view.transform = self.offStage(0.0)
+        }
+        if let vc = origLast as? CardController where vc.intermediateResponse != nil && vc.subview as? CardSelfController == nil {
+            next.view.transform = self.offStage(0.0)
+            last.view.transform = self.offStage(-last.view.frame.width)
+            self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
+        }
         
         let duration = self.transitionDuration(transitionContext)
         
@@ -145,17 +179,20 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             if self.flashView != nil {
                 self.flashView!.alpha = 0
             }
-            if self.presenting {
-                next.embeddedView.transform = CGAffineTransformIdentity
-                last.embeddedView.transform = self.offStage(-last.view.frame.width)
-            }
             else {
-                last.embeddedView.transform = CGAffineTransformIdentity
-                next.embeddedView.transform = self.offStage(next.view.frame.width)
+                if self.presenting {
+                    next.view.transform = self.offStage(0.0)
+                    last.view.transform = self.offStage(-last.view.frame.width)
+                }
+                else {
+                    last.view.transform = self.offStage(0.0)
+                    next.view.transform = self.offStage(next.view.frame.width)
+                }
             }
             
             }, completion: { finished in
-                next.view.backgroundColor = origColor
+                self.flashView = nil
+                parent.view.backgroundColor = origColor
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){
                     
@@ -198,7 +235,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         self.flashView!.alpha = 1.0
         self.flashView!.textColor = UIColor.whiteColor()
         self.flashView!.textAlignment = NSTextAlignment.Center
-        self.flashView!.font = UIFont.systemFontOfSize(100.0)
+        self.flashView!.font = UIFont.systemFontOfSize(250.0)
         self.flashView!.frame = CGRect(x: 0, y: 0, width: container.frame.width, height: container.frame.height)
         if correct {
             self.flashView!.text = "✔︎"
@@ -224,13 +261,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     // return the animataor when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = true
+        self.presenting = !reversed
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = false
+        self.presenting = reversed
         return self
     }
     

@@ -24,10 +24,10 @@ class CardMultipleController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
                 self.content!.text = vc.card?.content
-                vc.transitionManager = CardTransitionManager()
-                vc.transitionManager!.sourceViewController = vc
+                CardSegue.transitionManager.sourceViewController = vc
             }
             if self.answer1 != nil && vc.card?.answers?.count > 0 {
+                CardSegue.transitionManager.destinationViewController = vc
                 self.answer1!.titleLabel?.adjustsFontSizeToFitWidth = true
                 self.answer1!.setTitle((vc.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
             }

@@ -46,7 +46,7 @@ class AutoSizingTextView: UITextView {
                 context:nil)
             numberOfLines = CGRectGetHeight(expectSize) / font!.lineHeight
             if origLines == nil {
-                origLines = numberOfLines
+                origLines = numberOfLines + 1
             }
         } while size < self.maxSize && expectSize.height < maximumLabelHeight.height - fontHeight
             && expectSize.height < maximumLabelWidth.width - fontHeight

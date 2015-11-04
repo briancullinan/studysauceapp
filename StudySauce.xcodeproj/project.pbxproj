@@ -45,6 +45,7 @@
 		64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F11BBCD05F005F9094 /* UserInviteController.swift */; };
 		64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F31BBCD133005F9094 /* UserRegisterController.swift */; };
 		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; };
+		64EF7D241BE88E730025E094 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EF7D231BE88E730025E094 /* NSObject.swift */; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
@@ -103,6 +104,7 @@
 		64D219F11BBCD05F005F9094 /* UserInviteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInviteController.swift; sourceTree = "<group>"; };
 		64D219F31BBCD133005F9094 /* UserRegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterController.swift; sourceTree = "<group>"; };
 		64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudySauce.xcdatamodel; sourceTree = "<group>"; };
+		64EF7D231BE88E730025E094 /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		8450524F1BA4AA3B005377D9 /* StudySauce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudySauce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845052541BA4AA3B005377D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				649B093C1BE07C1700A3F9A4 /* CardSegue.swift */,
 				64292E101BE2F3C60038505B /* CardTransitionManager.swift */,
 				643C203F1BE461CE00A89A3F /* UIColor.swift */,
+				64EF7D231BE88E730025E094 /* NSObject.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */,
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				642354111BBDD12200B068DB /* DismissSegue.swift in Sources */,
+				64EF7D241BE88E730025E094 /* NSObject.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
 				9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,

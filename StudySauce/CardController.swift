@@ -18,10 +18,11 @@ class CardController: UIViewController {
     internal var intermediateResponse: Response? = nil
     internal var pack: Pack!
     internal var card: Card? = nil
-    internal var subview: UIViewController? = nil
-    var transitionManager: CardTransitionManager? = nil
-
-    // TODO: check the answer for correctness
+    internal var subview: UIViewController? = nil {
+        didSet {
+            self.addChildViewController(self.subview!)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +47,9 @@ class CardController: UIViewController {
             }
             self.subview = self.storyboard!.instantiateViewControllerWithIdentifier(view)
         }
+        self.embeddedView.addSubview(self.subview!.view)
         dispatch_async(dispatch_get_main_queue(),{
-            self.addChildViewController(self.subview!)
             self.subview!.view.frame = CGRectMake(0, 0, self.embeddedView.frame.size.width, self.embeddedView.frame.size.height);
-            self.embeddedView.addSubview(self.subview!.view)
             self.subview!.didMoveToParentViewController(self)
         })
             
@@ -58,6 +58,20 @@ class CardController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? PackResultsController {
             vc.pack = self.pack
+        }
+        if let vc = segue.destinationViewController as? CardController {
+            vc.pack = self.pack
+            if vc.subview != nil {
+                vc.card = self.card
+                vc.intermediateResponse = self.intermediateResponse
+            }
+        }
+        if let vc = segue.destinationViewController.parentViewController as? CardController {
+            vc.pack = self.pack
+            if vc.subview != nil {
+                vc.card = self.card
+                vc.intermediateResponse = self.intermediateResponse
+            }
         }
     }
     
@@ -75,6 +89,6 @@ class CardController: UIViewController {
         })
         task.resume()
     }
-
 }
+
 

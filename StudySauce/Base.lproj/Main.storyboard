@@ -88,7 +88,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lGY-Xx-rTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1955" y="-2705"/>
+            <point key="canvasLocation" x="2747" y="-2705"/>
         </scene>
         <!--Card-->
         <scene sceneID="fIU-p4-l4e">
@@ -118,7 +118,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="show" id="Ad3-zr-pm4"/>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="Ad3-zr-pm4"/>
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AjF-zc-xVk">
@@ -264,7 +264,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Sh1-gC-bac" kind="show" id="FIi-mi-o0y"/>
+                                    <segue destination="Sh1-gC-bac" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="FIi-mi-o0y"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My study packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1e-oo-7Yc">
@@ -283,7 +283,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalHuggingPriority="750" tableViewCell="LAx-Bu-P3t" id="Cop-dO-w2C">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="68.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaP-jp-FHw">
@@ -374,8 +374,8 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="d4B-bi-vai" id="nVX-g6-hK7"/>
-                        <segue destination="ArM-tF-FuE" kind="show" identifier="results" id="Kyk-ub-bbY"/>
-                        <segue destination="RhB-Zp-1b3" kind="show" identifier="card" id="aNX-LU-Mfo"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="aNX-LU-Mfo"/>
+                        <segue destination="ArM-tF-FuE" kind="custom" identifier="results" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="1w5-kD-eLZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeH-si-5Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -447,6 +447,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="correctButton" destination="QyN-eE-dnk" id="HHb-QL-j17"/>
                         <outlet property="response" destination="a3E-wa-lDZ" id="C9g-A4-VI3"/>
                         <segue destination="wX3-J5-TSh" kind="custom" identifier="last" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="hbg-M8-4U6"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="hJi-Nu-qtH"/>
@@ -557,7 +558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zO-eF-hWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2747" y="-2705"/>
+            <point key="canvasLocation" x="3527" y="-2705"/>
         </scene>
         <!--PrivacyPolicy-->
         <scene sceneID="dCq-tp-xFf">
@@ -580,7 +581,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="7bU-J0-4YG" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="O5l-yW-I8n"/>
+                                    <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="ZAc-Zr-uuP"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
@@ -745,7 +746,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="show" id="xPb-Xh-Fmi"/>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="xPb-Xh-Fmi"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">
@@ -780,7 +781,7 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="show" id="NiU-oN-f2u"/>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="NiU-oN-f2u"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -812,7 +813,7 @@ support@studysauce.com
                         <outlet property="packTitle" destination="LAg-ej-lSQ" id="5ac-W4-oKP"/>
                         <outlet property="percent" destination="M0c-QT-Bxo" id="V1N-Bt-cbr"/>
                         <outlet property="review" destination="d5O-Ga-XDa" id="jAT-PR-SXQ"/>
-                        <segue destination="RhB-Zp-1b3" kind="show" identifier="card" id="8QO-Rt-Ftp"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="8QO-Rt-Ftp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJX-a1-HCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1466,7 +1467,7 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="show" id="Ffu-HO-BMd"/>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Ffu-HO-BMd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-Wd-a5Y">
@@ -1478,7 +1479,7 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="9uY-OX-AMx" kind="show" id="kQq-ae-1lG"/>
+                                    <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="kQq-ae-1lG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7E7-03-KKX">
@@ -1490,12 +1491,11 @@ support@studysauce.com
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="c9t-jE-emQ" kind="show" id="10j-i7-f7k"/>
+                                    <segue destination="c9t-jE-emQ" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="10j-i7-f7k"/>
                                 </connections>
                             </button>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7E7-03-KKX" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="3uO-DU-mW6"/>
                             <constraint firstItem="UwA-oP-fTz" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="3zI-1v-Bww"/>
@@ -1529,7 +1529,7 @@ support@studysauce.com
             <objects>
                 <tableViewController title="UserSettings" id="7bU-J0-4YG" customClass="UserSettingsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="oIb-cn-bKt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="534"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1537,10 +1537,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Basic information" id="BTy-7d-dQQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xSV-jN-HWd">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xSV-jN-HWd" id="XU1-QP-8j2">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2mt-PH-TfB">
@@ -1569,10 +1569,10 @@ support@studysauce.com
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zJp-FK-9yM">
-                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="94" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJp-FK-9yM" id="ybY-Zq-emd">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkq-iX-Hha">
@@ -1601,10 +1601,10 @@ support@studysauce.com
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lgW-Vk-SzC">
-                                        <rect key="frame" x="0.0" y="137.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="138" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgW-Vk-SzC" id="4h4-2R-VOr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="86" translatesAutoresizingMaskIntoConstraints="NO" id="kFs-sa-lRw">
@@ -1637,10 +1637,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Child information" id="hKr-42-xBk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qY0-eA-xul">
-                                        <rect key="frame" x="0.0" y="231.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="232" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qY0-eA-xul" id="pf3-OW-VZG">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiW-fh-aXa">
@@ -1669,10 +1669,10 @@ support@studysauce.com
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JNr-I0-zUv">
-                                        <rect key="frame" x="0.0" y="275.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="276" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-I0-zUv" id="8mO-KZ-AQc">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UhY-7U-t3H">
@@ -1705,10 +1705,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Privacy" id="F3V-vC-eWK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="45V-80-3rm">
-                                        <rect key="frame" x="0.0" y="369.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="370" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45V-80-3rm" id="W63-qk-s9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO8-dm-T1H">
@@ -1727,7 +1727,7 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
-                                            <segue destination="suA-OJ-sYL" kind="presentation" modalPresentationStyle="overCurrentContext" id="GUn-jj-oex"/>
+                                            <segue destination="suA-OJ-sYL" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="GUn-jj-oex"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1735,10 +1735,10 @@ support@studysauce.com
                             <tableViewSection headerTitle="Support" id="fxT-ql-DSK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gsZ-sM-Rcm">
-                                        <rect key="frame" x="0.0" y="463.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="464" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gsZ-sM-Rcm" id="geq-rR-o0q">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2JS-3M-U9M">
@@ -1757,7 +1757,7 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                         <animations/>
                                         <connections>
-                                            <segue destination="5Dr-EB-zmH" kind="presentation" modalPresentationStyle="overCurrentContext" id="tEg-YC-ecd"/>
+                                            <segue destination="5Dr-EB-zmH" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="tEg-YC-ecd"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -2036,7 +2036,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="7bU-J0-4YG" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="vJ0-zm-jCZ"/>
+                                    <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="QhV-YZ-0yf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2138,7 +2138,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Sh1-gC-bac" kind="show" id="CF8-cK-F99"/>
+                                    <segue destination="Sh1-gC-bac" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="CF8-cK-F99"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2162,7 +2162,7 @@ support@studysauce.com
                     <connections>
                         <outlet property="registrationCode" destination="zSN-Mr-KTu" id="eBI-Qh-B3g"/>
                         <outlet property="registrationCode2" destination="zSN-Mr-KTu" id="Rsf-SV-oq7"/>
-                        <segue destination="Sh1-gC-bac" kind="show" identifier="register" id="Nyc-SM-9HH"/>
+                        <segue destination="Sh1-gC-bac" kind="custom" identifier="register" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="Nyc-SM-9HH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5b-ND-gOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2316,8 +2316,8 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" text="Lorem ipsum dolor sit " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U7c-w6-Xqx" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="560" height="496"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Lorem ipsum dolor sit " textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="U7c-w6-Xqx" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="20" width="560" height="572"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2331,6 +2331,7 @@ support@studysauce.com
                             <constraint firstItem="U7c-w6-Xqx" firstAttribute="trailing" secondItem="Pcb-LE-HGS" secondAttribute="trailingMargin" id="Wv8-KK-Fg6"/>
                             <constraint firstItem="U7c-w6-Xqx" firstAttribute="leading" secondItem="Pcb-LE-HGS" secondAttribute="leadingMargin" id="d3Y-gr-7Iq"/>
                             <constraint firstItem="U7c-w6-Xqx" firstAttribute="leading" secondItem="Pcb-LE-HGS" secondAttribute="leadingMargin" id="dGT-sC-ZtJ"/>
+                            <constraint firstItem="E16-8c-FZ2" firstAttribute="top" secondItem="U7c-w6-Xqx" secondAttribute="bottom" constant="8" symbolic="YES" id="kf0-ff-6Jq"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2340,7 +2341,7 @@ support@studysauce.com
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLM-5S-ywR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3527" y="-2705"/>
+            <point key="canvasLocation" x="3527" y="-1929"/>
         </scene>
     </scenes>
     <resources>
@@ -2350,14 +2351,14 @@ support@studysauce.com
         <image name="neural darkened" width="1300" height="1028"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b42-hi-3ZP"/>
-        <segue reference="FIi-mi-o0y"/>
-        <segue reference="xPb-Xh-Fmi"/>
-        <segue reference="jVs-Lw-C2J"/>
-        <segue reference="hJi-Nu-qtH"/>
-        <segue reference="I3T-Nz-Fid"/>
-        <segue reference="vjw-L6-fSU"/>
-        <segue reference="H2U-7l-d0h"/>
         <segue reference="AaP-eY-XLw"/>
+        <segue reference="QhV-YZ-0yf"/>
+        <segue reference="5Q1-aA-R4W"/>
+        <segue reference="DnL-J9-off"/>
+        <segue reference="H2U-7l-d0h"/>
+        <segue reference="1w5-kD-eLZ"/>
+        <segue reference="NiU-oN-f2u"/>
+        <segue reference="vjw-L6-fSU"/>
+        <segue reference="hJi-Nu-qtH"/>
     </inferredMetricsTieBreakers>
 </document>
