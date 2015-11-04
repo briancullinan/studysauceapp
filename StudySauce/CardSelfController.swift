@@ -53,6 +53,7 @@ class CardSelfController: UIViewController {
                     newResponse!.created = NSDate()
                     newResponse!.user = AppDelegate.getUser()
                     try moc.save()
+                    vc.intermediateResponse = newResponse
                     vc.submitResponse(newResponse!)
                 }
             }

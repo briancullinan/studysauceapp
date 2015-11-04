@@ -166,7 +166,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             last.view.transform = self.offStage(-next.view.frame.width)
             next.view.transform = self.offStage(0.0)
         }
-        if let vc = origLast as? CardController where vc.intermediateResponse != nil && vc.subview as? CardSelfController == nil {
+        if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardSelfController == nil || (vc.subview as! CardSelfController).correctButton != nil) {
             next.view.transform = self.offStage(0.0)
             last.view.transform = self.offStage(-last.view.frame.width)
             self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
