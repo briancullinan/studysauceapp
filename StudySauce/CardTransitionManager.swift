@@ -144,14 +144,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
-        if self.presenting {
-            next.preferredContentSize = CGSizeMake(last.view.frame.width, last.view.frame.height)
-        }
-        else {
-            last.preferredContentSize = CGSizeMake(next.view.frame.width, next.view.frame.height)
-        }
         container!.addSubview(last.view)
         container!.addSubview(next.view)
+        last.view.transform = self.offStage(0.0)
+        next.view.transform = self.offStage(0.0)
+        next.view.bounds = UIScreen.mainScreen().bounds
+        last.view.bounds = UIScreen.mainScreen().bounds
+        next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
+        last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
 
         let parent = next
         let origLast = last
@@ -167,15 +167,15 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         // prepare menu items to slide in
         if (self.presenting){
             last.view.transform = self.offStage(0.0)
-            next.view.transform = self.offStage(last.view.frame.width)
+            next.view.transform = self.offStage(UIScreen.mainScreen().bounds.width)
         }
         else {
-            last.view.transform = self.offStage(-next.view.frame.width)
+            last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
             next.view.transform = self.offStage(0.0)
         }
         if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardSelfController == nil || (vc.subview as! CardSelfController).correctButton != nil) {
             next.view.transform = self.offStage(0.0)
-            last.view.transform = self.offStage(-last.view.frame.width)
+            last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
             self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
         }
         
@@ -188,12 +188,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             }
             else {
                 if self.presenting {
-                    next.view.transform = self.offStage(0.0)
-                    last.view.transform = self.offStage(-last.view.frame.width)
+                    next.view.transform = CGAffineTransformIdentity
+                    last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
                 }
                 else {
                     last.view.transform = self.offStage(0.0)
-                    next.view.transform = self.offStage(next.view.frame.width)
+                    next.view.transform = self.offStage(UIScreen.mainScreen().bounds.width)
                 }
             }
             

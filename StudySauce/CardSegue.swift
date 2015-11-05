@@ -37,10 +37,12 @@ class CardSegue : UIStoryboardSegue {
                 }
                 else {
                     if let card = next as? CardController {
+                        card.card = nextCard
                         next = card
                     }
                     else {
                         let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
+                        card.card = nextCard
                         card.pack = parent.pack
                         next = card
                     }

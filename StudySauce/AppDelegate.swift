@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        IQKeyboardManager.sharedManager().enable = true
         // Override point for customization after application launch.
         //let splitViewController = self.window!.rootViewController as! UINavigationController
         //splitViewController.delegate = self
