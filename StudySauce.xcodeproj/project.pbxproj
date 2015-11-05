@@ -45,6 +45,7 @@
 		64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F11BBCD05F005F9094 /* UserInviteController.swift */; };
 		64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F31BBCD133005F9094 /* UserRegisterController.swift */; };
 		64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 64D580F11BB37962005EF7F2 /* StudySauce.xcdatamodeld */; };
+		64ED1DB11BEB10AD00A9E2A2 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED1DB01BEB10AD00A9E2A2 /* HomeController.swift */; };
 		64EF7D241BE88E730025E094 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EF7D231BE88E730025E094 /* NSObject.swift */; };
 		845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052541BA4AA3B005377D9 /* AppDelegate.swift */; };
 		845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845052561BA4AA3B005377D9 /* PackSummaryController.swift */; };
@@ -104,6 +105,7 @@
 		64D219F11BBCD05F005F9094 /* UserInviteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInviteController.swift; sourceTree = "<group>"; };
 		64D219F31BBCD133005F9094 /* UserRegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterController.swift; sourceTree = "<group>"; };
 		64D580F21BB37962005EF7F2 /* StudySauce.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StudySauce.xcdatamodel; sourceTree = "<group>"; };
+		64ED1DB01BEB10AD00A9E2A2 /* HomeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		64EF7D231BE88E730025E094 /* NSObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		8450524F1BA4AA3B005377D9 /* StudySauce.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudySauce.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845052531BA4AA3B005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 				9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */,
 				64570BDD1BC64C6100F9C6EB /* DialogController.swift */,
 				64570BDF1BC6F13400F9C6EB /* BetaSignupController.swift */,
+				64ED1DB01BEB10AD00A9E2A2 /* HomeController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */,
 				845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */,
 				845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */,
+				64ED1DB11BEB10AD00A9E2A2 /* HomeController.swift in Sources */,
 				64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

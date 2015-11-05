@@ -27,10 +27,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 self.tap.addTarget(self, action: "handleOnstageTap:")
                 self.tap.numberOfTapsRequired = 1
             }
-            else if oldValue != nil {
-                oldValue.view.removeGestureRecognizer(self.enterPanGesture)
-                oldValue.view.removeGestureRecognizer(self.tap)
-            }
+            //else if oldValue != nil {
+            //    oldValue.view.removeGestureRecognizer(self.enterPanGesture)
+            //    oldValue.view.removeGestureRecognizer(self.tap)
+            //}
             self.sourceViewController.view.addGestureRecognizer(self.enterPanGesture)
             self.sourceViewController.view.addGestureRecognizer(self.tap)
         }
@@ -44,9 +44,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 self.exitPanGesture = UIPanGestureRecognizer()
                 self.exitPanGesture.addTarget(self, action:"handleOffstagePan:")
             }
-            else if oldValue != nil {
-                oldValue.view.addGestureRecognizer(self.exitPanGesture)
-            }
+            //else if oldValue != nil {
+            //    oldValue.view.addGestureRecognizer(self.exitPanGesture)
+            //}
             self.destinationViewController.view.addGestureRecognizer(self.exitPanGesture)
         }
     }
@@ -144,9 +144,15 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
+        if self.presenting {
+            next.preferredContentSize = CGSizeMake(last.view.frame.width, last.view.frame.height)
+        }
+        else {
+            last.preferredContentSize = CGSizeMake(next.view.frame.width, next.view.frame.height)
+        }
         container!.addSubview(last.view)
         container!.addSubview(next.view)
-        
+
         let parent = next
         let origLast = last
         let origColor = parent.view.backgroundColor
