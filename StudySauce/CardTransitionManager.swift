@@ -16,14 +16,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var flashView: AutoSizingTextView? = nil
     internal var reversed: Bool = false
     
-    private var enterPanGesture: UIScreenEdgePanGestureRecognizer!
+    private var enterPanGesture: UIPanGestureRecognizer!
     private var tap: UITapGestureRecognizer!
     var sourceViewController: CardController! {
         didSet {
             if self.enterPanGesture == nil {
-                self.enterPanGesture = UIScreenEdgePanGestureRecognizer()
+                self.enterPanGesture = UIPanGestureRecognizer()
                 self.enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-                self.enterPanGesture.edges = UIRectEdge.Right
                 self.tap = UITapGestureRecognizer()
                 self.tap.addTarget(self, action: "handleOnstageTap:")
                 self.tap.numberOfTapsRequired = 1
@@ -37,14 +36,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
     }
     
-    private var exitPanGesture: UIScreenEdgePanGestureRecognizer!
+    private var exitPanGesture: UIPanGestureRecognizer!
     
     var destinationViewController: CardController! {
         didSet {
             if self.exitPanGesture == nil {
-                self.exitPanGesture = UIScreenEdgePanGestureRecognizer()
+                self.exitPanGesture = UIPanGestureRecognizer()
                 self.exitPanGesture.addTarget(self, action:"handleOffstagePan:")
-                self.exitPanGesture.edges = UIRectEdge.Left
             }
             else if oldValue != nil {
                 oldValue.view.addGestureRecognizer(self.exitPanGesture)
@@ -76,16 +74,17 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             break
             
         case UIGestureRecognizerState.Changed:
-            
-            // update progress of the transition
-            self.updateInteractiveTransition(-d)
+            if d < 0.02 {
+                // update progress of the transition
+                self.updateInteractiveTransition(-d)
+            }
             break
             
         default: // .Ended, .Cancelled, .Failed ...
             
             // return flag to false and finish the transition
             self.interactive = false
-            if(d > 0.1 || d < -0.1){
+            if d < -0.1 {
                 // threshold crossed: finish
                 self.finishInteractiveTransition()
             }
@@ -112,12 +111,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             break
             
         case UIGestureRecognizerState.Changed:
-            self.updateInteractiveTransition(d)
+            if d > 0.02 {
+                self.updateInteractiveTransition(d)
+            }
             break
             
         default: // .Ended, .Cancelled, .Failed ...
             self.interactive = false
-            if(d > 0.1 || d < -0.1){
+            if d > 0.1 {
                 self.finishInteractiveTransition()
             }
             else {

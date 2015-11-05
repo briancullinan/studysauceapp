@@ -17,10 +17,7 @@ class AutoSizingTextView: UITextView {
     var isCalculating = false
     internal var setManually = false
     
-    func getFontSize() -> CGFloat? {
-        if self.font == nil {
-            return nil
-        }
+    func getFontSize() -> CGFloat {
         let maximumLabelWidth = CGSizeMake(CGRectGetWidth(self.frame), 0)
         let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.size.height)
         var expectSize: CGRect
@@ -66,7 +63,8 @@ class AutoSizingTextView: UITextView {
             self.scrollEnabled = true
             self.scrollRangeToVisible(NSMakeRange(self.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding), 0));
             
-            if let size = self.getFontSize() where !setManually {
+            if !setManually && self.font != nil {
+                let size = self.getFontSize()
                 self.font = UIFont(name: self.font!.fontName, size: size)
             }
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
