@@ -32,6 +32,9 @@ class ContactUsController: UIViewController {
     @IBOutlet weak var message: UITextView!
     
     @IBAction func sendEmail(sender: AnyObject) {
+        self.name.resignFirstResponder()
+        self.email.resignFirstResponder()
+        self.message.resignFirstResponder()
         if self.email.text == nil || self.email.text == "" || self.name.text == nil || self.name.text == "" || self.message.text == nil || self.message.text == "" {
             return
         }
@@ -50,5 +53,7 @@ class ContactUsController: UIViewController {
             })
         })
     }
-   
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

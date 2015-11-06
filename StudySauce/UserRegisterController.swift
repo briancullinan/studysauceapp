@@ -17,22 +17,22 @@ class UserRegisterController : UIViewController {
     internal var mail: String?
     internal var token: String?
     
-    @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var firstName: UITextField!
+    @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var childSwitch: UISwitch!
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
     
     @IBAction func registerClick(sender: UIButton) {
-        self.lastName.resignFirstResponder()
         self.firstName.resignFirstResponder()
+        self.lastName.resignFirstResponder()
         self.email.resignFirstResponder()
         self.childFirst.resignFirstResponder()
         self.childLast.resignFirstResponder()
         self.first = self.firstName.text
-        self.mail = self.email.text
         self.last = self.lastName.text
+        self.mail = self.email.text
         self.showNoConnectionDialog({
         self.registerUser()
         })

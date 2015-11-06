@@ -14,6 +14,32 @@ import CoreData
 class HomeController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
+    // Animate big button to depress for a period of time before releasing and loading the card packs
+    var iv:UIImageView!
+    @IBOutlet weak var button:UIButton!
+    func startAnimatingButton(){
+        iv = UIImageView(image: UIImage(named:"bigbutton.png"))
+        iv.animationImages = [UIImage(named:"bigbuttonpressed.png")]
+        iv.animationDuration = 0.5;
+        iv.startAnimating()
+        button.addSubview(iv)
+    }
+    func stopAnimatingButton(){
+        iv.stopAnimating()
+        iv.removeFromSuperview()
+        iv=nil;
+        button.setImage(UIImage(named: "bigbutton.png"), forState:UIControlState.Normal)
+    }
+    @IBAction func onTouchDownOfButton(sender:AnyObject){
+        startAnimatingButton()
+    }
+    @IBAction func onTouchUpInsideOfButton(sender:AnyObject){
+        stopAnimatingButton()
+    }
+    // End the animation code
+    
+    
+    
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
