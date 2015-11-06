@@ -14,44 +14,48 @@ import CoreData
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView? = nil
     var packs = [Pack]()
+    var normalImage:UIImage!
+    var selectedImage:UIImage!
 
-    @IBOutlet weak var imageButton: UIImageView!
-    // Animate big button to depress for a period of time before releasing and loading the card packs
-    var iv:UIImageView!
-    @IBOutlet weak var button:UIButton!
-    func startAnimatingButton(){
-        iv = UIImageView(image: UIImage(named:"bigbutton.png"))
-        iv.animationImages = [UIImage(named:"bigbuttonpressed.png")]
-        iv.animationDuration = 0.5;
-        iv.startAnimating()
-        button.addSubview(iv)
-    }
-    func stopAnimatingButton(){
-        iv.stopAnimating()
-        iv.removeFromSuperview()
-        iv=nil;
-        button.setImage(UIImage(named: "bigbutton.png"), forState:UIControlState.Normal)
-    }
-    @IBAction func onTouchDownOfButton(sender:AnyObject){
-        startAnimatingButton()
-    }
-    @IBAction func onTouchUpInsideOfButton(sender:AnyObject){
-        stopAnimatingButton()
-    }
-    // End the animation code
+    @IBOutlet weak var bigbutton: UIButton?=nil
     
-    
-    
+    /*
+    @IBAction func buttondown(sender: UIButton) {
+        if (sender.selected)  {
+            UIView.animateWithDuration(1.5, animations: {
+                //self.normalImage.alpha = 1.0
+                //self.selectedImage.alpha = 0.0
+                sender.selected = !sender.selected;
+                })
+        }
+        else{
+            UIView.animateWithDuration(1.5, animations: {
+                //self.normalImage.alpha = 0.0
+                //self.selectedImage.alpha = 1.0
+                }
+                )
+        }
+    }
+                
+                
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
-    
-    @IBAction func monkeyClick(sender: AnyObject) {
-        // TODO: get card from user
-    }
-    
+    */
     override func viewDidLoad() {
         super.viewDidLoad()
+      /*
+        if self.bigbutton!=nil{
+            self.normalImage = UIImage(named: "bigbutton.png") as UIImage!
+            self.selectedImage = UIImage(named: "bigbuttonpressed.png") as UIImage!
+            
+            //set normal image
+            self.bigbutton!.setImage(normalImage, forState: UIControlState.Normal)
+            //set highlighted image
+            self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
+        }
+        */
+        
         if self.tableView != nil {
         self.tableView!.backgroundColor = UIColor.clearColor()
         self.tableView!.backgroundView = nil
