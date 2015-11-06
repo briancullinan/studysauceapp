@@ -1,3 +1,4 @@
+
 //
 //  PackSummaryCell.swift
 //  StudySauce
@@ -10,7 +11,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public class PackSummaryCell: UITableViewCell {
+public class PackRetentionCell: UITableViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,7 +19,7 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var countLabel: UILabel!
     
     weak var pack: Pack? = nil
-        
+    
     internal func configure(pack: Pack) {
         self.pack = pack
         let title = pack.title

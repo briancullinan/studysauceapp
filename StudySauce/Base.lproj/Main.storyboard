@@ -263,9 +263,6 @@
                                     <constraint firstAttribute="height" constant="38" id="h8z-MT-8p9"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="Sh1-gC-bac" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="FIi-mi-o0y"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My study packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1e-oo-7Yc">
                                 <rect key="frame" x="229" y="27" width="143" height="23"/>
@@ -1035,7 +1032,6 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="MOp-Mx-Mq1"/>
-                                    <segue destination="Sh1-gC-bac" kind="show" id="dnG-be-y3y"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1349,7 +1345,6 @@ support@studysauce.com
                     <connections>
                         <outlet property="password" destination="g30-OR-S5R" id="LF6-1F-77Q"/>
                         <outlet property="username" destination="6NS-tq-JHQ" id="kZE-ae-j3v"/>
-                        <segue destination="Sh1-gC-bac" kind="show" identifier="home" id="bQS-7T-3sy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1C8-j0-MdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1359,7 +1354,7 @@ support@studysauce.com
         <!--Home-->
         <scene sceneID="O2B-J0-79P">
             <objects>
-                <viewController storyboardIdentifier="Home" title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sh1-gC-bac" sceneMemberID="viewController">
+                <viewController title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sh1-gC-bac" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UQS-i6-XZb"/>
                         <viewControllerLayoutGuide type="bottom" id="89T-UU-IpT"/>
@@ -1387,9 +1382,6 @@ support@studysauce.com
                                 <state key="normal" title="My study packs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Ffu-HO-BMd"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-Wd-a5Y">
                                 <rect key="frame" x="0.0" y="510" width="600" height="90"/>
@@ -1399,9 +1391,6 @@ support@studysauce.com
                                 <state key="normal" title="Settings">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="kQq-ae-1lG"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7E7-03-KKX">
                                 <rect key="frame" x="0.0" y="420" width="600" height="90"/>
@@ -1411,9 +1400,6 @@ support@studysauce.com
                                 <state key="normal" title="New study packs">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="c9t-jE-emQ" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="10j-i7-f7k"/>
-                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -1469,7 +1455,7 @@ support@studysauce.com
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jKi-nW-IEK">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" id="jKi-nW-IEK" customClass="PackRetentionCell" customModule="StudySauce" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="482" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jKi-nW-IEK" id="UU1-1l-M3y">
@@ -1549,7 +1535,7 @@ support@studysauce.com
         <!--Home Controller-->
         <scene sceneID="LAm-Vc-LD8">
             <objects>
-                <viewController id="Sib-XO-0qJ" customClass="HomeController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sib-XO-0qJ" customClass="HomeController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="009-xO-PTg"/>
                         <viewControllerLayoutGuide type="bottom" id="ErB-X0-qh7"/>
@@ -1608,6 +1594,27 @@ support@studysauce.com
                                     <constraint firstAttribute="width" secondItem="jOc-le-xnL" secondAttribute="height" multiplier="1:1" id="TO4-Ic-egM"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0kB-dW-ngP">
+                                <rect key="frame" x="114" y="498" width="72" height="76"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="ZOi-0z-7Sy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f4-pA-K8G">
+                                <rect key="frame" x="418" y="498" width="64" height="76"/>
+                                <animations/>
+                                <connections>
+                                    <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="nCp-wS-9LV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hY-sb-WZm">
+                                <rect key="frame" x="201" y="270" width="198" height="198"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="monkeyClick:" destination="Sib-XO-0qJ" eventType="touchUpInside" id="aE8-Tb-keb"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1616,20 +1623,32 @@ support@studysauce.com
                             <constraint firstItem="1CP-rt-3Uk" firstAttribute="centerX" secondItem="fL4-wd-ncg" secondAttribute="centerX" id="4eM-td-7VH"/>
                             <constraint firstItem="1CP-rt-3Uk" firstAttribute="top" secondItem="fL4-wd-ncg" secondAttribute="bottom" constant="8" symbolic="YES" id="4hC-wW-lfM"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="top" secondItem="009-xO-PTg" secondAttribute="bottom" constant="-20" id="AA6-zf-sde"/>
+                            <constraint firstItem="6hY-sb-WZm" firstAttribute="leading" secondItem="jOc-le-xnL" secondAttribute="leading" id="Az6-BF-cdk"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.12" id="CRY-nK-KTK"/>
                             <constraint firstItem="fL4-wd-ncg" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.83" id="CV6-rQ-fy7"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="leading" secondItem="Cle-N8-wnH" secondAttribute="trailingMargin" multiplier="0.1" id="CnZ-nN-tWw"/>
                             <constraint firstItem="jOc-le-xnL" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.45" id="Cvo-JJ-dw8"/>
+                            <constraint firstItem="6hY-sb-WZm" firstAttribute="trailing" secondItem="jOc-le-xnL" secondAttribute="trailing" id="DHt-eo-qP5"/>
                             <constraint firstItem="fL4-wd-ncg" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerXWithinMargins" multiplier="0.5" id="DNM-0I-Ykl"/>
+                            <constraint firstItem="6hY-sb-WZm" firstAttribute="top" secondItem="jOc-le-xnL" secondAttribute="top" id="Dxc-BK-rjO"/>
                             <constraint firstItem="2iQ-Hz-FPz" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerXWithinMargins" multiplier="1.5" id="ExQ-M6-ONo"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="trailing" secondItem="Cle-N8-wnH" secondAttribute="trailing" multiplier="0.9" id="IQk-j1-fsB"/>
+                            <constraint firstItem="0kB-dW-ngP" firstAttribute="trailing" secondItem="1CP-rt-3Uk" secondAttribute="trailing" id="JpT-rZ-K53"/>
                             <constraint firstItem="jOc-le-xnL" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="ODu-ee-Al2"/>
+                            <constraint firstItem="0kB-dW-ngP" firstAttribute="bottom" secondItem="1CP-rt-3Uk" secondAttribute="bottom" id="PQI-zr-QPQ"/>
                             <constraint firstItem="jOc-le-xnL" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.78" id="QGB-Nn-xdf"/>
                             <constraint firstItem="2iQ-Hz-FPz" firstAttribute="height" secondItem="fL4-wd-ncg" secondAttribute="height" id="SLh-jU-ikn"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="SY0-Sl-ITs"/>
                             <constraint firstItem="peU-Qk-MIr" firstAttribute="top" secondItem="2iQ-Hz-FPz" secondAttribute="bottom" constant="8" symbolic="YES" id="Vo0-vC-wds"/>
+                            <constraint firstItem="6hY-sb-WZm" firstAttribute="bottom" secondItem="jOc-le-xnL" secondAttribute="bottom" id="X48-qe-If2"/>
+                            <constraint firstItem="6f4-pA-K8G" firstAttribute="bottom" secondItem="peU-Qk-MIr" secondAttribute="bottom" id="Zqm-uz-Fmb"/>
+                            <constraint firstItem="0kB-dW-ngP" firstAttribute="top" secondItem="fL4-wd-ncg" secondAttribute="top" id="bwC-wM-PcQ"/>
+                            <constraint firstItem="6f4-pA-K8G" firstAttribute="trailing" secondItem="peU-Qk-MIr" secondAttribute="trailing" id="dAL-2F-7zF"/>
+                            <constraint firstItem="6f4-pA-K8G" firstAttribute="top" secondItem="2iQ-Hz-FPz" secondAttribute="top" id="dVV-P7-PHT"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.08" constant="3" id="h2B-dd-hhC"/>
+                            <constraint firstItem="6f4-pA-K8G" firstAttribute="leading" secondItem="peU-Qk-MIr" secondAttribute="leading" id="hLh-nf-5mj"/>
                             <constraint firstItem="2iQ-Hz-FPz" firstAttribute="width" secondItem="fL4-wd-ncg" secondAttribute="width" id="iKc-MF-Sjb"/>
+                            <constraint firstItem="0kB-dW-ngP" firstAttribute="leading" secondItem="1CP-rt-3Uk" secondAttribute="leading" id="o1G-l4-2GO"/>
                             <constraint firstItem="peU-Qk-MIr" firstAttribute="centerX" secondItem="2iQ-Hz-FPz" secondAttribute="centerX" id="qnC-dA-bgs"/>
                             <constraint firstItem="fL4-wd-ncg" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.9" constant="8" symbolic="YES" id="tEr-Qa-dgy"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="leading" secondItem="Cle-N8-wnH" secondAttribute="leadingMargin" constant="-20" id="u5P-se-0Yc"/>
@@ -1637,6 +1656,9 @@ support@studysauce.com
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.4" id="zsA-I1-UCP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="adsds" destination="6hY-sb-WZm" id="eCA-yq-haL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rT6-Mt-KQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1647,7 +1669,7 @@ support@studysauce.com
             <objects>
                 <tableViewController title="UserSettings" id="7bU-J0-4YG" customClass="UserSettingsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="oIb-cn-bKt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="534"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1921,9 +1943,6 @@ support@studysauce.com
                                     <constraint firstAttribute="height" constant="38" id="w8F-1f-pED"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="Sh1-gC-bac" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="5Q1-aA-R4W"/>
-                                </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9T4-y2-6fP">
                                 <rect key="frame" x="0.0" y="66" width="600" height="534"/>
@@ -2255,9 +2274,6 @@ support@studysauce.com
                                     <constraint firstAttribute="height" constant="38" id="oJl-B3-hqq"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="Sh1-gC-bac" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="CF8-cK-F99"/>
-                                </connections>
                             </button>
                         </subviews>
                         <animations/>
@@ -2280,7 +2296,6 @@ support@studysauce.com
                     <connections>
                         <outlet property="registrationCode" destination="zSN-Mr-KTu" id="eBI-Qh-B3g"/>
                         <outlet property="registrationCode2" destination="zSN-Mr-KTu" id="Rsf-SV-oq7"/>
-                        <segue destination="Sh1-gC-bac" kind="custom" identifier="register" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="Nyc-SM-9HH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5b-ND-gOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2493,14 +2508,13 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="1389" height="276"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5Q1-aA-R4W"/>
-        <segue reference="kQq-ae-1lG"/>
-        <segue reference="Ffu-HO-BMd"/>
+        <segue reference="DnL-J9-off"/>
+        <segue reference="nCp-wS-9LV"/>
+        <segue reference="ZOi-0z-7Sy"/>
         <segue reference="aNX-LU-Mfo"/>
         <segue reference="jVs-Lw-C2J"/>
+        <segue reference="yl6-TZ-ZzN"/>
         <segue reference="AaP-eY-XLw"/>
-        <segue reference="DnL-J9-off"/>
-        <segue reference="k9N-Zv-Wkm"/>
-        <segue reference="XRc-D6-3Ln"/>
+        <segue reference="Oc6-ro-oKa"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -77,7 +77,7 @@ class UserInviteController : UIViewController {
                 self.last = json!["last"] as? String
                 self.mail = json!["email"] as? String
                 if !is_error_or_redirect {
-                    self.performSegueWithIdentifier("register", sender: self)
+                    self.goHome()
                 }
         })
     }

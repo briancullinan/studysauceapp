@@ -34,7 +34,7 @@ class UserRegisterController : UIViewController {
         self.mail = self.email.text
         self.last = self.lastName.text
         self.showNoConnectionDialog({
-        self.registerUser()
+            self.registerUser()
         })
     }
     
