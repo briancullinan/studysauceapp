@@ -26,6 +26,20 @@ import Foundation
 extension NSDate
 {
     
+    func daysDiff(date: NSDate) -> Float {
+        let calendar = NSCalendar.currentCalendar()
+        
+        var fromDate: NSDate?
+        var toDate: NSDate?
+        calendar.rangeOfUnit(.Hour, startDate:&fromDate, interval:nil, forDate:self)
+        calendar.rangeOfUnit(.Hour, startDate:&toDate, interval:nil, forDate:date)
+
+        
+        let difference = calendar.components(.Hour, fromDate:fromDate!, toDate:toDate!, options:[])
+        
+        return Float(difference.hour) / 12.0
+    }
+    
     func addDays(daysToAdd : Int) -> NSDate
     {
         let secondsInDays : NSTimeInterval = Double(daysToAdd) * 60 * 60 * 24

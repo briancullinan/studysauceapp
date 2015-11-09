@@ -18,28 +18,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var imageButton: UIImageView!
     // Animate big button to depress for a period of time before releasing and loading the card packs
     var iv:UIImageView!
-    @IBOutlet weak var button:UIButton!
-    func startAnimatingButton(){
-        iv = UIImageView(image: UIImage(named:"bigbutton.png"))
-        iv.animationImages = [UIImage(named:"bigbuttonpressed.png")]
-        iv.animationDuration = 0.5;
-        iv.startAnimating()
-        button.addSubview(iv)
-    }
-    func stopAnimatingButton(){
-        iv.stopAnimating()
-        iv.removeFromSuperview()
-        iv=nil;
-        button.setImage(UIImage(named: "bigbutton.png"), forState:UIControlState.Normal)
-    }
-    @IBAction func onTouchDownOfButton(sender:AnyObject){
-        startAnimatingButton()
-    }
-    @IBAction func onTouchUpInsideOfButton(sender:AnyObject){
-        stopAnimatingButton()
-    }
-    // End the animation code
-    
     
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -53,16 +31,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.tableView != nil {
-        self.tableView!.backgroundColor = UIColor.clearColor()
-        self.tableView!.backgroundView = nil
+            self.tableView!.backgroundColor = UIColor.clearColor()
+            self.tableView!.backgroundView = nil
         
-        // Load packs from database
-        self.packs = getPacksFromLocalStore()
+            // Load packs from database
+            self.packs = getPacksFromLocalStore()
         
-        // Make the cell self size
-        self.tableView!.estimatedRowHeight = 66.0
-        self.tableView!.rowHeight = UITableViewAutomaticDimension
-        self.tableView!.layoutIfNeeded()
+            // Make the cell self size
+            self.tableView!.estimatedRowHeight = 66.0
+            self.tableView!.rowHeight = UITableViewAutomaticDimension
+            self.tableView!.layoutIfNeeded()
         
         // refresh data from server
         //self.getPacks { () -> Void in
@@ -97,7 +75,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackRetentionCell
         
         let object = self.packs[indexPath.row]
         cell.configure(object)
@@ -105,3 +83,4 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
 }
+

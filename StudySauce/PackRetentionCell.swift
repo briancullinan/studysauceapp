@@ -13,9 +13,7 @@ import UIKit
 
 public class PackRetentionCell: UITableViewCell {
     
-    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var creatorLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
     
     weak var pack: Pack? = nil
@@ -31,19 +29,7 @@ public class PackRetentionCell: UITableViewCell {
         if modified == nil {
             modified = pack.created
         }
-        if let url = pack.logo where !url.isEmpty {
-            let logo = UIImage(data: NSData(contentsOfURL: NSURL(string:url)!)!)!
-            self.logoImage.image = logo
-            self.logoImage.hidden = false
-            self.creatorLabel.hidden = true
-        }
-        else {
-            self.logoImage.image = nil
-            self.logoImage.hidden = true
-            self.creatorLabel.text = creator
-            self.creatorLabel.hidden = false
-        }
-        let count = Int(pack.count ?? 0) // getCardCount(AppDelegate.getUser())
+        let count = pack.getRetentionCardCount(AppDelegate.getUser())
         let s = count > 1 ? "s" : ""
         self.countLabel.text = "\(count) card\(s)";
         self.titleLabel.text = title

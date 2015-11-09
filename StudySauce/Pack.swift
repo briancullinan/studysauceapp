@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class Pack: NSManagedObject {
 
@@ -98,5 +99,31 @@ class Pack: NSManagedObject {
         }
         return count
     }
+    
+    func getRetentionCardCount(user: User?) -> Int {
+        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
+        var count = 0;
+        if cards.count > 0 {
+            // if a card hasn't been answered, return the next card
+            for c in cards {
+                let response = c.getResponseForUser(user)
+                if response == nil {
+                    return count++
+                }
+                else {
+                    let t = CGFloat(response!.created!.daysDiff(NSDate()))
+                    let R = 1.48 / (1.25 * log(t) + 1.48)
+                    if R < 1 {
+                        count++
+                    }
+                }
+            }
+        }
+        if count == 0 {
+            return Int(self.count!)
+        }
+        return count
+    }
+
     
 }
