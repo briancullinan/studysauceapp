@@ -42,7 +42,7 @@ public class PackSummaryCell: UITableViewCell {
             self.creatorLabel.text = creator
             self.creatorLabel.hidden = false
         }
-        let count = Int(pack.count ?? 0) // getCardCount(AppDelegate.getUser())
+        let count = Int(pack.count ?? 0)
         let s = count > 1 ? "s" : ""
         self.countLabel.text = "\(count) card\(s)";
         self.titleLabel.text = title

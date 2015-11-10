@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.makeKeyAndVisible();
             }
         }
-        if user != nil && user!.id != nil {
+        if user != nil && user!.id != nil && user!.id != 0 {
             self.user = user
             done()
         }
@@ -129,34 +129,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     private static func getPersistentStoreCoordinator() -> NSPersistentStoreCoordinator? {
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
-        let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
+        var coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
         catch _ as NSError {
-            self.resetLocalStore()
+            coordinator = self.resetLocalStore()
         }
         return coordinator
     }
     
-    internal static func resetLocalStore()
+    internal static func resetLocalStore() -> NSPersistentStoreCoordinator?
     {
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
             let coordinator = AppDelegate.getPersistentStoreCoordinator()
-            if coordinator == nil {
-                self.managedObjectContext = nil
-            }
-            let managedObjectContext = NSManagedObjectContext()
-            managedObjectContext.persistentStoreCoordinator = coordinator
-            self.managedObjectContext = managedObjectContext
-        }
+            return coordinator
+       }
         catch let error as NSError {
             NSLog("Unresolved error \(error), \(error.userInfo)")
         }
-
+        return nil
     }
     
     static var managedObjectContext: NSManagedObjectContext? = {

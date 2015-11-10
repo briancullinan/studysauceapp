@@ -251,7 +251,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         return
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        if self.packs[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+                        if self.packs[indexPath.row].getRetryCard(AppDelegate.getUser()) == nil {
                             self.performSegueWithIdentifier("results", sender: self)
                         }
                         else {
@@ -261,7 +261,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 })
         }
         else {
-            if self.packs[indexPath.row].getCardForUser(AppDelegate.getUser()) == nil {
+            if self.packs[indexPath.row].getRetryCard(AppDelegate.getUser()) == nil {
                 self.performSegueWithIdentifier("results", sender: self)
             }
             else {

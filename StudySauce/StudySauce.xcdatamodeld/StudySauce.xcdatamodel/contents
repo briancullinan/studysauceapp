@@ -76,7 +76,7 @@
         <attribute name="created" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="downloaded" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="priority" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="retry_from" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="retries" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="retry_to" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="pack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pack" inverseName="user_packs" inverseEntity="Pack" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="user_packs" inverseEntity="User" syncable="YES"/>

@@ -17,7 +17,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var normalImage:UIImage!
     var selectedImage:UIImage!
 
+<<<<<<< HEAD
+    @IBOutlet weak var imageButton: UIImageView!
+    // Animate big button to depress for a period of time before releasing and loading the card packs
+    var iv:UIImageView!
+    
+=======
     @IBOutlet weak var bigbutton: UIButton?=nil
+>>>>>>> 1f0ef2acb170eb858b3268ca3a1368f1ecdfe234
     
     /*
     @IBAction func buttondown(sender: UIButton) {
@@ -86,9 +93,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
             do {
                 for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
-                    if p.getRetentionCardCount(AppDelegate.getUser()) > 0 {
-                        packs.insert(p, atIndex: 0)
-                    }
+                    packs.insert(p, atIndex: 0)
                 }
             }
             catch let error as NSError {

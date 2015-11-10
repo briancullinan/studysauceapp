@@ -2,7 +2,7 @@
 //  UserPack+CoreDataProperties.swift
 //  StudySauce
 //
-//  Created by Brian Cullinan on 10/27/15.
+//  Created by Brian Cullinan on 11/9/15.
 //  Copyright © 2015 The Study Institute. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -17,7 +17,7 @@ extension UserPack {
     @NSManaged var created: NSDate?
     @NSManaged var downloaded: NSDate?
     @NSManaged var priority: NSDecimalNumber?
-    @NSManaged var retry_from: NSDate?
+    @NSManaged var retries: String?
     @NSManaged var retry_to: NSDate?
     @NSManaged var pack: Pack?
     @NSManaged var user: User?

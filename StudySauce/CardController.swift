@@ -28,12 +28,12 @@ class CardController: UIViewController {
         super.viewDidLoad()
                 
         if card == nil {
-            self.card = self.pack.getCardForUser(AppDelegate.getUser())
+            self.card = self.pack.getRetryCard(AppDelegate.getUser())
         }
         self.packTitle.text = self.pack.title
         let index = self.pack.getIndexForCard(self.card!, user: AppDelegate.getUser())
         let count = self.pack.getCardCount(AppDelegate.getUser())
-        self.countLabel.text = "\(index) of \(count)"
+        self.countLabel.text = "\(index+1) of \(count)"
         if self.subview == nil {
             var view = "Default"
             if self.card?.response_type == "mc" {
