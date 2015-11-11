@@ -14,8 +14,10 @@ class UserPack: NSManagedObject {
     func getRetryCard() -> Card? {
         var retries = self.getRetries()
         
+        // TODO: fix retry after pack results page has been seen
+        
         // if retries is empty generate a list and randomize it
-        if self.retry_to == nil || self.retry_to!.addDays(1) < NSDate() || retries.count == 0
+        if self.retry_to == nil || retries.count == 0
             // if pack was modified add new cards to current set to finish
             || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) {
             retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]

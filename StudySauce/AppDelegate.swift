@@ -180,8 +180,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static func saveContext () {
         if let moc = AppDelegate.managedObjectContext {
-            let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-            dispatch_async(backgroundQueue, {
             do {
                 if moc.hasChanges {
                     try moc.save()
@@ -192,7 +190,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 NSLog("Unresolved error \(error), \(error.userInfo)")
             }
-            })
         }
     }
     
