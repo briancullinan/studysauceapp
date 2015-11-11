@@ -2,7 +2,7 @@
 //  User+CoreDataProperties.swift
 //  StudySauce
 //
-//  Created by Brian Cullinan on 10/27/15.
+//  Created by Brian Cullinan on 11/10/15.
 //  Copyright © 2015 The Study Institute. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -24,6 +24,8 @@ extension User {
     @NSManaged var properties: String?
     @NSManaged var roles: String?
     @NSManaged var sign_out: NSDate?
+    @NSManaged var retention: String?
+    @NSManaged var retention_to: NSDate?
     @NSManaged var authored: NSSet?
     @NSManaged var responses: NSSet?
     @NSManaged var user_packs: NSSet?

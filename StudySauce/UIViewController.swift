@@ -21,6 +21,8 @@ extension UIViewController {
     func goHome(refetch: Bool = false) {
         if !refetch && AppDelegate.getUser() != nil {
             let home = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
+            self.transitioningDelegate = CardSegue.transitionManager
+            home.transitioningDelegate = CardSegue.transitionManager
             dispatch_async(dispatch_get_main_queue(),{
                 self.presentViewController(home, animated: true, completion: {})
             })
@@ -28,6 +30,8 @@ extension UIViewController {
         else {
             UserLoginController.login({
                 let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+                self.transitioningDelegate = CardSegue.transitionManager
+                home.transitioningDelegate = CardSegue.transitionManager
                 dispatch_async(dispatch_get_main_queue(),{
                     self.presentViewController(home, animated: true, completion: {})
                 })
@@ -86,6 +90,8 @@ extension UIViewController {
         dialog.button = button
         dialog.click = done
         dialog.modalPresentationStyle = .OverCurrentContext
+        self.transitioningDelegate = CardSegue.transitionManager
+        dialog.transitioningDelegate = CardSegue.transitionManager
         dispatch_async(dispatch_get_main_queue(),{
             self.presentViewController(dialog, animated: true, completion: {})
         })

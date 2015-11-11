@@ -23,12 +23,21 @@ class CardController: UIViewController {
             self.addChildViewController(self.subview!)
         }
     }
+    internal var isRetention = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        if card == nil {
-            self.card = self.pack.getRetryCard(AppDelegate.getUser())
+        
+        if self.card == nil {
+            if self.isRetention {
+                self.card = AppDelegate.getUser()!.getRetentionCard()
+            }
+            else {
+                self.card = self.pack.getRetryCard(AppDelegate.getUser())
+            }
+        }
+        if self.pack == nil {
+            self.pack = self.card!.pack
         }
         self.packTitle.text = self.pack.title
         let index = self.pack.getIndexForCard(self.card!, user: AppDelegate.getUser())

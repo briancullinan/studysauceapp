@@ -12,7 +12,6 @@ import UIKit
 
 class Pack: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
     func getUserPackForUser(user: User?) -> UserPack? {
         let up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
             if let up = obj as? UserPack {
@@ -33,77 +32,24 @@ class Pack: NSManagedObject {
     }
     
     func getRetryCard(user: User?) -> Card? {
-        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-        let up = self.getUserPackForUser(user)
-        
-        if up == nil {
-            // if a card hasn't been answered, return the next card
-            for c in cards {
-                let response = c.getResponseForUser(user)
-                if response == nil {
-                    return c
-                }
-            }
-        }
-        else {
-            let retries = up!.getRetries()
-            for c in cards {
-                let response = c.getResponseForUser(user)
-                if retries.indexOf(c) != nil && (response == nil || response!.created! < up!.retry_to!) {
-                    return c
-                }
-            }
-        }
-        
-        return nil
+        return self.getUserPackForUser(user)?.getRetryCard()
     }
     
     func getIndexForCard(card: Card, user: User?) -> Int {
-        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-        let up = self.getUserPackForUser(user)
-        if up == nil {
-            return cards.indexOf(card)!
-        }
-        else {
-            return up!.getRetries().indexOf(card)!
-        }
+        let retries = self.getUserPackForUser(user)!.getRetries()
+        return retries.indexOf(card)!
     }
     
     func getCardCount(user: User?) -> Int {
-        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-        let up = self.getUserPackForUser(user)
-        if up == nil {
-            return cards.count
-        }
-        else {
-            return up!.getRetries().count
-        }
+        return self.getUserPackForUser(user)!.getRetries().count
     }
     
     func getRetentionCardCount(user: User?) -> Int {
-        let cards = self.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-        var count = 0;
-        if cards.count > 0 {
-            // if a card hasn't been answered, return the next card
-            for c in cards {
-                let response = c.getResponseForUser(user)
-                if response == nil {
-                    return count++
-                }
-                else {
-                    let t = CGFloat(response!.created!.daysDiff(NSDate()))
-                    let R = 1.48 / (1.25 * log(t) + 1.48)
-                    if R < 1 {
-                        count++
-                    }
-                }
-            }
+        let up = self.getUserPackForUser(user)
+        if up == nil || up?.retry_to == nil {
+            return self.cards!.count
         }
-        if count == 0 {
-            return Int(self.count!)
-        }
-        return count
+        return up!.getRentention().count
     }
-
     
 }

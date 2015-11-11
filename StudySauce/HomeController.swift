@@ -12,12 +12,18 @@ import UIKit
 import CoreData
 
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    @IBOutlet weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
     var packs = [Pack]()
     var normalImage:UIImage!
     var selectedImage:UIImage!
 
-    @IBOutlet weak var bigbutton: UIButton?=nil
+    @IBOutlet weak var cardCount: UILabel? = nil
+    @IBOutlet weak var bigbutton: UIButton? = nil
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
     
     /*
     @IBAction func buttondown(sender: UIButton) {
@@ -36,12 +42,26 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 )
         }
     }
-                
+    
                 
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        
+        if let vc = segue.destinationViewController as? CardController {
+            vc.isRetention = true
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.viewDidLoad()
+        self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       /*
@@ -55,6 +75,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
+        
+        if self.cardCount != nil {
+            let count = self.getPacksFromLocalStore().map { p -> Int in
+                return p.getRetentionCardCount(AppDelegate.getUser())
+                }.reduce(0, combine: +)
+            let s = count == 1 ? "" : "s"
+            self.cardCount!.text = "\(count) card\(s)"
+        }
         
         if self.tableView != nil {
             self.tableView!.backgroundColor = UIColor.clearColor()
@@ -99,15 +127,23 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.packs.count == 0 {
+            return 1
+        }
         return self.packs.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackRetentionCell
-        
-        let object = self.packs[indexPath.row]
-        cell.configure(object)
-        return cell
+        if self.packs.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackRetentionCell
+            let object = self.packs[indexPath.row]
+            cell.configure(object)
+            return cell
+        }
     }
     
 }

@@ -66,6 +66,8 @@
         <attribute name="last_login" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="last_visit" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="properties" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retention" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retention_to" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="roles" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="sign_out" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="authored" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Pack" inverseName="user" inverseEntity="Pack" syncable="YES"/>
@@ -86,7 +88,7 @@
         <element name="Card" positionX="1519" positionY="-711" width="128" height="210"/>
         <element name="Pack" positionX="1258" positionY="-697" width="128" height="360"/>
         <element name="Response" positionX="1780" positionY="-594" width="128" height="165"/>
-        <element name="User" positionX="1458" positionY="-567" width="128" height="240"/>
+        <element name="User" positionX="1458" positionY="-567" width="128" height="270"/>
         <element name="UserPack" positionX="1467" positionY="-558" width="128" height="150"/>
     </elements>
 </model>

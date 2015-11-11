@@ -26,6 +26,10 @@ class UserLoginController : UIViewController {
         self.password.resignFirstResponder()
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -38,7 +42,7 @@ class UserLoginController : UIViewController {
     }
     
     internal static func login() {
-        return self.login {()}
+        return self.login {}
     }
     
     internal static func login(done: () -> Void) {

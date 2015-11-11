@@ -29,7 +29,7 @@ class CardSegue : UIStoryboardSegue {
             }
             else {
                 // get a new card to show
-                let nextCard = parent.pack.getRetryCard(AppDelegate.getUser())
+                let nextCard = parent.isRetention ? AppDelegate.getUser()?.getRetentionCard() : parent.pack.getRetryCard(AppDelegate.getUser())
                 if nextCard == nil {
                     let results = last.storyboard!.instantiateViewControllerWithIdentifier("Results") as! PackResultsController
                     results.pack = parent.pack

@@ -12,6 +12,10 @@ import UIKit
 class SaucyButton: UIButton {
     override func drawRect(rect: CGRect) {
         
+        if self.backgroundColor != UIColor.clearColor() {
+            self.backgroundColor = UIColor.clearColor()
+        }
+        
         let h = rect.height
         let w = rect.width
         let color:UIColor = UIColor.yellowColor()

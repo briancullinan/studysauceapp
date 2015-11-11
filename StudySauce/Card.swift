@@ -13,7 +13,7 @@ class Card: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
 
-    func getResponseForUser(user: User?) -> Response? {
+    func getResponse(user: User?) -> Response? {
         if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)]) as? [Response] {
             for r in sorted {
                 if r.user == user {
@@ -22,6 +22,18 @@ class Card: NSManagedObject {
             }
         }
         return nil;
+    }
+    
+    func getResponses(user: User?) -> [Response] {
+        var result:[Response] = []
+        if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)]) as? [Response] {
+            for r in sorted {
+                if r.user == user {
+                    result.append(r)
+                }
+            }
+        }
+        return result
     }
     
     func getCorrect() -> Answer? {

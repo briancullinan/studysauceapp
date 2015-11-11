@@ -18,28 +18,6 @@ class PackResultsController: UIViewController {
     @IBOutlet weak var review: UILabel!
     
     // TODO: display a summery of the results
-    
-    // TODO: trigger synchronize data with server
-    @IBAction func retryClick(sender: UIButton) {
-        
-        let cards = self.pack.cards!.allObjects as! [Card]
-        let retries = cards.filter{ c -> Bool in
-            if let last = c.getResponseForUser(AppDelegate.getUser()) {
-                return last.correct != 1
-            }
-            return false
-        }.map { c -> String in
-            return "\(c.id!)"
-        }.joinWithSeparator(",")
-        
-        // set from and to times for retry wrong answers
-        let up = pack.getUserPackForUser(AppDelegate.getUser())
-        up!.retries = retries
-        up!.retry_to = NSDate()
-        AppDelegate.saveContext()
-
-        self.performSegueWithIdentifier("card", sender: self)
-    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? CardController {
@@ -53,7 +31,7 @@ class PackResultsController: UIViewController {
         var correct = 0
         var wrong = 0
         for c in self.pack.cards?.allObjects as! [Card] {
-            if let last = c.getResponseForUser(AppDelegate.getUser()) {
+            if let last = c.getResponse(AppDelegate.getUser()) {
                 if last.correct == 1 {
                     correct++
                 }

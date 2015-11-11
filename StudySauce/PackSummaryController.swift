@@ -150,7 +150,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             self.packs.removeAtIndex(self.packs.indexOf(p)!)
                         }
                     }
-                    try moc.save()
+                    
+                    AppDelegate.saveContext()
                     completionHandler()
                 }
             }
@@ -239,14 +240,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             || (self.pack.modified != nil && self.pack.modified! > up!.downloaded!) {
                 self.getCards(pack, completionHandler: {(data, error) -> Void in
                     up!.downloaded = NSDate()
-                    if let moc = AppDelegate.getContext() {
-                        do {
-                            try moc.save()
-                        }
-                        catch let error as NSError {
-                            NSLog("\(error.localizedDescription)")
-                        }
-                    }
+                    AppDelegate.saveContext()
                     if data.count == 0 || error != nil {
                         return
                     }
