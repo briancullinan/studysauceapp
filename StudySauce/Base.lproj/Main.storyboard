@@ -279,9 +279,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d4B-bi-vai">
                                 <rect key="frame" x="0.0" y="66" width="600" height="534"/>
                                 <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="69" id="LAx-Bu-P3t" customClass="PackSummaryCell" customModule="StudySauce" customModuleProvider="target">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="69" id="LAx-Bu-P3t" customClass="PackSummaryCell" customModule="StudySauce" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalHuggingPriority="750" tableViewCell="LAx-Bu-P3t" id="Cop-dO-w2C">
@@ -1485,7 +1486,8 @@ support@studysauce.com
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nGh-BS-F0b">
                                 <rect key="frame" x="0.0" y="57" width="482" height="539"/>
                                 <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" id="jKi-nW-IEK" customClass="PackRetentionCell" customModule="StudySauce" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="482" height="44"/>
@@ -1546,6 +1548,7 @@ support@studysauce.com
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="2OJ-I0-1jS" firstAttribute="width" secondItem="Y00-zY-Yjl" secondAttribute="width" id="2j1-0R-Lpf"/>
                                                 <constraint firstItem="2OJ-I0-1jS" firstAttribute="top" secondItem="Y00-zY-Yjl" secondAttribute="topMargin" id="ZnP-iB-0Fb"/>
@@ -2535,14 +2538,14 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="1389" height="276"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GQz-t5-qGU"/>
-        <segue reference="k9N-Zv-Wkm"/>
-        <segue reference="yl6-TZ-ZzN"/>
-        <segue reference="SK1-gb-mF0"/>
-        <segue reference="ZAc-Zr-uuP"/>
         <segue reference="DnL-J9-off"/>
-        <segue reference="jVs-Lw-C2J"/>
         <segue reference="aNX-LU-Mfo"/>
         <segue reference="Ad3-zr-pm4"/>
+        <segue reference="1w5-kD-eLZ"/>
+        <segue reference="1xb-Fq-MwZ"/>
+        <segue reference="yl6-TZ-ZzN"/>
+        <segue reference="k9N-Zv-Wkm"/>
+        <segue reference="GQz-t5-qGU"/>
+        <segue reference="ZAc-Zr-uuP"/>
     </inferredMetricsTieBreakers>
 </document>

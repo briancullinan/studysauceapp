@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
+        UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
         // Override point for customization after application launch.
         //let splitViewController = self.window!.rootViewController as! UINavigationController
         //splitViewController.delegate = self
@@ -140,7 +141,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return coordinator
     }
     
-    internal static func resetLocalStore() -> NSPersistentStoreCoordinator?
+    internal static func resetLocalStore() -> NSPersistentStoreCoordinator? {
+        return self.resetLocalStore(false)
+    }
+    
+    internal static func resetLocalStore(manual: Bool) -> NSPersistentStoreCoordinator?
     {
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
@@ -149,7 +154,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
             let managedObjectContext = NSManagedObjectContext()
             managedObjectContext.persistentStoreCoordinator = coordinator
-            self.managedObjectContext = managedObjectContext
+            if manual {
+                self.managedObjectContext = managedObjectContext
+            }
+            return coordinator
         }
         catch let error as NSError {
             NSLog("Unresolved error \(error), \(error.userInfo)")
