@@ -31,7 +31,7 @@ public class PackRetentionCell: UITableViewCell {
         }
         let count = pack.getRetentionCardCount(AppDelegate.getUser())
         let s = count > 1 ? "s" : ""
-        self.countLabel.text = "\(count) card\(s)";
+        self.countLabel.text = "\(count)";
         self.titleLabel.text = title
     }
 }

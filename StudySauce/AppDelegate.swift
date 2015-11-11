@@ -43,14 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
-        //NUISettings.init()
+        self.setupTheme()
         
-        UILabel.appearance().setFontFamily("Verdana-Bold")
-        UIButton.appearance().setFontFamily("Courier")
-        UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
         // Override point for customization after application launch.
-        //let splitViewController = self.window!.rootViewController as! UINavigationController
-        //splitViewController.delegate = self
         // TODO: check the local copy of the session timeout
         let userDefaults = NSUserDefaults.standardUserDefaults()
         let email = userDefaults.valueForKey("user") as? String

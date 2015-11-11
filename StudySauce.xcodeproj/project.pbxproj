@@ -72,6 +72,9 @@
 		8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8450525D1BA4AA3B005377D9 /* Images.xcassets */; };
 		845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */; };
 		8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */; };
+		9D5ECB351BF3D16F00F09EE0 /* AppDelegateTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5ECB341BF3D16F00F09EE0 /* AppDelegateTheme.swift */; };
+		9D5ECB371BF3D2A500F09EE0 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5ECB361BF3D2A500F09EE0 /* UITextView.swift */; };
+		9D5ECB3B1BF3D47C00F09EE0 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5ECB3A1BF3D47C00F09EE0 /* UITextField.swift */; };
 		9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */; };
 		9DEAA8511BC3404600D3FFF7 /* UserSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */; };
 /* End PBXBuildFile section */
@@ -156,6 +159,9 @@
 		845052661BA4AA3C005377D9 /* StudySauceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8450526B1BA4AA3C005377D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySauceTests.swift; sourceTree = "<group>"; };
+		9D5ECB341BF3D16F00F09EE0 /* AppDelegateTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegateTheme.swift; sourceTree = "<group>"; };
+		9D5ECB361BF3D2A500F09EE0 /* UITextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		9D5ECB3A1BF3D47C00F09EE0 /* UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		9D764C541BC5C6AB00A54B4C /* ContactUsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactUsController.swift; sourceTree = "<group>"; };
 		9DEAA8501BC3404600D3FFF7 /* UserSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,8 +252,6 @@
 				643C203F1BE461CE00A89A3F /* UIColor.swift */,
 				64EF7D231BE88E730025E094 /* NSObject.swift */,
 				6469661E1BF2F1990081FC3F /* CollectionType.swift */,
-				64766A9A1BF3C1650010FD8C /* UIButton.swift */,
-				64766A9C1BF3C2B20010FD8C /* UILabel.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -336,6 +340,7 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
+				9D5ECB331BF3D14900F09EE0 /* Theme */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				6401F4A01BB5DF26004E0163 /* Controllers */,
 				6401F49F1BB5DF11004E0163 /* Models */,
@@ -373,6 +378,18 @@
 				8450526B1BA4AA3C005377D9 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9D5ECB331BF3D14900F09EE0 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				9D5ECB341BF3D16F00F09EE0 /* AppDelegateTheme.swift */,
+				64766A9A1BF3C1650010FD8C /* UIButton.swift */,
+				64766A9C1BF3C2B20010FD8C /* UILabel.swift */,
+				9D5ECB361BF3D2A500F09EE0 /* UITextView.swift */,
+				9D5ECB3A1BF3D47C00F09EE0 /* UITextField.swift */,
+			);
+			name = Theme;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,6 +516,7 @@
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
 				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				64ED1DD11BEC173700A9E2A2 /* IQTextView.swift in Sources */,
+				9D5ECB3B1BF3D47C00F09EE0 /* UITextField.swift in Sources */,
 				64ED1DCC1BEC173700A9E2A2 /* IQUIWindow+Hierarchy.swift in Sources */,
 				64ED1DCB1BEC173700A9E2A2 /* IQUIViewController+Additions.swift in Sources */,
 				649B09411BE08D8700A3F9A4 /* CardSelfController.swift in Sources */,
@@ -529,11 +547,13 @@
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
 				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
+				9D5ECB371BF3D2A500F09EE0 /* UITextView.swift in Sources */,
 				64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */,
 				64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */,
 				64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */,
 				64D219E31BBB0CCB005F9094 /* User.swift in Sources */,
 				64ED1DCF1BEC173700A9E2A2 /* IQKeyboardManager.swift in Sources */,
+				9D5ECB351BF3D16F00F09EE0 /* AppDelegateTheme.swift in Sources */,
 				6469661F1BF2F1990081FC3F /* CollectionType.swift in Sources */,
 				644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */,
 				64F5FCF51BEC30BD005AF4FC /* PackRetentionCell.swift in Sources */,
