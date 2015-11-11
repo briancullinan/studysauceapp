@@ -479,7 +479,7 @@
                                 <rect key="frame" x="0.0" y="100" width="600" height="90"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                                 <state key="normal" title="Answer 1">
@@ -2541,7 +2541,7 @@ support@studysauce.com
         <segue reference="GQz-t5-qGU"/>
         <segue reference="k9N-Zv-Wkm"/>
         <segue reference="yl6-TZ-ZzN"/>
-        <segue reference="DnL-J9-off"/>
+        <segue reference="I3T-Nz-Fid"/>
         <segue reference="xPb-Xh-Fmi"/>
         <segue reference="1w5-kD-eLZ"/>
         <segue reference="udA-v8-lqc"/>

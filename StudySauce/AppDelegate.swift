@@ -43,6 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
+        //NUISettings.init()
+        
+        UILabel.appearance().setFontFamily("Verdana-Bold")
+        UIButton.appearance().setFontFamily("Courier")
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
         // Override point for customization after application launch.
         //let splitViewController = self.window!.rootViewController as! UINavigationController
