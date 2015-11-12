@@ -2529,23 +2529,23 @@ support@studysauce.com
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
-        <image name="StudySauce Sketch" width="1811" height="1626"/>
+        <image name="StudySauce Sketch" width="416" height="385"/>
         <image name="StudySauceBackArrow" width="500" height="300"/>
         <image name="bigbutton" width="326" height="326"/>
         <image name="gray Study packs icon with clear center" width="599" height="599"/>
         <image name="gray settings icon with clear center" width="135" height="135"/>
         <image name="neural darkened" width="1300" height="1028"/>
-        <image name="side-by-side logo (all orange)" width="1389" height="276"/>
+        <image name="side-by-side logo (all orange)" width="1334" height="276"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1xb-Fq-MwZ"/>
-        <segue reference="cSc-m2-Bp3"/>
-        <segue reference="1w5-kD-eLZ"/>
-        <segue reference="9Uu-zL-5h0"/>
-        <segue reference="TPj-c8-mm5"/>
-        <segue reference="GQz-t5-qGU"/>
-        <segue reference="k9N-Zv-Wkm"/>
         <segue reference="yl6-TZ-ZzN"/>
+        <segue reference="k9N-Zv-Wkm"/>
+        <segue reference="GQz-t5-qGU"/>
+        <segue reference="9Uu-zL-5h0"/>
+        <segue reference="1xb-Fq-MwZ"/>
+        <segue reference="xPb-Xh-Fmi"/>
+        <segue reference="1w5-kD-eLZ"/>
+        <segue reference="udA-v8-lqc"/>
         <segue reference="I3T-Nz-Fid"/>
     </inferredMetricsTieBreakers>
 </document>
