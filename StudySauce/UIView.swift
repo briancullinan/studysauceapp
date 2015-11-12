@@ -21,7 +21,7 @@ extension UIView {
         return nil
     }
     
-    dynamic var query : Int {
+    var query : Int {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.displayed) as! Int
         }

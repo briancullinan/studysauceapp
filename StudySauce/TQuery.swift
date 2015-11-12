@@ -9,37 +9,43 @@
 import Foundation
 import UIKit
 
-func ><A: UIView,B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TQuery<A,B>()
-}
+// >
 
-func +<A,B>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TSibling<A,B>()
+func ><A: UIView,B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
+    return TChild<A,B>()
 }
 
 func ><A,B>(a: A.Type, b: TQueryable<B>) -> TQueryable<B> {
-    return TQuery<A,B>()
+    return TChild<A,B>()
+}
+
+func ><A,B>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
+    return TChild<TQueryable<A>,B>()
+}
+
+func ><A,B>(a: TQueryable<A>, b: TQueryable<B>) -> TQueryable<B> {
+    return TChild<A,B>()
+}
+
+// +
+
+func +<A,B>(a: A.Type, b: B.Type) -> TQueryable<B> {
+    return TSibling<A,B>()
 }
 
 func +<A,B>(a: A.Type, b: TQueryable<B>) -> TQueryable<B> {
     return TSibling<A,B>()
 }
 
-func ><A,B>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TQuery<TQueryable<A>,B>()
-}
-
 func +<A,B>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
     return TSibling<TQueryable<A>,B>()
-}
-
-func ><A,B>(a: TQueryable<A>, b: TQueryable<B>) -> TQueryable<B> {
-    return TQuery<A,B>()
 }
 
 func +<A,B>(a: TQueryable<A>, b: TQueryable<B>) -> TQueryable<B> {
     return TSibling<A,B>()
 }
+
+// $
 
 func $<B: UIView>(b: B.Type) -> B {
     let query = TQueryable<B>()
@@ -49,6 +55,8 @@ func $<B: UIView>(b: B.Type) -> B {
 func $<B>(q: TQueryable<B>) -> B {
     return q.appearence()
 }
+
+//
 
 protocol IQueryable {
     func matches(view: UIView) -> Bool
@@ -119,6 +127,22 @@ class TSibling<A,B: UIView>: TQuery<A,B> {
         let isChild = parent!.subviews.filter{v in
             return v.self is A
             }.count > 0
+        if isChild {
+            return super.matches(view)
+        }
+        return false
+    }
+}
+
+class TChild<A,B: UIView>: TQuery<A,B> {
+    
+    required init () {
+        super.init()
+    }
+    
+    override func matches(view: UIView) -> Bool {
+        let parent = view.superview
+        let isChild = parent! is A
         if isChild {
             return super.matches(view)
         }

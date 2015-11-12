@@ -17,6 +17,7 @@ extension AppDelegate {
         
         $(UILabel.self).setFontColor(saucyFontColor)
         $(UIButton.self + UILabel.self).setFontColor(saucyGray)
+        $(UIButton.self > UILabel.self).setFontName("Courier")
         
         //UILabel.appearance().setFontName("Verdana-Bold")
         //UITextView.appearance().setFontFamily("Verdana-Bold")
