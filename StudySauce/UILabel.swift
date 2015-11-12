@@ -9,11 +9,11 @@
 import Foundation
 import UIKit
 extension UILabel {
-    func setFontFamily(family: String) {
-        self.font = UIFont(name: family, size: self.font.pointSize)
+    func setFontName(family: String) {
+        self.matches()?.font = UIFont(name: family, size: self.font.pointSize)
     }
     
     func setFontColor(color: UIColor) {
-        self.textColor = color
+        self.matches()?.textColor = color
     }
 }

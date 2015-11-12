@@ -10,8 +10,4 @@ import Foundation
 import UIKit
 extension UITextView {
     
-    func setFontFamily(family: String) {
-        self.font = UIFont(name: family, size: self.font?.pointSize ?? 0.0)
-    }
-    
 }

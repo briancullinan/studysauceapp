@@ -12,13 +12,17 @@ import UIKit
 extension AppDelegate {
     func setupTheme() {
         
-        HomeController > UILabel
+        let saucyGray = UIColor(hex: 0xE9E9E9)
+        let saucyFontColor = UIColor(hex: 0x424242)
         
-        UILabel.appearance().setFontFamily("Verdana-Bold")
-        UITextView.appearance().setFontFamily("Verdana-Bold")
-        UIButton.appearance().setFontFamily("Verdana-Bold")
-        UITextField.appearance().setFontFamily("Verdana-Bold")
-        UILabel.appearance().setFontColor(UIColor(hex: 0x424242))
+        $(UILabel.self).setFontColor(saucyFontColor)
+        $(UIButton.self + UILabel.self).setFontColor(saucyGray)
+        
+        //UILabel.appearance().setFontName("Verdana-Bold")
+        //UITextView.appearance().setFontFamily("Verdana-Bold")
+        //UIButton.appearance().setFontFamily("Verdana-Bold")
+        //UITextField.appearance().setFontFamily("Verdana-Bold")
+        //UILabel.appearance().setFontColor()
         
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
         

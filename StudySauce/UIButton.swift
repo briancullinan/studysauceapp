@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 extension UIButton {
-    func setFontFamily (family: String) {
-        self.titleLabel?.font = UIFont(name: family, size: self.titleLabel?.font.pointSize ?? 0.0)
+    
+    func setFontName(name: String) {
+        self.matches()?.titleLabel?.font = UIFont(name: name, size: self.titleLabel?.font.pointSize ?? 0.0)
     }
 }
