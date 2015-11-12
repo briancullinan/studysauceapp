@@ -449,7 +449,7 @@
 				TargetAttributes = {
 					8450524E1BA4AA3B005377D9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = KM26M4J5U5;
+						DevelopmentTeam = J2FS94MHY2;
 					};
 					845052651BA4AA3C005377D9 = {
 						CreatedOnToolsVersion = 6.4;
@@ -703,7 +703,7 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -718,7 +718,7 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
