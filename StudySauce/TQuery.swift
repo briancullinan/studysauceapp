@@ -21,6 +21,18 @@ func |> <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
     return TChild<TQueryable<A>,B>(b: b, query: a)
 }
 
+// |>>
+
+infix operator |>> {associativity left precedence 140}
+
+func |>> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
+    return TImmediateChild<A,B>(a: a, b: b)
+}
+
+func |>> <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
+    return TImmediateChild<TQueryable<A>,B>(b: b, query: a)
+}
+
 // |+
 
 infix operator |+ {associativity left precedence 140}
@@ -35,7 +47,7 @@ func |+ <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
 
 // |:
 
-infix operator |^ {associativity none precedence 150}
+infix operator |^ {associativity left precedence 140}
 
 func |^ <B: UIView>(b: B.Type, matches: B -> Bool) -> TQueryable<B> {
     return TMatching<B>(query: TQueryable<B>(b: b), matches: matches)
@@ -45,47 +57,54 @@ func |^ <B: UIView>(a: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
     return TMatching<B>(query: a, matches: matches)
 }
 
+// |&
+
+infix operator |& {associativity left precedence 140}
+
+func |& <B: UIView>(b: B.Type, type: T<B>) -> TQueryable<B> {
+    return type.get(TQueryable<B>(b: b))
+}
+
+func |& <B: UIView>(a: TQueryable<B>, type: T<B>) -> TQueryable<B> {
+    return type.get(a)
+}
+
+enum T<B: UIView> {
+    
+    case first
+    case last
+    
+    func get(query: TQueryable<B>) -> TMatching<B> {
+        switch self {
+        case first:
+            return TMatching<B>(query: query, matches: {(v: B) -> Bool in
+                return v.superview != nil && v.superview!.subviews.indexOf(v) == 0
+            })
+        case last:
+            return TMatching<B>(query: query, matches: {(v: B) -> Bool in
+                return v.superview != nil && v.superview!.subviews.indexOf(v) == v.superview!.subviews.count - 1
+            })
+        }
+    }
+}
+
 // $
 
-func $<B: UIView>(var q: TQueryable<B>? = nil, _ b: B.Type? = nil, _ set: (B -> Void)? = nil) -> B? {
-    if b != nil {
-        q = TQueryable<B>(b: b!)
-    }
-    if q != nil {
-        let a = q!.appearence()
-        set?(a)
-        return a
-    }
-    return nil
+func $<B: UIView>(b: B.Type, _ set: B -> Void) {
+    TQueryable<B>(b: b).appearence(set)
 }
 
-func $<B: UIView>(b: B.Type) -> B {
-    return $(nil, b, nil)!
+func $<B: UIView>(b: TQueryable<B>, _ set: B -> Void) {
+    b.appearence(set)
 }
 
-func $<B: UIView>(q: TQueryable<B>) -> B {
-    return $(q, nil, nil)!
-}
-
-func $<B: UIView>(b: B.Type, _ set: B -> Void) -> B {
-    return $(nil, b, set)!
-}
-
-func $<B: UIView>(q: TQueryable<B>, _ set: B -> Void) -> B {
-    return $(q, nil, set)!
-}
-
-func $(b: [UIView.Type]) -> UIView {
-    // combination queryable
+func $(b: [UIView.Type], _ set: UIView -> Void) {
     let queries = b.map({return TQueryable<UIView>(b: $0)})
-    let q = TCombination<UIView>(queries: queries)
-    return $(q, nil, nil)!
+    TCombination<UIView>(queries: queries).appearence(set)
 }
 
-func $(b: [UIView.Type], _ set: UIView -> Void) -> UIView {
-    let a = $(b)
-    set(a)
-    return a
+func $(queries: [Queryable], _ set: UIView -> Void) {
+    TCombination<UIView>(queries: queries).appearence(set)
 }
 
 //
@@ -94,26 +113,30 @@ protocol IQueryable {
     func matches(view: UIView) -> Bool
 }
 
-class Queryable: IQueryable {
-    static var queryList: [Queryable] = []
+class Queryable {
+    static var queryList: [UIView -> Void] = []
     
     private init() {
         
     }
     
-    func matches(view: UIView) -> Bool {
+    private func matches(view: UIView) -> Bool {
         return true
     }
 }
 
 class TQueryable<B: UIView>: Queryable {
     
-    func appearence() -> B {
+    func appearence(b: B -> Void) {
         let a = B.appearance()
         let i = Queryable.queryList.count
-        Queryable.queryList.append(self)
-        a.setAppearance(i)
-        return a
+        Queryable.queryList.append({
+            if self.matches($0) {
+                b($0 as! B)
+            }
+        })
+        //a.setFontName("Text")
+        a.setAppearanceFunc("\(i)")
     }
     
     override func matches(view: UIView) -> Bool {
@@ -205,6 +228,38 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
         return false
     }
 }
+
+class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
+    
+    init(a: A.Type, b: B.Type) {
+        self.a = a
+        super.init(b: b)
+    }
+    
+    convenience init(b: B.Type, query: Queryable) {
+        self.init(a: A.self, b: b)
+        self.q = query
+    }
+    
+    var a: A.Type
+
+    override func matches(view: UIView) -> Bool {
+        // first check to make sure view is of correct type
+        if super.matches(view) {
+            // self.a can be a view controller type or another view type
+            if view.nextResponder() is A || view.superview?.nextResponder() is A {
+                return true
+            }
+            else if let parent = view.superview {
+                if parent is A || self.q != nil && self.q!.matches(parent) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+}
+
 
 class TMatching<B: UIView>: TQueryable<B> {
     

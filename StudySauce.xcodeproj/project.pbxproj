@@ -10,6 +10,7 @@
 		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; };
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; };
+		641E66EE1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641E66ED1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift */; };
 		642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642290BC1BCDC4ED00CD7898 /* NSUrl.swift */; };
 		642354111BBDD12200B068DB /* DismissSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642354101BBDD12200B068DB /* DismissSegue.swift */; };
 		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; };
@@ -95,6 +96,7 @@
 		6401F4941BB52A78004E0163 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		641E66ED1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		642290BC1BCDC4ED00CD7898 /* NSUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUrl.swift; sourceTree = "<group>"; };
 		642354101BBDD12200B068DB /* DismissSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissSegue.swift; sourceTree = "<group>"; };
 		642354151BBDFDD800B068DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				9D5ECB3A1BF3D47C00F09EE0 /* UITextField.swift */,
 				64766A9E1BF3DD040010FD8C /* TQuery.swift */,
 				64766AA01BF3F2700010FD8C /* UIView.swift */,
+				641E66ED1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift */,
 			);
 			name = Theme;
 			sourceTree = "<group>";
@@ -449,7 +452,7 @@
 				TargetAttributes = {
 					8450524E1BA4AA3B005377D9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = J2FS94MHY2;
+						DevelopmentTeam = KM26M4J5U5;
 					};
 					845052651BA4AA3C005377D9 = {
 						CreatedOnToolsVersion = 6.4;
@@ -555,6 +558,7 @@
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
 				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
+				641E66EE1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift in Sources */,
 				9D5ECB371BF3D2A500F09EE0 /* UITextView.swift in Sources */,
 				64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */,
 				64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */,
@@ -701,9 +705,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StudySauce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -716,9 +720,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StudySauce/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
