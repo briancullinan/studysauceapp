@@ -11,8 +11,4 @@ import UIKit
 
 extension UITextField {
     
-    func setFontFamily(family: String) {
-        self.font = UIFont(name: family, size: self.font?.pointSize ?? 0.0)
-    }
-
 }

@@ -271,11 +271,11 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         self.flashView!.frame = CGRect(x: 0, y: 0, width: container.frame.width, height: container.frame.height)
         if correct {
             self.flashView!.text = "✔︎"
-            self.flashView!.backgroundColor = UIColor(hex:0x078600)
+            self.flashView!.backgroundColor = UIColor(0x078600)
         }
         else {
             self.flashView!.text = "✘"
-            self.flashView!.backgroundColor = UIColor(hex:0xFF0D00)
+            self.flashView!.backgroundColor = UIColor(0xFF0D00)
         }
     }
     

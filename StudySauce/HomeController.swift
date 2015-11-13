@@ -92,7 +92,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.packs = getPacksFromLocalStore()
         
             // Make the cell self size
-            self.tableView!.estimatedRowHeight = 66.0
+            self.tableView!.estimatedRowHeight = 44.0
             self.tableView!.rowHeight = UITableViewAutomaticDimension
             self.tableView!.layoutIfNeeded()
         

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 private struct AssociatedKeys {
-    static var displayed = "nsh_DescriptiveName"
+    static var displayed = "UIView_Query"
 }
 
 extension UIView {
@@ -32,5 +32,27 @@ extension UIView {
     
     func setAppearance(q: Int) {
         self.query = q
+    }
+    
+    func setFontName(family: String) {
+        if let v = self.matches() {
+            if let font = self.valueForKey("font") as? UIFont {
+                v.setValue(UIFont(name: family, size: font.pointSize), forKey: "font")
+            }
+        }
+    }
+    
+    func setFontSize(size: CGFloat) {
+        if let v = self.matches() {
+            if let font = self.valueForKey("font") as? UIFont {
+                v.setValue(UIFont(name: font.familyName, size: size), forKey: "font")
+            }
+        }
+    }
+    
+    func setFontColor(color: UIColor) {
+        if let v = self.matches() {
+            v.setValue(color, forKey: "textColor")
+        }
     }
 }
