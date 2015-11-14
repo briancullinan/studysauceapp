@@ -15,9 +15,9 @@ extension UIView {
         Queryable.queryList[Int(i)!](self)
     }
         
-    func setFontName(family: String) {
+    func setFontName(name: String) {
         if let font = self.valueForKey("font") as? UIFont {
-            self.setValue(UIFont(name: family, size: font.pointSize), forKey: "font")
+            self.setValue(UIFont(name: name, size: font.pointSize), forKey: "font")
         }
     }
     

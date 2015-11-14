@@ -59,7 +59,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(animated: Bool) {
         self.viewDidLoad()
-        self
+        self.tableView?.reloadData()
     }
     
     override func viewDidLoad() {
@@ -92,7 +92,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.packs = getPacksFromLocalStore()
         
             // Make the cell self size
-            self.tableView!.estimatedRowHeight = 44.0
+            self.tableView!.estimatedRowHeight = 30.0
             self.tableView!.rowHeight = UITableViewAutomaticDimension
             self.tableView!.layoutIfNeeded()
         
