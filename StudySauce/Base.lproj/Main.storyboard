@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1484,21 +1484,21 @@ support@studysauce.com
                                     <constraint firstAttribute="height" constant="4" id="GNQ-sE-t0J"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="30" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nGh-BS-F0b">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="30" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="nGh-BS-F0b">
                                 <rect key="frame" x="0.0" y="41" width="482" height="127"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" id="jKi-nW-IEK" customClass="PackRetentionCell" customModule="StudySauce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="482" height="30"/>
+                                        <rect key="frame" x="0.0" y="10" width="482" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jKi-nW-IEK" id="UU1-1l-M3y">
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMc-Ks-tu4">
-                                                    <rect key="frame" x="8" y="8" width="82" height="21"/>
+                                                    <rect key="frame" x="8" y="8" width="82" height="14"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1521,7 +1521,8 @@ support@studysauce.com
                                                 <constraint firstItem="0wa-In-5pv" firstAttribute="top" secondItem="dMc-Ks-tu4" secondAttribute="top" id="Hza-7b-YIy"/>
                                                 <constraint firstItem="dMc-Ks-tu4" firstAttribute="leading" secondItem="UU1-1l-M3y" secondAttribute="leadingMargin" id="biu-we-YxM"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0wa-In-5pv" secondAttribute="trailing" id="ci3-dC-7fp"/>
-                                                <constraint firstAttribute="topMargin" secondItem="dMc-Ks-tu4" secondAttribute="top" id="tvK-a2-duD"/>
+                                                <constraint firstItem="dMc-Ks-tu4" firstAttribute="bottom" secondItem="UU1-1l-M3y" secondAttribute="bottomMargin" id="mNq-25-jrs"/>
+                                                <constraint firstItem="dMc-Ks-tu4" firstAttribute="top" secondItem="UU1-1l-M3y" secondAttribute="topMargin" id="tvK-a2-duD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -1533,7 +1534,7 @@ support@studysauce.com
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EmptyCell" id="ZxV-rZ-jH7">
-                                        <rect key="frame" x="0.0" y="58" width="482" height="30"/>
+                                        <rect key="frame" x="0.0" y="40" width="482" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZxV-rZ-jH7" id="Y00-zY-Yjl">
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
@@ -1625,23 +1626,13 @@ support@studysauce.com
                                     <segue destination="RhB-Zp-1b3" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="TPj-c8-mm5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
-                                <rect key="frame" x="129" y="498" width="42" height="42"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="4O7-ka-miD" secondAttribute="height" multiplier="1:1" id="V58-N9-LEX"/>
-                                </constraints>
-                                <state key="normal" image="gray Study packs icon with clear center"/>
-                                <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-dT-1wv" userLabel="settings">
-                                <rect key="frame" x="429" y="498" width="42" height="42"/>
+                                <rect key="frame" x="411" y="502" width="78" height="78"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bjU-dT-1wv" secondAttribute="height" multiplier="1:1" id="1nG-0L-fjf"/>
                                 </constraints>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
                                 <state key="normal" image="gray settings icon with clear center"/>
                                 <connections>
                                     <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9Uu-zL-5h0"/>
@@ -1656,19 +1647,28 @@ support@studysauce.com
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My packs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-K6-zQf">
-                                <rect key="frame" x="114" y="548" width="73" height="21"/>
+                                <rect key="frame" x="114" y="552" width="73" height="20"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-wr-jnt">
-                                <rect key="frame" x="419" y="548" width="64" height="21"/>
+                                <rect key="frame" x="419" y="552" width="63" height="20"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
+                                <rect key="frame" x="111" y="502" width="78" height="78"/>
+                                <animations/>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
+                                <state key="normal" title="My packs" image="gray Study packs icon with clear center"/>
+                                <connections>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1678,13 +1678,12 @@ support@studysauce.com
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.03" id="2qR-vW-rUo"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="width" secondItem="4O7-ka-miD" secondAttribute="width" id="34H-0a-X8b"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="height" secondItem="Cle-N8-wnH" secondAttribute="height" id="7Sv-vQ-tX4"/>
-                            <constraint firstItem="WDU-K6-zQf" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="8" symbolic="YES" id="9JL-VI-YLx"/>
+                            <constraint firstItem="WDU-K6-zQf" firstAttribute="bottom" secondItem="4O7-ka-miD" secondAttribute="bottomMargin" id="9JL-VI-YLx"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.12" id="CRY-nK-KTK"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="leading" secondItem="Cle-N8-wnH" secondAttribute="trailingMargin" multiplier="0.1" id="CnZ-nN-tWw"/>
-                            <constraint firstItem="4O7-ka-miD" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.83" id="Dyp-Ce-ZNT"/>
+                            <constraint firstItem="4O7-ka-miD" firstAttribute="topMargin" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.85" id="Dyp-Ce-ZNT"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="trailing" secondItem="Cle-N8-wnH" secondAttribute="trailing" multiplier="0.9" id="IQk-j1-fsB"/>
-                            <constraint firstItem="81B-wr-jnt" firstAttribute="top" secondItem="bjU-dT-1wv" secondAttribute="bottom" constant="8" symbolic="YES" id="Ke3-Z1-rLK"/>
-                            <constraint firstItem="4O7-ka-miD" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.9" id="OEW-qp-Nek"/>
+                            <constraint firstItem="81B-wr-jnt" firstAttribute="bottom" secondItem="bjU-dT-1wv" secondAttribute="bottomMargin" id="Ke3-Z1-rLK"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="SY0-Sl-ITs"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="TDv-uM-367"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="height" secondItem="4O7-ka-miD" secondAttribute="height" id="Z5l-HB-Mta"/>
@@ -1693,6 +1692,7 @@ support@studysauce.com
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.08" constant="3" id="h2B-dd-hhC"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.78" id="nFt-Sw-nHc"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="p88-ZB-uKr"/>
+                            <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="20" id="qCW-YR-Cir"/>
                             <constraint firstItem="WDU-K6-zQf" firstAttribute="centerX" secondItem="4O7-ka-miD" secondAttribute="centerX" id="scZ-9e-f6d"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="top" id="xNq-h1-Ngy"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="centerY" secondItem="Cle-N8-wnH" secondAttribute="centerY" id="xV5-zr-a4U"/>
@@ -2540,14 +2540,14 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="5558" height="1150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aNX-LU-Mfo"/>
-        <segue reference="cSc-m2-Bp3"/>
-        <segue reference="SK1-gb-mF0"/>
-        <segue reference="9Uu-zL-5h0"/>
-        <segue reference="1w5-kD-eLZ"/>
-        <segue reference="GQz-t5-qGU"/>
         <segue reference="k9N-Zv-Wkm"/>
         <segue reference="XRc-D6-3Ln"/>
+        <segue reference="GQz-t5-qGU"/>
+        <segue reference="SK1-gb-mF0"/>
+        <segue reference="9Uu-zL-5h0"/>
+        <segue reference="TPj-c8-mm5"/>
+        <segue reference="cSc-m2-Bp3"/>
+        <segue reference="1w5-kD-eLZ"/>
         <segue reference="I3T-Nz-Fid"/>
     </inferredMetricsTieBreakers>
 </document>

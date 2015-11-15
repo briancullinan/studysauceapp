@@ -85,16 +85,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         if self.tableView != nil {
-            self.tableView!.backgroundColor = UIColor.clearColor()
-            self.tableView!.backgroundView = nil
-        
             // Load packs from database
             self.packs = getPacksFromLocalStore()
         
-            // Make the cell self size
-            self.tableView!.estimatedRowHeight = 30.0
-            self.tableView!.rowHeight = UITableViewAutomaticDimension
-            self.tableView!.layoutIfNeeded()
         
         // refresh data from server
         //self.getPacks { () -> Void in

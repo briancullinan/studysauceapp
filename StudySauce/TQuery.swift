@@ -9,137 +9,44 @@
 import Foundation
 import UIKit
 
-// |>
+private var queryList: [UIView -> Void] = []
 
-infix operator |> {associativity left precedence 140}
-
-func |> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TChild<A,B>(a: a, b: b)
-}
-
-func |> <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TChild<TQueryable<A>,B>(b: b, query: a)
-}
-
-// |>>
-
-infix operator |>> {associativity left precedence 140}
-
-func |>> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TImmediateChild<A,B>(a: a, b: b)
-}
-
-func |>> <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TImmediateChild<TQueryable<A>,B>(b: b, query: a)
-}
-
-// |+
-
-infix operator |+ {associativity left precedence 140}
-
-func |+ <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TSibling<A,B>(a: a, b: b)
-}
-
-func |+ <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TSibling<TQueryable<A>,B>(b: b, query: a)
-}
-
-// |:
-
-infix operator |^ {associativity left precedence 140}
-
-func |^ <B: UIView>(b: B.Type, matches: B -> Bool) -> TQueryable<B> {
-    return TMatching<B>(query: TQueryable<B>(b: b), matches: matches)
-}
-
-func |^ <B: UIView>(a: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
-    return TMatching<B>(query: a, matches: matches)
-}
-
-// |&
-
-infix operator |& {associativity left precedence 140}
-
-func |& <B: UIView>(b: B.Type, type: T<B>) -> TQueryable<B> {
-    return type.get(TQueryable<B>(b: b))
-}
-
-func |& <B: UIView>(a: TQueryable<B>, type: T<B>) -> TQueryable<B> {
-    return type.get(a)
-}
-
-enum T<B: UIView> {
+extension UIView {
     
-    case first
-    case last
-    
-    func get(query: TQueryable<B>) -> TMatching<B> {
-        switch self {
-        case first:
-            return TMatching<B>(query: query, matches: {(v: B) -> Bool in
-                return v.superview != nil && v.superview!.subviews.indexOf(v) == 0
-            })
-        case last:
-            return TMatching<B>(query: query, matches: {(v: B) -> Bool in
-                return v.superview != nil && v.superview!.subviews.indexOf(v) == v.superview!.subviews.count - 1
-            })
-        }
+    func setAppearanceFunc(i: String) {
+        queryList[Int(i)!](self)
     }
+    
 }
 
-// $
+class TAppearance<B: UIView> {
+    
+    init(_ q: TQueryable<B>) {
+        self.q = q
+    }
+    
+    var q: TQueryable<B>
+    
+    func appearence(b: B -> Void) {
+        let a = B.appearance()
+        let i = queryList.count
+        queryList.append({
+            if self.q.matches($0) {
+                b($0 as! B)
+            }
+        })
+        a.setAppearanceFunc("\(i)")
+    }
 
-func $<B: UIView>(b: B.Type, _ set: B -> Void) {
-    TQueryable<B>(b: b).appearence(set)
 }
-
-func $<B: UIView>(b: TQueryable<B>, _ set: B -> Void) {
-    b.appearence(set)
-}
-
-func $(b: [UIView.Type], _ set: UIView -> Void) {
-    let queries = b.map({return TQueryable<UIView>(b: $0)})
-    TCombination<UIView>(queries: queries).appearence(set)
-}
-
-func $(queries: [Queryable], _ set: UIView -> Void) {
-    TCombination<UIView>(queries: queries).appearence(set)
-}
-
-//
 
 protocol IQueryable {
     func matches(view: UIView) -> Bool
 }
 
-class Queryable {
-    static var queryList: [UIView -> Void] = []
+class TQueryable<B: UIView>: NSObject, IQueryable {
     
-    private init() {
-        
-    }
-    
-    private func matches(view: UIView) -> Bool {
-        return true
-    }
-}
-
-class TQueryable<B: UIView>: Queryable {
-    
-    func appearence(b: B -> Void) {
-        let a = B.appearance()
-        let i = Queryable.queryList.count
-        Queryable.queryList.append({
-            if self.matches($0) {
-                b($0 as! B)
-            }
-        })
-        //a.setFontName("Text")
-        a.setAppearanceFunc("\(i)")
-    }
-    
-    override func matches(view: UIView) -> Bool {
+    func matches(view: UIView) -> Bool {
         if view is B && view.isKindOfClass(self.b) {
             return true
         }
@@ -147,27 +54,19 @@ class TQueryable<B: UIView>: Queryable {
     }
     
     var b: B.Type
-    
-    init(b: B.Type) {
+        
+    required init(_ b: B.Type) {
         self.b = b
     }
-    
-    var q: Queryable? = nil
 }
 
-class TSibling<A,B: UIView>: TQueryable<B> {
+class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
+    var q: IQueryable? = nil
     
-    init(a: A.Type, b: B.Type) {
-        self.a = a
-        super.init(b: b)
-    }
-    
-    convenience init(b: B.Type, query: Queryable) {
-        self.init(a: A.self, b: b)
+    init(_ query: IQueryable, _ b: B.Type) {
+        super.init(b)
         self.q = query
     }
-    
-    var a: A.Type
     
     override func matches(view: UIView) -> Bool {
         // first check to make sure view is of correct type
@@ -184,18 +83,18 @@ class TSibling<A,B: UIView>: TQueryable<B> {
 }
 
 class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
+    var a: A.Type
+    var q: IQueryable? = nil
     
-    init(a: A.Type, b: B.Type) {
+    init(_ a: A.Type, _ b: B.Type) {
         self.a = a
-        super.init(b: b)
+        super.init(b)
     }
     
-    convenience init(b: B.Type, query: Queryable) {
-        self.init(a: A.self, b: b)
+    convenience init(_ query: IQueryable, _ b: B.Type) {
+        self.init(A.self, b)
         self.q = query
     }
-    
-    var a: A.Type
     
     private func getVC(view: UIView) -> UIViewController? {
         var nextResponder: UIResponder? = view.nextResponder()
@@ -230,18 +129,18 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
 }
 
 class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
-    
-    init(a: A.Type, b: B.Type) {
+    var a: A.Type
+    var q: IQueryable? = nil
+   
+    init(_ a: A.Type, _ b: B.Type) {
         self.a = a
-        super.init(b: b)
+        super.init(b)
     }
     
-    convenience init(b: B.Type, query: Queryable) {
-        self.init(a: A.self, b: b)
+    convenience init(_ query: IQueryable, _ b: B.Type) {
+        self.init(A.self, b)
         self.q = query
     }
-    
-    var a: A.Type
 
     override func matches(view: UIView) -> Bool {
         // first check to make sure view is of correct type
@@ -262,10 +161,11 @@ class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
 
 
 class TMatching<B: UIView>: TQueryable<B> {
+    var q: IQueryable? = nil
     
-    init(query: Queryable, matches: B -> Bool) {
+    init(_ query: IQueryable, _ matches: B -> Bool) {
         self.matching = matches
-        super.init(b: B.self)
+        super.init(B.self)
         self.q = query
     }
     
@@ -283,12 +183,12 @@ class TMatching<B: UIView>: TQueryable<B> {
 
 class TCombination<B: UIView> :TQueryable<B> {
     
-    init(queries: [Queryable]) {
+    init(queries: [IQueryable]) {
         self.queries = queries
-        super.init(b: B.self)
+        super.init(B.self)
     }
     
-    var queries: [Queryable]
+    var queries: [IQueryable]
     
     override func matches(view: UIView) -> Bool {
         if super.matches(view) {

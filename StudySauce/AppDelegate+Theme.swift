@@ -66,6 +66,32 @@ extension AppDelegate {
         $(UIViewController.self |>> UILabel.self |& T.first, {
             $0.setFontSize(CGFloat(saucyTheme.headingSize))
             $0.setFontName(saucyTheme.headingFont)
+            $0.setFontColor(saucyTheme.lightColor)
+            /*let s = $0.superview!
+            let v = UIView() <| {
+                $0.backgroundColor = saucyTheme.fontColor
+            }
+            v.backgroundColor = saucyTheme.fontColor
+            s.insertSubview(v, atIndex: 0)
+            v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+            s.addConstraint(NSLayoutConstraint(
+                item: v,
+                attribute: NSLayoutAttribute.Top,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: s,
+                attribute: NSLayoutAttribute.Top,
+                multiplier: 1,
+                constant: 0))
+
+            s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+                "H:|[subview]|",
+                options:[],
+                metrics:nil,
+                views:["subview" : v]));*/
+            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+            //v.layoutIfNeeded()
         })
         
         // packs and settings buttons on home page
@@ -80,7 +106,14 @@ extension AppDelegate {
         $(HomeController.self |> UITableView.self |> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
-        
+        $([HomeController.self |> UITableView.self], {
+            // Make the cell self size
+            if let v = $0 as? UITableView {
+                v.estimatedRowHeight = 30.0
+                v.rowHeight = UITableViewAutomaticDimension
+            }
+        })
+
         // settings header
         $(UserSettingsController.self |> UITableViewHeaderFooterView.self, {
             $0.setBackground(saucyTheme.fontColor)
@@ -90,7 +123,7 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.subheadingFont)
             $0.setFontSize(CGFloat(saucyTheme.subheadingSize))
         })
-
+        
         // card button sizes
         // check and x font
         $([CardSelfController.self |> UIButton.self,
