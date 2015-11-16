@@ -144,8 +144,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
-        container!.addSubview(next.view)
-        container!.addSubview(last.view)
+        if next is DialogController {
+            container!.addSubview(last.view)
+            container!.addSubview(next.view)
+        }
+        else {
+            container!.addSubview(next.view)
+            container!.addSubview(last.view)
+        }
         last.view.transform = self.offStage(0.0)
         next.view.transform = self.offStage(0.0)
         next.view.bounds = UIScreen.mainScreen().bounds
@@ -163,33 +169,39 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             next = (next as! CardController).subview!
         }
         
+        //self.setupShadow(container)
+        let moveNext = UIScreen.mainScreen().bounds.width
+        var moveLast = -UIScreen.mainScreen().bounds.width
+        
+        if next is DialogController {
+            moveLast = 0.0
+        }
+        
         // if both controllers have nueral dark transition content
         let lastBackground = last.view.subviews.filter({v -> Bool in return v.tag == 23}).first
         let nextBackground = next.view.subviews.filter({v -> Bool in return v.tag == 23 }).first
         if lastBackground != nil && nextBackground != nil {
             lastBackground!.alpha = 0
             if self.presenting {
-                nextBackground!.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
+                nextBackground!.transform = self.offStage(moveLast)
             }
             else {
                 nextBackground!.transform = self.offStage(0.0)
             }
         }
-        
-        //self.setupShadow(container)
 
         // prepare menu items to slide in
         if self.presenting {
             last.view.transform = self.offStage(0.0)
-            next.view.transform = self.offStage(UIScreen.mainScreen().bounds.width)
+            next.view.transform = self.offStage(moveNext)
         }
         else {
-            last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
+            last.view.transform = self.offStage(moveLast)
             next.view.transform = self.offStage(0.0)
         }
         if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardSelfController == nil || (vc.subview as! CardSelfController).correctButton != nil) {
             next.view.transform = self.offStage(0.0)
-            last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
+            last.view.transform = self.offStage(moveLast)
             self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
         }
         
@@ -203,16 +215,16 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             else {
                 if self.presenting {
                     next.view.transform = CGAffineTransformIdentity
-                    last.view.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
+                    last.view.transform = self.offStage(moveLast)
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = self.offStage(0.0)
                     }
                 }
                 else {
                     last.view.transform = self.offStage(0.0)
-                    next.view.transform = self.offStage(UIScreen.mainScreen().bounds.width)
+                    next.view.transform = self.offStage(moveNext)
                     if lastBackground != nil && nextBackground != nil {
-                        nextBackground!.transform = self.offStage(-UIScreen.mainScreen().bounds.width)
+                        nextBackground!.transform = self.offStage(moveLast)
                     }
                 }
             }

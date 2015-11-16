@@ -13,7 +13,7 @@ import UIKit
 class AutoSizingTextView: UITextView {
     
     var minSize: CGFloat = 12
-    var maxSize: CGFloat = 40
+    var maxSize: CGFloat = 32
     var isCalculating = false
     internal var setManually = false
     

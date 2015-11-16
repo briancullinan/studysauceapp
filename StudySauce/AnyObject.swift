@@ -10,7 +10,7 @@ import Foundation
 
 infix operator <| { }
 
-func <|<T>(obj: T, f: T -> () ) -> T {
+func <|<T: AnyObject>(obj: T, f: T -> () ) -> T {
     f(obj)
     return obj
 }

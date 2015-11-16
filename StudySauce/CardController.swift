@@ -70,6 +70,7 @@ class CardController: UIViewController {
         }
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
+            vc.isRetention = self.isRetention
             if vc.subview != nil {
                 vc.card = self.card
                 vc.intermediateResponse = self.intermediateResponse
@@ -77,6 +78,7 @@ class CardController: UIViewController {
         }
         if let vc = segue.destinationViewController.parentViewController as? CardController {
             vc.pack = self.pack
+            vc.isRetention = self.isRetention
             if vc.subview != nil {
                 vc.card = self.card
                 vc.intermediateResponse = self.intermediateResponse

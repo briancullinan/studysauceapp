@@ -14,18 +14,40 @@ import UIKit
 enum T<B: UIView> {
     
     case first
+    case firstOfType
     case last
+    case lastOfType
     
-    func get(query: TQueryable<B>) -> TMatching<B> {
+    static func nthChild(i: Int) -> (v: B) -> Bool {
+        return {(v: B) -> Bool in
+            let ofTypes = v.superview!.subviews
+            if i < 0 {
+                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+            }
+            return v.superview != nil && ofTypes.indexOf(v) == i
+        }
+    }
+    
+    static func nthOfType(i: Int) -> (v: B) -> Bool {
+        return {(v: B) -> Bool in
+            let ofTypes = v.superview!.subviews.filter({return $0 is B})
+            if i < 0 {
+                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+            }
+            return v.superview != nil && ofTypes.indexOf(v) == i
+        }
+    }
+    
+    func get() -> (v: B) -> Bool {
         switch self {
         case first:
-            return TMatching<B>(query, {(v: B) -> Bool in
-                return v.superview != nil && v.superview!.subviews.indexOf(v) == 0
-            })
+            return T.nthChild(0)
         case last:
-            return TMatching<B>(query, {(v: B) -> Bool in
-                return v.superview != nil && v.superview!.subviews.indexOf(v) == v.superview!.subviews.count - 1
-            })
+            return T.nthChild(-1)
+        case firstOfType:
+            return T.nthOfType(0)
+        case lastOfType:
+            return T.nthOfType(-1)
         }
     }
 }
@@ -76,16 +98,12 @@ func |^ <B: UIView>(b: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
     return TMatching<B>(b, matches)
 }
 
-// |&
-
-infix operator |& {associativity left precedence 140}
-
-func |& <B: UIView>(b: B.Type, type: T<B>) -> TQueryable<B> {
-    return TQueryable<B>(b) |& type
+func |^ <B: UIView>(b: B.Type, type: T<B>) -> TQueryable<B> {
+    return TQueryable<B>(b) |^ type
 }
 
-func |& <B: UIView>(a: TQueryable<B>, type: T<B>) -> TQueryable<B> {
-    return type.get(a)
+func |^ <B: UIView>(q: TQueryable<B>, type: T<B>) -> TQueryable<B> {
+    return TMatching<B>(q, type.get())
 }
 
 // $

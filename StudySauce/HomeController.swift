@@ -25,6 +25,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return .LightContent
     }
     
+    @IBAction func monkeyClick(sender: UIButton) {
+        if AppDelegate.getUser()?.getRetentionCardCount() > 0 {
+            self.performSegueWithIdentifier("card", sender: self)
+        }
+    }
+    
     /*
     @IBAction func buttondown(sender: UIButton) {
         if (sender.selected)  {
@@ -77,9 +83,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         
         if self.cardCount != nil {
-            let count = self.getPacksFromLocalStore().map { p -> Int in
-                return p.getRetentionCardCount(AppDelegate.getUser())
-                }.reduce(0, combine: +)
+            let count = AppDelegate.getUser()?.getRetentionCardCount()
             let s = count == 1 ? "" : "s"
             self.cardCount!.text = "\(count) card\(s)"
         }

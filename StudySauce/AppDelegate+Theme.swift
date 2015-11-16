@@ -12,6 +12,9 @@ import UIKit
 struct saucyTheme {
     static let lightColor = UIColor(0xE9E9E9)
     static let fontColor = UIColor(0x424242)
+    static let primary = UIColor(0xFF9900)
+    static let secondary = UIColor(0x2299BB)
+    static let middle = UIColor(0xBBBBBB)
     
     static let buttonFont = "Avenir-Medium"
     
@@ -31,8 +34,7 @@ extension AppDelegate {
         Key:
         |> Direct descendent
         |+ Sibling of last element
-        |^ Use the view to match properties
-        |& psuedo-class matching like :first-child :last-child
+        |^ Use the view to match properties and psudo-classes like :first-child :last-child
         |@ Use device properties to determine if setting should apply
         Override Tag with string for className matching instead of stupid number
         [] list of TQueryable matches sets of rules
@@ -63,17 +65,23 @@ extension AppDelegate {
         
         
         // headings
-        $(UIViewController.self |>> UILabel.self |& T.first, {
+        $(UITableView.self, {
+            $0.backgroundColor = UIColor.clearColor()
+            $0.separatorStyle = UITableViewCellSeparatorStyle.None
+            $0.separatorColor = UIColor.clearColor()
+        })
+        $(UIViewController.self |>> UILabel.self |^ T.firstOfType, {
             $0.setFontSize(CGFloat(saucyTheme.headingSize))
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.lightColor)
-            /*let s = $0.superview!
-            let v = UIView() <| {
+            let s = $0.superview!
+            let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
                 $0.backgroundColor = saucyTheme.fontColor
             }
             v.backgroundColor = saucyTheme.fontColor
             s.insertSubview(v, atIndex: 0)
             v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+            v.translatesAutoresizingMaskIntoConstraints = false
             s.addConstraint(NSLayoutConstraint(
                 item: v,
                 attribute: NSLayoutAttribute.Top,
@@ -83,17 +91,29 @@ extension AppDelegate {
                 multiplier: 1,
                 constant: 0))
 
-            s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+            /*s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
                 "H:|[subview]|",
                 options:[],
                 metrics:nil,
                 views:["subview" : v]));*/
-            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-            //s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
             //v.layoutIfNeeded()
         })
-        
+        $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
+            PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {
+            $0.setFontSize(30)
+        })
+        $(PackResultsController.self |>> UILabel.self |^ T.nthOfType(3), {
+            $0.setFontSize(60)
+            $0.setFontName(saucyTheme.headingFont)
+            $0.setFontColor(saucyTheme.primary)
+        })
+        $(PackSummaryController.self |> UITableView.self, {
+            $0.separatorColor = saucyTheme.middle
+            $0.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        })
         // packs and settings buttons on home page
         $(HomeController.self |> UITableView.self |+ UIView.self |^ { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)

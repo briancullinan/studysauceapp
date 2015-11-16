@@ -52,7 +52,7 @@ class UserPack: NSManagedObject {
     }
     
     func getRentention() -> [Card] {
-        let intervals = [1, 2, 4, 7, 14, 28]
+        let intervals = [1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
         var result: [Card] = []
         // if a card hasn't been answered, return the next card
         let cards = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
@@ -64,7 +64,7 @@ class UserPack: NSManagedObject {
                     i++
                 }
                 else {
-                    i--
+                    i = 0
                 }
             }
             if i < 0 {
