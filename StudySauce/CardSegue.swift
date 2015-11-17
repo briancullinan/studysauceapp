@@ -25,6 +25,7 @@ class CardSegue : UIStoryboardSegue {
                 let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
                 card.subview = next
                 card.intermediateResponse = parent.intermediateResponse
+                card.isRetention = parent.isRetention
                 next = card
             }
             else {
@@ -44,6 +45,7 @@ class CardSegue : UIStoryboardSegue {
                         let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
                         card.card = nextCard
                         card.pack = parent.pack
+                        card.isRetention = parent.isRetention
                         next = card
                     }
                 }

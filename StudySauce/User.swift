@@ -14,11 +14,19 @@ class User: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
     
     func getRetentionIndexForCard(card: Card) -> Int {
-        return self.getRetention().indexOf(card)!
+        return self.retention!.componentsSeparatedByString(",").indexOf("\(card.id!)")!
     }
 
     func getRetentionCardCount() -> Int {
-        return self.getRetention().count
+        let cards = self.retention!.componentsSeparatedByString(",")
+        if self.retention_to == nil || self.retention_to!.addDays(1) < NSDate() || cards.count == 0 {
+            return (self.user_packs?.allObjects as! [UserPack]).map { p -> Int in
+                return p.pack!.getRetentionCardCount(AppDelegate.getUser())
+            }.reduce(0, combine: +)
+        }
+        else {
+            return self.retention!.componentsSeparatedByString(",").count
+        }
     }
     
     
