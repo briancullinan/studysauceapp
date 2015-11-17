@@ -19,9 +19,9 @@ class PackResultsController: UIViewController {
     
     @IBAction func retryClick(sender: AnyObject) {
         let up = self.pack.getUserPackForUser(AppDelegate.getUser())
-        let retries = up?.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
-        up?.retries = retries?.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
-        up?.retry_to = NSDate()
+        let retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
+        up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
+        up.retry_to = NSDate()
         AppDelegate.saveContext()
         
         self.performSegueWithIdentifier("card", sender: self)

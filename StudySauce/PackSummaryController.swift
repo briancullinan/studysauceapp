@@ -41,7 +41,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                         }
                         if newCard == nil {
-                            newCard = NSEntityDescription.insertNewObjectForEntityForName("Card", inManagedObjectContext: moc) as? Card
+                            newCard = moc.insert(Card.self)
                             cards.insert(newCard!, atIndex: 0)
                         }
                         
@@ -54,7 +54,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newCard!.created = NSDate.parse(card["created"] as? String)
                         newCard!.modified = NSDate.parse(card["modified"] as? String)
                         
-                        // TODO: create anwers
+                        // create anwers
                         var answers = newCard!.answers?.allObjects as! [Answer]
                         var answerIds = [NSNumber]()
                         for answer in card["answers"] as! NSArray {
@@ -65,7 +65,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                                 }
                             }
                             if newAnswer == nil {
-                                newAnswer = NSEntityDescription.insertNewObjectForEntityForName("Answer", inManagedObjectContext: moc) as? Answer
+                                newAnswer = moc.insert(Answer.self)
                                 answers.insert(newAnswer!, atIndex: 0)
                             }
                             
@@ -78,7 +78,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             newAnswer!.correct = answer["correct"] as? NSNumber
                             newAnswer!.created = NSDate.parse(answer["created"] as? String)
                             newAnswer!.modified = NSDate.parse(answer["modified"] as? String)
-                       }
+                        }
                         
                         // remove answers that no longer exist
                         for a in answers {
@@ -86,6 +86,30 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                                 moc.deleteObject(a)
                                 answers.removeAtIndex(answers.indexOf(a)!)
                             }
+                        }
+                        
+                        
+                        // TODO: sync responses
+                        var responses = newCard!.responses?.allObjects as! [Response]
+                        for response in card["responses"] as! NSArray {
+                            var newResponse: Response?
+                            for r in responses {
+                                if r.id == response["id"] as? NSNumber {
+                                    newResponse = r
+                                }
+                            }
+                            if newResponse == nil {
+                                newResponse = moc.insert(Response.self)
+                                responses.insert(newResponse!, atIndex: 0)
+                            }
+                            
+                            newResponse!.id = response["id"] as? NSNumber
+                            newResponse!.correct = response["correct"] as? NSNumber == 1
+                            newResponse!.answer = answers.filter({$0.id == response["answer"] as? NSNumber}).first
+                            newResponse!.value = response["value"] as? String
+                            newResponse!.card = newCard
+                            newResponse!.created = NSDate.parse(response["created"] as? String)
+                            newResponse!.user = AppDelegate.getUser()
                         }
                     }
                     
@@ -130,7 +154,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                         }
                         if newPack == nil {
-                            newPack = NSEntityDescription.insertNewObjectForEntityForName("Pack", inManagedObjectContext: moc) as? Pack
+                            newPack = moc.insert(Pack.self)
                         }
                         
                         ids.insert(pack["id"] as! NSNumber, atIndex: 0)
@@ -141,6 +165,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newPack!.created = NSDate.parse(pack["created"] as? String)
                         newPack!.modified = NSDate.parse(pack["modified"] as? String)
                         newPack!.count = pack["count"] as? NSNumber
+                        if pack["downloaded"] as? NSNumber == 1 {
+                            self.downloadIfNeeded(newPack!, done: {})
+                        }
                     }
                     
                     // remove packs that no longer exist
@@ -213,54 +240,46 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func getUserPack() -> UserPack?
-    {
-        var up = pack.getUserPackForUser(AppDelegate.getUser())
-        if let moc = AppDelegate.getContext() {
-            if up == nil {
-                up = NSEntityDescription.insertNewObjectForEntityForName("UserPack", inManagedObjectContext: moc) as? UserPack
-                up!.pack = self.pack
-                up!.user = AppDelegate.getUser()
-                do {
-                    try moc.save()
-                }
-                catch let error as NSError {
-                    NSLog("\(error.localizedDescription)")
-                }
-            }
+    func downloadIfNeeded(p: Pack, done: () -> Void) {
+        // only downloaded the pack if updates are needed
+        if p.isDownloading {
+            return
         }
-        return up
+        let up = p.getUserPackForUser(AppDelegate.getUser())
+        if p.cards!.count == 0 || up.downloaded == nil
+            || (p.modified != nil && p.modified! > up.downloaded!) {
+                p.isDownloading = false
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
+                    self.getCards(p, completionHandler: {_,_ in
+                        // TODO: update downloading status in table row!
+                        up.downloaded = NSDate()
+                        AppDelegate.saveContext()
+                        p.isDownloading = false
+                        done()
+                    })
+                })
+        }
+        else {
+            done()
+        }
     }
     
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = self.packs[indexPath.row]
-        let up = self.getUserPack()
-        if self.pack.cards!.count == 0 || up!.downloaded == nil
-            || (self.pack.modified != nil && self.pack.modified! > up!.downloaded!) {
-                self.getCards(pack, completionHandler: {(data, error) -> Void in
-                    up!.downloaded = NSDate()
-                    AppDelegate.saveContext()
-                    if data.count == 0 || error != nil {
-                        return
-                    }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if self.packs[indexPath.row].getRetryCard(AppDelegate.getUser()) == nil {
-                            self.performSegueWithIdentifier("results", sender: self)
-                        }
-                        else {
-                            self.performSegueWithIdentifier("card", sender: self)
-                        }
-                    })
-                })
-        }
-        else {
-            if self.packs[indexPath.row].getRetryCard(AppDelegate.getUser()) == nil {
-                self.performSegueWithIdentifier("results", sender: self)
-            }
-            else {
-                self.performSegueWithIdentifier("card", sender: self)
-            }
+        self.downloadIfNeeded(self.pack) { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                if self.pack.cards!.count  == 0 {
+                    // something went wrong
+                    return
+                }
+                if self.pack.getRetryCard(AppDelegate.getUser()) == nil {
+                    self.performSegueWithIdentifier("results", sender: self)
+                }
+                else {
+                    self.performSegueWithIdentifier("card", sender: self)
+                }
+            })
         }
     }
     

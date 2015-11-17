@@ -47,14 +47,14 @@ class CardSelfController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             do {
                 if let moc = AppDelegate.getContext() {
-                    let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as? Response
-                    newResponse!.correct = correct
-                    newResponse!.card = self.card
-                    newResponse!.created = NSDate()
-                    newResponse!.user = AppDelegate.getUser()
+                    let newResponse = moc.insert(Response.self)
+                    newResponse.correct = correct
+                    newResponse.card = self.card
+                    newResponse.created = NSDate()
+                    newResponse.user = AppDelegate.getUser()
                     try moc.save()
                     vc.intermediateResponse = newResponse
-                    vc.submitResponse(newResponse!)
+                    vc.submitResponse(newResponse)
                 }
             }
             catch let error as NSError {

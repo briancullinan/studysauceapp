@@ -41,12 +41,12 @@ class TAppearance<B: UIView> {
 }
 
 protocol IQueryable {
-    func matches(view: UIView) -> Bool
+    func matches(view: AnyObject) -> Bool
 }
 
-class TQueryable<B: UIView>: NSObject, IQueryable {
+class TQueryable<B: AnyObject>: NSObject, IQueryable {
     
-    func matches(view: UIView) -> Bool {
+    func matches(view: AnyObject) -> Bool {
         if view is B && view.isKindOfClass(self.b) {
             return true
         }
@@ -68,12 +68,19 @@ class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
         self.q = query
     }
     
-    override func matches(view: UIView) -> Bool {
+    override func matches(view: AnyObject) -> Bool {
+        if let v = view as? UIView {
+            return self.matchesView(v)
+        }
+        return false
+    }
+    
+    func matchesView(view: UIView) -> Bool {
         // first check to make sure view is of correct type
         if let parent = view.superview where super.matches(view) {
             let siblings = parent.subviews
             for s in siblings {
-                if s is A || self.q != nil && self.q!.matches(s) {
+                if self.q != nil && self.q!.matches(s) {
                     return true
                 }
             }
@@ -83,17 +90,11 @@ class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
 }
 
 class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
-    var a: A.Type
-    var q: IQueryable? = nil
+    var q: IQueryable
     
-    init(_ a: A.Type, _ b: B.Type) {
-        self.a = a
-        super.init(b)
-    }
-    
-    convenience init(_ query: IQueryable, _ b: B.Type) {
-        self.init(A.self, b)
+    init(_ query: IQueryable, _ b: B.Type) {
         self.q = query
+        super.init(b)
     }
     
     private func getVC(view: UIView) -> UIViewController? {
@@ -107,18 +108,25 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
         return nil
     }
     
-    override func matches(view: UIView) -> Bool {
+    override func matches(view: AnyObject) -> Bool {
+        if let v = view as? UIView {
+            return self.matchesView(v)
+        }
+        return false
+    }
+    
+    func matchesView(view: UIView) -> Bool {
         // first check to make sure view is of correct type
         if super.matches(view) {
             // self.a can be a view controller type or another view type
-            if self.getVC(view) is A {
+            if self.q.matches(self.getVC(view)!) {
                 return true
             }
             else {
                 var parent = view
                 while parent.superview != nil {
                     parent = parent.superview!
-                    if parent is A || self.q != nil && self.q!.matches(parent) {
+                    if self.q.matches(parent) {
                         return true
                     }
                 }
@@ -129,28 +137,30 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
 }
 
 class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
-    var a: A.Type
-    var q: IQueryable? = nil
-   
-    init(_ a: A.Type, _ b: B.Type) {
-        self.a = a
+    var q: IQueryable
+    
+    init(_ query: IQueryable, _ b: B.Type) {
+        self.q = query
         super.init(b)
     }
     
-    convenience init(_ query: IQueryable, _ b: B.Type) {
-        self.init(A.self, b)
-        self.q = query
+    override func matches(view: AnyObject) -> Bool {
+        if let v = view as? UIView {
+            return self.matchesView(v)
+        }
+        return false
     }
-
-    override func matches(view: UIView) -> Bool {
+    
+    func matchesView(view: AnyObject) -> Bool {
         // first check to make sure view is of correct type
         if super.matches(view) {
             // self.a can be a view controller type or another view type
-            if view.nextResponder() is A || view.superview?.nextResponder() is A {
+            if view.nextResponder() != nil && (self.q.matches(view.nextResponder()!) ||
+                view.nextResponder()!.nextResponder() != nil && self.q.matches(view.nextResponder()!.nextResponder()!)) {
                 return true
             }
             else if let parent = view.superview {
-                if parent is A || self.q != nil && self.q!.matches(parent) {
+                if self.q.matches(parent!) {
                     return true
                 }
             }
@@ -160,7 +170,7 @@ class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
 }
 
 
-class TMatching<B: UIView>: TQueryable<B> {
+class TMatching<B: AnyObject>: TQueryable<B> {
     var q: IQueryable? = nil
     
     init(_ query: IQueryable, _ matches: B -> Bool) {
@@ -171,7 +181,7 @@ class TMatching<B: UIView>: TQueryable<B> {
     
     var matching: (B) -> Bool
     
-    override func matches(view: UIView) -> Bool {
+    override func matches(view: AnyObject) -> Bool {
         if super.matches(view) {
             if self.matching(view as! B) && self.q!.matches(view) {
                 return true
@@ -190,7 +200,7 @@ class TCombination<B: UIView> :TQueryable<B> {
     
     var queries: [IQueryable]
     
-    override func matches(view: UIView) -> Bool {
+    override func matches(view: AnyObject) -> Bool {
         if super.matches(view) {
             let match = self.queries.filter({
                 return $0.matches(view)

@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 
 extension UIViewController {
-    
+        
     func showDialog(message: String?, button: String?) {
         self.showDialog(message, button: button, done: {
             return true

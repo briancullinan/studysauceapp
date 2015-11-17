@@ -55,11 +55,11 @@ enum T<B: UIView> {
 infix operator |> {associativity left precedence 140}
 
 func |> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TChild<A,B>(a, b)
+    return TQueryable<A>(a) |> b
 }
 
-func |> <A: UIView, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TChild<TQueryable<A>,B>(q, b)
+func |> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
+    return TChild<A,B>(q, b)
 }
 
 // |>>
@@ -67,11 +67,11 @@ func |> <A: UIView, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
 infix operator |>> {associativity left precedence 140}
 
 func |>> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
-    return TImmediateChild<A,B>(a, b)
+    return TQueryable<A>(a) |>> b
 }
 
-func |>> <A: UIView, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TImmediateChild<TQueryable<A>,B>(q, b)
+func |>> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
+    return TImmediateChild<A,B>(q, b)
 }
 
 // |+
@@ -83,27 +83,45 @@ func |+ <A: UIView, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
 }
 
 func |+ <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TSibling<TQueryable<A>,B>(a, b)
+    return TSibling<A,B>(a, b)
 }
 
 // |^
 
 infix operator |^ {associativity left precedence 140}
 
-func |^ <B: UIView>(b: B.Type, matches: B -> Bool) -> TQueryable<B> {
+func |^ <B>(b: B.Type, matches: B -> Bool) -> TQueryable<B> {
     return TQueryable<B>(b) |^ matches
 }
 
-func |^ <B: UIView>(b: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
+func |^ <B>(b: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
     return TMatching<B>(b, matches)
 }
 
-func |^ <B: UIView>(b: B.Type, type: T<B>) -> TQueryable<B> {
+func |^ <B>(b: B.Type, type: T<B>) -> TQueryable<B> {
     return TQueryable<B>(b) |^ type
 }
 
-func |^ <B: UIView>(q: TQueryable<B>, type: T<B>) -> TQueryable<B> {
+func |^ <B>(q: TQueryable<B>, type: T<B>) -> TQueryable<B> {
     return TMatching<B>(q, type.get())
+}
+
+// |#
+//prefix operator |^ {}
+func |^ <B: UIView>(b: B.Type, id: String) -> TMatching<B> {
+    return TMatching<B>(TQueryable<B>(b), {$0.restorationIdentifier == id})
+}
+
+func |^ <B: UIViewController>(b: B.Type, id: String) -> TMatching<B> {
+    return TMatching<B>(TQueryable<B>(b), {$0.restorationIdentifier == id})
+}
+
+func |^ <B: UIView>(b: TQueryable<B>, id: String) -> TMatching<B> {
+    return TMatching<B>(b, {$0.restorationIdentifier == id})
+}
+
+func |^ <B: UIViewController>(b: TQueryable<B>, id: String) -> TMatching<B> {
+    return TMatching<B>(b, {$0.restorationIdentifier == id})
 }
 
 // $

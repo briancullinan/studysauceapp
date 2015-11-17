@@ -70,36 +70,46 @@ extension AppDelegate {
             $0.separatorStyle = UITableViewCellSeparatorStyle.None
             $0.separatorColor = UIColor.clearColor()
         })
-        $(UIViewController.self |>> UILabel.self |^ T.firstOfType, {
-            $0.setFontSize(CGFloat(saucyTheme.headingSize))
-            $0.setFontName(saucyTheme.headingFont)
-            $0.setFontColor(saucyTheme.lightColor)
-            let s = $0.superview!
-            let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
-                $0.backgroundColor = saucyTheme.fontColor
-            }
-            v.backgroundColor = saucyTheme.fontColor
-            s.insertSubview(v, atIndex: 0)
-            v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-            v.translatesAutoresizingMaskIntoConstraints = false
-            s.addConstraint(NSLayoutConstraint(
-                item: v,
-                attribute: NSLayoutAttribute.Top,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: s,
-                attribute: NSLayoutAttribute.Top,
-                multiplier: 1,
-                constant: 0))
-
-            /*s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+        $([UserSettingsContainerController.self |>> UILabel.self |^ T.firstOfType,
+            PackSummaryController.self |>> UILabel.self |^ T.firstOfType,
+            UIViewController.self |^ "Privacy" |>> UILabel.self |^ T.firstOfType,
+            CardController.self |>> UILabel.self |^ T.firstOfType,
+            PackResultsController.self |>> UILabel.self |^ T.firstOfType,
+            ContactUsController.self |>> UILabel.self |^ T.firstOfType], {
+                
+                $0.setFontSize(CGFloat(saucyTheme.headingSize))
+                $0.setFontName(saucyTheme.headingFont)
+                $0.setFontColor(saucyTheme.lightColor)
+                let s = $0.superview!
+                let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
+                    $0.backgroundColor = saucyTheme.fontColor
+                }
+                v.backgroundColor = saucyTheme.fontColor
+                s.insertSubview(v, atIndex: 0)
+                v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+                v.translatesAutoresizingMaskIntoConstraints = false
+                s.addConstraint(NSLayoutConstraint(
+                    item: v,
+                    attribute: NSLayoutAttribute.Top,
+                    relatedBy: NSLayoutRelation.Equal,
+                    toItem: s,
+                    attribute: NSLayoutAttribute.Top,
+                    multiplier: 1,
+                    constant: 0))
+                
+                /*s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
                 "H:|[subview]|",
                 options:[],
                 metrics:nil,
                 views:["subview" : v]));*/
-            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-            s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
-            //v.layoutIfNeeded()
+                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 66))
+                //v.layoutIfNeeded()
+                UIApplication.sharedApplication().statusBarStyle = .LightContent
+        })
+        $(UserSettingsController.self |> UITableViewCell.self, {
+            $0.tintColor = saucyTheme.primary
         })
         $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
             PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {

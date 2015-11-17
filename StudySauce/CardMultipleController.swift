@@ -51,7 +51,7 @@ class CardMultipleController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             do {
                 if let moc = AppDelegate.getContext() {
-                    let newResponse = NSEntityDescription.insertNewObjectForEntityForName("Response", inManagedObjectContext: moc) as! Response
+                    let newResponse = moc.insert(Response.self)
                     for a in self.card!.answers!.allObjects as! [Answer] {
                         if a.value == value {
                             newResponse.correct = a.correct

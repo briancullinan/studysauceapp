@@ -83,7 +83,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         
         if self.cardCount != nil {
-            let count = AppDelegate.getUser()?.getRetentionCardCount()
+            let count = AppDelegate.getUser()!.getRetentionCardCount()
             let s = count == 1 ? "" : "s"
             self.cardCount!.text = "\(count) card\(s)"
         }

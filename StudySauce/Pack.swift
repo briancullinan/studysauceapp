@@ -12,14 +12,22 @@ import UIKit
 
 class Pack: NSManagedObject {
 
-    func getUserPackForUser(user: User?) -> UserPack? {
-        let up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
+    var isDownloading = false
+    
+    func getUserPackForUser(user: User?) -> UserPack {
+        var up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
             if let up = obj as? UserPack {
                 return up.user == user
             }
             return false
         }))?.first as? UserPack
-        return up
+        if up == nil {
+            up = AppDelegate.getContext()!.insert(UserPack.self)
+            up!.pack = self
+            up!.user = AppDelegate.getUser()
+            AppDelegate.saveContext()
+        }
+        return up!
     }
     
     func getCardById(id: NSNumber) -> Card? {
@@ -32,24 +40,20 @@ class Pack: NSManagedObject {
     }
     
     func getRetryCard(user: User?) -> Card? {
-        return self.getUserPackForUser(user)?.getRetryCard()
+        return self.getUserPackForUser(user).getRetryCard()
     }
     
     func getIndexForCard(card: Card, user: User?) -> Int {
-        let retries = self.getUserPackForUser(user)!.getRetries()
+        let retries = self.getUserPackForUser(user).getRetries()
         return retries.indexOf(card)!
     }
     
     func getCardCount(user: User?) -> Int {
-        return self.getUserPackForUser(user)!.getRetries().count
+        return self.getUserPackForUser(user).getRetries().count
     }
     
     func getRetentionCardCount(user: User?) -> Int {
-        let up = self.getUserPackForUser(user)
-        if up == nil || up?.retry_to == nil {
-            return self.cards!.count
-        }
-        return up!.getRentention().count
+        return self.getUserPackForUser(user).getRentention().count
     }
     
 }

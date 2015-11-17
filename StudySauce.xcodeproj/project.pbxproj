@@ -36,6 +36,7 @@
 		649B09431BE0970E00A3F9A4 /* CardTrueFalseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */; };
 		649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09441BE12DA000A3F9A4 /* CardBlankController.swift */; };
 		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; };
+		64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */; };
 		64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */; };
 		64D0C0DC1BDFCECB006FEF44 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0DA1BDFCECB006FEF44 /* Answer.swift */; };
 		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; };
@@ -124,6 +125,7 @@
 		649B09421BE0970E00A3F9A4 /* CardTrueFalseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTrueFalseController.swift; sourceTree = "<group>"; };
 		649B09441BE12DA000A3F9A4 /* CardBlankController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBlankController.swift; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
+		64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D0C0DA1BDFCECB006FEF44 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				64EF7D231BE88E730025E094 /* NSObject.swift */,
 				6469661E1BF2F1990081FC3F /* CollectionType.swift */,
 				64EAF91B1BF6F825008E66E2 /* AnyObject.swift */,
+				64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */,
 				64ED1DB11BEB10AD00A9E2A2 /* HomeController.swift in Sources */,
 				64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */,
+				64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
