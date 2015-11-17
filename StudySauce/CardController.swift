@@ -36,13 +36,18 @@ class CardController: UIViewController {
                 self.card = self.pack.getRetryCard(AppDelegate.getUser())
             }
         }
-        if self.pack == nil {
+        if self.isRetention {
             self.pack = self.card!.pack
+            let index = AppDelegate.getUser()!.getRetentionIndexForCard(self.card!)
+            let count = AppDelegate.getUser()!.getRetentionCardCount()
+            self.countLabel.text = "\(index+1) of \(count)"
+        }
+        else {
+            let index = self.pack.getIndexForCard(self.card!, user: AppDelegate.getUser())
+            let count = self.pack.getCardCount(AppDelegate.getUser())
+            self.countLabel.text = "\(index+1) of \(count)"
         }
         self.packTitle.text = self.pack.title
-        let index = self.pack.getIndexForCard(self.card!, user: AppDelegate.getUser())
-        let count = self.pack.getCardCount(AppDelegate.getUser())
-        self.countLabel.text = "\(index+1) of \(count)"
         if self.subview == nil {
             var view = "Default"
             if self.card?.response_type == "mc" {

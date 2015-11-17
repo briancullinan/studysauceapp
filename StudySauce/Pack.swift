@@ -44,8 +44,7 @@ class Pack: NSManagedObject {
     }
     
     func getIndexForCard(card: Card, user: User?) -> Int {
-        let retries = self.getUserPackForUser(user).getRetries()
-        return retries.indexOf(card)!
+        return self.getUserPackForUser(user).getRetries().indexOf(card)!
     }
     
     func getCardCount(user: User?) -> Int {

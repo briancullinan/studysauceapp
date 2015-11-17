@@ -291,6 +291,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
         let object = self.packs[indexPath.row]
+        cell.updateTableView = {
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
         cell.configure(object)
         return cell
     }

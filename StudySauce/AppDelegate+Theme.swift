@@ -130,8 +130,8 @@ extension AppDelegate {
         })
         $(HomeController.self |> UITableView.self |+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
-            $0.setFontSize(CGFloat(saucyTheme.headingSize))
-            $0.setFontName(saucyTheme.headingFont)
+            $0.setFontSize(CGFloat(saucyTheme.textSize))
+            $0.setFontName(saucyTheme.textFont)
         })
         $(HomeController.self |> UITableView.self |> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)

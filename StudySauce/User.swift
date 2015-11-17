@@ -12,11 +12,13 @@ import CoreData
 class User: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
+    
+    func getRetentionIndexForCard(card: Card) -> Int {
+        return self.getRetention().indexOf(card)!
+    }
 
     func getRetentionCardCount() -> Int {
-        return (self.user_packs?.allObjects as! [UserPack]).map { p -> Int in
-            return p.pack!.getRetentionCardCount(AppDelegate.getUser())
-            }.reduce(0, combine: +)
+        return self.getRetention().count
     }
     
     

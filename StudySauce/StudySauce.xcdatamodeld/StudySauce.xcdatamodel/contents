@@ -24,6 +24,11 @@
         <relationship name="pack" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pack" inverseName="cards" inverseEntity="Pack" syncable="YES"/>
         <relationship name="responses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Response" inverseName="card" inverseEntity="Response" syncable="YES"/>
     </entity>
+    <entity name="File" representedClassName=".File" syncable="YES">
+        <attribute name="filename" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="Pack" representedClassName=".Pack" syncable="YES">
         <attribute name="active_from" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="active_to" optional="YES" attributeType="Date" syncable="YES"/>
@@ -90,5 +95,6 @@
         <element name="Response" positionX="1780" positionY="-594" width="128" height="165"/>
         <element name="User" positionX="1458" positionY="-567" width="128" height="270"/>
         <element name="UserPack" positionX="1467" positionY="-558" width="128" height="150"/>
+        <element name="File" positionX="1458" positionY="-567" width="128" height="90"/>
     </elements>
 </model>
