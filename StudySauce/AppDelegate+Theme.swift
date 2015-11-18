@@ -104,7 +104,7 @@ extension AppDelegate {
                 views:["subview" : v]));*/
                 s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
                 s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 66))
+                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1, constant: 22))
                 //v.layoutIfNeeded()
                 UIApplication.sharedApplication().statusBarStyle = .LightContent
         })
@@ -124,6 +124,9 @@ extension AppDelegate {
             $0.separatorColor = saucyTheme.middle
             $0.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         })
+        $(PackSummaryCell.self |> UILabel.self |^ T.firstOfType, {
+            $0.setFontName(saucyTheme.subheadingFont)
+        })
         // packs and settings buttons on home page
         $(HomeController.self |> UITableView.self |+ UIView.self |^ { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)
@@ -131,7 +134,7 @@ extension AppDelegate {
         $(HomeController.self |> UITableView.self |+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontSize(CGFloat(saucyTheme.textSize))
-            $0.setFontName(saucyTheme.textFont)
+            $0.setFontName(saucyTheme.subheadingFont)
         })
         $(HomeController.self |> UITableView.self |> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)

@@ -103,14 +103,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXH-st-0Tk">
-                                <rect key="frame" x="506" y="31" width="74" height="17"/>
+                                <rect key="frame" x="506" y="39" width="74" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N5W-jj-VWV">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="57" id="4gf-NS-X15"/>
@@ -121,8 +121,8 @@
                                     <segue destination="Iuf-Sd-aQs" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="Ad3-zr-pm4"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AjF-zc-xVk">
-                                <rect key="frame" x="0.0" y="66" width="600" height="504"/>
+                            <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AjF-zc-xVk">
+                                <rect key="frame" x="0.0" y="74" width="600" height="496"/>
                                 <animations/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                             </containerView>
@@ -140,7 +140,7 @@
                             <constraint firstItem="xZf-1v-2Bu" firstAttribute="centerX" secondItem="OTz-Qt-2Wn" secondAttribute="centerX" id="Cgv-7X-myv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="N5W-jj-VWV" secondAttribute="leading" id="EPH-na-VQr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tXH-st-0Tk" secondAttribute="trailing" id="HCy-P5-rqn"/>
-                            <constraint firstItem="N5W-jj-VWV" firstAttribute="top" secondItem="ZSZ-Tu-dgl" secondAttribute="bottom" id="Jef-aM-qwS"/>
+                            <constraint firstItem="N5W-jj-VWV" firstAttribute="top" secondItem="ZSZ-Tu-dgl" secondAttribute="bottom" constant="8" symbolic="YES" id="Jef-aM-qwS"/>
                             <constraint firstItem="JsB-3z-Y5T" firstAttribute="top" secondItem="xZf-1v-2Bu" secondAttribute="bottom" constant="8" symbolic="YES" id="LDt-x0-Kc5"/>
                             <constraint firstItem="AjF-zc-xVk" firstAttribute="top" secondItem="N5W-jj-VWV" secondAttribute="bottom" constant="8" symbolic="YES" id="LP9-pL-iCe"/>
                             <constraint firstItem="AjF-zc-xVk" firstAttribute="width" secondItem="OTz-Qt-2Wn" secondAttribute="width" id="Lnm-W4-ZtH"/>
@@ -186,9 +186,6 @@
                                 <state key="normal" title="Log in">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="158" y="285" width="285" height="50"/>
-                                </variation>
                                 <connections>
                                     <segue destination="JIk-eY-fER" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="GQz-t5-qGU"/>
                                 </connections>
@@ -206,9 +203,6 @@
                                 <state key="normal" title="Sign up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="heightClass=compact" ambiguous="YES">
-                                    <rect key="frame" x="158" y="216" width="285" height="50"/>
-                                </variation>
                                 <connections>
                                     <segue destination="pyw-KZ-FSd" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="XRc-D6-3Ln"/>
                                 </connections>
@@ -266,7 +260,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxW-qD-G23">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="57" id="d2k-OR-fp0"/>
@@ -278,7 +272,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d4B-bi-vai">
-                                <rect key="frame" x="0.0" y="66" width="600" height="534"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="526"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -373,7 +367,7 @@
                             <constraint firstItem="h1e-oo-7Yc" firstAttribute="centerX" secondItem="1uh-MO-8Iu" secondAttribute="centerX" id="6Z2-oC-DVb"/>
                             <constraint firstItem="0Sd-aP-wBA" firstAttribute="top" secondItem="d4B-bi-vai" secondAttribute="bottom" id="Qyu-sR-8Vq"/>
                             <constraint firstItem="d4B-bi-vai" firstAttribute="centerX" secondItem="1uh-MO-8Iu" secondAttribute="centerX" id="RK3-8Y-ZFT"/>
-                            <constraint firstItem="WxW-qD-G23" firstAttribute="top" secondItem="b9l-Q3-BU3" secondAttribute="bottom" id="YkY-wH-uie"/>
+                            <constraint firstItem="WxW-qD-G23" firstAttribute="top" secondItem="b9l-Q3-BU3" secondAttribute="bottom" constant="8" symbolic="YES" id="YkY-wH-uie"/>
                             <constraint firstItem="d4B-bi-vai" firstAttribute="top" secondItem="WxW-qD-G23" secondAttribute="bottom" constant="8" symbolic="YES" id="bhV-p5-ihM"/>
                             <constraint firstItem="d4B-bi-vai" firstAttribute="width" secondItem="1uh-MO-8Iu" secondAttribute="width" id="h1m-rN-BM4"/>
                             <constraint firstAttribute="leadingMargin" secondItem="WxW-qD-G23" secondAttribute="leading" id="ryy-ds-rRe"/>
@@ -579,15 +573,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
-                                <rect key="frame" x="237" y="8" width="127" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
+                                <rect key="frame" x="237" y="36" width="128" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bww-ox-3WH">
-                                <rect key="frame" x="20" y="0.0" width="57" height="38"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bww-ox-3WH">
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="MqM-ez-5yS"/>
@@ -598,8 +592,8 @@
                                     <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="ZAc-Zr-uuP"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qFc-U7-VFK">
-                                <rect key="frame" x="20" y="46" width="560" height="546"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qFc-U7-VFK">
+                                <rect key="frame" x="20" y="74" width="560" height="518"/>
                                 <animations/>
                                 <string key="text">What information do we collect?
 
@@ -703,7 +697,7 @@ support@studysauce.com
                             <constraint firstItem="Vzk-BC-IMD" firstAttribute="centerX" secondItem="xFk-1t-96a" secondAttribute="centerX" id="Oav-Th-59F"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bww-ox-3WH" secondAttribute="leading" id="Uqq-bP-kox"/>
                             <constraint firstItem="Vzk-BC-IMD" firstAttribute="centerY" secondItem="bww-ox-3WH" secondAttribute="centerY" id="b2C-i0-t0g"/>
-                            <constraint firstItem="bww-ox-3WH" firstAttribute="top" secondItem="Lyi-QE-a6J" secondAttribute="bottom" id="dsU-eY-0zC"/>
+                            <constraint firstItem="bww-ox-3WH" firstAttribute="top" secondItem="Lyi-QE-a6J" secondAttribute="bottom" constant="8" symbolic="YES" id="dsU-eY-0zC"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -723,8 +717,8 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">
-                                <rect key="frame" x="520" y="32" width="61" height="15"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">
+                                <rect key="frame" x="520" y="41" width="60" height="14"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -745,14 +739,14 @@ support@studysauce.com
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="M0c-QT-Bxo">
-                                <rect key="frame" x="216" y="163" width="169" height="96"/>
+                                <rect key="frame" x="216" y="163" width="169" height="95"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-g1-5Au">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="K8a-6n-xDa"/>
@@ -797,7 +791,7 @@ support@studysauce.com
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="d5O-Ga-XDa" secondAttribute="trailing" id="8lc-4I-Heu"/>
                             <constraint firstItem="Gv8-FI-QsO" firstAttribute="top" secondItem="efU-5t-l7n" secondAttribute="bottom" constant="20" id="Ceb-EA-yYz"/>
-                            <constraint firstItem="g6q-g1-5Au" firstAttribute="top" secondItem="tT4-eo-VVI" secondAttribute="bottom" id="FzL-ZH-4no"/>
+                            <constraint firstItem="g6q-g1-5Au" firstAttribute="top" secondItem="tT4-eo-VVI" secondAttribute="bottom" constant="8" symbolic="YES" id="FzL-ZH-4no"/>
                             <constraint firstItem="d5O-Ga-XDa" firstAttribute="centerX" secondItem="jDN-bc-vzY" secondAttribute="centerX" id="HNh-TF-Ztg"/>
                             <constraint firstItem="M0c-QT-Bxo" firstAttribute="top" secondItem="VqX-kh-lXa" secondAttribute="bottom" constant="10" id="KIL-BG-yq3"/>
                             <constraint firstItem="M0c-QT-Bxo" firstAttribute="centerX" secondItem="jDN-bc-vzY" secondAttribute="centerX" id="KUj-sL-pbc"/>
@@ -1616,13 +1610,16 @@ support@studysauce.com
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-dT-1wv" userLabel="settings">
-                                <rect key="frame" x="411" y="502" width="78" height="78"/>
+                                <rect key="frame" x="400" y="480" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bjU-dT-1wv" secondAttribute="height" multiplier="1:1" id="1nG-0L-fjf"/>
                                 </constraints>
                                 <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
                                 <state key="normal" image="gray settings icon with clear center"/>
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="426" y="332" width="48" height="48"/>
+                                </variation>
                                 <connections>
                                     <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9Uu-zL-5h0"/>
                                 </connections>
@@ -1650,10 +1647,16 @@ support@studysauce.com
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
-                                <rect key="frame" x="111" y="502" width="78" height="78"/>
+                                <rect key="frame" x="100" y="480" width="100" height="100"/>
                                 <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="u3d-pL-crn"/>
+                                </constraints>
                                 <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
                                 <state key="normal" title="My packs" image="gray Study packs icon with clear center"/>
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="126" y="332" width="48" height="48"/>
+                                </variation>
                                 <connections>
                                     <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
                                 </connections>
@@ -1699,6 +1702,11 @@ support@studysauce.com
                             <constraint firstItem="4O7-ka-miD" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" multiplier="0.5" id="yHq-gz-N7F"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.4" id="zsA-I1-UCP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Dyp-Ce-ZNT"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="bigbutton" destination="VuU-ca-cmN" id="2X0-M5-BIG"/>
@@ -1715,7 +1723,7 @@ support@studysauce.com
             <objects>
                 <tableViewController title="UserSettings" id="7bU-J0-4YG" customClass="UserSettingsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="oIb-cn-bKt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="534"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="526"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -1982,14 +1990,14 @@ support@studysauce.com
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbY-kI-wQY">
-                                <rect key="frame" x="262" y="28" width="77" height="23"/>
+                                <rect key="frame" x="262" y="36" width="77" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b84-sm-QmN">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="57" id="5Li-wx-6ht"/>
@@ -2001,14 +2009,14 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9T4-y2-6fP">
-                                <rect key="frame" x="0.0" y="66" width="600" height="534"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="526"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="7bU-J0-4YG" kind="embed" id="b42-hi-3ZP"/>
                                 </connections>
                             </containerView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myK-qa-utg">
-                                <rect key="frame" x="550" y="24" width="30" height="30"/>
+                                <rect key="frame" x="550" y="32" width="30" height="30"/>
                                 <animations/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
@@ -2016,7 +2024,7 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LzV-Cw-mNU">
-                                <rect key="frame" x="544" y="24" width="36" height="30"/>
+                                <rect key="frame" x="544" y="32" width="36" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Save"/>
@@ -2029,7 +2037,7 @@ support@studysauce.com
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="b84-sm-QmN" firstAttribute="top" secondItem="2Dn-ax-pYf" secondAttribute="bottom" id="0Kh-fn-hsq"/>
+                            <constraint firstItem="b84-sm-QmN" firstAttribute="top" secondItem="2Dn-ax-pYf" secondAttribute="bottom" constant="8" symbolic="YES" id="0Kh-fn-hsq"/>
                             <constraint firstItem="xbY-kI-wQY" firstAttribute="centerX" secondItem="fot-fV-vLN" secondAttribute="centerX" id="0OB-wb-ATH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LzV-Cw-mNU" secondAttribute="trailing" id="3Fe-n6-Kra"/>
                             <constraint firstItem="9T4-y2-6fP" firstAttribute="width" secondItem="fot-fV-vLN" secondAttribute="width" id="6IM-HM-HYs"/>
@@ -2140,37 +2148,28 @@ support@studysauce.com
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-KT-nha">
-                                <rect key="frame" x="251" y="8" width="99" height="23"/>
+                                <rect key="frame" x="251" y="16" width="99" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
-                                <rect key="frame" x="20" y="46" width="87" height="21"/>
+                                <rect key="frame" x="20" y="66" width="87" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKi-0L-j2x">
-                                <rect key="frame" x="20" y="179" width="74" height="21"/>
+                                <rect key="frame" x="20" y="199" width="74" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3P-lr-anK">
-                                <rect key="frame" x="20" y="141" width="560" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                <connections>
-                                    <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="JaI-ZR-JgB"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY">
-                                <rect key="frame" x="20" y="75" width="560" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY">
+                                <rect key="frame" x="20" y="95" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -2178,15 +2177,24 @@ support@studysauce.com
                                     <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="6ia-oj-SVa"/>
                                 </connections>
                             </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k3P-lr-anK">
+                                <rect key="frame" x="20" y="161" width="560" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <connections>
+                                    <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="JaI-ZR-JgB"/>
+                                </connections>
+                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l49-oY-aGI">
-                                <rect key="frame" x="20" y="113" width="115" height="20"/>
+                                <rect key="frame" x="20" y="133" width="115" height="20"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBp-mM-08E">
-                                <rect key="frame" x="200" y="437" width="200" height="50"/>
+                                <rect key="frame" x="200" y="542" width="200" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -2203,18 +2211,8 @@ support@studysauce.com
                                     <action selector="sendEmail:" destination="5Dr-EB-zmH" eventType="touchUpInside" id="t7w-Er-v8h"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-uv-BSZ">
-                                <rect key="frame" x="20" y="208" width="560" height="180"/>
-                                <animations/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="HcA-eQ-44z"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJk-DO-RNa">
-                                <rect key="frame" x="20" y="0.0" width="57" height="38"/>
+                                <rect key="frame" x="20" y="8" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Rhf-ad-a7b"/>
@@ -2225,17 +2223,25 @@ support@studysauce.com
                                     <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="QhV-YZ-0yf"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-uv-BSZ">
+                                <rect key="frame" x="20" y="228" width="560" height="306"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sOL-3O-ryY" firstAttribute="top" secondItem="eEn-Rh-4rQ" secondAttribute="bottom" constant="8" symbolic="YES" id="0qX-e8-2st"/>
+                            <constraint firstItem="PhD-z4-txW" firstAttribute="top" secondItem="LBp-mM-08E" secondAttribute="bottom" constant="8" symbolic="YES" id="214-7M-Wwf"/>
                             <constraint firstItem="k3P-lr-anK" firstAttribute="top" secondItem="l49-oY-aGI" secondAttribute="bottom" constant="8" symbolic="YES" id="4dY-5a-NsI"/>
                             <constraint firstItem="9pl-KT-nha" firstAttribute="centerX" secondItem="G2k-cE-b9f" secondAttribute="centerX" id="4qp-Kh-Sto"/>
                             <constraint firstItem="UKi-0L-j2x" firstAttribute="top" secondItem="k3P-lr-anK" secondAttribute="bottom" constant="8" symbolic="YES" id="5z4-jq-fZ9"/>
                             <constraint firstAttribute="leadingMargin" secondItem="sOL-3O-ryY" secondAttribute="leading" id="77C-WP-TIo"/>
                             <constraint firstItem="LBp-mM-08E" firstAttribute="centerX" secondItem="G2k-cE-b9f" secondAttribute="centerX" id="8Ae-1P-Fhk"/>
-                            <constraint firstItem="bJk-DO-RNa" firstAttribute="top" secondItem="POz-tH-pPV" secondAttribute="bottom" id="8FO-h5-Wi4"/>
+                            <constraint firstItem="bJk-DO-RNa" firstAttribute="top" secondItem="POz-tH-pPV" secondAttribute="bottom" constant="8" symbolic="YES" id="8FO-h5-Wi4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="s3g-uv-BSZ" secondAttribute="trailing" id="8sS-QR-MWt"/>
                             <constraint firstItem="9pl-KT-nha" firstAttribute="centerY" secondItem="bJk-DO-RNa" secondAttribute="centerY" id="CrJ-UW-2wt"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sOL-3O-ryY" secondAttribute="trailing" id="DK1-mB-814"/>
@@ -2243,13 +2249,12 @@ support@studysauce.com
                             <constraint firstAttribute="leadingMargin" secondItem="l49-oY-aGI" secondAttribute="leading" id="E5f-II-2bH"/>
                             <constraint firstItem="l49-oY-aGI" firstAttribute="top" secondItem="sOL-3O-ryY" secondAttribute="bottom" constant="8" symbolic="YES" id="Ed8-zs-10R"/>
                             <constraint firstAttribute="leadingMargin" secondItem="k3P-lr-anK" secondAttribute="leading" id="H1a-35-g6c"/>
-                            <constraint firstItem="PhD-z4-txW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LBp-mM-08E" secondAttribute="bottom" constant="8" symbolic="YES" id="NT8-Io-jHP"/>
                             <constraint firstItem="s3g-uv-BSZ" firstAttribute="top" secondItem="UKi-0L-j2x" secondAttribute="bottom" constant="8" symbolic="YES" id="Rv5-3T-7qQ"/>
-                            <constraint firstItem="eEn-Rh-4rQ" firstAttribute="top" secondItem="bJk-DO-RNa" secondAttribute="bottom" constant="8" symbolic="YES" id="e1d-oc-UTk"/>
+                            <constraint firstItem="eEn-Rh-4rQ" firstAttribute="top" secondItem="bJk-DO-RNa" secondAttribute="bottom" constant="20" id="e1d-oc-UTk"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k3P-lr-anK" secondAttribute="trailing" id="kao-4J-hY5"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bJk-DO-RNa" secondAttribute="leading" id="nbH-YF-4as"/>
                             <constraint firstAttribute="leadingMargin" secondItem="UKi-0L-j2x" secondAttribute="leading" id="rHz-68-cbl"/>
-                            <constraint firstItem="LBp-mM-08E" firstAttribute="top" secondItem="s3g-uv-BSZ" secondAttribute="bottom" constant="49" id="rtN-fg-9gL"/>
+                            <constraint firstItem="LBp-mM-08E" firstAttribute="top" secondItem="s3g-uv-BSZ" secondAttribute="bottom" constant="8" symbolic="YES" id="rtN-fg-9gL"/>
                             <constraint firstAttribute="leadingMargin" secondItem="eEn-Rh-4rQ" secondAttribute="leading" id="u0s-md-gQI"/>
                         </constraints>
                     </view>
@@ -2541,14 +2546,14 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="5558" height="1150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GQz-t5-qGU"/>
-        <segue reference="k9N-Zv-Wkm"/>
-        <segue reference="XRc-D6-3Ln"/>
-        <segue reference="1xb-Fq-MwZ"/>
+        <segue reference="hJi-Nu-qtH"/>
+        <segue reference="jVs-Lw-C2J"/>
         <segue reference="xPb-Xh-Fmi"/>
-        <segue reference="1w5-kD-eLZ"/>
-        <segue reference="udA-v8-lqc"/>
-        <segue reference="I3T-Nz-Fid"/>
+        <segue reference="XRc-D6-3Ln"/>
+        <segue reference="k9N-Zv-Wkm"/>
+        <segue reference="GQz-t5-qGU"/>
         <segue reference="QhV-YZ-0yf"/>
+        <segue reference="SK1-gb-mF0"/>
+        <segue reference="I3T-Nz-Fid"/>
     </inferredMetricsTieBreakers>
 </document>
