@@ -13,5 +13,5 @@ import CoreData
 class File: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-
+    var downloading = false
 }

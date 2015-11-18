@@ -18,7 +18,7 @@ class User: NSManagedObject {
     }
 
     func getRetentionCardCount() -> Int {
-        let cards = self.retention!.componentsSeparatedByString(",")
+        let cards = self.retention?.componentsSeparatedByString(",") ?? []
         if self.retention_to == nil || self.retention_to!.addDays(1) < NSDate() || cards.count == 0 {
             return (self.user_packs?.allObjects as! [UserPack]).map { p -> Int in
                 return p.pack!.getRetentionCardCount(AppDelegate.getUser())

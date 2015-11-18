@@ -292,7 +292,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
         let object = self.packs[indexPath.row]
         cell.updateTableView = {
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            // list all packs with the same icon
+            let indexes = self.packs.filter({$0.logo != nil}).map({NSIndexPath(forRow: self.packs.indexOf($0)!, inSection: 0)})
+            tableView.reloadRowsAtIndexPaths(indexes, withRowAnimation: UITableViewRowAnimation.Fade)
         }
         cell.configure(object)
         return cell
