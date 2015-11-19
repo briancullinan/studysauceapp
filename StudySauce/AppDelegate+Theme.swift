@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CoreMotion
 
 struct saucyTheme {
     static let lightColor = UIColor(0xE9E9E9)
@@ -26,6 +27,8 @@ struct saucyTheme {
     static let subheadingFont = "Avenir-Heavy"
     static let subheadingSize = 17.0
 }
+
+let manager = CMMotionManager()
 
 extension AppDelegate {
     func createHeading(label: UILabel) {
@@ -50,7 +53,7 @@ extension AppDelegate {
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: CGFloat(14.0)))
     }
-    
+
     func setupTheme() {
         
         /*
@@ -76,6 +79,26 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontName(saucyTheme.textFont)
             $0.setFontSize(CGFloat(saucyTheme.textSize))
+        })
+        
+        $(UIImageView.self |^ {$0.tag == 23}, {background in
+            background.hidden = true
+            background.viewController()!.view.clipsToBounds = false
+            let max = UIScreen.mainScreen().bounds.height > UIScreen.mainScreen().bounds.width ? UIScreen.mainScreen().bounds.height : UIScreen.mainScreen().bounds.width
+            let saucyImage = UIImageView(image: background.image)
+            background.viewController()!.view.addSubview(saucyImage)
+            saucyImage.frame = CGRect(x: -max/2, y: -max/2, width: max * 2, height: max * 2)
+            saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+            saucyImage.translatesAutoresizingMaskIntoConstraints = false
+            background.viewController()!.view.sendSubviewToBack(saucyImage)
+            if manager.deviceMotionAvailable {
+                manager.deviceMotionUpdateInterval = 0.01
+                manager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {(data: CMDeviceMotion?, error: NSError?) in
+                    let rotation = atan2(data!.gravity.x, data!.gravity.y) - M_PI
+                    saucyImage.transform = CGAffineTransformMakeRotation(CGFloat(rotation))
+                }
+            }
+
         })
 
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color

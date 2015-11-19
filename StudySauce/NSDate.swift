@@ -25,6 +25,16 @@ func >=(a: NSDate, b: NSDate) -> Bool {
 import Foundation
 extension NSDate
 {
+    func time(hours: Int, _ minutes: Int = 0, _ seconds: Int = 0) -> NSDate {
+        let cal = NSCalendar.currentCalendar()
+        let components = cal.components(.Calendar, fromDate: self)
+        components.hour = hours
+        components.minute = minutes
+        components.second = seconds
+        
+        return cal.dateFromComponents(components)!
+    }
+    
     
     func daysDiff(date: NSDate) -> Float {
         let calendar = NSCalendar.currentCalendar()

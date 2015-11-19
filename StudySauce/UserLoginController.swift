@@ -41,21 +41,15 @@ class UserLoginController : UIViewController {
         })
     }
     
-    internal static func login() {
-        return self.login {}
+    internal static func logout(done: () -> Void = {}) {
+        getJson("/logout", done: {json in
+            done()
+        })
     }
     
-    internal static func login(done: () -> Void) {
-        let url = AppDelegate.studySauceCom("/login")
-        let request = NSMutableURLRequest(URL: url)
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-            if (error != nil) {
-                NSLog("\(error?.description)")
-            }
-            do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+    internal static func login(done: () -> Void = {}) {
+        getJson("/login", done: {
+            if let json = $0 as? NSDictionary {
                 // TODO: create user entity in database
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
@@ -73,11 +67,7 @@ class UserLoginController : UIViewController {
                     done()
                 })
             }
-            catch let error as NSError {
-                NSLog("\(error.description)")
-            }
         })
-        task.resume()
     }
     
     static func getUserByEmail(email: String?) -> User? {
@@ -106,7 +96,7 @@ class UserLoginController : UIViewController {
     }
     
     func authenticate() {
-        self.postJson("/authenticate",
+        postJson("/authenticate",
             params: [
                 "email"        : self.email,
                 "pass"         : self.pass,

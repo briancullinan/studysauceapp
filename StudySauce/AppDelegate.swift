@@ -57,7 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             if self.window == nil {
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-                self.window!.rootViewController = viewController;
+                self.window!.rootViewController = viewController
+                viewController.view.clipsToBounds = false
+                self.window!.backgroundColor = UIColor.clearColor()
+                self.window!.opaque = false
                 self.window!.makeKeyAndVisible();
             }
         }

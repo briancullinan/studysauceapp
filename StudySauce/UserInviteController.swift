@@ -64,7 +64,7 @@ class UserInviteController : UIViewController {
     
     func getInvite() -> Void {
         var is_error_or_redirect = false
-        self.postJson("/register", params: ["_code": self.regCode], error: {(code) in
+        postJson("/register", params: ["_code": self.regCode], error: {(code) in
             is_error_or_redirect = true
             if code == 404 {
                 self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), button: NSLocalizedString("Try again", comment: "Try to enter a different invite code"))

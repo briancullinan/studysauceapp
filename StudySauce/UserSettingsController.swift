@@ -82,9 +82,9 @@ class UserSettingsController: UITableViewController {
                 AppDelegate.managedObjectContext = nil
                 AppDelegate.resetLocalStore(true)
                 (UIApplication.sharedApplication().delegate as! AppDelegate).user = nil
-                UserLoginController.login { () -> Void in
+                UserLoginController.logout({
                     self.goHome(true)
-                }
+                })
             }
         }
         //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)

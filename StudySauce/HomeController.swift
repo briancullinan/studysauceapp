@@ -68,6 +68,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.tableView?.reloadData()
     }
     
+    override func shouldAutorotate() -> Bool {
+        return self.view.subviews.count > 1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       /*
@@ -83,7 +87,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         
         if self.cardCount != nil {
-            let count = AppDelegate.getUser()!.getRetentionCount()
+            let count = AppDelegate.getUser()!.getRetentionRemaining()
             let s = count == 1 ? "" : "s"
             self.cardCount!.text = "\(count) card\(s)"
         }
@@ -91,6 +95,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.tableView != nil {
             // Load packs from database
             self.packs = getPacksFromLocalStore()
+            PackSummaryController.getPacks({
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.packs = self.getPacksFromLocalStore()
+                    self.tableView?.reloadData()
+                })
+            })
         }
     }
     

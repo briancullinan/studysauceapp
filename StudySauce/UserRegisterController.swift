@@ -66,7 +66,7 @@ class UserRegisterController : UIViewController {
     }
     
     func registerUser() {
-        self.postJson("/account/create", params: [
+        postJson("/account/create", params: [
             "code" : self.registrationCode,
             "first" : self.first,
             "last" : self.last,

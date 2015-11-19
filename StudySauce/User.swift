@@ -13,23 +13,15 @@ class User: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
     
-    func getRetentionIndexForCard(card: Card) -> Int {
+    func getRetentionIndex(card: Card) -> Int {
         return self.retention!.componentsSeparatedByString(",").indexOf("\(card.id!)")!
     }
 
-    func getRetentionCardCount() -> Int {
-        let cards = self.retention?.componentsSeparatedByString(",") ?? []
-        if self.retention_to == nil || self.retention_to!.addDays(1) < NSDate() || cards.count == 0 {
-            return (self.user_packs?.allObjects as! [UserPack]).map { p -> Int in
-                return p.getRetentionCount()
-            }.reduce(0, combine: +)
-        }
-        else {
-            return self.retention!.componentsSeparatedByString(",").count
-        }
+    func getRetentionCount() -> Int {
+        return self.retention!.componentsSeparatedByString(",").count
     }
     
-    func getRetentionCount() -> Int {
+    func getRetentionRemaining() -> Int {
         return self.getRetention().filter({
             let response = $0.getResponse(self)
             if response == nil || response!.created! < self.retention_to! {
@@ -41,22 +33,7 @@ class User: NSManagedObject {
     }
     
     func getRetentionCard() -> Card? {
-        var cards = self.getRetention()
-        
-        // if we haven't calculated in a day, get a new list of cards to choose from
-        if self.retention_to == nil || self.retention_to!.addDays(1) < NSDate() || cards.count == 0 {
-            cards = []
-            // TODO: change this line when userpack order matters
-            for up in self.user_packs?.allObjects as! [UserPack] {
-                cards.appendContentsOf(up.getRetention())
-            }
-            self.retention = cards.shuffle().map { c -> String in
-                return "\(c.id!)"
-            }.joinWithSeparator(",")
-            self.retention_to = NSDate()
-            // TODO: shouldn't really do database edits in the model
-            AppDelegate.saveContext()
-        }
+        let cards = self.getRetention()
         
         for c in cards {
             let response = c.getResponse(self)
@@ -70,13 +47,27 @@ class User: NSManagedObject {
     
     func getRetention() -> [Card] {
         var results: [Card] = []
-        if self.retention == nil || self.retention == "" {
-            return results
+        let stillEmpty = self.retention_to == nil || self.retention == nil || self.retention == ""
+        let timeout = stillEmpty || self.retention_to!.time(3).addDays(1) < NSDate()
+        let uncounted = (self.user_packs?.allObjects as! [UserPack]).filter({stillEmpty || timeout || $0.downloaded! >= self.retention_to!})
+        if stillEmpty || timeout || uncounted.count > 0 {
+            // TODO: change this line when userpack order matters
+            for up in uncounted {
+                results.appendContentsOf(up.getRetention())
+            }
+            self.retention = results.shuffle().map { c -> String in
+                return "\(c.id!)"
+                }.joinWithSeparator(",")
+            self.retention_to = NSDate()
+            // TODO: shouldn't really do database edits in the model
+            AppDelegate.saveContext()
         }
-        for i in self.retention!.componentsSeparatedByString(",") {
-            for up in self.user_packs?.allObjects as! [UserPack] {
-                if let c = up.pack?.getCardById(Int(i)!) {
-                    results.append(c)
+        else {
+            for i in self.retention!.componentsSeparatedByString(",") {
+                for up in self.user_packs?.allObjects as! [UserPack] {
+                    if let c = up.pack?.getCardById(Int(i)!) {
+                        results.append(c)
+                    }
                 }
             }
         }

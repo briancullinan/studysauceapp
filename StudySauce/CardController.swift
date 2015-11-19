@@ -38,8 +38,8 @@ class CardController: UIViewController {
         }
         if self.isRetention {
             self.pack = self.card!.pack
-            let index = AppDelegate.getUser()!.getRetentionIndexForCard(self.card!)
-            let count = AppDelegate.getUser()!.getRetentionCardCount()
+            let index = AppDelegate.getUser()!.getRetentionIndex(self.card!)
+            let count = AppDelegate.getUser()!.getRetentionCount()
             self.countLabel.text = "\(index+1) of \(count)"
         }
         else {

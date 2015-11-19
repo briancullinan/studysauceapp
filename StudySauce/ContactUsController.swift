@@ -39,7 +39,7 @@ class ContactUsController: UIViewController {
             return
         }
         self.showNoConnectionDialog({
-            self.postJson("/contact/send", params: [
+            postJson("/contact/send", params: [
                 "name": self.name.text,
                 "email": self.email.text,
                 "message": self.message.text

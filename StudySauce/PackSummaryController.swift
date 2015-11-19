@@ -12,13 +12,13 @@ import CoreData
 class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var packs = [Pack]()
-    var pack: Pack!
+    var pack: Pack? = nil
     @IBOutlet weak var tableView: UITableView!
     
     // load the card content, display and available answers
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
-    func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
+    internal static func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
         if let moc = AppDelegate.getContext() {
             let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
@@ -132,7 +132,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func getPacks(completionHandler: () -> Void) -> Void {
+    internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
         let url = AppDelegate.studySauceCom("/packs/list")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
@@ -148,7 +148,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 if let moc = AppDelegate.getContext() {
                     for pack in json as! NSArray {
                         var newPack: Pack?
-                        for p in self.packs {
+                        for p in moc.list(Pack.self) {
                             if p.id == pack["id"] as? NSNumber {
                                 newPack = p
                             }
@@ -166,15 +166,16 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newPack!.modified = NSDate.parse(pack["modified"] as? String)
                         newPack!.count = pack["count"] as? NSNumber
                         if pack["downloaded"] as? NSNumber == 1 {
-                            self.downloadIfNeeded(newPack!, done: {})
+                            self.downloadIfNeeded(newPack!, done: {
+                                downloadedHandler(newPack!)
+                            })
                         }
                     }
                     
                     // remove packs that no longer exist
-                    for p in self.packs {
+                    for p in moc.list(Pack.self) {
                         if ids.indexOf(p.id!) == nil {
                             moc.deleteObject(p)
-                            self.packs.removeAtIndex(self.packs.indexOf(p)!)
                         }
                     }
                     
@@ -221,12 +222,19 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.layoutIfNeeded()
         
         // refresh data from server
-        self.getPacks { () -> Void in
+        PackSummaryController.getPacks({ () -> Void in
             dispatch_async(dispatch_get_main_queue(), {
                 self.packs = self.getPacksFromLocalStore()
                 self.tableView.reloadData()
             })
-        }
+            }, downloadedHandler: {(newPack: Pack) -> Void in
+            dispatch_async(dispatch_get_main_queue(), {
+                // calls every time to check if this pack was clicked on while downloaded
+                if self.pack != nil && self.pack! == newPack {
+                    self.tableView(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: self.packs.indexOf(self.pack!)!, inSection: 0))
+                }
+            })
+        })
     }
     
     // MARK: - Segues
@@ -240,7 +248,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func downloadIfNeeded(p: Pack, done: () -> Void) {
+    static func downloadIfNeeded(p: Pack, done: () -> Void) {
         // only downloaded the pack if updates are needed
         if p.isDownloading {
             return
@@ -250,7 +258,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             || (p.modified != nil && p.modified! > up.downloaded!) {
                 p.isDownloading = true
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-                    self.getCards(p, completionHandler: {_,_ in
+                    PackSummaryController.getCards(p, completionHandler: {_,_ in
                         // TODO: update downloading status in table row!
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
@@ -267,13 +275,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = self.packs[indexPath.row]
-        self.downloadIfNeeded(self.pack) { () -> Void in
+        PackSummaryController.downloadIfNeeded(self.pack!) { () -> Void in
             dispatch_async(dispatch_get_main_queue(), {
-                if self.pack.cards!.count  == 0 {
+                if self.pack!.cards!.count  == 0 {
                     // something went wrong
                     return
                 }
-                if self.pack.getUserPack(AppDelegate.getUser()).getRetryCard() == nil {
+                if self.pack!.getUserPack(AppDelegate.getUser()).getRetryCard() == nil {
                     self.performSegueWithIdentifier("results", sender: self)
                 }
                 else {
