@@ -29,7 +29,7 @@ public class PackRetentionCell: UITableViewCell {
         if modified == nil {
             modified = pack.created
         }
-        let count = pack.getRetentionCardCount(AppDelegate.getUser())
+        let count = pack.getUserPack(AppDelegate.getUser()).getRetentionCount()
         self.countLabel.text = "\(count)";
         self.titleLabel.text = title
     }

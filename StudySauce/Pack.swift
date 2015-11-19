@@ -14,7 +14,7 @@ class Pack: NSManagedObject {
 
     var isDownloading = false
     
-    func getUserPackForUser(user: User?) -> UserPack {
+    func getUserPack(user: User?) -> UserPack {
         var up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
             if let up = obj as? UserPack {
                 return up.user == user
@@ -37,22 +37,6 @@ class Pack: NSManagedObject {
             }
         }
         return nil
-    }
-    
-    func getRetryCard(user: User?) -> Card? {
-        return self.getUserPackForUser(user).getRetryCard()
-    }
-    
-    func getIndexForCard(card: Card, user: User?) -> Int {
-        return self.getUserPackForUser(user).getRetries().indexOf(card)!
-    }
-    
-    func getCardCount(user: User?) -> Int {
-        return self.getUserPackForUser(user).getRetries().count
-    }
-    
-    func getRetentionCardCount(user: User?) -> Int {
-        return self.getUserPackForUser(user).getRentention().count
     }
     
 }

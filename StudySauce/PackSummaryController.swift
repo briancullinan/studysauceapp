@@ -245,10 +245,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         if p.isDownloading {
             return
         }
-        let up = p.getUserPackForUser(AppDelegate.getUser())
+        let up = p.getUserPack(AppDelegate.getUser())
         if p.cards!.count == 0 || up.downloaded == nil
             || (p.modified != nil && p.modified! > up.downloaded!) {
-                p.isDownloading = false
+                p.isDownloading = true
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
                     self.getCards(p, completionHandler: {_,_ in
                         // TODO: update downloading status in table row!
@@ -273,7 +273,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     // something went wrong
                     return
                 }
-                if self.pack.getRetryCard(AppDelegate.getUser()) == nil {
+                if self.pack.getUserPack(AppDelegate.getUser()).getRetryCard() == nil {
                     self.performSegueWithIdentifier("results", sender: self)
                 }
                 else {

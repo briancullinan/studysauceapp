@@ -18,9 +18,9 @@ class PackResultsController: UIViewController {
     @IBOutlet weak var review: UILabel!
     
     @IBAction func retryClick(sender: AnyObject) {
-        let up = self.pack.getUserPackForUser(AppDelegate.getUser())
-        let retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
-        up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
+        let up = self.pack.getUserPack(AppDelegate.getUser())
+        // next time card is loaded retries will be repopulated
+        up.retries = nil
         up.retry_to = NSDate()
         AppDelegate.saveContext()
         
@@ -36,6 +36,7 @@ class PackResultsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // add up results differently when loading from a retention pack
         self.packTitle.text = self.pack.title
         var correct = 0
         var wrong = 0
@@ -48,10 +49,6 @@ class PackResultsController: UIViewController {
                     wrong++
                 }
             }
-        }
-        
-        if wrong == 0 {
-            review.text = "Start over?"
         }
         
         let score = Int32(round(Double(correct) / Double(correct + wrong) * 100.0));

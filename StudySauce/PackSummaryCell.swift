@@ -62,7 +62,7 @@ public class PackSummaryCell: UITableViewCell {
             modified = pack.created
         }
         if let url = pack.logo where !url.isEmpty {
-            if let f = AppDelegate.getContext()?.list(File.self).filter({$0.url! == url}).first {
+            if let f = AppDelegate.getContext()?.list(File.self).filter({$0.url! == url}).first where f.filename != nil {
                 let fileName = f.filename!
                 let fileManager = NSFileManager.defaultManager()
                 if let data = fileManager.contentsAtPath(fileName) {

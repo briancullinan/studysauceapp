@@ -21,7 +21,7 @@ class User: NSManagedObject {
         let cards = self.retention?.componentsSeparatedByString(",") ?? []
         if self.retention_to == nil || self.retention_to!.addDays(1) < NSDate() || cards.count == 0 {
             return (self.user_packs?.allObjects as! [UserPack]).map { p -> Int in
-                return p.pack!.getRetentionCardCount(AppDelegate.getUser())
+                return p.getRetentionCount()
             }.reduce(0, combine: +)
         }
         else {
@@ -29,6 +29,16 @@ class User: NSManagedObject {
         }
     }
     
+    func getRetentionCount() -> Int {
+        return self.getRetention().filter({
+            let response = $0.getResponse(self)
+            if response == nil || response!.created! < self.retention_to! {
+                return true
+            }
+            else {
+                return false
+            }}).count
+    }
     
     func getRetentionCard() -> Card? {
         var cards = self.getRetention()
@@ -38,7 +48,7 @@ class User: NSManagedObject {
             cards = []
             // TODO: change this line when userpack order matters
             for up in self.user_packs?.allObjects as! [UserPack] {
-                cards.appendContentsOf(up.getRentention())
+                cards.appendContentsOf(up.getRetention())
             }
             self.retention = cards.shuffle().map { c -> String in
                 return "\(c.id!)"

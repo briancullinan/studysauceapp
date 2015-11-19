@@ -33,7 +33,7 @@ class CardController: UIViewController {
                 self.card = AppDelegate.getUser()!.getRetentionCard()
             }
             else {
-                self.card = self.pack.getRetryCard(AppDelegate.getUser())
+                self.card = self.pack.getUserPack(AppDelegate.getUser()).getRetryCard()
             }
         }
         if self.isRetention {
@@ -43,8 +43,8 @@ class CardController: UIViewController {
             self.countLabel.text = "\(index+1) of \(count)"
         }
         else {
-            let index = self.pack.getIndexForCard(self.card!, user: AppDelegate.getUser())
-            let count = self.pack.getCardCount(AppDelegate.getUser())
+            let index = self.pack.getUserPack(AppDelegate.getUser()).getRetryIndex(self.card!)
+            let count = self.pack.getUserPack(AppDelegate.getUser()).getRetryCount()
             self.countLabel.text = "\(index+1) of \(count)"
         }
         self.packTitle.text = self.pack.title

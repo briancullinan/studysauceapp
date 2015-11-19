@@ -28,6 +28,29 @@ struct saucyTheme {
 }
 
 extension AppDelegate {
+    func createHeading(label: UILabel) {
+        let s = label.superview!
+        let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
+            $0.backgroundColor = saucyTheme.fontColor
+            $0.tag = 24
+        }
+        v.backgroundColor = saucyTheme.fontColor
+        s.insertSubview(v, belowSubview: label)
+        v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        v.translatesAutoresizingMaskIntoConstraints = false
+        s.addConstraint(NSLayoutConstraint(
+            item: v,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: s,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1,
+            constant: 0))
+        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: CGFloat(14.0)))
+    }
+    
     func setupTheme() {
         
         /*
@@ -56,13 +79,19 @@ extension AppDelegate {
         })
 
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $(UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self, {
+        $([DialogController.self |> UILabel.self,
+           UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self,
+           UIImageView.self |^ { $0.tag == 23 } |+ UIView.self |> UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
-        $(UIImageView.self |^ { $0.tag == 23 } |+ UIView.self |> UILabel.self, {
-            $0.setFontColor(saucyTheme.lightColor)
+        $([DialogController.self |>> UILabel.self |^ T.firstOfType,
+           UserInviteController.self |>> UILabel.self |^ T.firstOfType,
+           BetaSignupController.self |>> UILabel.self |^ T.firstOfType,
+           UserRegisterController.self |>> UILabel.self |^ T.firstOfType,
+           UserLoginController.self |>> UILabel.self |^ T.firstOfType,
+           UserResetController.self |>> UILabel.self |^ T.firstOfType], {
+            $0.setFontSize(30.0)
         })
-        
         
         // headings
         $(UITableView.self, {
@@ -71,48 +100,24 @@ extension AppDelegate {
             $0.separatorColor = UIColor.clearColor()
         })
         $([UserSettingsContainerController.self |>> UILabel.self |^ T.firstOfType,
-            PackSummaryController.self |>> UILabel.self |^ T.firstOfType,
-            UIViewController.self |^ "Privacy" |>> UILabel.self |^ T.firstOfType,
-            CardController.self |>> UILabel.self |^ T.firstOfType,
-            PackResultsController.self |>> UILabel.self |^ T.firstOfType,
-            ContactUsController.self |>> UILabel.self |^ T.firstOfType], {
-                
-                $0.setFontSize(CGFloat(saucyTheme.headingSize))
-                $0.setFontName(saucyTheme.headingFont)
-                $0.setFontColor(saucyTheme.lightColor)
-                let s = $0.superview!
-                let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
-                    $0.backgroundColor = saucyTheme.fontColor
-                }
-                v.backgroundColor = saucyTheme.fontColor
-                s.insertSubview(v, atIndex: 0)
-                v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
-                v.translatesAutoresizingMaskIntoConstraints = false
-                s.addConstraint(NSLayoutConstraint(
-                    item: v,
-                    attribute: NSLayoutAttribute.Top,
-                    relatedBy: NSLayoutRelation.Equal,
-                    toItem: s,
-                    attribute: NSLayoutAttribute.Top,
-                    multiplier: 1,
-                    constant: 0))
-                
-                /*s.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-                "H:|[subview]|",
-                options:[],
-                metrics:nil,
-                views:["subview" : v]));*/
-                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: $0, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1, constant: 22))
-                //v.layoutIfNeeded()
-                UIApplication.sharedApplication().statusBarStyle = .LightContent
-        })
-        $(UserSettingsController.self |> UITableViewCell.self, {
-            $0.tintColor = saucyTheme.primary
+           PackSummaryController.self |>> UILabel.self |^ T.firstOfType,
+           UIViewController.self |^ "Privacy" |>> UILabel.self |^ T.firstOfType,
+           CardController.self |>> UILabel.self |^ T.firstOfType,
+           PackResultsController.self |>> UILabel.self |^ T.firstOfType,
+           ContactUsController.self |>> UILabel.self |^ T.firstOfType], {(v: UILabel) -> Void in
+            
+            v.tag = 25
+            v.setFontSize(CGFloat(saucyTheme.headingSize))
+            v.setFontName(saucyTheme.headingFont)
+            v.setFontColor(saucyTheme.lightColor)
+            if (v |+ (UIView.self |^ {$0.tag == 24})).count == 0 {
+                self.createHeading(v)
+            }
+            
+            UIApplication.sharedApplication().statusBarStyle = .LightContent
         })
         $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
-            PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {
+           PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {
             $0.setFontSize(30)
         })
         $(PackResultsController.self |>> UILabel.self |^ T.nthOfType(3), {
@@ -120,9 +125,18 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
-        $(PackSummaryController.self |> UITableView.self, {
-            $0.separatorColor = saucyTheme.middle
-            $0.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        $([PackSummaryController.self |> UITableView.self,
+           UserSettingsController.self |> UITableView.self], {(v: UITableView) -> Void in
+            v.separatorColor = saucyTheme.middle
+            v.preservesSuperviewLayoutMargins = false
+            v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            v.separatorInset = UIEdgeInsetsZero
+        })
+        $([PackSummaryController.self |> UITableView.self |> UITableViewCell.self,
+           UserSettingsController.self |> UITableView.self |> UITableViewCell.self], {(v: UITableViewCell) -> Void in
+            v.preservesSuperviewLayoutMargins = false
+            v.layoutMargins = UIEdgeInsetsZero
+            v.separatorInset = UIEdgeInsetsZero
         })
         $(PackSummaryCell.self |> UILabel.self |^ T.firstOfType, {
             $0.setFontName(saucyTheme.subheadingFont)
@@ -139,12 +153,10 @@ extension AppDelegate {
         $(HomeController.self |> UITableView.self |> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
-        $([HomeController.self |> UITableView.self], {
+        $([HomeController.self |> UITableView.self], {(v: UITableView) -> Void in
             // Make the cell self size
-            if let v = $0 as? UITableView {
-                v.estimatedRowHeight = 30.0
-                v.rowHeight = UITableViewAutomaticDimension
-            }
+            v.estimatedRowHeight = 30.0
+            v.rowHeight = UITableViewAutomaticDimension
         })
 
         // settings header
@@ -160,15 +172,15 @@ extension AppDelegate {
         // card button sizes
         // check and x font
         $([CardSelfController.self |> UIButton.self,
-            CardSelfController.self |> UIButton.self |> UILabel.self,
-            PackResultsController.self |> UIButton.self,
-            PackResultsController.self |> UIButton.self |> UILabel.self], {
-                $0.setFontSize(80)
+           CardSelfController.self |> UIButton.self |> UILabel.self,
+           PackResultsController.self |> UIButton.self,
+           PackResultsController.self |> UIButton.self |> UILabel.self], {
+            $0.setFontSize(80)
         })
         // true and false button font
         $([CardTrueFalseController.self |> UIButton.self,
-            CardTrueFalseController.self |> UIButton.self |> UILabel.self], {
-                $0.setFontSize(40)
+           CardTrueFalseController.self |> UIButton.self |> UILabel.self], {
+            $0.setFontSize(40)
         })
         
         // This is the normal way to change appearance on a single type

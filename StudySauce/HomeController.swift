@@ -26,7 +26,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func monkeyClick(sender: UIButton) {
-        if AppDelegate.getUser()?.getRetentionCardCount() > 0 {
+        if AppDelegate.getUser()?.getRetentionCount() > 0 {
             self.performSegueWithIdentifier("card", sender: self)
         }
     }
@@ -83,7 +83,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         
         if self.cardCount != nil {
-            let count = AppDelegate.getUser()!.getRetentionCardCount()
+            let count = AppDelegate.getUser()!.getRetentionCount()
             let s = count == 1 ? "" : "s"
             self.cardCount!.text = "\(count) card\(s)"
         }
@@ -91,36 +91,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.tableView != nil {
             // Load packs from database
             self.packs = getPacksFromLocalStore()
-        
-        
-        // refresh data from server
-        //self.getPacks { () -> Void in
-        //    dispatch_async(dispatch_get_main_queue(), {
-        //        self.packs = self.getPacksFromLocalStore()
-        //        self.tableView.reloadData()
-        //    })
-        //}
         }
     }
     
     private func getPacksFromLocalStore() -> [Pack]
     {
-        var packs = [Pack]()
-        if let moc = AppDelegate.getContext() {
-            let fetchRequest = NSFetchRequest(entityName: "Pack")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
-            do {
-                for p in try moc.executeFetchRequest(fetchRequest) as! [Pack] {
-                    if p.getRetentionCardCount(AppDelegate.getUser()) > 0 {
-                        packs.insert(p, atIndex: 0)
-                    }
-                }
-            }
-            catch let error as NSError {
-                NSLog("Failed to retrieve record: \(error.localizedDescription)")
-            }
-        }
-        return packs
+        return AppDelegate.getContext()!.list(Pack.self)
+            .filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

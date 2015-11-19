@@ -11,47 +11,6 @@ import UIKit
 
 // |>
 
-enum T<B: UIView> {
-    
-    case first
-    case firstOfType
-    case last
-    case lastOfType
-    
-    static func nthChild(i: Int) -> (v: B) -> Bool {
-        return {(v: B) -> Bool in
-            let ofTypes = v.superview!.subviews
-            if i < 0 {
-                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
-            }
-            return v.superview != nil && ofTypes.indexOf(v) == i
-        }
-    }
-    
-    static func nthOfType(i: Int) -> (v: B) -> Bool {
-        return {(v: B) -> Bool in
-            let ofTypes = v.superview!.subviews.filter({return $0 is B})
-            if i < 0 {
-                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
-            }
-            return v.superview != nil && ofTypes.indexOf(v) == i
-        }
-    }
-    
-    func get() -> (v: B) -> Bool {
-        switch self {
-        case first:
-            return T.nthChild(0)
-        case last:
-            return T.nthChild(-1)
-        case firstOfType:
-            return T.nthOfType(0)
-        case lastOfType:
-            return T.nthOfType(-1)
-        }
-    }
-}
-
 infix operator |> {associativity left precedence 140}
 
 func |> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
@@ -59,7 +18,7 @@ func |> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
 }
 
 func |> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TChild<A,B>(q, b)
+    return TChild<B>(q, b)
 }
 
 // |>>
@@ -71,7 +30,7 @@ func |>> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
 }
 
 func |>> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TImmediateChild<A,B>(q, b)
+    return TImmediateChild<B>(q, b)
 }
 
 // |+
@@ -83,7 +42,15 @@ func |+ <A: UIView, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
 }
 
 func |+ <A: UIView, B: UIView>(a: TQueryable<A>, b: B.Type) -> TQueryable<B> {
-    return TSibling<A,B>(a, b)
+    return TSibling<B>(a, b)
+}
+
+func |+ <B: UIView>(v: UIView, b: B.Type) -> [B] {
+    return v |+ TQueryable<B>(b)
+}
+
+func |+ <B: UIView>(v: UIView, b: TQueryable<B>) -> [B] {
+    return TSibling<B>(b, B.self).enumerate(v)
 }
 
 // |^
@@ -138,9 +105,8 @@ func $<B: UIView>(queries: [IQueryable], _ set: B -> Void) {
     $(TCombination<B>(queries: queries), set)
 }
 
-func $<B: UIView>(b: [B.Type], _ set: B -> Void) {
-    let queries = b.map({return TQueryable<B>($0) as IQueryable})
-    $(queries, set)
+func $(b: [UIView.Type], _ set: UIView -> Void) {
+    $(b.map({return TQueryable<UIView>($0)}), set)
 }
 
 /*

@@ -11,6 +11,48 @@ import UIKit
 
 private var queryList: [UIView -> Void] = []
 
+enum T<B: UIView> {
+    
+    case first
+    case firstOfType
+    case last
+    case lastOfType
+    
+    static func nthChild(i: Int) -> (v: B) -> Bool {
+        return {(v: B) -> Bool in
+            let ofTypes = v.superview!.subviews
+            if i < 0 {
+                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+            }
+            return v.superview != nil && ofTypes.indexOf(v) == i
+        }
+    }
+    
+    static func nthOfType(i: Int) -> (v: B) -> Bool {
+        return {(v: B) -> Bool in
+            let ofTypes = v.superview!.subviews.filter({return $0 is B})
+            if i < 0 {
+                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+            }
+            return v.superview != nil && ofTypes.indexOf(v) == i
+        }
+    }
+    
+    func get() -> (v: B) -> Bool {
+        switch self {
+        case first:
+            return T.nthChild(0)
+        case last:
+            return T.nthChild(-1)
+        case firstOfType:
+            return T.nthOfType(0)
+        case lastOfType:
+            return T.nthOfType(-1)
+        }
+    }
+}
+
+
 extension UIView {
     
     func setAppearanceFunc(i: String) {
@@ -60,7 +102,7 @@ class TQueryable<B: AnyObject>: NSObject, IQueryable {
     }
 }
 
-class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
+class TSibling<B: UIView>: TQueryable<B> {
     var q: IQueryable? = nil
     
     init(_ query: IQueryable, _ b: B.Type) {
@@ -73,6 +115,19 @@ class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
             return self.matchesView(v)
         }
         return false
+    }
+    
+    func enumerate(view: UIView) -> [B] {
+        var result: [B] = []
+        if let parent = view.superview {
+            let siblings = parent.subviews
+            for s in siblings {
+                if self.q != nil && self.q!.matches(s) {
+                    result.append(s as! B)
+                }
+            }
+        }
+        return result
     }
     
     func matchesView(view: UIView) -> Bool {
@@ -89,7 +144,7 @@ class TSibling<A: AnyObject,B: UIView>: TQueryable<B> {
     }
 }
 
-class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
+class TChild<B: UIView>: TQueryable<B> {
     var q: IQueryable
     
     init(_ query: IQueryable, _ b: B.Type) {
@@ -119,7 +174,7 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
         // first check to make sure view is of correct type
         if super.matches(view) {
             // self.a can be a view controller type or another view type
-            if self.q.matches(self.getVC(view)!) {
+            if self.getVC(view) != nil && self.q.matches(self.getVC(view)!) {
                 return true
             }
             else {
@@ -136,7 +191,7 @@ class TChild<A: AnyObject,B: UIView>: TQueryable<B> {
     }
 }
 
-class TImmediateChild<A: AnyObject,B: UIView>: TQueryable<B> {
+class TImmediateChild<B: UIView>: TQueryable<B> {
     var q: IQueryable
     
     init(_ query: IQueryable, _ b: B.Type) {

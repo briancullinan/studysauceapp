@@ -152,8 +152,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             container!.addSubview(next.view)
             container!.addSubview(last.view)
         }
-        last.view.transform = self.offStage(0.0)
-        next.view.transform = self.offStage(0.0)
+        last.view.transform = CGAffineTransformMakeTranslation(0, 0)
+        next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         next.view.bounds = UIScreen.mainScreen().bounds
         last.view.bounds = UIScreen.mainScreen().bounds
         next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
@@ -179,30 +179,64 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         // if both controllers have nueral dark transition content
         let lastBackground = last.view.subviews.filter({v -> Bool in return v.tag == 23}).first
-        let nextBackground = next.view.subviews.filter({v -> Bool in return v.tag == 23 }).first
+        let nextBackground = next.view.subviews.filter({v -> Bool in return v.tag == 23}).first
         if lastBackground != nil && nextBackground != nil {
             lastBackground!.alpha = 0
             if self.presenting {
-                nextBackground!.transform = self.offStage(moveLast)
+                nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
             }
             else {
-                nextBackground!.transform = self.offStage(0.0)
+                nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
             }
         }
 
         // prepare menu items to slide in
         if self.presenting {
-            last.view.transform = self.offStage(0.0)
-            next.view.transform = self.offStage(moveNext)
+            last.view.transform = CGAffineTransformMakeTranslation(0, 0)
+            next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
         }
         else {
-            last.view.transform = self.offStage(moveLast)
-            next.view.transform = self.offStage(0.0)
+            last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+            next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         }
+        var alreadyMoved = false
         if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardSelfController == nil || (vc.subview as! CardSelfController).correctButton != nil) {
-            next.view.transform = self.offStage(0.0)
-            last.view.transform = self.offStage(moveLast)
+            alreadyMoved = true
+            next.view.transform = CGAffineTransformMakeTranslation(0, 0)
+            last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
             self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
+        }
+        
+        // move titles around
+        let lastTitle = last.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
+        var lastButton: UIButton? = nil
+        if lastTitle != nil {
+            lastButton = (lastTitle! |+ (UIButton.self |^ T.firstOfType)).first
+        }
+        let nextTitle = next.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
+        var nextButton: UIButton? = nil
+        if nextTitle != nil {
+            nextButton = (nextTitle! |+ (UIButton.self |^ T.firstOfType)).first
+        }
+        if self.presenting {
+            if lastButton != nil && nextButton != nil {
+                lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
+                lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
+                nextButton!.hidden = !alreadyMoved
+                if lastTitle!.text == nextTitle!.text {
+                    nextTitle!.hidden = !alreadyMoved
+                }
+            }
+        }
+        else {
+            if lastButton != nil && nextButton != nil {
+                lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, -100)
+                nextButton!.hidden = !alreadyMoved
+                if lastTitle!.text == nextTitle!.text {
+                    nextTitle!.hidden = !alreadyMoved
+                }
+            }
         }
         
         let duration = self.transitionDuration(transitionContext)
@@ -215,16 +249,24 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             else {
                 if self.presenting {
                     next.view.transform = CGAffineTransformIdentity
-                    last.view.transform = self.offStage(moveLast)
+                    last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                     if lastBackground != nil && nextBackground != nil {
-                        nextBackground!.transform = self.offStage(0.0)
+                        nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                    }
+                    if lastButton != nil && nextButton != nil {
+                        lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                        lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, lastTitle!.text != nextTitle!.text ? -100 : 0)
                     }
                 }
                 else {
-                    last.view.transform = self.offStage(0.0)
-                    next.view.transform = self.offStage(moveNext)
+                    last.view.transform = CGAffineTransformMakeTranslation(0, 0)
+                    next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
                     if lastBackground != nil && nextBackground != nil {
-                        nextBackground!.transform = self.offStage(moveLast)
+                        nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                    }
+                    if lastButton != nil && nextButton != nil {
+                        lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
+                        lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
                     }
                 }
             }
@@ -234,7 +276,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 origLast.view.backgroundColor = origColor
                 if lastBackground != nil && nextBackground != nil {
                     lastBackground!.alpha = 1
-                    nextBackground!.transform = self.offStage(0.0)
+                    nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                }
+                if nextButton != nil {
+                    nextButton!.hidden = false
+                }
+                if nextTitle != nil {
+                    nextTitle!.hidden = false
                 }
                 
                 // tell our transitionContext object that we've finished animating
@@ -289,10 +337,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             self.flashView!.text = "✘"
             self.flashView!.backgroundColor = UIColor(0xFF0D00)
         }
-    }
-    
-    func offStage(amount: CGFloat) -> CGAffineTransform {
-        return CGAffineTransformMakeTranslation(amount, 0)
     }
     
     // return how many seconds the transiton animation will take

@@ -51,7 +51,20 @@ class UserPack: NSManagedObject {
         }
     }
     
-    func getRentention() -> [Card] {
+    func getRetryIndex(card: Card) -> Int {
+        return self.getRetries().indexOf(card)!
+    }
+    
+    func getRetryCount() -> Int {
+        return self.getRetries().count
+    }
+    
+    func getRetentionCount() -> Int {
+        // TODO: speed this up by checkin string for ids?
+        return self.getRetention().count
+    }
+    
+    func getRetention() -> [Card] {
         let intervals = [1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
         var result: [Card] = []
         // if a card hasn't been answered, return the next card
