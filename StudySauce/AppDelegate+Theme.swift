@@ -93,7 +93,7 @@ extension AppDelegate {
                 saucyBackground!.rootViewController = HomeController()
                 let saucyImage = UIImageView(image: background.image)
                 saucyBackground!.rootViewController!.view.addSubview(saucyImage)
-                saucyImage.frame = CGRect(x: -max/2, y: -max/2, width: max * 2, height: max * 2)
+                saucyImage.frame = CGRect(x: 0, y: 0, width: max, height: max)
                 saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
                 saucyImage.translatesAutoresizingMaskIntoConstraints = false
                 saucyBackground!.hidden = false

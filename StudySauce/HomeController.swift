@@ -90,8 +90,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             PackSummaryController.getPacks({
                 dispatch_async(dispatch_get_main_queue(), {
                     self.packs = self.getPacksFromLocalStore()
-                    self.tableView?.reloadData()
+                    self.tableView!.reloadData()
                 })
+                }, downloadedHandler: {_ in
+                    dispatch_async(dispatch_get_main_queue(), {
+                    self.packs = self.getPacksFromLocalStore()
+                    self.tableView!.reloadData()
+                    })
             })
         }
     }
