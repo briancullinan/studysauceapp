@@ -41,6 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
     }
     
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
         self.setupTheme()

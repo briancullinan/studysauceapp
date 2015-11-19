@@ -30,6 +30,8 @@ struct saucyTheme {
 
 let manager = CMMotionManager()
 
+var saucyBackground: UIWindow? = nil
+
 extension AppDelegate {
     func createHeading(label: UILabel) {
         let s = label.superview!
@@ -65,7 +67,8 @@ extension AppDelegate {
         Override Tag with string for className matching instead of stupid number
         [] list of TQueryable matches sets of rules
         */
-        
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+
         // set up font names
         $(UIButton.self, {
             $0.setFontName(saucyTheme.buttonFont)
@@ -84,20 +87,25 @@ extension AppDelegate {
         $(UIImageView.self |^ {$0.tag == 23}, {background in
             background.hidden = true
             background.viewController()!.view.clipsToBounds = false
-            let max = UIScreen.mainScreen().bounds.height > UIScreen.mainScreen().bounds.width ? UIScreen.mainScreen().bounds.height : UIScreen.mainScreen().bounds.width
-            let saucyImage = UIImageView(image: background.image)
-            background.viewController()!.view.addSubview(saucyImage)
-            saucyImage.frame = CGRect(x: -max/2, y: -max/2, width: max * 2, height: max * 2)
-            saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
-            saucyImage.translatesAutoresizingMaskIntoConstraints = false
-            background.viewController()!.view.sendSubviewToBack(saucyImage)
-            if manager.deviceMotionAvailable {
-                manager.deviceMotionUpdateInterval = 0.01
-                manager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {(data: CMDeviceMotion?, error: NSError?) in
-                    let rotation = atan2(data!.gravity.x, data!.gravity.y) - M_PI
-                    saucyImage.transform = CGAffineTransformMakeRotation(CGFloat(rotation))
-                }
+            if saucyBackground == nil {
+                let max = UIScreen.mainScreen().bounds.height > UIScreen.mainScreen().bounds.width ? UIScreen.mainScreen().bounds.height : UIScreen.mainScreen().bounds.width
+                saucyBackground = UIWindow(frame: UIScreen.mainScreen().bounds)
+                saucyBackground!.rootViewController = HomeController()
+                let saucyImage = UIImageView(image: background.image)
+                saucyBackground!.rootViewController!.view.addSubview(saucyImage)
+                saucyImage.frame = CGRect(x: -max/2, y: -max/2, width: max * 2, height: max * 2)
+                saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+                saucyImage.translatesAutoresizingMaskIntoConstraints = false
+                saucyBackground!.hidden = false
+                self.window!.makeKeyAndVisible()
             }
+            //if manager.deviceMotionAvailable {
+            //    manager.deviceMotionUpdateInterval = 0.01
+            //    manager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {(data: CMDeviceMotion?, error: NSError?) in
+            //        let rotation = atan2(data!.gravity.x, data!.gravity.y) - M_PI
+            //        saucyBackground!.rootViewController!.view.subviews.first!.transform = CGAffineTransformMakeRotation(CGFloat(rotation))
+            //    }
+            //}
 
         })
 
@@ -137,7 +145,6 @@ extension AppDelegate {
                 self.createHeading(v)
             }
             
-            UIApplication.sharedApplication().statusBarStyle = .LightContent
         })
         $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
            PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {

@@ -52,11 +52,7 @@ class UserRegisterController : UIViewController {
             childLast.hidden = true
         }
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

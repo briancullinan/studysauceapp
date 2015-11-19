@@ -17,10 +17,6 @@ class UserResetController: UIViewController {
     internal var token: String? = nil
     @IBOutlet weak var inputText: UITextField!
     
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if token != nil {

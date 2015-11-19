@@ -25,11 +25,7 @@ class UserLoginController : UIViewController {
         self.username.resignFirstResponder()
         self.password.resignFirstResponder()
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
+        
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

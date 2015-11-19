@@ -19,11 +19,7 @@ class UserInviteController : UIViewController {
 
     @IBOutlet weak var registrationCode: UITextField!
     @IBOutlet weak var registrationCode2: UITextField!
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
+        
     @IBAction func submitCode(sender: UIButton) {
         self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text

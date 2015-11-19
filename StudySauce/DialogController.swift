@@ -16,11 +16,7 @@ class DialogController: UIViewController {
     var click: () -> Bool = {
         return true
     }
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
+        
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var primaryButton: UIButton!
     @IBOutlet weak var backgroundButton: UIButton!

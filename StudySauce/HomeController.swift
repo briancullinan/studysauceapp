@@ -20,11 +20,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
-    
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
-    
+        
     @IBAction func monkeyClick(sender: UIButton) {
         if AppDelegate.getUser()?.getRetentionCount() > 0 {
             self.performSegueWithIdentifier("card", sender: self)
@@ -49,10 +45,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-                
-    override func preferredStatusBarStyle() -> UIStatusBarStyle {
-        return .LightContent
-    }
     */
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
