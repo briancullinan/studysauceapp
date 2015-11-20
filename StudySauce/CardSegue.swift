@@ -24,8 +24,6 @@ class CardSegue : UIStoryboardSegue {
                 // answer was wrong so definitely show card
                 let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
                 card.subview = next
-                card.intermediateResponse = parent.intermediateResponse
-                card.isRetention = parent.isRetention
                 next = card
             }
             else {
@@ -33,7 +31,6 @@ class CardSegue : UIStoryboardSegue {
                 let nextCard = parent.isRetention ? AppDelegate.getUser()?.getRetentionCard() : parent.pack.getUserPack(AppDelegate.getUser()).getRetryCard()
                 if nextCard == nil {
                     let results = last.storyboard!.instantiateViewControllerWithIdentifier("Results") as! PackResultsController
-                    results.pack = parent.pack
                     next = results
                 }
                 else {
@@ -44,13 +41,11 @@ class CardSegue : UIStoryboardSegue {
                     else {
                         let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
                         card.card = nextCard
-                        card.pack = parent.pack
-                        card.isRetention = parent.isRetention
                         next = card
                     }
                 }
             }
-            parent.prepareForSegue(self, sender: self)
+            parent.prepareForSegue(UIStoryboardSegue(identifier: nil, source: last, destination: next), sender: self)
         }
         
         // only do transition at this point, no swiping available unless it is set up beforehand

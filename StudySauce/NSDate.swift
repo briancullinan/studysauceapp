@@ -27,7 +27,7 @@ extension NSDate
 {
     func time(hours: Int, _ minutes: Int = 0, _ seconds: Int = 0) -> NSDate {
         let cal = NSCalendar.currentCalendar()
-        let components = cal.components(.Calendar, fromDate: self)
+        let components = cal.components([.Calendar, .Day, .Month, .Year, .Hour, .Minute, .Second, .TimeZone], fromDate: self)
         components.hour = hours
         components.minute = minutes
         components.second = seconds

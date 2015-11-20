@@ -25,6 +25,15 @@ class CardController: UIViewController {
     }
     internal var isRetention = false
 
+    @IBAction func backClick(sender: UIButton) {
+        if self.isRetention {
+            self.performSegueWithIdentifier("home", sender: self)
+        }
+        else {
+            self.performSegueWithIdentifier("packs", sender: self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,6 +81,7 @@ class CardController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? PackResultsController {
             vc.pack = self.pack
+            vc.isRetention = self.isRetention
         }
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack

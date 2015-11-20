@@ -17,20 +17,44 @@ class PackResultsController: UIViewController {
     @IBOutlet weak var percent: UILabel!
     @IBOutlet weak var review: UILabel!
     
+    internal var isRetention = false
+    
+    @IBAction func backClick(sender: UIButton) {
+        if self.isRetention {
+            self.performSegueWithIdentifier("home", sender: self)
+        }
+        else {
+            self.performSegueWithIdentifier("packs", sender: self)
+        }
+    }
+    
     @IBAction func retryClick(sender: AnyObject) {
-        let up = self.pack.getUserPack(AppDelegate.getUser())
-        // next time card is loaded retries will be repopulated
-        up.retries = nil
-        up.retry_to = NSDate()
-        AppDelegate.saveContext()
-        
-        self.performSegueWithIdentifier("card", sender: self)
+        if isRetention {
+            // TODO: retry retention cards only
+            AppDelegate.getUser()!.retention = nil
+            AppDelegate.saveContext()
+            if self.percent.text == "100%" {
+                self.performSegueWithIdentifier("home", sender: self)
+            }
+            else {
+                self.performSegueWithIdentifier("card", sender: self)
+            }
+        }
+        else {
+            let up = self.pack.getUserPack(AppDelegate.getUser())
+            // next time card is loaded retries will be repopulated
+            up.retries = nil
+            up.retry_to = NSDate()
+            AppDelegate.saveContext()
+            self.performSegueWithIdentifier("card", sender: self)
+        }
     }
     // TODO: display a summery of the results
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
+            vc.isRetention = self.isRetention
         }
     }
     
@@ -40,7 +64,8 @@ class PackResultsController: UIViewController {
         self.packTitle.text = self.pack.title
         var correct = 0
         var wrong = 0
-        for c in self.pack.cards?.allObjects as! [Card] {
+        let cards = self.isRetention ? AppDelegate.getUser()!.getRetention() : self.pack.cards?.allObjects as! [Card]
+        for c in cards {
             if let last = c.getResponse(AppDelegate.getUser()) {
                 if last.correct == 1 {
                     correct++

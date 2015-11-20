@@ -22,7 +22,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var bigbutton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
-        if AppDelegate.getUser()?.getRetentionCount() > 0 {
+        if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
             self.performSegueWithIdentifier("card", sender: self)
         }
     }

@@ -133,61 +133,48 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
-        let url = AppDelegate.studySauceCom("/packs/list")
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-            if error != nil {
-                return completionHandler()
-            }
-                
-            do {
+        getJson("/packs/list", done: {json in
+            if let moc = AppDelegate.getContext() {
                 var ids = [NSNumber]()
-                    
-                // load packs from server
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                if let moc = AppDelegate.getContext() {
-                    for pack in json as! NSArray {
-                        var newPack: Pack?
-                        for p in moc.list(Pack.self) {
-                            if p.id == pack["id"] as? NSNumber {
-                                newPack = p
-                            }
-                        }
-                        if newPack == nil {
-                            newPack = moc.insert(Pack.self)
-                        }
-                        
-                        ids.insert(pack["id"] as! NSNumber, atIndex: 0)
-                        newPack!.id = pack["id"] as? NSNumber
-                        newPack!.title = pack["title"] as? String
-                        newPack!.creator = pack["creator"] as? String
-                        newPack!.logo = pack["logo"] as? String
-                        newPack!.created = NSDate.parse(pack["created"] as? String)
-                        newPack!.modified = NSDate.parse(pack["modified"] as? String)
-                        newPack!.count = pack["count"] as? NSNumber
-                        if pack["downloaded"] as? NSNumber == 1 {
-                            self.downloadIfNeeded(newPack!, done: {
-                                downloadedHandler(newPack!)
-                            })
-                        }
-                    }
-                    
-                    // remove packs that no longer exist
+                for pack in json as! NSArray {
+                    var newPack: Pack?
                     for p in moc.list(Pack.self) {
-                        if ids.indexOf(p.id!) == nil {
-                            moc.deleteObject(p)
+                        if p.id == pack["id"] as? NSNumber {
+                            newPack = p
                         }
                     }
+                    if newPack == nil {
+                        newPack = moc.insert(Pack.self)
+                    }
                     
-                    AppDelegate.saveContext()
-                    completionHandler()
+                    ids.insert(pack["id"] as! NSNumber, atIndex: 0)
+                    newPack!.id = pack["id"] as? NSNumber
+                    newPack!.title = pack["title"] as? String
+                    newPack!.creator = pack["creator"] as? String
+                    newPack!.logo = pack["logo"] as? String
+                    newPack!.created = NSDate.parse(pack["created"] as? String)
+                    newPack!.modified = NSDate.parse(pack["modified"] as? String)
+                    newPack!.count = pack["count"] as? NSNumber
+                    if pack["downloaded"] as? NSNumber == 1 {
+                        self.downloadIfNeeded(newPack!, done: {
+                            downloadedHandler(newPack!)
+                        })
+                    }
                 }
-            }
-            catch _ as NSError {
+                
+                // remove packs that no longer exist
+                for p in moc.list(Pack.self) {
+                    if ids.indexOf(p.id!) == nil {
+                        moc.deleteObject(p)
+                        moc.deleteObject(p.getUserPack(AppDelegate.getUser()))
+                    }
+                }
+                
+                AppDelegate.saveContext()
                 completionHandler()
             }
         })
-        task.resume()
+        
     }
 
     private func getPacksFromLocalStore() -> [Pack]

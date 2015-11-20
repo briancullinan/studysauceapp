@@ -17,6 +17,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     private var enterPanGesture: UIPanGestureRecognizer!
     private var tap: UITapGestureRecognizer!
+    
+    internal var fromView: UIViewController? = nil
+    internal var reversed: Bool = false
+    
     var sourceViewController: CardController! {
         didSet {
             if self.enterPanGesture == nil {
@@ -135,7 +139,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let container = transitionContext.containerView()
         
         // create a tuple of our screens
-        let screens : (from:UIViewController, to:UIViewController) = (transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!, transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!)
+        var screens : (from:UIViewController, to:UIViewController) = (
+            transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!,
+            transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!)
+        if self.fromView != nil {
+            screens.from.removeFromParentViewController()
+            screens.from.view.removeFromSuperview()
+            screens.from = self.fromView!
+        }
         
         // assign references to our menu view controller and the 'bottom' view controller from the tuple
         // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
@@ -284,7 +295,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     nextTitle!.hidden = false
                 }
                 (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!.view.layer.mask = nil
-                
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){
                     
@@ -300,7 +310,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.to.view)
                     
                 }
-                
+                self.fromView = nil
+                self.reversed = false
         })
         
     }
@@ -349,13 +360,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     // return the animataor when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = true
+        self.presenting = !self.reversed
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = false
+        self.presenting = self.reversed
         return self
     }
     
