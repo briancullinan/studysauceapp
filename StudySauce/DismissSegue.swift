@@ -34,10 +34,11 @@ class DismissSegue : UIStoryboardSegue {
             }
             self.sourceViewController.transitioningDelegate = CardSegue.transitionManager
             self.destinationViewController.transitioningDelegate = CardSegue.transitionManager
-            CardSegue.transitionManager.reversed = true
-            self.sourceViewController.presentViewController(self.destinationViewController, animated: true, completion: {(finished) -> Void in
-                CardSegue.transitionManager.reversed = false
-            })
+            last.dismissViewControllerAnimated(true, completion: nil)
+            //CardSegue.transitionManager.reversed = true
+            //self.sourceViewController.presentViewController(self.destinationViewController, animated: true, completion: {(finished) -> Void in
+            //    CardSegue.transitionManager.reversed = false
+            //})
         }
     }
 }

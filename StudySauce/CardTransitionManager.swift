@@ -14,7 +14,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var presenting = false
     private var interactive = false
     private var flashView: AutoSizingTextView? = nil
-    internal var reversed: Bool = false
     
     private var enterPanGesture: UIPanGestureRecognizer!
     private var tap: UITapGestureRecognizer!
@@ -284,6 +283,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 if nextTitle != nil {
                     nextTitle!.hidden = false
                 }
+                (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!.view.layer.mask = nil
                 
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){
@@ -349,13 +349,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     // return the animataor when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
     func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = !reversed
+        self.presenting = true
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
     func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.presenting = reversed
+        self.presenting = false
         return self
     }
     
