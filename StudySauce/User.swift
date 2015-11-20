@@ -49,7 +49,7 @@ class User: NSManagedObject {
         var results: [Card] = []
         let stillEmpty = self.retention_to == nil || self.retention == nil || self.retention == ""
         let timeout = stillEmpty || self.retention_to!.time(3).addDays(1) < NSDate()
-        let uncounted = (self.user_packs?.allObjects as! [UserPack]).filter({stillEmpty || timeout || $0.downloaded! >= self.retention_to!})
+        let uncounted = (self.user_packs?.allObjects as! [UserPack]).filter({stillEmpty || timeout || ($0.downloaded != nil && $0.downloaded! >= self.retention_to!)})
         if stillEmpty || timeout || uncounted.count > 0 {
             // TODO: change this line when userpack order matters
             for up in uncounted {
