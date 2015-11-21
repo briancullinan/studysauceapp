@@ -726,6 +726,18 @@ support@studysauce.com
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-g1-5Au">
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="K8a-6n-xDa"/>
+                                    <constraint firstAttribute="width" constant="57" id="peu-0o-WaE"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="BeF-jh-fpd"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
                                 <rect key="frame" x="226" y="119" width="149" height="34"/>
                                 <animations/>
@@ -759,6 +771,9 @@ support@studysauce.com
                                 <state key="normal" title="✘">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="ac2-3Y-K6Q"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efU-5t-l7n">
                                 <rect key="frame" x="438" y="481" width="142" height="99"/>
@@ -770,18 +785,6 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="retryClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="y1U-W8-1OC"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-g1-5Au">
-                                <rect key="frame" x="20" y="28" width="57" height="38"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="K8a-6n-xDa"/>
-                                    <constraint firstAttribute="width" constant="57" id="peu-0o-WaE"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="BeF-jh-fpd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2556,7 +2559,7 @@ support@studysauce.com
         <segue reference="ill-z4-rqM"/>
         <segue reference="udA-v8-lqc"/>
         <segue reference="jVs-Lw-C2J"/>
-        <segue reference="9Y5-b6-3ad"/>
-        <segue reference="SCd-vh-FIo"/>
+        <segue reference="4Ka-iV-QLj"/>
+        <segue reference="mdo-J8-Fbt"/>
     </inferredMetricsTieBreakers>
 </document>
