@@ -232,6 +232,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             if lastButton != nil && nextButton != nil {
                 lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
                 lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
+                lastTitle!.alpha = 1
                 nextButton!.hidden = !alreadyMoved
                 if lastTitle!.text == nextTitle!.text {
                     nextTitle!.hidden = !alreadyMoved
@@ -241,7 +242,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         else {
             if lastButton != nil && nextButton != nil {
                 lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
-                lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, -100)
+                lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                lastTitle!.alpha = 0
                 nextButton!.hidden = !alreadyMoved
                 if lastTitle!.text == nextTitle!.text {
                     nextTitle!.hidden = !alreadyMoved
@@ -265,7 +267,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
-                        lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, lastTitle!.text != nextTitle!.text ? -100 : 0)
+                        lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                        lastTitle!.alpha = 0
                     }
                 }
                 else {
@@ -277,6 +280,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
                         lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
+                        lastTitle!.alpha = 1
                     }
                 }
             }

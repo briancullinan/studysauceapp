@@ -52,7 +52,7 @@ class User: NSManagedObject {
         let uncounted = (self.user_packs?.allObjects as! [UserPack]).filter({stillEmpty || timeout || ($0.downloaded != nil && $0.downloaded! >= self.retention_to!)})
         if stillEmpty || timeout || uncounted.count > 0 {
             // TODO: change this line when userpack order matters
-            for up in uncounted {
+            for up in self.user_packs?.allObjects as! [UserPack] {
                 results.appendContentsOf(up.getRetention())
             }
             self.retention = results.shuffle().map { c -> String in

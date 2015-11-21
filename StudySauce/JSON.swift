@@ -8,7 +8,7 @@
 
 import Foundation
 
-func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
+func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: ((json: AnyObject?) -> Void)? = nil, error: ((code: Int) -> Void)? = nil, redirect: ((path: String) -> Void)? = nil) {
     var postData = ""
     for (k, v) in params {
         postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + (v == nil
@@ -23,26 +23,30 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
         if (err != nil) {
             NSLog("\(err?.description)")
         }
-        if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
-            error(code: (response as! NSHTTPURLResponse).statusCode)
+        var hadError = false
+        if error != nil && response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
+            hadError = true
+            error!(code: (response as! NSHTTPURLResponse).statusCode)
         }
         if data != nil {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
-                    if json["redirect"] as? String != nil {
-                        redirect(path: json["redirect"] as! String)
+                    if redirect != nil && json["redirect"] as? String != nil {
+                        redirect!(path: json["redirect"] as! String)
                     }
-                    done(json: json)
+                    if !hadError && done != nil {
+                        done!(json: json)
+                    }
                 })
             }
             catch let error as NSError {
                 NSLog("\(error.description)")
             }
         }
-        else {
-            done(json: nil)
+        else if !hadError && done != nil {
+            done!(json: nil)
         }
     })
     task.resume()

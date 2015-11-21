@@ -24,7 +24,6 @@ extension UIViewController {
             self.transitioningDelegate = CardSegue.transitionManager
             home.transitioningDelegate = CardSegue.transitionManager
             dispatch_async(dispatch_get_main_queue(),{
-                CardSegue.transitionManager.reversed = true
                 self.presentViewController(home, animated: true, completion: {})
             })
         }
@@ -34,7 +33,6 @@ extension UIViewController {
                 self.transitioningDelegate = CardSegue.transitionManager
                 home.transitioningDelegate = CardSegue.transitionManager
                 dispatch_async(dispatch_get_main_queue(),{
-                    CardSegue.transitionManager.reversed = true
                     self.presentViewController(home, animated: true, completion: {})
                 })
             })

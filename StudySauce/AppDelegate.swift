@@ -66,15 +66,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.makeKeyAndVisible();
             }
         }
-        if user != nil && user!.id != nil && user!.id != 0 {
-            self.user = user
-            done()
-        }
-        else {
+        //if user != nil && user!.id != nil && user!.id != 0 {
+        //    self.user = user
+        //    done()
+        //}
+        //else {
             UserLoginController.login { () -> Void in
                 dispatch_async(dispatch_get_main_queue(), done)
             }
-        }
+        //}
         // contact server login page
         return true
         

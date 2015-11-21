@@ -64,6 +64,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return self.view.subviews.count > 1
     }
     
+    func setTotal() {
+        
+        if self.cardCount != nil {
+            let count = AppDelegate.getUser()!.getRetentionRemaining()
+            let s = count == 1 ? "" : "s"
+            self.cardCount!.text = "\(count) card\(s)"
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       /*
@@ -77,13 +87,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
-        
-        if self.cardCount != nil {
-            let count = AppDelegate.getUser()!.getRetentionRemaining()
-            let s = count == 1 ? "" : "s"
-            self.cardCount!.text = "\(count) card\(s)"
-        }
-        
+        self.setTotal()
         if self.tableView != nil {
             // Load packs from database
             self.packs = getPacksFromLocalStore()
@@ -91,11 +95,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 dispatch_async(dispatch_get_main_queue(), {
                     self.packs = self.getPacksFromLocalStore()
                     self.tableView!.reloadData()
+                    self.setTotal()
                 })
-                }, downloadedHandler: {_ in
+                }, downloadedHandler: {p in
                     dispatch_async(dispatch_get_main_queue(), {
-                    self.packs = self.getPacksFromLocalStore()
-                    self.tableView!.reloadData()
+                        self.packs = self.getPacksFromLocalStore()
+                        self.tableView!.reloadData()
+                        self.setTotal()
                     })
             })
         }

@@ -64,7 +64,12 @@ class PackResultsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // add up results differently when loading from a retention pack
-        self.packTitle.text = self.pack.title
+        if self.isRetention {
+            self.packTitle.text = "Today's cards"
+        }
+        else {
+            self.packTitle.text = self.pack.title
+        }
         var correct = 0
         var wrong = 0
         let cards = self.isRetention ? AppDelegate.getUser()!.getRetention() : self.pack.cards?.allObjects as! [Card]
