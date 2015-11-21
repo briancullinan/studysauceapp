@@ -29,10 +29,7 @@ class PackResultsController: UIViewController {
     }
     
     @IBAction func retryClick(sender: AnyObject) {
-        if isRetention {
-            // TODO: retry retention cards only
-            AppDelegate.getUser()!.retention = nil
-            AppDelegate.saveContext()
+        if self.isRetention {
             if self.percent.text == "100%" {
                 self.performSegueWithIdentifier("home", sender: self)
             }
@@ -52,6 +49,12 @@ class PackResultsController: UIViewController {
     // TODO: display a summery of the results
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if self.isRetention {
+            // TODO: retry retention cards only
+            AppDelegate.getUser()!.retention_to = nil
+            AppDelegate.saveContext()
+        }
+        
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention

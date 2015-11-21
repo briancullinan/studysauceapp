@@ -26,7 +26,7 @@ class Card: NSManagedObject {
     
     func getResponses(user: User?) -> [Response] {
         var result:[Response] = []
-        if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)]) as? [Response] {
+        if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: false)]) as? [Response] {
             for r in sorted {
                 if r.user == user {
                     result.append(r)
