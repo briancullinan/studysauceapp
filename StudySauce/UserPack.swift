@@ -86,7 +86,7 @@ class UserPack: NSManagedObject {
             if i > intervals.count - 1 {
                 i = intervals.count - 1
             }
-            if responses.count == 0 || responses.last!.created!.addDays(intervals[i]) < NSDate() {
+            if responses.count == 0 || responses.last!.created!.time(3).addDays(intervals[i]) < NSDate() {
                 result.append(c)
             }
         }

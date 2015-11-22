@@ -20,10 +20,11 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     let ses = NSURLSession.sharedSession()
     let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+        var hadError = false
         if (err != nil) {
+            hadError = true
             NSLog("\(err?.description)")
         }
-        var hadError = false
         if error != nil && response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
             hadError = true
             error!(code: (response as! NSHTTPURLResponse).statusCode)
@@ -44,9 +45,6 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
             catch let error as NSError {
                 NSLog("\(error.description)")
             }
-        }
-        else if !hadError && done != nil {
-            done!(json: nil)
         }
     })
     task.resume()
