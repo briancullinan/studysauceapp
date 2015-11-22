@@ -15,42 +15,33 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var interactive = false
     private var flashView: AutoSizingTextView? = nil
     
-    private var enterPanGesture: UIPanGestureRecognizer!
-    private var tap: UITapGestureRecognizer!
-    
     internal var fromView: UIViewController? = nil
     internal var reversed: Bool = false
     
     var sourceViewController: CardController! {
         didSet {
-            if self.enterPanGesture == nil {
-                self.enterPanGesture = UIPanGestureRecognizer()
-                self.enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-                self.tap = UITapGestureRecognizer()
-                self.tap.addTarget(self, action: "handleOnstageTap:")
-                self.tap.numberOfTapsRequired = 1
-            }
+            let enterPanGesture = UIPanGestureRecognizer()
+            enterPanGesture.addTarget(self, action:"handleOnstagePan:")
+            let tap = UITapGestureRecognizer()
+            tap.addTarget(self, action: "handleOnstageTap:")
+            tap.numberOfTapsRequired = 1
             //else if oldValue != nil {
             //    oldValue.view.removeGestureRecognizer(self.enterPanGesture)
             //    oldValue.view.removeGestureRecognizer(self.tap)
             //}
-            self.sourceViewController.view.addGestureRecognizer(self.enterPanGesture)
-            self.sourceViewController.view.addGestureRecognizer(self.tap)
+            self.sourceViewController.view.addGestureRecognizer(enterPanGesture)
+            self.sourceViewController.view.addGestureRecognizer(tap)
         }
     }
     
-    private var exitPanGesture: UIPanGestureRecognizer!
-    
     var destinationViewController: CardController! {
         didSet {
-            if self.exitPanGesture == nil {
-                self.exitPanGesture = UIPanGestureRecognizer()
-                self.exitPanGesture.addTarget(self, action:"handleOffstagePan:")
-            }
+            let exitPanGesture = UIPanGestureRecognizer()
+            exitPanGesture.addTarget(self, action:"handleOffstagePan:")
             //else if oldValue != nil {
             //    oldValue.view.addGestureRecognizer(self.exitPanGesture)
             //}
-            self.destinationViewController.view.addGestureRecognizer(self.exitPanGesture)
+            self.destinationViewController.view.addGestureRecognizer(exitPanGesture)
         }
     }
     
