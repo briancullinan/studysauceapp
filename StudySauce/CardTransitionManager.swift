@@ -17,6 +17,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     internal var fromView: UIViewController? = nil
     internal var reversed: Bool = false
+    internal var transitioning = false
     
     var sourceViewController: CardController! {
         didSet {
@@ -28,7 +29,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             //else if oldValue != nil {
             //    oldValue.view.removeGestureRecognizer(self.enterPanGesture)
             //    oldValue.view.removeGestureRecognizer(self.tap)
-            //}
+            //}z
             self.sourceViewController.view.addGestureRecognizer(enterPanGesture)
             self.sourceViewController.view.addGestureRecognizer(tap)
         }
@@ -50,6 +51,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func handleOnstagePan(pan: UIPanGestureRecognizer){
+        
         // how much distance have we panned in reference to the parent view?
         let translation = pan.translationInView(pan.view!)
         
@@ -64,7 +66,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             self.interactive = true
             
             // trigger the start of the transition
-            self.sourceViewController.subview?.performSegueWithIdentifier("next", sender: self)
+            if !self.transitioning {
+                self.sourceViewController.subview?.performSegueWithIdentifier("next", sender: self)
+            }
             break
             
         case UIGestureRecognizerState.Changed:
@@ -101,7 +105,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
         case UIGestureRecognizerState.Began:
             self.interactive = true
-            self.destinationViewController.subview?.performSegueWithIdentifier("last", sender: self)
+            if !self.transitioning {
+                self.destinationViewController.subview?.performSegueWithIdentifier("last", sender: self)
+            }
             break
             
         case UIGestureRecognizerState.Changed:
@@ -125,6 +131,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     // animate a change from one viewcontroller to another
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+        
+        self.transitioning = true
         
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()
@@ -307,6 +315,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 }
                 self.fromView = nil
                 self.reversed = false
+                self.transitioning = false
         })
         
     }

@@ -18,7 +18,7 @@ class DismissSegue : UIStoryboardSegue {
         // the first function is to dismiss the source view and ignore the destination if they are the same type
         // this part goes back within CardController subviews we dismiss to the container
         if self.sourceViewController.parentViewController is CardController && self.destinationViewController.isTypeOf(self.sourceViewController) {
-            self.sourceViewController.parentViewController?.dismissViewControllerAnimated(true, completion: nil)
+            self.sourceViewController.dismissViewControllerAnimated(true, completion: nil)
         }
         // this part just goes back one screen
         else if self.sourceViewController.presentingViewController != nil && self.sourceViewController.presentingViewController!.isTypeOf(self.destinationViewController) {
