@@ -156,11 +156,12 @@
                         <outlet property="embeddedView" destination="AjF-zc-xVk" id="IWR-DU-HnO"/>
                         <outlet property="packTitle" destination="tXH-st-0Tk" id="BcD-QN-5f4"/>
                         <segue destination="ArM-tF-FuE" kind="show" identifier="results" id="jVs-Lw-C2J"/>
-                        <segue destination="Iuf-Sd-aQs" kind="custom" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="9Y5-b6-3ad"/>
-                        <segue destination="Sib-XO-0qJ" kind="custom" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="SCd-vh-FIo"/>
+                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="T3d-Km-UA9"/>
+                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToPacks:" id="JVm-mQ-TiR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="REx-gC-aGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="N8c-Ip-t1G" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2747" y="-4280"/>
         </scene>
@@ -270,7 +271,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Sib-XO-0qJ" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="1xb-Fq-MwZ"/>
+                                    <segue destination="yiQ-k9-82R" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="m1L-cd-rsC"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d4B-bi-vai">
@@ -382,6 +383,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeH-si-5Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yiQ-k9-82R" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1955" y="-4280"/>
         </scene>
@@ -815,12 +817,13 @@ support@studysauce.com
                         <outlet property="packTitle" destination="LAg-ej-lSQ" id="5ac-W4-oKP"/>
                         <outlet property="percent" destination="M0c-QT-Bxo" id="V1N-Bt-cbr"/>
                         <outlet property="review" destination="d5O-Ga-XDa" id="jAT-PR-SXQ"/>
-                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="udA-v8-lqc"/>
-                        <segue destination="Iuf-Sd-aQs" kind="custom" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="4Ka-iV-QLj"/>
-                        <segue destination="Sib-XO-0qJ" kind="custom" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="mdo-J8-Fbt"/>
+                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="YnM-c4-V9w"/>
+                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToPacks:" id="61R-Bs-pj8"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="M6g-6I-YI4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJX-a1-HCS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mn5-jK-CaU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-4280"/>
         </scene>
@@ -1726,7 +1729,7 @@ support@studysauce.com
             <objects>
                 <tableViewController title="UserSettings" id="7bU-J0-4YG" customClass="UserSettingsController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="1" id="oIb-cn-bKt">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="552"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2017,7 +2020,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Sib-XO-0qJ" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="SK1-gb-mF0"/>
+                                    <segue destination="uKT-HA-Uyd" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="fof-xy-bpE"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myK-qa-utg">
@@ -2062,6 +2065,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dv6-UA-BcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="uKT-HA-Uyd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="319" y="-3516"/>
         </scene>
@@ -2551,14 +2555,12 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZAc-Zr-uuP"/>
+        <segue reference="9Uu-zL-5h0"/>
+        <segue reference="1w5-kD-eLZ"/>
+        <segue reference="M6g-6I-YI4"/>
         <segue reference="XRc-D6-3Ln"/>
         <segue reference="Oc6-ro-oKa"/>
         <segue reference="GQz-t5-qGU"/>
         <segue reference="ill-z4-rqM"/>
-        <segue reference="udA-v8-lqc"/>
-        <segue reference="jVs-Lw-C2J"/>
-        <segue reference="4Ka-iV-QLj"/>
-        <segue reference="mdo-J8-Fbt"/>
     </inferredMetricsTieBreakers>
 </document>

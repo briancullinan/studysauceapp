@@ -15,6 +15,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     var pack: Pack? = nil
     @IBOutlet weak var tableView: UITableView!
     
+    @IBAction func returnToPacks(segue: UIStoryboardSegue) {
+        
+    }
+
     // load the card content, display and available answers
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
@@ -235,7 +239,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    static func downloadIfNeeded(p: Pack, done: () -> Void) {
+    internal static func downloadIfNeeded(p: Pack, done: () -> Void) {
         // only downloaded the pack if updates are needed
         if p.isDownloading {
             return

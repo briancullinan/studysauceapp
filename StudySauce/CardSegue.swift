@@ -17,10 +17,10 @@ class CardSegue : UIStoryboardSegue {
         var last: UIViewController = self.sourceViewController
         var next: UIViewController = self.destinationViewController
         if let parent = last.parentViewController as? CardController {
-            last = parent
+            //last = parent
             
             // only set subview for displaying response if answer is wrong, otherwise show next card
-            if (next as? CardController) == nil && (parent.intermediateResponse == nil || parent.intermediateResponse!.correct != 1) {
+            if !(next is CardController) && (parent.intermediateResponse == nil || parent.intermediateResponse!.correct != 1) {
                 // answer was wrong so definitely show card
                 let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
                 card.subview = next
