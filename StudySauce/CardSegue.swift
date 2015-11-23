@@ -17,7 +17,7 @@ class CardSegue : UIStoryboardSegue {
         var last: UIViewController = self.sourceViewController
         var next: UIViewController = self.destinationViewController
         if let parent = last.parentViewController as? CardController {
-            //last = parent
+            last = parent
             
             // only set subview for displaying response if answer is wrong, otherwise show next card
             if !(next is CardController) && (parent.intermediateResponse == nil || parent.intermediateResponse!.correct != 1) {
@@ -51,8 +51,14 @@ class CardSegue : UIStoryboardSegue {
         // only do transition at this point, no swiping available unless it is set up beforehand
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
-        
-        last.presentViewController(next, animated: true, completion: nil)
+        if !CardSegue.transitionManager.transitioning {
+            CardSegue.transitionManager.transitioning = true
+            dispatch_async(dispatch_get_main_queue(), {
+                last.presentViewController(next, animated: true, completion: {
+                    CardSegue.transitionManager.transitioning = false
+                })
+            })
+        }
     }
 }
 

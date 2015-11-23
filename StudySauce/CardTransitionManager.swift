@@ -132,8 +132,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     // animate a change from one viewcontroller to another
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
-        self.transitioning = true
-        
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()
         
@@ -315,7 +313,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 }
                 self.fromView = nil
                 self.reversed = false
-                self.transitioning = false
         })
         
     }
