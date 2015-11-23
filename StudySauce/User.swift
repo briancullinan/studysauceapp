@@ -55,7 +55,8 @@ class User: NSManagedObject {
             for up in self.user_packs?.allObjects as! [UserPack] {
                 results.appendContentsOf(up.getRetention())
             }
-            self.retention = results.shuffle().map { c -> String in
+            results.shuffle()
+            self.retention = results.map { c -> String in
                 return "\(c.id!)"
                 }.joinWithSeparator(",")
             self.retention_to = NSDate()
