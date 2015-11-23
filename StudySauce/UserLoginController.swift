@@ -25,7 +25,11 @@ class UserLoginController : UIViewController {
         self.username.resignFirstResponder()
         self.password.resignFirstResponder()
     }
+    
+    @IBAction func returnToLogin(segue: UIStoryboardSegue) {
         
+    }
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

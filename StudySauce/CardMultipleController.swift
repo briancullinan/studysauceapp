@@ -19,7 +19,11 @@ class CardMultipleController: UIViewController {
     @IBOutlet weak var answer3: UIButton? = nil
     @IBOutlet weak var answer4: UIButton? = nil
     weak var card: Card? = nil
- 
+    
+    @IBAction func returnToMultiple(segue: UIStoryboardSegue) {
+        
+    }
+    
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
             if content != nil {

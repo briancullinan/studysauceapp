@@ -156,8 +156,8 @@
                         <outlet property="embeddedView" destination="AjF-zc-xVk" id="IWR-DU-HnO"/>
                         <outlet property="packTitle" destination="tXH-st-0Tk" id="BcD-QN-5f4"/>
                         <segue destination="ArM-tF-FuE" kind="show" identifier="results" id="jVs-Lw-C2J"/>
-                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="T3d-Km-UA9"/>
-                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToPacks:" id="JVm-mQ-TiR"/>
+                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="home" unwindAction="returnToHome:" id="T3d-Km-UA9"/>
+                        <segue destination="N8c-Ip-t1G" kind="unwind" identifier="packs" unwindAction="returnToPacks:" id="JVm-mQ-TiR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="REx-gC-aGx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -271,7 +271,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="yiQ-k9-82R" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="m1L-cd-rsC"/>
+                                    <segue destination="yiQ-k9-82R" kind="unwind" identifier="home" unwindAction="returnToHome:" id="m1L-cd-rsC"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="d4B-bi-vai">
@@ -454,11 +454,12 @@
                     <connections>
                         <outlet property="correctButton" destination="QyN-eE-dnk" id="HHb-QL-j17"/>
                         <outlet property="response" destination="a3E-wa-lDZ" id="C9g-A4-VI3"/>
-                        <segue destination="wX3-J5-TSh" kind="custom" identifier="last" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="hbg-M8-4U6"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="hJi-Nu-qtH"/>
+                        <segue destination="4xf-wJ-8QS" kind="unwind" identifier="last" unwindAction="returnToPrompt:" id="g9q-Ti-MzE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bMK-RI-2kl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="4xf-wJ-8QS" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-3516"/>
         </scene>
@@ -557,11 +558,12 @@
                         <outlet property="answer2" destination="nxh-pq-PQd" id="fsu-Fz-gCM"/>
                         <outlet property="answer3" destination="tvk-wA-8rf" id="io9-sZ-GUI"/>
                         <outlet property="answer4" destination="ndr-5k-eWw" id="mx5-NT-h1O"/>
-                        <segue destination="enV-og-4wM" kind="custom" identifier="last" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="EKu-vU-bf1"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="I3T-Nz-Fid"/>
+                        <segue destination="mGc-pt-mmO" kind="unwind" identifier="last" unwindAction="returnToMultiple:" id="NQi-bc-UNl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zO-eF-hWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="mGc-pt-mmO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-2705"/>
         </scene>
@@ -577,14 +579,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Privacy Policy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vzk-BC-IMD">
                                 <rect key="frame" x="236" y="16" width="128" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bww-ox-3WH">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bww-ox-3WH">
                                 <rect key="frame" x="20" y="8" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
@@ -593,10 +595,10 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="ZAc-Zr-uuP"/>
+                                    <segue destination="vmg-Mj-deh" kind="unwind" unwindAction="returnToSettings:" id="f5h-Mp-DJj"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qFc-U7-VFK">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qFc-U7-VFK">
                                 <rect key="frame" x="0.0" y="54" width="600" height="538"/>
                                 <animations/>
                                 <string key="text">What information do we collect?
@@ -705,6 +707,7 @@ support@studysauce.com
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mTO-p5-8hH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="vmg-Mj-deh" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1955" y="-3516"/>
         </scene>
@@ -817,8 +820,8 @@ support@studysauce.com
                         <outlet property="packTitle" destination="LAg-ej-lSQ" id="5ac-W4-oKP"/>
                         <outlet property="percent" destination="M0c-QT-Bxo" id="V1N-Bt-cbr"/>
                         <outlet property="review" destination="d5O-Ga-XDa" id="jAT-PR-SXQ"/>
-                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="YnM-c4-V9w"/>
-                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="packs" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToPacks:" id="61R-Bs-pj8"/>
+                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="home" unwindAction="returnToHome:" id="YnM-c4-V9w"/>
+                        <segue destination="mn5-jK-CaU" kind="unwind" identifier="packs" unwindAction="returnToPacks:" id="61R-Bs-pj8"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="M6g-6I-YI4"/>
                     </connections>
                 </viewController>
@@ -897,7 +900,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="qYh-Jy-Edn" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="k9N-Zv-Wkm"/>
+                                    <segue destination="kKK-Wn-MHf" kind="unwind" unwindAction="returnToHome:" id="SyP-QK-RxE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -928,6 +931,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kn5-vC-sfd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="kKK-Wn-MHf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-5891"/>
         </scene>
@@ -1004,7 +1008,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="pyw-KZ-FSd" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="yl6-TZ-ZzN"/>
+                                    <segue destination="PGv-Im-Avy" kind="unwind" unwindAction="returnToInvite:" id="pdA-Z7-J64"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-cE-xhK">
@@ -1090,6 +1094,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="PGv-Im-Avy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1955" y="-5891"/>
         </scene>
@@ -1145,7 +1150,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="JIk-eY-fER" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="AaP-eY-XLw"/>
+                                    <segue destination="lkG-3h-A5d" kind="unwind" unwindAction="returnToLogin:" id="AiK-hK-VJX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1169,6 +1174,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8Q-Gq-h0y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="lkG-3h-A5d" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="319" y="-5074"/>
         </scene>
@@ -1214,7 +1220,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="pyw-KZ-FSd" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="H2U-7l-d0h"/>
+                                    <segue destination="r1H-H0-UTa" kind="unwind" unwindAction="returnToInvite:" id="HdH-3E-Evw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like an email when we are out of private beta?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPA-3o-4H2">
@@ -1260,6 +1266,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sbj-Oe-qZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="r1H-H0-UTa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-6760"/>
         </scene>
@@ -1326,7 +1333,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="qYh-Jy-Edn" kind="custom" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" id="Oc6-ro-oKa"/>
+                                    <segue destination="X52-GF-cm9" kind="unwind" unwindAction="returnToHome:" id="8IU-R9-lVM"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g30-OR-S5R">
@@ -1366,6 +1373,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1C8-j0-MdD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="X52-GF-cm9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-5074"/>
         </scene>
@@ -2020,7 +2028,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="uKT-HA-Uyd" kind="unwind" identifier="home" customClass="DismissSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToHome:" id="fof-xy-bpE"/>
+                                    <segue destination="uKT-HA-Uyd" kind="unwind" identifier="home" unwindAction="returnToHome:" id="fof-xy-bpE"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myK-qa-utg">
@@ -2156,14 +2164,14 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-KT-nha">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9pl-KT-nha">
                                 <rect key="frame" x="251" y="16" width="99" height="23"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJk-DO-RNa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJk-DO-RNa">
                                 <rect key="frame" x="20" y="8" width="57" height="38"/>
                                 <animations/>
                                 <constraints>
@@ -2172,10 +2180,10 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="9uY-OX-AMx" kind="custom" identifier="dismiss" customClass="DismissSegue" customModule="StudySauce" id="QhV-YZ-0yf"/>
+                                    <segue destination="Lez-iK-21r" kind="unwind" unwindAction="returnToSettings:" id="2F0-SO-0AD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
                                 <rect key="frame" x="20" y="66" width="87" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -2189,7 +2197,7 @@ support@studysauce.com
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY">
                                 <rect key="frame" x="20" y="95" width="560" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2274,6 +2282,7 @@ support@studysauce.com
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UDB-TO-K7i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Lez-iK-21r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-2705"/>
         </scene>
@@ -2555,12 +2564,8 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9Uu-zL-5h0"/>
+        <segue reference="hJi-Nu-qtH"/>
+        <segue reference="I3T-Nz-Fid"/>
         <segue reference="1w5-kD-eLZ"/>
-        <segue reference="M6g-6I-YI4"/>
-        <segue reference="XRc-D6-3Ln"/>
-        <segue reference="Oc6-ro-oKa"/>
-        <segue reference="GQz-t5-qGU"/>
-        <segue reference="ill-z4-rqM"/>
     </inferredMetricsTieBreakers>
 </document>

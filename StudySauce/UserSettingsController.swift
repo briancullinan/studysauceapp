@@ -32,7 +32,38 @@ class UserSettingsController: UITableViewController {
     @IBOutlet weak var childLastName: UITextField!
     @IBOutlet weak var privacyCell: UITableViewCell!
     @IBOutlet weak var supportCell: UITableViewCell!
+    private var embeddedViewController: UserSettingsController!
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let vc = segue.destinationViewController as? UserSettingsController {
+            self.embeddedViewController = vc
+        }
+    }
+    
+    @IBAction func returnToSettings(segue: UIStoryboardSegue) {
+        
+    }
+
+    //  Now in other methods you can reference `embeddedViewController`.
+    //  For example:
+    override func viewDidAppear(animated: Bool) {
+        
+    }
+    
+    @IBAction func saveClick(sender: UIButton) {
+        self.editButton.hidden = false
+        self.saveButton.hidden = true
+        self.embeddedViewController.save()
+    }
+    
+    @IBAction func editClick(sender: UIButton) {
+        self.editButton.hidden = true
+        self.saveButton.hidden = false
+        self.embeddedViewController.edit()
+    }
+
     internal func edit() -> Void {
         self.firstName.enabled = true
         self.lastName.enabled = true

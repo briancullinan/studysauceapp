@@ -18,6 +18,10 @@ class CardSelfController: UIViewController {
     @IBOutlet weak var response: AutoSizingTextView? = nil
     weak var card: Card? = nil
     
+    @IBAction func returnToPrompt(segue: UIStoryboardSegue) {
+        
+    }
+    
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
