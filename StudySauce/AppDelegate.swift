@@ -41,17 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
     }
     
-    
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         IQKeyboardManager.sharedManager().enable = true
         self.setupTheme()
         
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let email = userDefaults.valueForKey("user") as? String
-        let user = UserLoginController.getUserByEmail(email)
         let done = {
             if self.storyboard == nil {
                 self.storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -66,16 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.makeKeyAndVisible();
             }
         }
-        //if user != nil && user!.id != nil && user!.id != 0 {
-        //    self.user = user
-        //    done()
-        //}
-        //else {
-            UserLoginController.login { () -> Void in
-                dispatch_async(dispatch_get_main_queue(), done)
-            }
-        //}
-        // contact server login page
+        UserLoginController.login { () -> Void in
+            dispatch_async(dispatch_get_main_queue(), done)
+        }
         return true
         
     }

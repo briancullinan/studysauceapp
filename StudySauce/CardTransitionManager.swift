@@ -170,7 +170,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let origColor = origLast.view.backgroundColor
         
         // if both controllers are card controllers translate embeddedView and leave navigation in place
-        if last as? CardController != nil && next as? CardController != nil {
+        if last is CardController && next is CardController {
             origLast.view.backgroundColor = UIColor.clearColor()
             last = (last as! CardController).subview!
             next = (next as! CardController).subview!
@@ -295,6 +295,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 if nextTitle != nil {
                     nextTitle!.hidden = false
                 }
+                last.view.transform = CGAffineTransformMakeTranslation(0, 0)
+                next.view.transform = CGAffineTransformMakeTranslation(0, 0)
                 (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!.view.layer.mask = nil
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){

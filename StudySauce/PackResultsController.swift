@@ -20,6 +20,7 @@ class PackResultsController: UIViewController {
     internal var isRetention = false
     
     @IBAction func backClick(sender: UIButton) {
+        self.doReset()
         if self.isRetention {
             self.performSegueWithIdentifier("home", sender: self)
         }
@@ -29,6 +30,7 @@ class PackResultsController: UIViewController {
     }
     
     @IBAction func retryClick(sender: AnyObject) {
+        self.doReset()
         if self.isRetention {
             if self.percent.text == "100%" {
                 self.performSegueWithIdentifier("home", sender: self)
@@ -38,23 +40,28 @@ class PackResultsController: UIViewController {
             }
         }
         else {
+            self.performSegueWithIdentifier("card", sender: self)
+        }
+    }
+    
+    func doReset() {
+        if self.isRetention {
+            // force homescreen to update with new retention cards
+            AppDelegate.getUser()!.retention_to = nil
+            AppDelegate.saveContext()
+        }
+        else {
             let up = self.pack.getUserPack(AppDelegate.getUser())
             // next time card is loaded retries will be repopulated
             let retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
             up.retries = retries.shuffle().map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
             up.retry_to = NSDate()
             AppDelegate.saveContext()
-            self.performSegueWithIdentifier("card", sender: self)
         }
     }
     // TODO: display a summery of the results
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if self.isRetention {
-            // TODO: retry retention cards only
-            AppDelegate.getUser()!.retention_to = nil
-            AppDelegate.saveContext()
-        }
         
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack

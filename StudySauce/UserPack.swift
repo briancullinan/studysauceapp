@@ -72,13 +72,19 @@ class UserPack: NSManagedObject {
         let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
         for c in cards {
             let responses = c.getResponses(user)
+            var last: Response? = nil
             var i = 0
             for r in responses {
-                if r.correct == 1 {
+                if r.correct == 1 && (last == nil || last!.created!.addDays(intervals[i]) <= r.created!) {
+                    last = r
                     i++
+                }
+                else if r.correct == 1 && r.created!.time(3) == last!.created!.time(3) {
+                    last = r
                 }
                 else {
                     i = 0
+                    last = nil
                 }
             }
             if i < 0 {
