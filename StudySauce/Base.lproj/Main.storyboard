@@ -2545,7 +2545,7 @@ support@studysauce.com
                     </view>
                     <connections>
                         <outlet property="response" destination="U7c-w6-Xqx" id="4AF-mY-n3L"/>
-                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" id="ucz-Xl-O7T"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" id="ucz-Xl-O7T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLM-5S-ywR" userLabel="First Responder" sceneMemberID="firstResponder"/>
