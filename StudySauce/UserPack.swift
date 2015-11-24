@@ -21,7 +21,7 @@ class UserPack: NSManagedObject {
             // if pack was modified add new cards to current set to finish
             || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) {
             retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-            retries.shuffle()
+            retries.shuffleInPlace()
             self.retries = retries.map { c -> String in
                 return "\(c.id!)"
                 }.joinWithSeparator(",")
