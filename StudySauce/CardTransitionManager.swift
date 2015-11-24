@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate {
+class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate {
     
     private var presenting = false
     private var interactive = false
@@ -19,35 +19,64 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     internal var reversed: Bool = false
     internal var transitioning = false
     
-    var sourceViewController: CardController! {
-        didSet {
-            let enterPanGesture = UIPanGestureRecognizer()
-            enterPanGesture.addTarget(self, action:"handleOnstagePan:")
-            let tap = UITapGestureRecognizer()
-            tap.addTarget(self, action: "handleOnstageTap:")
-            tap.numberOfTapsRequired = 1
-            //else if oldValue != nil {
-            //    oldValue.view.removeGestureRecognizer(self.enterPanGesture)
-            //    oldValue.view.removeGestureRecognizer(self.tap)
-            //}z
-            self.sourceViewController.view.addGestureRecognizer(enterPanGesture)
-            self.sourceViewController.view.addGestureRecognizer(tap)
-        }
+    override init() {
+        super.init()
+        
+        let panGesture = UIPanGestureRecognizer()
+        panGesture.delegate = self
+        panGesture.addTarget(self, action: "handleOnstagePan:")
+        let tap = UITapGestureRecognizer()
+        tap.delegate = self
+        tap.numberOfTapsRequired = 1
+        tap.addTarget(self, action: "handleOnstageTap:")
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window!.addGestureRecognizer(panGesture)
+        (UIApplication.sharedApplication().delegate as! AppDelegate).window!.addGestureRecognizer(tap)
+
     }
     
-    var destinationViewController: CardController! {
-        didSet {
-            let exitPanGesture = UIPanGestureRecognizer()
-            exitPanGesture.addTarget(self, action:"handleOffstagePan:")
-            //else if oldValue != nil {
-            //    oldValue.view.addGestureRecognizer(self.exitPanGesture)
-            //}
-            self.destinationViewController.view.addGestureRecognizer(exitPanGesture)
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        let instance = UIApplication.sharedApplication().delegate as! AppDelegate
+        let vc = instance.visibleViewController(instance.window!.rootViewController!)
+        if let card = vc as? CardController {
+            if card.subview?.canPerformSegueWithIdentifier("next") == true || card.subview?.canPerformSegueWithIdentifier("last") == true {
+                return true
+            }
         }
+        else {
+            if vc.canPerformSegueWithIdentifier("next") || vc.canPerformSegueWithIdentifier("last") {
+                return true
+            }
+        }
+        return false
     }
+    
+    /*
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let tap = gestureRecognizer as? UITapGestureRecognizer {
+            self.handleOnstageTap(tap)
+            return true
+        }
+        if let pan = gestureRecognizer as? UIPanGestureRecognizer {
+            self.handleOnstagePan(pan)
+            return true
+        }
+        return false
+    }
+    */
     
     func handleOnstageTap(tap: UITapGestureRecognizer) {
-        self.sourceViewController.subview?.performSegueWithIdentifier("next", sender: self)
+        let instance = UIApplication.sharedApplication().delegate as! AppDelegate
+        let vc = instance.visibleViewController(instance.window!.rootViewController!)
+        if let card = vc as? CardController {
+            if card.subview?.canPerformSegueWithIdentifier("next") == true {
+                card.subview?.performSegueWithIdentifier("next", sender: self)
+            }
+        }
+        else {
+            if vc.canPerformSegueWithIdentifier("next") {
+                vc.performSegueWithIdentifier("next", sender: self)
+            }
+        }
     }
     
     func handleOnstagePan(pan: UIPanGestureRecognizer){
@@ -67,12 +96,23 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             // trigger the start of the transition
             if !self.transitioning {
-                self.sourceViewController.subview?.performSegueWithIdentifier("next", sender: self)
+                let instance = UIApplication.sharedApplication().delegate as! AppDelegate
+                let vc = instance.visibleViewController(instance.window!.rootViewController!)
+                if let card = vc as? CardController {
+                    if card.subview?.canPerformSegueWithIdentifier(d < 0 ? "next" : "last") == true {
+                        card.subview?.performSegueWithIdentifier(d < 0 ? "next" : "last", sender: self)
+                    }
+                }
+                else {
+                    if vc.canPerformSegueWithIdentifier(d < 0 ? "next" : "last") {
+                        vc.performSegueWithIdentifier(d < 0 ? "next" : "last", sender: self)
+                    }
+                }
             }
             break
             
         case UIGestureRecognizerState.Changed:
-            if d < 0.02 {
+            if d < 0.02 || d > 0.02 {
                 // update progress of the transition
                 self.updateInteractiveTransition(-d)
             }
@@ -82,46 +122,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             // return flag to false and finish the transition
             self.interactive = false
-            if d < -0.1 {
+            if d < -0.1 || d > 0.1 {
                 // threshold crossed: finish
                 self.finishInteractiveTransition()
             }
             else {
                 // threshold not met: cancel
-                self.cancelInteractiveTransition()
-            }
-        }
-    }
-    
-    // pretty much the same as 'handleOnstagePan' except
-    // we're panning from right to left
-    // perfoming our exitSegeue to start the transition
-    func handleOffstagePan(pan: UIPanGestureRecognizer){
-        
-        let translation = pan.translationInView(pan.view!)
-        let d =  translation.x / CGRectGetWidth(pan.view!.bounds)
-        
-        switch (pan.state) {
-            
-        case UIGestureRecognizerState.Began:
-            self.interactive = true
-            if !self.transitioning {
-                self.destinationViewController.subview?.performSegueWithIdentifier("last", sender: self)
-            }
-            break
-            
-        case UIGestureRecognizerState.Changed:
-            if d > 0.02 {
-                self.updateInteractiveTransition(d)
-            }
-            break
-            
-        default: // .Ended, .Cancelled, .Failed ...
-            self.interactive = false
-            if d > 0.1 {
-                self.finishInteractiveTransition()
-            }
-            else {
                 self.cancelInteractiveTransition()
             }
         }

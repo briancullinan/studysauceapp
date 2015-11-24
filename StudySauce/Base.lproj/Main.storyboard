@@ -454,7 +454,7 @@
                     <connections>
                         <outlet property="correctButton" destination="QyN-eE-dnk" id="HHb-QL-j17"/>
                         <outlet property="response" destination="a3E-wa-lDZ" id="C9g-A4-VI3"/>
-                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="hJi-Nu-qtH"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="hJi-Nu-qtH"/>
                         <segue destination="4xf-wJ-8QS" kind="unwind" identifier="last" unwindAction="returnToPrompt:" id="g9q-Ti-MzE"/>
                     </connections>
                 </viewController>
@@ -2545,7 +2545,7 @@ support@studysauce.com
                     </view>
                     <connections>
                         <outlet property="response" destination="U7c-w6-Xqx" id="4AF-mY-n3L"/>
-                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" id="ucz-Xl-O7T"/>
+                        <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" id="ucz-Xl-O7T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLM-5S-ywR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2564,8 +2564,8 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hJi-Nu-qtH"/>
-        <segue reference="I3T-Nz-Fid"/>
         <segue reference="1w5-kD-eLZ"/>
+        <segue reference="I3T-Nz-Fid"/>
+        <segue reference="ucz-Xl-O7T"/>
     </inferredMetricsTieBreakers>
 </document>

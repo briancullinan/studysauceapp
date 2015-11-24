@@ -23,6 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    func visibleViewController(rootViewController: UIViewController) -> UIViewController
+    {
+        let presentedViewController = rootViewController.presentedViewController;
+        if rootViewController.presentedViewController == nil {
+            return rootViewController
+        }
+        
+        return self.visibleViewController(presentedViewController!);
+    }
+    
     static func getUser() -> User? {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).user
     }

@@ -26,7 +26,6 @@ class CardSelfController: UIViewController {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
                 content!.text = vc.card?.content
-                CardSegue.transitionManager.sourceViewController = vc
             }
             if response != nil {
                 let correct = vc.card?.getCorrect()?.value
@@ -35,12 +34,6 @@ class CardSelfController: UIViewController {
                 }
                 else {
                     response!.text = "\(correct!)\n\r\(vc.card!.response!)"
-                }
-                if correctButton != nil {
-                    CardSegue.transitionManager.destinationViewController = vc
-                }
-                else {
-                    CardSegue.transitionManager.sourceViewController = vc
                 }
             }
             self.card = vc.card;
@@ -64,7 +57,7 @@ class CardSelfController: UIViewController {
             catch let error as NSError {
                 NSLog(error.description)
             }
-            self.performSegueWithIdentifier("next", sender: self)
+            self.performSegueWithIdentifier("card", sender: self)
         }
     }
         

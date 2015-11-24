@@ -18,6 +18,14 @@ extension UIViewController {
         })
     }
     
+    func canPerformSegueWithIdentifier(identifier: NSString) -> Bool {
+        let templates:NSArray = self.valueForKey("storyboardSegueTemplates") as! NSArray
+        let predicate:NSPredicate = NSPredicate(format: "identifier=%@", identifier)
+        
+        let filteredtemplates = templates.filteredArrayUsingPredicate(predicate)
+        return (filteredtemplates.count>0)
+    }
+    
     func goHome(refetch: Bool = false) {
         if !refetch && AppDelegate.getUser() != nil {
             let home = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
