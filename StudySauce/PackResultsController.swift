@@ -53,8 +53,9 @@ class PackResultsController: UIViewController {
         else {
             let up = self.pack.getUserPack(AppDelegate.getUser())
             // next time card is loaded retries will be repopulated
-            let retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
-            up.retries = retries.shuffle().map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
+            var retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
+            retries.shuffleInPlace()
+            up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
             up.retry_to = NSDate()
             AppDelegate.saveContext()
         }

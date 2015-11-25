@@ -18,7 +18,7 @@ class User: NSManagedObject {
     }
 
     func getRetentionCount() -> Int {
-        return self.retention!.componentsSeparatedByString(",").count
+        return self.getRetention().count
     }
     
     func getRetentionRemaining() -> Int {

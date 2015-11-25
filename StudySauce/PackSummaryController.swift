@@ -173,6 +173,16 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             downloadedHandler(newPack!)
                         })
                     }
+                    if let userPacks = pack["user_packs"] as? NSArray where userPacks.count > 0 {
+                        self.downloadIfNeeded(newPack!, done: {
+                            let cards = newPack!.cards!.allObjects as! [Card]
+                            for p in userPacks {
+                                let card = cards.filter({$0.id == p["card"] as? NSNumber}).first
+                                self.processResponses(card!, json: p["responses"] as! NSArray)
+                            }
+                            downloadedHandler(newPack!)
+                        })
+                    }
                 }
                 
                 // remove packs that no longer exist

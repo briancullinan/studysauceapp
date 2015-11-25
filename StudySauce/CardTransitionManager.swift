@@ -50,6 +50,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         return false
     }
     
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     /*
     func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let tap = gestureRecognizer as? UITapGestureRecognizer {
@@ -67,6 +71,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     func handleOnstageTap(tap: UITapGestureRecognizer) {
         let instance = UIApplication.sharedApplication().delegate as! AppDelegate
         let vc = instance.visibleViewController(instance.window!.rootViewController!)
+        self.interactive = false
         if let card = vc as? CardController {
             if card.subview?.canPerformSegueWithIdentifier("next") == true {
                 card.subview?.performSegueWithIdentifier("next", sender: self)
@@ -89,32 +94,33 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
-            
+        case UIGestureRecognizerState.Changed:
+            fallthrough
         case UIGestureRecognizerState.Began:
             // set our interactive flag to true
-            self.interactive = true
-            
-            // trigger the start of the transition
-            if !self.transitioning {
+            if d != 0 && !self.transitioning {
+                self.interactive = true
+                self.transitioning = true
                 let instance = UIApplication.sharedApplication().delegate as! AppDelegate
                 let vc = instance.visibleViewController(instance.window!.rootViewController!)
                 if let card = vc as? CardController {
-                    if card.subview?.canPerformSegueWithIdentifier(d < 0 ? "next" : "last") == true {
-                        card.subview?.performSegueWithIdentifier(d < 0 ? "next" : "last", sender: self)
+                    if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
+                        card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
                 else {
-                    if vc.canPerformSegueWithIdentifier(d < 0 ? "next" : "last") {
-                        vc.performSegueWithIdentifier(d < 0 ? "next" : "last", sender: self)
+                    if vc.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") {
+                        vc.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
             }
-            break
-            
-        case UIGestureRecognizerState.Changed:
-            if d < 0.02 || d > 0.02 {
+            // trigger the start of the transition
+            else if d < -0.02 {
                 // update progress of the transition
                 self.updateInteractiveTransition(-d)
+            }
+            else if d > 0.02 {
+                self.updateInteractiveTransition(d)
             }
             break
             
@@ -130,6 +136,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 // threshold not met: cancel
                 self.cancelInteractiveTransition()
             }
+            self.transitioning = false
         }
     }
     
@@ -137,7 +144,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     // animate a change from one viewcontroller to another
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        
+        self.transitioning = true
+
         // get reference to our fromView, toView and the container view that we should perform the transition in
         let container = transitionContext.containerView()
         
@@ -321,6 +329,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 }
                 self.fromView = nil
                 self.reversed = false
+                self.transitioning = false
+
         })
         
     }

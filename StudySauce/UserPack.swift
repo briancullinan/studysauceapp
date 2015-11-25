@@ -12,24 +12,8 @@ import CoreData
 class UserPack: NSManagedObject {
 
     func getRetryCard() -> Card? {
-        var retries = self.getRetries()
-        
-        // TODO: fix retry after pack results page has been seen
-        
-        // if retries is empty generate a list and randomize it
-        if self.retry_to == nil || retries.count == 0
-            // if pack was modified add new cards to current set to finish
-            || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) {
-            retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
-            retries.shuffleInPlace()
-            self.retries = retries.map { c -> String in
-                return "\(c.id!)"
-                }.joinWithSeparator(",")
-            self.retry_to = NSDate()
-            // TODO: shouldn't really do database edits in the model
-            AppDelegate.saveContext()
-        }
-        
+        let retries = self.getRetries()
+                
         for c in retries {
             let response = c.getResponse(user)
             if response == nil || response!.created! < self.retry_to! {
@@ -40,8 +24,18 @@ class UserPack: NSManagedObject {
     }
     
     func getRetries() -> [Card] {
-        if self.retries == nil || self.retries == "" {
-            return []
+        // if retries is empty generate a list and randomize it
+        if self.retries == nil || self.retries == ""
+            // if pack was modified add new cards to current set to finish
+            || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) {
+                var retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
+                retries.shuffleInPlace()
+                self.retries = retries.map { c -> String in
+                    return "\(c.id!)"
+                    }.joinWithSeparator(",")
+                self.retry_to = NSDate()
+                // TODO: shouldn't really do database edits in the model
+                AppDelegate.saveContext()
         }
         return self.retries!.componentsSeparatedByString(",").map{r -> Card? in
             return self.pack?.getCardById(Int(r)!)
@@ -75,6 +69,9 @@ class UserPack: NSManagedObject {
             var last: Response? = nil
             var i = 0
             for r in responses {
+                if r.created == nil {
+                    continue
+                }
                 if r.correct == 1 {
                     if last == nil || last!.created!.addDays(intervals[i]).time(3) <= r.created!.time(3) {
                         // shift the time interval if answers correctly in the right time frame

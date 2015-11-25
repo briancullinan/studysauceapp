@@ -51,14 +51,9 @@ class CardSegue : UIStoryboardSegue {
         // only do transition at this point, no swiping available unless it is set up beforehand
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
-        if !CardSegue.transitionManager.transitioning {
-            CardSegue.transitionManager.transitioning = true
-            dispatch_async(dispatch_get_main_queue(), {
-                last.presentViewController(next, animated: true, completion: {
-                    CardSegue.transitionManager.transitioning = false
-                })
-            })
-        }
+        dispatch_async(dispatch_get_main_queue(), {
+            last.presentViewController(next, animated: true, completion: nil)
+        })
     }
 }
 

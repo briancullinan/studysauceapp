@@ -80,7 +80,7 @@ extension NSDate
 
     static var RFC: String {
         get {
-            return "EEE, dd MMM yyyy HH:mm:ss xx"
+            return "EEE, dd MMM yyyy HH:mm:ss z"
         }
     }
     
