@@ -75,12 +75,16 @@ class UserPack: NSManagedObject {
             var last: Response? = nil
             var i = 0
             for r in responses {
-                if r.correct == 1 && (last == nil || last!.created!.addDays(intervals[i]) <= r.created!) {
-                    last = r
-                    i++
-                }
-                else if r.correct == 1 && r.created!.time(3) == last!.created!.time(3) {
-                    last = r
+                if r.correct == 1 {
+                    if last == nil || last!.created!.addDays(intervals[i]).time(3) <= r.created!.time(3) {
+                        // shift the time interval if answers correctly in the right time frame
+                        last = r
+                        i++
+                    }
+                    else if r.created!.time(3) == last!.created!.time(3) {
+                        // shift the day of the time interval if answered correctly at any time
+                        last = r
+                    }
                 }
                 else {
                     i = 0
@@ -93,7 +97,7 @@ class UserPack: NSManagedObject {
             if i > intervals.count - 1 {
                 i = intervals.count - 1
             }
-            if responses.count == 0 || i == 0 || last!.created!.time(3).addDays(intervals[i]) < NSDate() {
+            if responses.count == 0 || i == 0 || last!.created!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
                 result.append(c)
             }
         }

@@ -12,7 +12,7 @@ import CoreData
 class Card: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
-
+    
     func getResponse(user: User?) -> Response? {
         if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)]) as? [Response] {
             for r in sorted {
@@ -22,6 +22,14 @@ class Card: NSManagedObject {
             }
         }
         return nil;
+    }
+    
+    func getAllAnswers() -> [Answer] {
+        return self.answers!.allObjects as! [Answer]
+    }
+
+    func getAllResponses() -> [Response] {
+        return self.responses?.allObjects as! [Response]
     }
     
     func getResponses(user: User?) -> [Response] {

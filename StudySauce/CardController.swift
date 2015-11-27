@@ -107,8 +107,9 @@ class CardController: UIViewController {
     
     internal func submitResponse(response: Response) {
         let correct = response.correct != nil && response.correct == 1
-        let answer = response.answer != nil ? response.answer!.id : 0
-        let url = AppDelegate.studySauceCom("/packs/responses?pack=\(self.pack.id!)&card=\(self.card!.id!)&correct=\(correct)&answer=\(answer)")
+        let answer = response.answer != nil ? response.answer!.id! : 0
+        let created = response.created!.toRFC().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let url = AppDelegate.studySauceCom("/packs/responses?pack=\(self.pack.id!)&card=\(self.card!.id!)&correct=\(correct)&answer=\(answer)&created=\(created)")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             

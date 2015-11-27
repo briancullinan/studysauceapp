@@ -68,6 +68,16 @@ extension NSDate
         return dateWithHoursAdded
     }
     
+    func toRFC() -> String {
+        let locale = NSLocale(localeIdentifier: "en_US")
+        let timeZone = NSTimeZone(name: "GMT")
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = locale //need locale for some iOS 9 verision, will not select correct default locale
+        dateFormatter.timeZone = timeZone
+        dateFormatter.dateFormat = NSDate.RFC
+        return dateFormatter.stringFromDate(self)
+    }
+
     static var RFC: String {
         get {
             return "EEE, dd MMM yyyy HH:mm:ss xx"

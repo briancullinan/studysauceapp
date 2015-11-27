@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             dispatch_async(dispatch_get_main_queue(), done)
         }
         return true
-        
     }
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {

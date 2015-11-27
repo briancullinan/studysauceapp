@@ -58,63 +58,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newCard!.created = NSDate.parse(card["created"] as? String)
                         newCard!.modified = NSDate.parse(card["modified"] as? String)
                         
-                        // create anwers
-                        var answers = newCard!.answers?.allObjects as! [Answer]
-                        var answerIds = [NSNumber]()
-                        for answer in card["answers"] as! NSArray {
-                            var newAnswer: Answer?
-                            for a in answers {
-                                if a.id == answer["id"] as? NSNumber {
-                                    newAnswer = a
-                                }
-                            }
-                            if newAnswer == nil {
-                                newAnswer = moc.insert(Answer.self)
-                                answers.insert(newAnswer!, atIndex: 0)
-                            }
-                            
-                            answerIds.insert(answer["id"] as! NSNumber, atIndex: 0)
-                            newAnswer!.id = answer["id"] as? NSNumber
-                            //newAnswer!.content = answer["content"] as? String
-                            //newAnswer!.response = answer["response"] as? String
-                            newAnswer!.value = answer["value"] as? String
-                            newAnswer!.card = newCard!
-                            newAnswer!.correct = answer["correct"] as? NSNumber
-                            newAnswer!.created = NSDate.parse(answer["created"] as? String)
-                            newAnswer!.modified = NSDate.parse(answer["modified"] as? String)
-                        }
+                        self.processAnswers(newCard!, json: card["answers"] as! NSArray)
                         
-                        // remove answers that no longer exist
-                        for a in answers {
-                            if answerIds.indexOf(a.id!) == nil {
-                                moc.deleteObject(a)
-                                answers.removeAtIndex(answers.indexOf(a)!)
-                            }
-                        }
-                        
-                        
-                        // TODO: sync responses
-                        var responses = newCard!.responses?.allObjects as! [Response]
-                        for response in card["responses"] as! NSArray {
-                            var newResponse: Response?
-                            for r in responses {
-                                if r.id == response["id"] as? NSNumber {
-                                    newResponse = r
-                                }
-                            }
-                            if newResponse == nil {
-                                newResponse = moc.insert(Response.self)
-                                responses.insert(newResponse!, atIndex: 0)
-                            }
-                            
-                            newResponse!.id = response["id"] as? NSNumber
-                            newResponse!.correct = response["correct"] as? NSNumber == 1
-                            newResponse!.answer = answers.filter({$0.id == response["answer"] as? NSNumber}).first
-                            newResponse!.value = response["value"] as? String
-                            newResponse!.card = newCard
-                            newResponse!.created = NSDate.parse(response["created"] as? String)
-                            newResponse!.user = AppDelegate.getUser()
-                        }
+                        // sync responses
+                        self.processResponses(newCard!, json: card["responses"] as! NSArray)
                     }
                     
                     // remove cards that no longer exist
@@ -134,6 +81,68 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             })
             task.resume()
         }
+    }
+    
+    static private func processResponses(card: Card, json: NSArray) {
+        var responses = card.getAllResponses()
+        for response in json {
+            var newResponse: Response?
+            for r in responses {
+                if r.id == response["id"] as? NSNumber {
+                    newResponse = r
+                }
+            }
+            if newResponse == nil {
+                newResponse = AppDelegate.getContext()!.insert(Response.self)
+                responses.insert(newResponse!, atIndex: 0)
+            }
+            
+            newResponse!.id = response["id"] as? NSNumber
+            newResponse!.correct = response["correct"] as? NSNumber == 1
+            newResponse!.answer = card.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
+            newResponse!.value = response["value"] as? String
+            newResponse!.card = card
+            newResponse!.created = NSDate.parse(response["created"] as? String)
+            newResponse!.user = AppDelegate.getUser()
+        }
+
+    }
+    
+    static private func processAnswers(card: Card, json: NSArray) {
+        // create anwers
+        var answers = card.getAllAnswers()
+        var answerIds = [NSNumber]()
+        for answer in json {
+            var newAnswer: Answer?
+            for a in answers {
+                if a.id == answer["id"] as? NSNumber {
+                    newAnswer = a
+                }
+            }
+            if newAnswer == nil {
+                newAnswer = AppDelegate.getContext()!.insert(Answer.self)
+                answers.insert(newAnswer!, atIndex: 0)
+            }
+            
+            answerIds.insert(answer["id"] as! NSNumber, atIndex: 0)
+            newAnswer!.id = answer["id"] as? NSNumber
+            //newAnswer!.content = answer["content"] as? String
+            //newAnswer!.response = answer["response"] as? String
+            newAnswer!.value = answer["value"] as? String
+            newAnswer!.card = card
+            newAnswer!.correct = answer["correct"] as? NSNumber
+            newAnswer!.created = NSDate.parse(answer["created"] as? String)
+            newAnswer!.modified = NSDate.parse(answer["modified"] as? String)
+        }
+        
+        // remove answers that no longer exist
+        for a in answers {
+            if answerIds.indexOf(a.id!) == nil {
+                AppDelegate.getContext()!.deleteObject(a)
+                answers.removeAtIndex(answers.indexOf(a)!)
+            }
+        }
+
     }
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {

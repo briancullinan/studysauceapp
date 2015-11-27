@@ -43,7 +43,7 @@ class CardTrueFalseController: UIViewController {
                     newResponse.user = AppDelegate.getUser()
                     try moc.save()
                     // store intermediate and don't call this until after the correct answer is shown
-                    vc.intermediateResponse = newResponse;
+                    vc.intermediateResponse = newResponse
                     vc.submitResponse(newResponse)
                     self.performSegueWithIdentifier("correct", sender: self)
                 }
