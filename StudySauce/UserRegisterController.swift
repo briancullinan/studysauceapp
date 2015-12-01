@@ -33,9 +33,9 @@ class UserRegisterController : UIViewController {
         self.first = self.firstName.text
         self.last = self.lastName.text
         self.mail = self.email.text
-        self.showNoConnectionDialog({
+        if self.first != "" && self.last != "" && self.mail != "" {
             self.registerUser()
-        })
+        }
     }
     
     @IBAction func childSwitchOn(sender: AnyObject) {
@@ -62,28 +62,27 @@ class UserRegisterController : UIViewController {
     }
     
     func registerUser() {
-        postJson("/account/create", params: [
-            "code" : self.registrationCode,
-            "first" : self.first,
-            "last" : self.last,
-            "email" : self.mail,
-            "csrf_token" : self.token
-            ], redirect: {(path) in
-                // login was a success!
-                if path == "/home" {
-                    self.goHome(true)
-                }
-            }, error: {(code) in
-                if code == 301 {
-                    self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
-                        dispatch_async(dispatch_get_main_queue(),{
+        self.showNoConnectionDialog({
+            postJson("/account/create", params: [
+                "code" : self.registrationCode,
+                "first" : self.first,
+                "last" : self.last,
+                "email" : self.mail,
+                "csrf_token" : self.token
+                ], redirect: {(path) in
+                    // login was a success!
+                    if path == "/home" {
+                        self.goHome(true)
+                    }
+                    if path == "/login" {
+                        self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
                             self.performSegueWithIdentifier("login", sender: self)
                         })
-                        return true
-                    })
-                }
+                    }
             })
+        })
     }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

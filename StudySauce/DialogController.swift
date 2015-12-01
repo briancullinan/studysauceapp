@@ -16,6 +16,7 @@ class DialogController: UIViewController {
     var click: () -> Bool = {
         return true
     }
+    var done: () -> Void = { return }
         
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var primaryButton: UIButton!
@@ -34,18 +35,12 @@ class DialogController: UIViewController {
         messageLabel.text = self.message
     }
     
-    internal func done() {
-        if click() {
-            self.dismissViewControllerAnimated(true, completion: {
-                
-            })
-        }
-    }
-    
     @IBAction func buttonClick(sender: UIButton) {
         if click() {
             self.dismissViewControllerAnimated(true, completion: {
-                
+                dispatch_async(dispatch_get_main_queue(),{
+                    self.done()
+                })
             })
         }
     }

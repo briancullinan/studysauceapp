@@ -938,7 +938,7 @@ support@studysauce.com
         <!--UserRegister-->
         <scene sceneID="abd-q8-m6B">
             <objects>
-                <viewController title="UserRegister" id="MV6-Iy-bIY" customClass="UserRegisterController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserRegister" title="UserRegister" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MV6-Iy-bIY" customClass="UserRegisterController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HGi-r1-HMk"/>
                         <viewControllerLayoutGuide type="bottom" id="C9U-g6-Ibl"/>
@@ -999,18 +999,6 @@ support@studysauce.com
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLF-wa-yXu">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="57" id="30o-aU-l17"/>
-                                    <constraint firstAttribute="height" constant="38" id="XeB-U3-nRm"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="PGv-Im-Avy" kind="unwind" unwindAction="returnToInvite:" id="pdA-Z7-J64"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-cE-xhK">
                                 <rect key="frame" x="20" y="299" width="560" height="50"/>
                                 <animations/>
@@ -1048,6 +1036,18 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="MOp-Mx-Mq1"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLF-wa-yXu">
+                                <rect key="frame" x="20" y="20" width="57" height="38"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="57" id="30o-aU-l17"/>
+                                    <constraint firstAttribute="height" constant="38" id="XeB-U3-nRm"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <segue destination="PGv-Im-Avy" kind="unwind" unwindAction="returnToHome:" id="AS5-3p-d1o"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1091,6 +1091,7 @@ support@studysauce.com
                         <outlet property="email" destination="EjC-OO-MWE" id="4RC-tV-eLa"/>
                         <outlet property="firstName" destination="i5D-B6-21P" id="9Zy-eW-jJQ"/>
                         <outlet property="lastName" destination="umH-Qo-rtw" id="3Uh-T4-SeJ"/>
+                        <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Edk-H5-39l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2565,7 +2566,8 @@ support@studysauce.com
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1w5-kD-eLZ"/>
-        <segue reference="I3T-Nz-Fid"/>
+        <segue reference="Edk-H5-39l"/>
         <segue reference="ucz-Xl-O7T"/>
+        <segue reference="DnL-J9-off"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -69,15 +69,18 @@ class UserPack: NSManagedObject {
             var last: Response? = nil
             var i = 0
             for r in responses {
+                // TODO: if its correct the first time skip to index 2
                 if r.created == nil {
                     continue
                 }
                 if r.correct == 1 {
+                    // If it is in between time intervals ignore the reponse
                     if last == nil || last!.created!.addDays(intervals[i]).time(3) <= r.created!.time(3) {
                         // shift the time interval if answers correctly in the right time frame
                         last = r
                         i++
                     }
+                        // this may be redundant, since it is always at 3 am it will either be zero or plus 1
                     else if r.created!.time(3) == last!.created!.time(3) {
                         // shift the day of the time interval if answered correctly at any time
                         last = r

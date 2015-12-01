@@ -118,7 +118,6 @@ extension AppDelegate {
         $([DialogController.self |>> UILabel.self |^ T.firstOfType,
            UserInviteController.self |>> UILabel.self |^ T.firstOfType,
            BetaSignupController.self |>> UILabel.self |^ T.firstOfType,
-           UserRegisterController.self |>> UILabel.self |^ T.firstOfType,
            UserLoginController.self |>> UILabel.self |^ T.firstOfType,
            UserResetController.self |>> UILabel.self |^ T.firstOfType], {
             $0.setFontSize(30.0)

@@ -45,10 +45,7 @@ class ContactUsController: UIViewController {
                 "message": self.message.text
                 ], done: {(json) in
                     self.showDialog(NSLocalizedString("Thank you!  Someone will be in touch shortly", comment: "Message after user submits a contact us message"), button: NSLocalizedString("Done", comment: "Button to dismiss the contact us process after submit"), done: {
-                        dispatch_async(dispatch_get_main_queue(),{
-                            self.performSegueWithIdentifier("dismiss", sender: self)
-                            })
-                        return true
+                        self.performSegueWithIdentifier("dismiss", sender: self)
                     })
             })
         })

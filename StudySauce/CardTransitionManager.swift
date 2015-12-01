@@ -29,14 +29,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         tap.delegate = self
         tap.numberOfTapsRequired = 1
         tap.addTarget(self, action: "handleOnstageTap:")
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window!.addGestureRecognizer(panGesture)
-        (UIApplication.sharedApplication().delegate as! AppDelegate).window!.addGestureRecognizer(tap)
+        AppDelegate.instance().window!.addGestureRecognizer(panGesture)
+        AppDelegate.instance().window!.addGestureRecognizer(tap)
 
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        let instance = UIApplication.sharedApplication().delegate as! AppDelegate
-        let vc = instance.visibleViewController(instance.window!.rootViewController!)
+        let vc = AppDelegate.instance().visibleViewController()
         if let card = vc as? CardController {
             if card.subview?.canPerformSegueWithIdentifier("next") == true || card.subview?.canPerformSegueWithIdentifier("last") == true {
                 return true
@@ -69,8 +68,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     */
     
     func handleOnstageTap(tap: UITapGestureRecognizer) {
-        let instance = UIApplication.sharedApplication().delegate as! AppDelegate
-        let vc = instance.visibleViewController(instance.window!.rootViewController!)
+        let vc = AppDelegate.instance().visibleViewController()
         self.interactive = false
         if let card = vc as? CardController {
             if card.subview?.canPerformSegueWithIdentifier("next") == true {
@@ -101,8 +99,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             if d != 0 && !self.transitioning {
                 self.interactive = true
                 self.transitioning = true
-                let instance = UIApplication.sharedApplication().delegate as! AppDelegate
-                let vc = instance.visibleViewController(instance.window!.rootViewController!)
+                let vc = AppDelegate.instance().visibleViewController()
                 if let card = vc as? CardController {
                     if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
                         card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
@@ -311,7 +308,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 }
                 last.view.transform = CGAffineTransformMakeTranslation(0, 0)
                 next.view.transform = CGAffineTransformMakeTranslation(0, 0)
-                (UIApplication.sharedApplication().delegate as! AppDelegate).window!.rootViewController!.view.layer.mask = nil
+                AppDelegate.instance().window!.rootViewController!.view.layer.mask = nil
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){
                     

@@ -17,6 +17,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var packs = [Pack]()
     var normalImage:UIImage!
     var selectedImage:UIImage!
+    var taskManager:NSTimer? = nil
 
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
@@ -93,6 +94,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         self.setTotal()
         if self.tableView != nil {
+            if self.taskManager == nil {
+                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "viewDidLoad", userInfo: nil, repeats: true)
+                NSRunLoop.mainRunLoop().addTimer(self.taskManager!, forMode: NSRunLoopCommonModes)
+            }
+            
             // Load packs from database
             self.packs = getPacksFromLocalStore()
             PackSummaryController.getPacks({
@@ -111,9 +117,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        self.taskManager?.invalidate()
+        self.taskManager = nil
+    }
+    
     private func getPacksFromLocalStore() -> [Pack]
     {
-        return AppDelegate.getContext()!.list(Pack.self)
+        return AppDelegate.getUser()!.getPacks()
             .filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
     }
 

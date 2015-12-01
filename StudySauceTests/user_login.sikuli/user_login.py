@@ -1,0 +1,11 @@
+switchApp("Simulator")
+wait(1)
+simulator = Region(App.focusedWindow())
+# TODO: go back to home screen if we can
+simulator.click("Screen Shot 2015-12-01 at 9.32.35 AM.png")
+wait(1)
+simulator.type("Screen Shot 2015-12-01 at 9.39.54 AM.png", 'brian@studysauce.com')
+simulator.type("Screen Shot 2015-12-01 at 9.40.31 AM.png", 'password')
+simulator.click("Screen Shot 2015-12-01 at 9.40.55 AM.png")
+wait(1)
+simulator.find("Screen Shot 2015-12-01 at 9.41.56 AM.png")

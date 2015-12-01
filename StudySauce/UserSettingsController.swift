@@ -112,7 +112,7 @@ class UserSettingsController: UITableViewController {
                 NSUserDefaults.standardUserDefaults()
                 AppDelegate.managedObjectContext = nil
                 AppDelegate.resetLocalStore(true)
-                (UIApplication.sharedApplication().delegate as! AppDelegate).user = nil
+                AppDelegate.instance().user = nil
                 UserLoginController.logout({
                     self.goHome(true)
                 })

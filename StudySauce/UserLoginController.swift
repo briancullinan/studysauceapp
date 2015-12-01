@@ -59,7 +59,7 @@ class UserLoginController : UIViewController {
                         user.id = json["id"] as? NSNumber
                         user.first = json["first"] as? String
                         user.last = json["last"] as? String
-                        (UIApplication.sharedApplication().delegate as! AppDelegate).user = user
+                        AppDelegate.instance().user = user
                         AppDelegate.saveContext()
                     }
                 }

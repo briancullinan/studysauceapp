@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    func visibleViewController() -> UIViewController {
+        return self.visibleViewController(AppDelegate.instance().window!.rootViewController!)
+    }
+    
     func visibleViewController(rootViewController: UIViewController) -> UIViewController
     {
         let presentedViewController = rootViewController.presentedViewController;
@@ -33,8 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return self.visibleViewController(presentedViewController!);
     }
     
+    static func instance() -> AppDelegate {
+        return UIApplication.sharedApplication().delegate as! AppDelegate
+    }
+    
     static func getUser() -> User? {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).user
+        return AppDelegate.instance().user
     }
     
     static func getContext() -> NSManagedObjectContext? {
@@ -64,6 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             if self.window == nil {
                 self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
                 let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+                viewController.transitioningDelegate = CardSegue.transitionManager
                 self.window!.rootViewController = viewController
                 viewController.view.clipsToBounds = false
                 self.window!.backgroundColor = UIColor.clearColor()
@@ -82,11 +91,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        if url.getKeyVals()["token"] != nil {
+        let query = url.getKeyVals()
+        if query["token"] != nil {
             let reset = self.storyboard!.instantiateViewControllerWithIdentifier("PasswordReset") as! UserResetController
+            reset.transitioningDelegate = CardSegue.transitionManager
             reset.token = url.getKeyVals()["token"]!
             reset.mail = url.getKeyVals()["email"]!
+            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
             self.window?.rootViewController!.presentViewController(reset, animated: true, completion: {})
+            return true
+        }
+        if query["_code"] != nil {
+            let reg = self.storyboard!.instantiateViewControllerWithIdentifier("UserRegister") as! UserRegisterController
+            reg.transitioningDelegate = CardSegue.transitionManager
+            reg.registrationCode = query["_code"]!
+            reg.first = query["first"]!
+            reg.last = query["last"]!
+            reg.mail = query["email"]!
+            reg.token = query["csrf_token"]!
+            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
+            self.window?.rootViewController!.presentViewController(reg, animated: true, completion: {})
             return true
         }
         return true

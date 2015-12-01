@@ -13,6 +13,14 @@ class User: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
     
+    func getPacks() -> [Pack] {
+        var result: [Pack] = []
+        for up in self.user_packs!.allObjects as! [UserPack] {
+            result.append(up.pack!)
+        }
+        return result
+    }
+    
     func getRetentionIndex(card: Card) -> Int {
         return self.retention!.componentsSeparatedByString(",").indexOf("\(card.id!)")!
     }
