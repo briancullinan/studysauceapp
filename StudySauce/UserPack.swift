@@ -60,7 +60,7 @@ class UserPack: NSManagedObject {
     }
     
     func getRetention() -> [Card] {
-        let intervals = [0, 1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
+        let intervals = [1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
         var result: [Card] = []
         // if a card hasn't been answered, return the next card
         let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
@@ -75,20 +75,15 @@ class UserPack: NSManagedObject {
                 }
                 if r.correct == 1 {
                     // If it is in between time intervals ignore the reponse
-                    if last == nil || last!.created!.addDays(intervals[i]).time(3) <= r.created!.time(3) {
+                    while last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3) {
                         // shift the time interval if answers correctly in the right time frame
                         last = r
                         i++
                     }
-                        // this may be redundant, since it is always at 3 am it will either be zero or plus 1
-                    else if r.created!.time(3) == last!.created!.time(3) {
-                        // shift the day of the time interval if answered correctly at any time
-                        last = r
-                    }
                 }
                 else {
                     i = 0
-                    last = nil
+                    last = r
                 }
             }
             if i < 0 {
