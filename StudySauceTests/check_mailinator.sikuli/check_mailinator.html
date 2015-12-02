@@ -72,7 +72,7 @@
 <pre class="sikuli-code">
 <span class="kw">from</span> sikuli <span class="kw">import</span> *
 
-<span class="kw">def</span> gotoMailinator():
+<span class="kw">def</span> run():
     App.focus(<span class="str">"Simulator"</span>)
     <span class="skw">wait</span>(<span class="dig">1</span>)
     simulator = Region(App.focusedWindow())
@@ -93,8 +93,8 @@
     <span class="skw">wait</span>(<span class="dig">1</span>)
     simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 2.32.36 PM.png" />)
     <span class="skw">wait</span>(<span class="dig">1</span>)
-    simulator.<span class="skw">type</span>(<span class="str">'mailinator.com/inbox.jsp?to=studymarketing'</span>)
-    simulator.<span class="skw">type</span>(Key.ENTER)
+    <span class="skw">type</span>(<span class="str">'  mailinator.com/inbox.jsp?to=studymarketing'</span>)
+    <span class="skw">type</span>(Key.ENTER)
     <span class="skw">wait</span>(<span class="dig">3</span>)
 </pre>
 </body>

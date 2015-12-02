@@ -30,7 +30,7 @@ extension UIViewController {
             })
         }
         else {
-            UserLoginController.login({
+            UserLoginController.home({
                 let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
                 self.transitioningDelegate = CardSegue.transitionManager
                 home.transitioningDelegate = CardSegue.transitionManager

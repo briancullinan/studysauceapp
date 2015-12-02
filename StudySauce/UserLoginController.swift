@@ -47,10 +47,9 @@ class UserLoginController : UIViewController {
         })
     }
     
-    internal static func login(done: () -> Void = {}) {
-        getJson("/login", done: {
+    internal static func home(done: () -> Void = {}) {
+        getJson("/home", done: {
             if let json = $0 as? NSDictionary {
-                // TODO: create user entity in database
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
@@ -62,6 +61,20 @@ class UserLoginController : UIViewController {
                         AppDelegate.instance().user = user
                         AppDelegate.saveContext()
                     }
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    done()
+                })
+            }
+        })
+    }
+    
+    internal static func login(done: () -> Void = {}) {
+        getJson("/login", done: {
+            if let json = $0 as? NSDictionary {
+                // TODO: create user entity in database
+                if json["csrf_token"] as? String != nil {
+                    self.token = json["csrf_token"] as? String
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     done()

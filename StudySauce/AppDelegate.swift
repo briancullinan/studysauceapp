@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 self.window!.makeKeyAndVisible();
             }
         }
-        UserLoginController.login { () -> Void in
+        UserLoginController.home { () -> Void in
             dispatch_async(dispatch_get_main_queue(), done)
         }
         return true
@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             self.window?.rootViewController!.presentViewController(reset, animated: true, completion: {})
             return true
         }
-        if query["_code"] != nil {
+        else if query["_code"] != nil {
             let reg = self.storyboard!.instantiateViewControllerWithIdentifier("UserRegister") as! UserRegisterController
             reg.transitioningDelegate = CardSegue.transitionManager
             reg.registrationCode = query["_code"]!
@@ -113,7 +113,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             self.window?.rootViewController!.presentViewController(reg, animated: true, completion: {})
             return true
         }
-        return true
+        else {
+            UserLoginController.home {
+                if AppDelegate.getUser() != nil {
+                    let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
+                    viewController.transitioningDelegate = CardSegue.transitionManager
+                    self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
+                    self.window?.rootViewController!.presentViewController(viewController, animated: true, completion: {})
+                }
+            }
+            return true
+        }
     }
     
     func applicationWillResignActive(application: UIApplication) {

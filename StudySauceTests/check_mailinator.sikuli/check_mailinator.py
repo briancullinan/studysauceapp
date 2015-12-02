@@ -1,6 +1,6 @@
 from sikuli import *
 
-def gotoMailinator():
+def run():
     App.focus("Simulator")
     wait(1)
     simulator = Region(App.focusedWindow())
@@ -21,6 +21,6 @@ def gotoMailinator():
     wait(1)
     simulator.click("Screen Shot 2015-12-01 at 2.32.36 PM.png")
     wait(1)
-    simulator.type('mailinator.com/inbox.jsp?to=studymarketing')
-    simulator.type(Key.ENTER)
+    type('  mailinator.com/inbox.jsp?to=studymarketing')
+    type(Key.ENTER)
     wait(3)
