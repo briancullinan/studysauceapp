@@ -67,32 +67,15 @@
    </head>
 <body>
 <div class="info">
-<h2>invite_code.sikuli</h2> <a href="invite_code.zip">(Download this script)</a>
+<h2>home_screen_empty.sikuli</h2> <a href="home_screen_empty.zip">(Download this script)</a>
 </div>
 <pre class="sikuli-code">
 <span class="kw">from</span> sikuli <span class="kw">import</span> *
-<span class="kw">import</span> start_simulator
-reload(start_simulator)
-<span class="kw">import</span> reset_database
-reload(reset_database)
-<span class="kw">import</span> check_mailinator
-reload(check_mailinator)
 
-start_simulator.run()
 App.focus(<span class="str">"Simulator"</span>)
 <span class="skw">wait</span>(<span class="dig">1</span>)
 simulator = Region(App.focusedWindow())
-reset_database.run()
-check_mailinator.goto(<span class="str">'cerebro.studysauce.com/logout'</span>)
-check_mailinator.goto(<span class="str">'mailinator.com/inbox.jsp?to=studymarketing'</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-02 at 1.36.34 PM.png" />)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 12.04.19 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">3</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 12.24.10 PM.png" />)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 12.24.49 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 12.25.19 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">3</span>)
+simulator.<span class="skw">find</span>(<img src="Screen Shot 2015-12-02 at 10.45.09 AM.png" />)
 </pre>
 </body>
 </html>

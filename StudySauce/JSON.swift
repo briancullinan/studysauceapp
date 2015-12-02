@@ -11,9 +11,7 @@ import Foundation
 func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: ((json: AnyObject?) -> Void)? = nil, error: ((code: Int) -> Void)? = nil, redirect: ((path: String) -> Void)? = nil) {
     var postData = ""
     for (k, v) in params {
-        postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + (v == nil
-            ? ""
-            : v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
+        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
     }
     let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom("\(url)?\(postData)"))
     request.HTTPMethod = "GET"
@@ -53,9 +51,7 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
 func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
     var postData = ""
     for (k, v) in params {
-        postData = postData + (postData == "" ? "" : "&") + k.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())! + "=" + (v == nil
-            ? ""
-            : v!.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
+        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
     }
     let data = postData.dataUsingEncoding(NSUTF8StringEncoding)
     let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom(url))

@@ -72,7 +72,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         }
                     }
                     
-                    try moc.save()
+                    AppDelegate.saveContext()
                     completionHandler(cards, nil)
                 }
                 catch let error as NSError {
@@ -95,9 +95,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             if newResponse == nil {
                 newResponse = AppDelegate.getContext()!.insert(Response.self)
                 responses.insert(newResponse!, atIndex: 0)
+                newResponse!.id = response["id"] as? NSNumber
             }
             
-            newResponse!.id = response["id"] as? NSNumber
             newResponse!.correct = response["correct"] as? NSNumber == 1
             newResponse!.answer = card.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
             newResponse!.value = response["value"] as? String

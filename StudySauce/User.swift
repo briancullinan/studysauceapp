@@ -30,7 +30,7 @@ class User: NSManagedObject {
     }
     
     func getRetentionRemaining() -> Int {
-        return self.getRetention().filter({
+        return self.getRetention(true).filter({
             let response = $0.getResponse(self)
             if response == nil || response!.created! < self.retention_to! {
                 return true
@@ -53,12 +53,9 @@ class User: NSManagedObject {
         return nil
     }
     
-    func getRetention() -> [Card] {
+    func getRetention(refresh: Bool = false) -> [Card] {
         var results: [Card] = []
-        let stillEmpty = self.retention_to == nil || self.retention == nil || self.retention == ""
-        let timeout = stillEmpty || self.retention_to!.time(3).addDays(1) < NSDate()
-        let uncounted = (self.user_packs?.allObjects as! [UserPack]).filter({stillEmpty || timeout || ($0.downloaded != nil && $0.downloaded! >= self.retention_to!)})
-        if stillEmpty || timeout || uncounted.count > 0 {
+        if refresh {
             // TODO: change this line when userpack order matters
             for up in self.user_packs?.allObjects as! [UserPack] {
                 results.appendContentsOf(up.getRetention())

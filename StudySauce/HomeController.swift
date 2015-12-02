@@ -62,7 +62,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(animated: Bool) {
         self.viewDidLoad()
-        self.tableView?.reloadData()
     }
     
     override func shouldAutorotate() -> Bool {
