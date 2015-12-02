@@ -68,6 +68,7 @@ class UserPack: NSManagedObject {
             let responses = c.getResponses(user)
             var last: Response? = nil
             var i = 0
+            var correctAfter = false
             for r in responses {
                 // TODO: if its correct the first time skip to index 2
                 if r.created == nil {
@@ -75,15 +76,17 @@ class UserPack: NSManagedObject {
                 }
                 if r.correct == 1 {
                     // If it is in between time intervals ignore the reponse
-                    while last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3) {
+                    while i < intervals.count && (last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3)) {
                         // shift the time interval if answers correctly in the right time frame
                         last = r
                         i++
                     }
+                    correctAfter = true
                 }
                 else {
                     i = 0
                     last = r
+                    correctAfter = false
                 }
             }
             if i < 0 {
@@ -92,7 +95,7 @@ class UserPack: NSManagedObject {
             if i > intervals.count - 1 {
                 i = intervals.count - 1
             }
-            if responses.count == 0 || i == 0 || last!.created!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
+            if responses.count == 0 || (i == 0 && !correctAfter) || last!.created!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
                 result.append(c)
             }
         }

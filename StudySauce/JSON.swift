@@ -78,7 +78,8 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
-                        redirect(path: json["redirect"] as! String)
+                        let url = NSURL(string: json["redirect"] as! String)
+                        redirect(path: url!.path!)
                     }
                     done(json: json)
                 })

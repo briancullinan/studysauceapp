@@ -99,9 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             reset.mail = url.getKeyVals()["email"]!
             self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
             self.window?.rootViewController!.presentViewController(reset, animated: true, completion: {})
-            return true
         }
-        else if query["_code"] != nil {
+        else if query["_code"] != nil && query["first"] != nil {
             let reg = self.storyboard!.instantiateViewControllerWithIdentifier("UserRegister") as! UserRegisterController
             reg.transitioningDelegate = CardSegue.transitionManager
             reg.registrationCode = query["_code"]!
@@ -111,7 +110,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             reg.token = query["csrf_token"]!
             self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
             self.window?.rootViewController!.presentViewController(reg, animated: true, completion: {})
-            return true
+        }
+        else if query["_code"] != nil {
+            postJson("/register", params: ["_code": query["_code"]!], redirect: {(path) in
+                    if path == "/home" {
+                        UserLoginController.home({
+                            let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
+                            viewController.transitioningDelegate = CardSegue.transitionManager
+                            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
+                            self.window?.rootViewController!.presentViewController(viewController, animated: true, completion: {})
+                        })
+                    }
+            })
         }
         else {
             UserLoginController.home {
@@ -122,8 +132,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     self.window?.rootViewController!.presentViewController(viewController, animated: true, completion: {})
                 }
             }
-            return true
         }
+        return true
     }
     
     func applicationWillResignActive(application: UIApplication) {

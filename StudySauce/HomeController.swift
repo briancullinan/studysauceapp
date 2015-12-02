@@ -92,8 +92,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
-        self.setTotal()
+        if AppDelegate.getUser() == nil {
+            return
+        }
+        
         if self.tableView != nil {
+            self.setTotal()
             if self.taskManager == nil {
                 self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "viewDidLoad", userInfo: nil, repeats: true)
                 NSRunLoop.mainRunLoop().addTimer(self.taskManager!, forMode: NSRunLoopCommonModes)
@@ -101,6 +105,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             // Load packs from database
             self.packs = getPacksFromLocalStore()
+            self.tableView!.reloadData()
             PackSummaryController.getPacks({
                 dispatch_async(dispatch_get_main_queue(), {
                     self.packs = self.getPacksFromLocalStore()
