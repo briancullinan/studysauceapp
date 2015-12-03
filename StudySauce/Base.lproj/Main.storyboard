@@ -2579,7 +2579,7 @@ support@studysauce.com
                     <connections>
                         <outlet property="inputText" destination="3fg-Rj-6Lw" id="ZOM-If-qOn"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="VCf-ft-oRv"/>
-                        <segue destination="bKm-7T-5yA" kind="unwind" identifier="last" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" unwindAction="returnToBlank:" id="SyC-M2-y0O"/>
+                        <segue destination="bKm-7T-5yA" kind="unwind" identifier="last" unwindAction="returnToBlank:" id="SyC-M2-y0O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MVp-Xa-4AI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2600,8 +2600,8 @@ support@studysauce.com
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1w5-kD-eLZ"/>
-        <segue reference="Edk-H5-39l"/>
+        <segue reference="I3T-Nz-Fid"/>
         <segue reference="ucz-Xl-O7T"/>
-        <segue reference="VCf-ft-oRv"/>
+        <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
