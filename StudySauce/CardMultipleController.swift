@@ -51,33 +51,28 @@ class CardMultipleController: UIViewController {
     
     func saveResponse(value: String) {
         if let vc = self.parentViewController as? CardController {
-            do {
-                if let moc = AppDelegate.getContext() {
-                    let newResponse = moc.insert(Response.self)
-                    for a in self.card!.answers!.allObjects as! [Answer] {
-                        if a.value == value {
-                            newResponse.correct = a.correct
-                            newResponse.answer = a
-                            break
-                        }
+            if let moc = AppDelegate.getContext() {
+                let newResponse = moc.insert(Response.self)
+                for a in self.card!.answers!.allObjects as! [Answer] {
+                    if a.value == value {
+                        newResponse.correct = a.correct
+                        newResponse.answer = a
+                        break
                     }
-                    newResponse.value = value
-                    newResponse.card = self.card
-                    newResponse.created = NSDate()
-                    newResponse.user = AppDelegate.getUser()
-                    try moc.save()
-                    // store intermediate and don't call this until after the correct answer is shown
-                    vc.intermediateResponse = newResponse
-                    vc.submitResponse(newResponse)
-                    self.performSegueWithIdentifier("correct", sender: self)
                 }
-            }
-            catch let error as NSError {
-                NSLog(error.description)
+                newResponse.value = value
+                newResponse.card = self.card
+                newResponse.created = NSDate()
+                newResponse.user = AppDelegate.getUser()
+                AppDelegate.saveContext()
+                // store intermediate and don't call this until after the correct answer is shown
+                vc.intermediateResponse = newResponse
+                vc.submitResponse(newResponse)
+                self.performSegueWithIdentifier("correct", sender: self)
             }
         }
     }
-        
+    
     @IBAction func answer1Click(sender: UIButton) {
         self.saveResponse(sender.titleForState(.Normal)!)
     }

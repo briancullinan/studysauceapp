@@ -28,12 +28,15 @@ class CardSelfController: UIViewController {
                 content!.text = vc.card?.content
             }
             if response != nil {
-                let correct = vc.card?.getCorrect()?.value
-                if correct == nil {
+                let correct = vc.card?.getCorrect()
+                if correct == nil || correct!.value == nil {
                     response!.text = "\(vc.card!.response!)"
                 }
                 else {
-                    response!.text = "\(correct!)\n\r\(vc.card!.response!)"
+                    let ex = try? NSRegularExpression(pattern: correct!.value!, options: NSRegularExpressionOptions.CaseInsensitive)
+                    let match = ex?.firstMatchInString(correct!.value!, options: [], range:NSMakeRange(0, correct!.value!.utf16.count))
+                    let matched = match?.rangeAtIndex(0)
+                    response!.text = "\(correct!.value!)\n\r\(vc.card!.response!)"
                 }
             }
             self.card = vc.card;
@@ -42,20 +45,15 @@ class CardSelfController: UIViewController {
     
     func submitResponse(correct: Bool) {
         if let vc = self.parentViewController as? CardController {
-            do {
-                if let moc = AppDelegate.getContext() {
-                    let newResponse = moc.insert(Response.self)
-                    newResponse.correct = correct
-                    newResponse.card = self.card
-                    newResponse.created = NSDate()
-                    newResponse.user = AppDelegate.getUser()
-                    try moc.save()
-                    vc.intermediateResponse = newResponse
-                    vc.submitResponse(newResponse)
-                }
-            }
-            catch let error as NSError {
-                NSLog(error.description)
+            if let moc = AppDelegate.getContext() {
+                let newResponse = moc.insert(Response.self)
+                newResponse.correct = correct
+                newResponse.card = self.card
+                newResponse.created = NSDate()
+                newResponse.user = AppDelegate.getUser()
+                AppDelegate.saveContext()
+                vc.intermediateResponse = newResponse
+                vc.submitResponse(newResponse)
             }
             self.performSegueWithIdentifier("card", sender: self)
         }
