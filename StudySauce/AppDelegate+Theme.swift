@@ -211,6 +211,10 @@ extension AppDelegate {
            CardTrueFalseController.self |> UIButton.self |> UILabel.self], {
             $0.setFontSize(40)
         })
+        $([CardBlankController.self |> UITextField.self,
+            CardBlankController.self |> UITextField.self |> UILabel.self], {
+            $0.setFontSize(20)
+        })
         
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
