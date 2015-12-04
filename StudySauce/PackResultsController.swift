@@ -48,17 +48,11 @@ class PackResultsController: UIViewController {
         if self.isRetention {
             // force homescreen to update with new retention cards
             AppDelegate.getUser()!.getRetention(true)
-            AppDelegate.getUser()!.retention_to = NSDate()
         }
         else {
-            let up = self.pack.getUserPack(AppDelegate.getUser())
             // next time card is loaded retries will be repopulated
-            var retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
-            retries.shuffleInPlace()
-            up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
-            up.retry_to = NSDate()
+            self.pack.getUserPack(AppDelegate.getUser()).getRetries(true)
         }
-        AppDelegate.saveContext()
     }
     // TODO: display a summery of the results
 

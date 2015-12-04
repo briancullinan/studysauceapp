@@ -379,7 +379,6 @@
                     <connections>
                         <outlet property="tableView" destination="d4B-bi-vai" id="nVX-g6-hK7"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="aNX-LU-Mfo"/>
-                        <segue destination="ArM-tF-FuE" kind="custom" identifier="results" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="1w5-kD-eLZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eeH-si-5Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2602,9 +2601,8 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1w5-kD-eLZ"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="ucz-Xl-O7T"/>
+        <segue reference="M6g-6I-YI4"/>
         <segue reference="DnL-J9-off"/>
     </inferredMetricsTieBreakers>
 </document>

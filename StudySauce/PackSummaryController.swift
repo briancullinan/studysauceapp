@@ -292,11 +292,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     return
                 }
                 if self.pack!.getUserPack(AppDelegate.getUser()).getRetryCard() == nil {
-                    self.performSegueWithIdentifier("results", sender: self)
+                    self.pack!.getUserPack(AppDelegate.getUser()).getRetries(true)
                 }
-                else {
-                    self.performSegueWithIdentifier("card", sender: self)
-                }
+                self.performSegueWithIdentifier("card", sender: self)
             })
         }
     }
