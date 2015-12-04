@@ -21,17 +21,46 @@ class CardBlankController: UIViewController {
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.inputText != nil {
+            inputText!.becomeFirstResponder()
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let _ = segue.destinationViewController as? CardBlankController {
+            if self.inputText != nil {
+                UIView.setAnimationsEnabled(false)
+                self.inputText!.resignFirstResponder()
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+    }
+    
+    @IBAction func beginEdit(sender: UITextField) {
+        UIView.setAnimationsEnabled(false)
+    }
+
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
             if content != nil {
                 content!.text = vc.card?.content
             }
             if inputText != nil {
-                inputText!.becomeFirstResponder()
+                //Adding done button for textField1
+                self.inputText?.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
+
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
                 //self.handler = IQKeyboardReturnKeyHandler(controller: self)
             }
             self.card = vc.card
         }
+    }
+    
+    func didShowKeyboard(notification: NSNotification) {
+        UIView.setAnimationsEnabled(true)
     }
     
     func saveResponse(value: String) {

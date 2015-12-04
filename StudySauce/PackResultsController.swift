@@ -47,8 +47,8 @@ class PackResultsController: UIViewController {
     func doReset() {
         if self.isRetention {
             // force homescreen to update with new retention cards
-            AppDelegate.getUser()!.retention_to = nil
-            AppDelegate.saveContext()
+            AppDelegate.getUser()!.getRetention(true)
+            AppDelegate.getUser()!.retention_to = NSDate()
         }
         else {
             let up = self.pack.getUserPack(AppDelegate.getUser())
@@ -57,8 +57,8 @@ class PackResultsController: UIViewController {
             retries.shuffleInPlace()
             up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
             up.retry_to = NSDate()
-            AppDelegate.saveContext()
         }
+        AppDelegate.saveContext()
     }
     // TODO: display a summery of the results
 

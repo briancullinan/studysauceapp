@@ -111,8 +111,7 @@ extension AppDelegate {
 
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
         $([DialogController.self |> UILabel.self,
-           UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self,
-           UIImageView.self |^ { $0.tag == 23 } |+ UIView.self |> UILabel.self], {
+           UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
         $([DialogController.self |>> UILabel.self |^ T.firstOfType,
@@ -214,6 +213,25 @@ extension AppDelegate {
         $([CardBlankController.self |> UITextField.self,
             CardBlankController.self |> UITextField.self |> UILabel.self], {
             $0.setFontSize(20)
+        })
+        $(ContactUsController.self |> UITextView.self, {
+            $0.backgroundColor = UIColor.whiteColor()
+            $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            $0.layer.borderWidth = 0.5
+            $0.layer.cornerRadius = 0
+        })
+        $(UITextField.self |>> UILabel.self, {
+            if $0.text == ($0.superview as? UITextField)?.placeholder {
+                $0.setFontColor(saucyTheme.lightColor)
+            }
+        })
+        $([CardBlankController.self |> UITextField.self,
+            ContactUsController.self |> UITextField.self], {(v: UITextField) in
+            v.backgroundColor = UIColor.whiteColor()
+            v.borderStyle = UITextBorderStyle.None
+            v.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            v.layer.borderWidth = 0.5
+            v.layer.cornerRadius = 0
         })
         
         // This is the normal way to change appearance on a single type
