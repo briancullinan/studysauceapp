@@ -69,7 +69,7 @@ class CardBlankController: UIViewController {
                 let newResponse = moc.insert(Response.self)
                 let answer = self.card!.getCorrect()
                 newResponse.answer = answer
-                let ex = try? NSRegularExpression(pattern: value, options: NSRegularExpressionOptions.CaseInsensitive)
+                let ex = try? NSRegularExpression(pattern: answer!.value!, options: [NSRegularExpressionOptions.CaseInsensitive])
                 let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.utf16.count))
                 newResponse.correct = match != nil
                 newResponse.value = value
