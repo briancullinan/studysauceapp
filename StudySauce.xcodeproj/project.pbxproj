@@ -109,6 +109,7 @@
 		64291C601BC5A2CD005AA348 /* SaucyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaucyButton.swift; sourceTree = "<group>"; };
 		64292E101BE2F3C60038505B /* CardTransitionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransitionManager.swift; sourceTree = "<group>"; };
 		64306E0E1BFE62AD0069BF1F /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		643838651C12758500AF2314 /* StudySauce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StudySauce.entitlements; sourceTree = "<group>"; };
 		643C203F1BE461CE00A89A3F /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
@@ -360,6 +361,7 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
+				643838651C12758500AF2314 /* StudySauce.entitlements */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				9D5ECB341BF3D16F00F09EE0 /* AppDelegate+Theme.swift */,
 				6401F4A01BB5DF26004E0163 /* Controllers */,
@@ -467,7 +469,12 @@
 				TargetAttributes = {
 					8450524E1BA4AA3B005377D9 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = KM26M4J5U5;
+						DevelopmentTeam = 3MV67NZ3PZ;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					845052651BA4AA3C005377D9 = {
 						CreatedOnToolsVersion = 6.4;
@@ -722,12 +729,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StudySauce/StudySauce.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -737,12 +745,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StudySauce/StudySauce.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.StudySauce.cerebro;
+				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
