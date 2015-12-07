@@ -197,7 +197,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
             let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
-            let managedObjectContext = NSManagedObjectContext()
+            let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
             managedObjectContext.persistentStoreCoordinator = coordinator
             if manual {
                 self.managedObjectContext = managedObjectContext
@@ -216,7 +216,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         if coordinator == nil {
             return nil
         }
-        let managedObjectContext = NSManagedObjectContext()
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
         }()

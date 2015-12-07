@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.StudySauce.cerebro</string>
+			<string>com.studysauce.app</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>studysauce</string>

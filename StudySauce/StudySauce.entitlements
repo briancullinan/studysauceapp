@@ -3,10 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>com.apple.developer.associated-domains</key>
-	<array>
-		<string>webcredentials:cerebro.studysauce.com</string>
-		<string>webcredentials:studysauce.com</string>
-		<string>webcredentials:www.studysauce.com</string>
-	</array>
+	<array/>
 </dict>
 </plist>
