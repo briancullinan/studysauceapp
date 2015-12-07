@@ -31,7 +31,9 @@ class CardTrueFalseController: UIViewController {
                 let newResponse = moc.insert(Response.self)
                 for a in self.card!.answers!.allObjects as! [Answer] {
                     if a.value == value {
-                        newResponse.correct = a.correct
+                        let ex = try? NSRegularExpression(pattern: a.value!, options: [NSRegularExpressionOptions.CaseInsensitive])
+                        let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.utf16.count))
+                        newResponse.correct = match != nil
                         newResponse.answer = a
                         break
                     }
@@ -50,10 +52,10 @@ class CardTrueFalseController: UIViewController {
     }
     
     @IBAction func falseClick(sender: UIButton) {
-        self.saveResponse("False")
+        self.saveResponse("false")
     }
     
     @IBAction func trueClick(sender: UIButton) {
-        self.saveResponse("True")
+        self.saveResponse("true")
     }
 }
