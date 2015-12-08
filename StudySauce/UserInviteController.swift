@@ -24,6 +24,10 @@ class UserInviteController : UIViewController {
         
     }
 
+    @IBAction func codeButton(sender: UIButton) {
+        self.showDialog(NSLocalizedString("Ask you sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), button: NSLocalizedString("Ok", comment: "Ok button for no code message"))
+    }
+    
     @IBAction func submitCode(sender: UIButton) {
         self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text
@@ -75,6 +79,7 @@ class UserInviteController : UIViewController {
                 self.first = json!["first"] as? String
                 self.last = json!["last"] as? String
                 self.mail = json!["email"] as? String
+                self.performSegueWithIdentifier("register", sender: self)
         })
     }
     

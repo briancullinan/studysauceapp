@@ -234,6 +234,10 @@ extension AppDelegate {
             v.layer.cornerRadius = 0
         })
         
+        //$(|^{$0.systemVersion.compare("8.0", options: .NumericSearch) == .OrderedDescending} |> UILabel.self, {
+        //    $0.setFontColor(UIColor.blueColor())
+        //})
+        
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

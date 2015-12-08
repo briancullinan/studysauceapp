@@ -62,6 +62,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         // sync responses
                         self.processResponses(newCard!, json: card["responses"] as! NSArray)
+                        AppDelegate.saveContext()
                     }
                     
                     // remove cards that no longer exist

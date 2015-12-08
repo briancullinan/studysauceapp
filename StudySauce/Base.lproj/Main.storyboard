@@ -116,7 +116,7 @@
                                     <constraint firstAttribute="width" constant="57" id="4gf-NS-X15"/>
                                     <constraint firstAttribute="height" constant="38" id="lDS-0a-AfY"/>
                                 </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <state key="normal" image="StudySauceBackArrow"/>
                                 <connections>
                                     <action selector="backClick:" destination="RhB-Zp-1b3" eventType="touchUpInside" id="AU9-gc-OWY"/>
                                 </connections>
@@ -845,16 +845,6 @@ support@studysauce.com
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIo-S9-tOa">
-                                <rect key="frame" x="203" y="562" width="195" height="30"/>
-                                <animations/>
-                                <state key="normal" title="Don't have code?  Click here">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="Es2-us-aXV" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="2IC-R3-Mkw"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter code to continue" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CZ5-1O-yqg">
                                 <rect key="frame" x="150" y="300" width="300" height="50"/>
                                 <animations/>
@@ -866,7 +856,7 @@ support@studysauce.com
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We are currently in private Beta" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bf0-Fl-TON">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your sponsor's code to continue" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bf0-Fl-TON">
                                 <rect key="frame" x="20" y="210" width="560" height="32"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -900,6 +890,16 @@ support@studysauce.com
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
                                     <segue destination="kKK-Wn-MHf" kind="unwind" unwindAction="returnToHome:" id="SyP-QK-RxE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIo-S9-tOa">
+                                <rect key="frame" x="203" y="562" width="195" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Don't have code?  Click here">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="codeButton:" destination="pyw-KZ-FSd" eventType="touchUpInside" id="keI-xB-OSL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1223,7 +1223,7 @@ support@studysauce.com
                                     <segue destination="r1H-H0-UTa" kind="unwind" unwindAction="returnToInvite:" id="HdH-3E-Evw"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like an email when we are out of private beta?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPA-3o-4H2">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPA-3o-4H2">
                                 <rect key="frame" x="20" y="177" width="560" height="63"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>

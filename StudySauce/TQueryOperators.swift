@@ -109,6 +109,16 @@ func $(b: [UIView.Type], _ set: UIView -> Void) {
     $(b.map({return TQueryable<UIView>($0)}), set)
 }
 
+// @
+
+prefix operator |^ {}
+
+prefix func |^ (media: UIDevice -> Bool) -> TQueryable<UIDevice> {
+    return TMatching(TQueryable(UIDevice.self), {(_: UIDevice) in
+        return media(UIDevice.currentDevice())
+    })
+}
+
 /*
 func |+ <A: UIView, B: UIView>(a: A, b: B.Type) -> [B] {
     return TSibling<A, B>(a: A.self, b: b).matching(a) as! [B]

@@ -72,17 +72,30 @@
 <pre class="sikuli-code">
 <span class="kw">from</span> sikuli <span class="kw">import</span> *
 
+sequence = []
+sequence[] = {<span class="dig">0</span>: true, <span class="dig">1</span>: true, <span class="dig">2</span>: true,
+
+<span class="kw">def</span> home_download:
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.18.19 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.19.29 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-07 at 7.13.50 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-07 at 7.15.05 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+
 App.focus(<span class="str">"Simulator"</span>)
 <span class="skw">wait</span>(<span class="dig">1</span>)
 simulator = Region(App.focusedWindow())
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.18.19 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.19.29 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
-simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
 simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 9.41.56 AM.png" />)
 <span class="skw">wait</span>(<span class="dig">1</span>)
 <span class="cmt"># get the first one wrong</span>
@@ -105,7 +118,8 @@ simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.2
 simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-12-01 at 1.23.22 PM.png" />)
 <span class="skw">wait</span>(<span class="dig">1</span>)
 simulator.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 1.57.31 PM.png" />)
-<span class="skw">wait</span>(<span class="dig">1</span>)
+<span class="skw">wait</span>(<span class="dig">1</span>)<h3>ERROR: EOF in multi-line statement</h3>
+</font></pre>
 </pre>
 </body>
 </html>
