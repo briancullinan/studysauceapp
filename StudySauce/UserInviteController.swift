@@ -79,6 +79,7 @@ class UserInviteController : UIViewController {
                 self.first = json!["first"] as? String
                 self.last = json!["last"] as? String
                 self.mail = json!["email"] as? String
+                self.token = json!["csrf_token"] as? String
                 self.performSegueWithIdentifier("register", sender: self)
         })
     }

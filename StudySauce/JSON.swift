@@ -8,7 +8,7 @@
 
 import Foundation
 
-func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: ((json: AnyObject?) -> Void)? = nil, error: ((code: Int) -> Void)? = nil, redirect: ((path: String) -> Void)? = nil) {
+func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}) {
     var postData = ""
     for (k, v) in params {
         postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
@@ -23,20 +23,20 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
             hadError = true
             NSLog("\(err?.description)")
         }
-        if error != nil && response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
+        if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
             hadError = true
-            error!(code: (response as! NSHTTPURLResponse).statusCode)
+            error(code: (response as! NSHTTPURLResponse).statusCode)
         }
         if data != nil {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
                 dispatch_async(dispatch_get_main_queue(), {
                     // change this if we want to register without a code
-                    if redirect != nil && json["redirect"] as? String != nil {
-                        redirect!(path: json["redirect"] as! String)
+                    if json["redirect"] as? String != nil {
+                        redirect(path: json["redirect"] as! String)
                     }
-                    if !hadError && done != nil {
-                        done!(json: json)
+                    if !hadError {
+                        done(json: json)
                     }
                 })
             }
@@ -62,10 +62,13 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     let ses = NSURLSession.sharedSession()
     let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+        var hadError = false
         if (err != nil) {
+            hadError = true
             NSLog("\(err?.description)")
         }
         if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
+            hadError = true
             error(code: (response as! NSHTTPURLResponse).statusCode)
         }
         if data != nil {
@@ -77,7 +80,9 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
                         let url = NSURL(string: json["redirect"] as! String)
                         redirect(path: url!.path!)
                     }
-                    done(json: json)
+                    if !hadError {
+                        done(json: json)
+                    }
                 })
             }
             catch let error as NSError {
