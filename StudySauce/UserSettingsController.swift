@@ -121,6 +121,13 @@ class UserSettingsController: UITableViewController {
         //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
     
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 1 {
+            return 0
+        }
+        return super.tableView(tableView, numberOfRowsInSection: section)
+    }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if self.privacyCell.hidden {
             if indexPath.section >= 2 {
@@ -131,9 +138,12 @@ class UserSettingsController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 1 {
+            return nil
+        }
         if self.privacyCell.hidden {
             if section >= 2 {
-                return Optional(nil)!
+                return nil
             }
         }
         return super.tableView(tableView, titleForHeaderInSection: section)
