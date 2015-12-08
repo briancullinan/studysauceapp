@@ -51,7 +51,18 @@ class PackResultsController: UIViewController {
         }
         else {
             // next time card is loaded retries will be repopulated
-            self.pack.getUserPack(AppDelegate.getUser()).getRetries(true)
+            let up = self.pack.getUserPack(AppDelegate.getUser())
+            if self.percent.text == "100%" {
+                up.getRetries(true)
+            }
+            else {
+                // only wrong
+                var retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
+                retries.shuffleInPlace()
+                up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
+                up.retry_to = NSDate()
+                AppDelegate.saveContext()
+            }
         }
     }
     // TODO: display a summery of the results
@@ -88,7 +99,7 @@ class PackResultsController: UIViewController {
         }
         
         let score = Int32(round(Double(correct) / Double(correct + wrong) * 100.0));
-        percent.text = "\(score)%"
+        self.percent.text = "\(score)%"
     }
     
 }

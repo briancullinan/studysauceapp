@@ -2180,7 +2180,7 @@ support@studysauce.com
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="Lez-iK-21r" kind="unwind" unwindAction="returnToSettings:" id="2F0-SO-0AD"/>
+                                    <segue destination="Lez-iK-21r" kind="unwind" identifier="dismiss" unwindAction="returnToSettings:" id="2F0-SO-0AD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
@@ -2542,7 +2542,7 @@ support@studysauce.com
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-Rj-6Lw">
-                                <rect key="frame" x="20" y="28" width="560" height="17"/>
+                                <rect key="frame" x="20" y="142" width="560" height="17"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -2551,7 +2551,7 @@ support@studysauce.com
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOd-z4-PhJ">
-                                <rect key="frame" x="200" y="53" width="200" height="50"/>
+                                <rect key="frame" x="200" y="167" width="200" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -2574,7 +2574,7 @@ support@studysauce.com
                             <constraint firstItem="JOd-z4-PhJ" firstAttribute="top" secondItem="3fg-Rj-6Lw" secondAttribute="bottom" constant="8" symbolic="YES" id="8oO-VD-HVA"/>
                             <constraint firstItem="3fg-Rj-6Lw" firstAttribute="leading" secondItem="8Tr-f4-9ll" secondAttribute="leadingMargin" id="Els-dt-8vy"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3fg-Rj-6Lw" secondAttribute="trailing" id="Lr4-MO-IUx"/>
-                            <constraint firstItem="3fg-Rj-6Lw" firstAttribute="top" secondItem="dKv-nM-XPI" secondAttribute="bottom" constant="8" symbolic="YES" id="MsC-Yv-nBS"/>
+                            <constraint firstItem="3fg-Rj-6Lw" firstAttribute="centerY" secondItem="8Tr-f4-9ll" secondAttribute="centerY" multiplier="0.5" id="NuZ-kA-Cfe"/>
                             <constraint firstItem="JOd-z4-PhJ" firstAttribute="centerX" secondItem="8Tr-f4-9ll" secondAttribute="centerX" id="oYR-jl-cBf"/>
                         </constraints>
                     </view>
@@ -2601,8 +2601,8 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Edk-H5-39l"/>
+        <segue reference="VCf-ft-oRv"/>
         <segue reference="M6g-6I-YI4"/>
-        <segue reference="DnL-J9-off"/>
+        <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
