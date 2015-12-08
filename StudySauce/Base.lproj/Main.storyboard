@@ -1427,64 +1427,6 @@ support@studysauce.com
             </objects>
             <point key="canvasLocation" x="2747" y="-5675"/>
         </scene>
-        <!--User Switch Controller-->
-        <scene sceneID="IJm-xL-qSh">
-            <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="QOS-UM-hHI" customClass="UserSwitchController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="nNQ-EA-DTX"/>
-                        <viewControllerLayoutGuide type="bottom" id="6dN-Ap-y13"/>
-                    </layoutGuides>
-                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="tgf-Im-ziB">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue2-Mo-fbC">
-                                <rect key="frame" x="180" y="361" width="240" height="240"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Stephen">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyd-j9-A4F">
-                                <rect key="frame" x="180" y="101" width="240" height="240"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="jyd-j9-A4F" secondAttribute="height" multiplier="1:1" id="8rT-I6-L1v"/>
-                                </constraints>
-                                <state key="normal" title="Brian">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Who is studying?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gS-k1-hO6">
-                                <rect key="frame" x="235" y="60" width="131" height="21"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jyd-j9-A4F" firstAttribute="top" secondItem="8gS-k1-hO6" secondAttribute="bottom" constant="20" id="DXY-vF-f6x"/>
-                            <constraint firstItem="jyd-j9-A4F" firstAttribute="width" secondItem="tgf-Im-ziB" secondAttribute="width" multiplier="0.4" id="Jc8-0T-5JE"/>
-                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="OtS-rY-QCa"/>
-                            <constraint firstItem="8gS-k1-hO6" firstAttribute="top" secondItem="nNQ-EA-DTX" secondAttribute="bottom" constant="40" id="U4o-XB-tyu"/>
-                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="height" secondItem="jyd-j9-A4F" secondAttribute="height" id="V7h-MJ-NAn"/>
-                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="width" secondItem="jyd-j9-A4F" secondAttribute="width" id="Vcx-PJ-XRw"/>
-                            <constraint firstItem="jyd-j9-A4F" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="cdo-Nn-rs6"/>
-                            <constraint firstItem="8gS-k1-hO6" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="sU3-6N-UeV"/>
-                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="top" secondItem="jyd-j9-A4F" secondAttribute="bottom" constant="20" id="sVf-L1-93H"/>
-                        </constraints>
-                    </scrollView>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UFx-l4-nco" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1955" y="-5074"/>
-        </scene>
         <!--Home Controller-->
         <scene sceneID="LAm-Vc-LD8">
             <objects>
