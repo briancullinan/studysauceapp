@@ -74,6 +74,10 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.buttonFont)
         })
         
+        $(UserSwitchController.self |>> UIView.self, {
+            $0.viewController()?.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+        })
+        
         // set up text colors
         $([UILabel.self,
            UITextView.self,
@@ -108,17 +112,18 @@ extension AppDelegate {
             //}
 
         })
-
+        
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
         $([DialogController.self |> UILabel.self,
+           UserSwitchController.self |>> UILabel.self |^ T.firstOfType,
            UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
         $([DialogController.self |>> UILabel.self |^ T.firstOfType,
            UserInviteController.self |>> UILabel.self |^ T.firstOfType,
-           BetaSignupController.self |>> UILabel.self |^ T.firstOfType,
            UserLoginController.self |>> UILabel.self |^ T.firstOfType,
-           UserResetController.self |>> UILabel.self |^ T.firstOfType], {
+           UserResetController.self |>> UILabel.self |^ T.firstOfType,
+           UserSwitchController.self |>> UILabel.self |^ T.firstOfType], {
             $0.setFontSize(30.0)
         })
         

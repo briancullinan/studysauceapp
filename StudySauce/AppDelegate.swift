@@ -86,7 +86,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return true
     }
     
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return true
+    }
+    
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return true
+    }
+    
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
         return true
     }
     

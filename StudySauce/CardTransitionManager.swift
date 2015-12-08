@@ -162,9 +162,15 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
-        if next is DialogController {
+        if next.modalPresentationStyle == .OverCurrentContext {
             container!.addSubview(last.view)
             container!.addSubview(next.view)
+            if self.presenting {
+                next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+            }
+            else {
+                next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+            }
         }
         else {
             container!.addSubview(next.view)
@@ -191,7 +197,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let moveNext = UIScreen.mainScreen().bounds.width
         var moveLast = -UIScreen.mainScreen().bounds.width
         
-        if next is DialogController {
+        if next.modalPresentationStyle == .OverCurrentContext {
             moveLast = 0.0
         }
         
@@ -270,6 +276,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 if self.presenting {
                     next.view.transform = CGAffineTransformIdentity
                     last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                    if next.modalPresentationStyle == .OverCurrentContext {
+                        next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                    }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
                     }
@@ -282,6 +291,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 else {
                     last.view.transform = CGAffineTransformMakeTranslation(0, 0)
                     next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                    if next.modalPresentationStyle == .OverCurrentContext {
+                        next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                    }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                     }

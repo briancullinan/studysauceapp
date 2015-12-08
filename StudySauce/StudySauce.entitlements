@@ -6,6 +6,12 @@
 	<array>
 		<string>webcredentials:cerebro.studysauce.com</string>
 		<string>webcredentials:studysauce.com</string>
+		<string>applinks:cerebro.studysauce.com</string>
+		<string>webcredentials:staging.studysauce.com</string>
+		<string>applinks:studysauce.com</string>
+		<string>applinks:staging.studysauce.com</string>
+		<string>webcredentials:www.studysauce.com</string>
+		<string>applinks:www.studysauce.com</string>
 	</array>
 </dict>
 </plist>

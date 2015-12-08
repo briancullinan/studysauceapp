@@ -1178,98 +1178,6 @@ support@studysauce.com
             </objects>
             <point key="canvasLocation" x="319" y="-5074"/>
         </scene>
-        <!--Post-Beta email?-->
-        <scene sceneID="uI3-5j-UgN">
-            <objects>
-                <viewController id="Es2-us-aXV" userLabel="Post-Beta email?" customClass="BetaSignupController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="KkB-j0-hpQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="AI2-z8-53y"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="TVE-oe-SoC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="xUO-cs-zxm">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5O-x7-Qky">
-                                <rect key="frame" x="200" y="375" width="200" height="50"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="2wR-Rl-GH7"/>
-                                    <constraint firstAttribute="width" constant="200" id="fiY-wF-07f"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Email me">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailClick:" destination="Es2-us-aXV" eventType="touchUpInside" id="gep-Yg-zbv"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L2-r3-omR">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="6gN-u6-pAp"/>
-                                    <constraint firstAttribute="width" constant="57" id="uqU-ZC-Al4"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <segue destination="r1H-H0-UTa" kind="unwind" unwindAction="returnToInvite:" id="HdH-3E-Evw"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPA-3o-4H2">
-                                <rect key="frame" x="20" y="177" width="560" height="63"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ryo-mH-B2V">
-                                <rect key="frame" x="150" y="300" width="300" height="50"/>
-                                <animations/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="8Ou-Qq-Nys"/>
-                                    <constraint firstAttribute="width" constant="300" id="u55-yR-TMf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
-                            </textField>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="leadingMargin" secondItem="mPA-3o-4H2" secondAttribute="leading" id="10i-dY-fRQ"/>
-                            <constraint firstItem="mPA-3o-4H2" firstAttribute="centerX" secondItem="TVE-oe-SoC" secondAttribute="centerX" id="1oX-gM-Kez"/>
-                            <constraint firstItem="xUO-cs-zxm" firstAttribute="centerX" secondItem="TVE-oe-SoC" secondAttribute="centerX" id="2cS-OB-qm5"/>
-                            <constraint firstItem="xUO-cs-zxm" firstAttribute="centerY" secondItem="TVE-oe-SoC" secondAttribute="centerY" id="9Gy-jE-t5x"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="mPA-3o-4H2" secondAttribute="trailing" id="HXm-z7-Hph"/>
-                            <constraint firstItem="4L2-r3-omR" firstAttribute="top" secondItem="KkB-j0-hpQ" secondAttribute="bottom" id="LLE-7D-5GQ"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="4L2-r3-omR" secondAttribute="leading" id="Oq5-3c-d9u"/>
-                            <constraint firstItem="xUO-cs-zxm" firstAttribute="width" secondItem="TVE-oe-SoC" secondAttribute="width" id="c3Y-Za-sR8"/>
-                            <constraint firstItem="Ryo-mH-B2V" firstAttribute="top" secondItem="AI2-z8-53y" secondAttribute="top" multiplier="0.5" id="dlb-mP-X5c"/>
-                            <constraint firstItem="Ryo-mH-B2V" firstAttribute="centerX" secondItem="TVE-oe-SoC" secondAttribute="centerX" id="f6p-2X-heF"/>
-                            <constraint firstItem="U5O-x7-Qky" firstAttribute="centerX" secondItem="TVE-oe-SoC" secondAttribute="centerX" id="gIl-O3-8va"/>
-                            <constraint firstItem="U5O-x7-Qky" firstAttribute="top" secondItem="Ryo-mH-B2V" secondAttribute="bottom" constant="25" id="hcR-Uk-sA7"/>
-                            <constraint firstItem="mPA-3o-4H2" firstAttribute="bottom" secondItem="AI2-z8-53y" secondAttribute="top" multiplier="0.4" id="kQK-Xm-Nst"/>
-                            <constraint firstItem="xUO-cs-zxm" firstAttribute="height" secondItem="TVE-oe-SoC" secondAttribute="height" id="pDe-dB-QRX"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="email" destination="Ryo-mH-B2V" id="joe-oT-gqJ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sbj-Oe-qZS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="r1H-H0-UTa" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1135" y="-6760"/>
-        </scene>
         <!--UserLogin-->
         <scene sceneID="OsQ-Ym-rtE">
             <objects>
@@ -1376,87 +1284,6 @@ support@studysauce.com
                 <exit id="X52-GF-cm9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-5074"/>
-        </scene>
-        <!--Home-->
-        <scene sceneID="O2B-J0-79P">
-            <objects>
-                <viewController title="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Sh1-gC-bac" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UQS-i6-XZb"/>
-                        <viewControllerLayoutGuide type="bottom" id="89T-UU-IpT"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Bf3-KJ-GSS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="zlc-Gr-gBx">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="UwA-oP-fTz">
-                                <rect key="frame" x="157" y="15" width="285" height="285"/>
-                                <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="UwA-oP-fTz" secondAttribute="height" multiplier="277:261" constant="-17.471264367816104" id="scI-5H-fch"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WaD-s5-p2L">
-                                <rect key="frame" x="0.0" y="330" width="600" height="90"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="My study packs">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bre-Wd-a5Y">
-                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.3529411764705882" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="Settings">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7E7-03-KKX">
-                                <rect key="frame" x="0.0" y="420" width="600" height="90"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.45098039215686275" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <state key="normal" title="New study packs">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="7E7-03-KKX" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="3uO-DU-mW6"/>
-                            <constraint firstItem="UwA-oP-fTz" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="3zI-1v-Bww"/>
-                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" id="4Kp-fI-pBI"/>
-                            <constraint firstItem="89T-UU-IpT" firstAttribute="top" secondItem="zlc-Gr-gBx" secondAttribute="bottom" id="82x-Dc-xB9"/>
-                            <constraint firstItem="7E7-03-KKX" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="8IT-wJ-osR"/>
-                            <constraint firstItem="7E7-03-KKX" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="Ao6-fT-ygp"/>
-                            <constraint firstItem="UwA-oP-fTz" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" multiplier="0.45" constant="15" id="DW4-lX-0nk"/>
-                            <constraint firstItem="WaD-s5-p2L" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.7" id="EEA-QJ-8Py"/>
-                            <constraint firstItem="zlc-Gr-gBx" firstAttribute="centerY" secondItem="Bf3-KJ-GSS" secondAttribute="centerY" id="HhJ-q9-N6Q"/>
-                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.85" id="KOC-rg-owC"/>
-                            <constraint firstItem="WaD-s5-p2L" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="Q2R-40-1Tn"/>
-                            <constraint firstItem="zlc-Gr-gBx" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="RCk-wL-pwL"/>
-                            <constraint firstItem="zlc-Gr-gBx" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="TXt-Xe-8XR"/>
-                            <constraint firstItem="zlc-Gr-gBx" firstAttribute="height" secondItem="Bf3-KJ-GSS" secondAttribute="height" id="Wk4-uC-2bX"/>
-                            <constraint firstItem="WaD-s5-p2L" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.55" id="XyW-ka-6kq"/>
-                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="width" secondItem="Bf3-KJ-GSS" secondAttribute="width" id="iLB-01-Dsy"/>
-                            <constraint firstItem="7E7-03-KKX" firstAttribute="top" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.7" id="nTs-rZ-Uu1"/>
-                            <constraint firstItem="WaD-s5-p2L" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="rHK-W5-AGn"/>
-                            <constraint firstItem="UwA-oP-fTz" firstAttribute="bottom" secondItem="89T-UU-IpT" secondAttribute="top" multiplier="0.5" id="rNP-rJ-Jhh"/>
-                            <constraint firstItem="Bre-Wd-a5Y" firstAttribute="centerX" secondItem="Bf3-KJ-GSS" secondAttribute="centerX" id="tPH-Zt-ip4"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6TG-hX-CfO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1955" y="-5074"/>
         </scene>
         <!--Home Controller-->
         <scene sceneID="rht-ZJ-eFd">
@@ -1599,6 +1426,64 @@ support@studysauce.com
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M7f-5l-i85" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2747" y="-5675"/>
+        </scene>
+        <!--User Switch Controller-->
+        <scene sceneID="IJm-xL-qSh">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="QOS-UM-hHI" customClass="UserSwitchController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nNQ-EA-DTX"/>
+                        <viewControllerLayoutGuide type="bottom" id="6dN-Ap-y13"/>
+                    </layoutGuides>
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="tgf-Im-ziB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue2-Mo-fbC">
+                                <rect key="frame" x="180" y="361" width="240" height="240"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Stephen">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyd-j9-A4F">
+                                <rect key="frame" x="180" y="101" width="240" height="240"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jyd-j9-A4F" secondAttribute="height" multiplier="1:1" id="8rT-I6-L1v"/>
+                                </constraints>
+                                <state key="normal" title="Brian">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Who is studying?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gS-k1-hO6">
+                                <rect key="frame" x="235" y="60" width="131" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jyd-j9-A4F" firstAttribute="top" secondItem="8gS-k1-hO6" secondAttribute="bottom" constant="20" id="DXY-vF-f6x"/>
+                            <constraint firstItem="jyd-j9-A4F" firstAttribute="width" secondItem="tgf-Im-ziB" secondAttribute="width" multiplier="0.4" id="Jc8-0T-5JE"/>
+                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="OtS-rY-QCa"/>
+                            <constraint firstItem="8gS-k1-hO6" firstAttribute="top" secondItem="nNQ-EA-DTX" secondAttribute="bottom" constant="40" id="U4o-XB-tyu"/>
+                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="height" secondItem="jyd-j9-A4F" secondAttribute="height" id="V7h-MJ-NAn"/>
+                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="width" secondItem="jyd-j9-A4F" secondAttribute="width" id="Vcx-PJ-XRw"/>
+                            <constraint firstItem="jyd-j9-A4F" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="cdo-Nn-rs6"/>
+                            <constraint firstItem="8gS-k1-hO6" firstAttribute="centerX" secondItem="tgf-Im-ziB" secondAttribute="centerX" id="sU3-6N-UeV"/>
+                            <constraint firstItem="ue2-Mo-fbC" firstAttribute="top" secondItem="jyd-j9-A4F" secondAttribute="bottom" constant="20" id="sVf-L1-93H"/>
+                        </constraints>
+                    </scrollView>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UFx-l4-nco" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1955" y="-5074"/>
         </scene>
         <!--Home Controller-->
         <scene sceneID="LAm-Vc-LD8">
@@ -2080,7 +1965,7 @@ support@studysauce.com
         <!--NoInternetConnection-->
         <scene sceneID="usR-gb-juP">
             <objects>
-                <viewController storyboardIdentifier="Dialog" title="NoInternetConnection" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HZd-Yd-WLg" customClass="DialogController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Dialog" title="NoInternetConnection" modalPresentationStyle="overCurrentContext" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HZd-Yd-WLg" customClass="DialogController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Tlo-NJ-9vd"/>
                         <viewControllerLayoutGuide type="bottom" id="cow-oO-G8W"/>
@@ -2089,25 +1974,10 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UZ5-gf-er7">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backgroundClick:" destination="HZd-Yd-WLg" eventType="touchUpInside" id="7iE-mq-Yza"/>
-                                    <action selector="buttonClick:" destination="HZd-Yd-WLg" eventType="touchUpInside" id="72y-jh-uKP"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzM-kw-zvO">
                                 <rect key="frame" x="20" y="208" width="560" height="32"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBW-g2-1yd">
@@ -2132,18 +2002,13 @@ support@studysauce.com
                         <constraints>
                             <constraint firstItem="KzM-kw-zvO" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="4U9-H6-2Zg"/>
                             <constraint firstItem="KzM-kw-zvO" firstAttribute="bottom" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.4" id="EgY-WD-OYo"/>
-                            <constraint firstItem="UZ5-gf-er7" firstAttribute="height" secondItem="9qG-T7-Cnf" secondAttribute="height" id="M52-QU-OKO"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="Ou3-eV-LJd"/>
                             <constraint firstAttribute="leadingMargin" secondItem="KzM-kw-zvO" secondAttribute="leading" id="XYy-VF-h1P"/>
-                            <constraint firstItem="UZ5-gf-er7" firstAttribute="width" secondItem="9qG-T7-Cnf" secondAttribute="width" id="Zan-cT-Ell"/>
-                            <constraint firstItem="UZ5-gf-er7" firstAttribute="centerY" secondItem="9qG-T7-Cnf" secondAttribute="centerY" id="eLe-1a-0qo"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KzM-kw-zvO" secondAttribute="trailing" id="ieZ-w2-YZs"/>
-                            <constraint firstItem="UZ5-gf-er7" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="nbX-GM-20W"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.5" id="wNF-56-jbV"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="backgroundButton" destination="UZ5-gf-er7" id="vXc-uf-7Na"/>
                         <outlet property="messageLabel" destination="KzM-kw-zvO" id="4Hx-ll-bzA"/>
                         <outlet property="primaryButton" destination="eBW-g2-1yd" id="fWY-bY-dYs"/>
                     </connections>
@@ -2601,8 +2466,8 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="VCf-ft-oRv"/>
-        <segue reference="M6g-6I-YI4"/>
+        <segue reference="GGa-Jv-qkY"/>
         <segue reference="Edk-H5-39l"/>
+        <segue reference="VCf-ft-oRv"/>
     </inferredMetricsTieBreakers>
 </document>
