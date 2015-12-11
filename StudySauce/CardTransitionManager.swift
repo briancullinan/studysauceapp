@@ -224,7 +224,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         }
         var alreadyMoved = false
-        if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardSelfController == nil || (vc.subview as! CardSelfController).correctButton != nil) {
+        if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardResponseController == nil || (vc.subview as? CardSelfController)?.correctButton != nil) {
             alreadyMoved = true
             next.view.transform = CGAffineTransformMakeTranslation(0, 0)
             last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
@@ -235,12 +235,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let lastTitle = last.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
         var lastButton: UIButton? = nil
         if lastTitle != nil {
-            lastButton = (lastTitle! |+ (UIButton.self |^ T.firstOfType)).first
+            lastButton = (lastTitle! ~+ (UIButton.self ~* T.firstOfType)).first
         }
         let nextTitle = next.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
         var nextButton: UIButton? = nil
         if nextTitle != nil {
-            nextButton = (nextTitle! |+ (UIButton.self |^ T.firstOfType)).first
+            nextButton = (nextTitle! ~+ (UIButton.self ~* T.firstOfType)).first
         }
         if self.presenting {
             if lastButton != nil && nextButton != nil {

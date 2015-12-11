@@ -13,7 +13,6 @@ import UIKit
 class CardMultipleController: UIViewController {
 
     
-    @IBOutlet weak var content: AutoSizingTextView? = nil
     @IBOutlet weak var answer1: UIButton? = nil
     @IBOutlet weak var answer2: UIButton? = nil
     @IBOutlet weak var answer3: UIButton? = nil
@@ -24,28 +23,38 @@ class CardMultipleController: UIViewController {
         
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let pvc = self.parentViewController as? CardController {
+            self.card = pvc.card
+            if let vc = segue.destinationViewController as? CardPromptController {
+                vc.card = self.card
+            }
+            if let vc = segue.destinationViewController as? CardResponseController {
+                vc.card = self.card
+            }
+        }
+    }
+
     override func viewDidLoad() {
-        if let vc = self.parentViewController as? CardController {
-            if content != nil {
-                self.content!.text = vc.card?.content
-            }
-            if self.answer1 != nil && vc.card?.answers?.count > 0 {
+        if let pvc = self.parentViewController as? CardController {
+            self.card = pvc.card
+            if self.answer1 != nil && self.card?.answers?.count > 0 {
                 self.answer1!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer1!.setTitle((vc.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
+                self.answer1!.setTitle((self.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
             }
-            if self.answer2 != nil && vc.card?.answers?.count > 1 {
+            if self.answer2 != nil && self.card?.answers?.count > 1 {
                 self.answer2!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer2!.setTitle((vc.card?.answers!.allObjects[1] as! Answer).value, forState: .Normal)
+                self.answer2!.setTitle((self.card?.answers!.allObjects[1] as! Answer).value, forState: .Normal)
             }
-            if self.answer3 != nil && vc.card?.answers?.count > 2 {
+            if self.answer3 != nil && self.card?.answers?.count > 2 {
                 self.answer3!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer3!.setTitle((vc.card?.answers!.allObjects[2] as! Answer).value, forState: .Normal)
+                self.answer3!.setTitle((self.card?.answers!.allObjects[2] as! Answer).value, forState: .Normal)
             }
-            if self.answer4 != nil && vc.card?.answers?.count > 3 {
+            if self.answer4 != nil && self.card?.answers?.count > 3 {
                 self.answer4!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer4!.setTitle((vc.card?.answers!.allObjects[3] as! Answer).value, forState: .Normal)
+                self.answer4!.setTitle((self.card?.answers!.allObjects[3] as! Answer).value, forState: .Normal)
             }
-            self.card = vc.card
         }
     }
     

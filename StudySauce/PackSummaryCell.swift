@@ -21,32 +21,12 @@ public class PackSummaryCell: UITableViewCell {
     weak var pack: Pack? = nil
     
     func downloadLogo(url: String) {
-        let file = AppDelegate.getContext()?.list(File.self).filter({$0.url! == url}).first ?? AppDelegate.getContext()!.insert(File.self) <| {
-            $0.url = url
-        }
-        AppDelegate.saveContext()
-        
         self.logoImage.hidden = true
-        if file.downloading {
-            return
-        }
-        file.downloading = true
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-            let data = NSData(contentsOfURL: NSURL(string: url)!)!
-            let fileManager = NSFileManager.defaultManager()
-            let fileName = fileManager.displayNameAtPath(url)
-            let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
-            fileManager.createFileAtPath(tempFile.path!, contents: data, attributes: nil)
-            file.filename = tempFile.path
-            AppDelegate.saveContext()
-            file.downloading = false
-            // show image
-            dispatch_async(dispatch_get_main_queue(), {
-                if self.updateTableView != nil {
-                    self.updateTableView!()
-                    self.logoImage.hidden = false
-                }
-            })
+        File.save(url, done: {(_:File) in
+            if self.updateTableView != nil {
+                self.updateTableView!()
+                self.logoImage.hidden = false
+            }
         })
     }
     

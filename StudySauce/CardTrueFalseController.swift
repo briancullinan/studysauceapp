@@ -12,16 +12,24 @@ import UIKit
 
 class CardTrueFalseController: UIViewController {
     
-    
-    @IBOutlet weak var content: AutoSizingTextView? = nil
     weak var card: Card? = nil
   
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
-            if content != nil {
-                content!.text = vc.card?.content
-            }
             self.card = vc.card
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let pvc = self.parentViewController as? CardController {
+            self.card = pvc.card
+            if let vc = segue.destinationViewController as? CardPromptController {
+                vc.card = self.card
+            }
+            if let vc = segue.destinationViewController as? CardResponseController {
+                vc.card = self.card
+            }
         }
     }
     

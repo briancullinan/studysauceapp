@@ -14,8 +14,6 @@ class CardSelfController: UIViewController {
     
     
     @IBOutlet weak var correctButton: UIButton? = nil
-    @IBOutlet weak var content: AutoSizingTextView? = nil
-    @IBOutlet weak var response: AutoSizingTextView? = nil
     weak var card: Card? = nil
     
     @IBAction func returnToPrompt(segue: UIStoryboardSegue) {
@@ -23,23 +21,19 @@ class CardSelfController: UIViewController {
     }
     
     override func viewDidLoad() {
-        if let vc = self.parentViewController as? CardController {
-            if content != nil {
-                content!.text = vc.card?.content
+        
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        super.prepareForSegue(segue, sender: sender)
+        if let pvc = self.parentViewController as? CardController {
+            self.card = pvc.card
+            if let vc = segue.destinationViewController as? CardPromptController {
+                vc.card = self.card
             }
-            if response != nil {
-                let correct = vc.card?.getCorrect()
-                if correct == nil || correct!.value == nil {
-                    response!.text = "\(vc.card!.response!)"
-                }
-                else {
-                    let ex = try? NSRegularExpression(pattern: correct!.value!, options: NSRegularExpressionOptions.CaseInsensitive)
-                    let match = ex?.firstMatchInString(correct!.value!, options: [], range:NSMakeRange(0, correct!.value!.utf16.count))
-                    let matched = match?.rangeAtIndex(0)
-                    response!.text = "\(correct!.value!)\n\r\(vc.card!.response!)"
-                }
+            if let vc = segue.destinationViewController as? CardResponseController {
+                vc.card = self.card
             }
-            self.card = vc.card;
         }
     }
     

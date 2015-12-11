@@ -14,9 +14,8 @@ class CardBlankController: UIViewController {
     
     weak var card: Card? = nil
     //var handler: IQKeyboardReturnKeyHandler? = nil
-    
-    @IBOutlet weak var content: AutoSizingTextView? = nil
     @IBOutlet weak var inputText: UITextField? = nil
+    
     @IBAction func returnToBlank(segue: UIStoryboardSegue) {
         
     }
@@ -30,11 +29,20 @@ class CardBlankController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
-        if let _ = segue.destinationViewController as? CardBlankController {
-            if self.inputText != nil {
-                UIView.setAnimationsEnabled(false)
-                self.inputText!.resignFirstResponder()
-                UIView.setAnimationsEnabled(true)
+        if let pvc = self.parentViewController as? CardController {
+            self.card = pvc.card
+            if let vc = segue.destinationViewController as? CardPromptController {
+                vc.card = self.card
+            }
+            if let vc = segue.destinationViewController as? CardResponseController {
+                vc.card = self.card
+            }
+            if let _ = segue.destinationViewController as? CardBlankController {
+                if self.inputText != nil {
+                    UIView.setAnimationsEnabled(false)
+                    self.inputText!.resignFirstResponder()
+                    UIView.setAnimationsEnabled(true)
+                }
             }
         }
     }
@@ -45,9 +53,6 @@ class CardBlankController: UIViewController {
 
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
-            if content != nil {
-                content!.text = vc.card?.content
-            }
             if inputText != nil {
                 //Adding done button for textField1
                 self.inputText?.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))

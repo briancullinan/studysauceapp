@@ -64,12 +64,13 @@ extension AppDelegate {
         
         /*
         Key:
-        |> Direct descendent
-        |+ Sibling of last element
-        |^ Use the view to match properties and psudo-classes like :first-child :last-child
-        |@ Use device properties to determine if setting should apply
-        Override Tag with string for className matching instead of stupid number
-        [] list of TQueryable matches sets of rules
+        ~>  Any descendent
+        ~>> Direct descendent
+        ~+  Sibling of last element
+        ~*  Use the view to match properties and psudo-classes like :first-child :last-child
+        []  List of TQueryable matches sets of rules
+        |@  Use device properties to determine if setting should apply
+        TODO: Override Tag with string for className matching instead of stupid number
         */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
 
@@ -88,7 +89,7 @@ extension AppDelegate {
             $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
         })
         
-        $(UIImageView.self |^ {$0.tag == 23}, {background in
+        $(UIImageView.self ~* {$0.tag == 23}, {background in
             background.hidden = true
             background.viewController()!.view.clipsToBounds = false
             if saucyBackground == nil {
@@ -114,14 +115,14 @@ extension AppDelegate {
         })
         
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $([DialogController.self |> UILabel.self,
-           UIImageView.self |^ { $0.tag == 23 } |+ UILabel.self], {
+        $([DialogController.self ~> UILabel.self,
+           UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
-        $([DialogController.self |>> UILabel.self |^ T.firstOfType,
-           UserInviteController.self |>> UILabel.self |^ T.firstOfType,
-           UserLoginController.self |>> UILabel.self |^ T.firstOfType,
-           UserResetController.self |>> UILabel.self |^ T.firstOfType], {
+        $([DialogController.self ~>> UILabel.self ~* T.firstOfType,
+           UserInviteController.self ~>> UILabel.self ~* T.firstOfType,
+           UserLoginController.self ~>> UILabel.self ~* T.firstOfType,
+           UserResetController.self ~>> UILabel.self ~* T.firstOfType], {
             $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
@@ -131,33 +132,33 @@ extension AppDelegate {
             $0.separatorStyle = UITableViewCellSeparatorStyle.None
             $0.separatorColor = UIColor.clearColor()
         })
-        $([UserSettingsContainerController.self |>> UILabel.self |^ T.firstOfType,
-           PackSummaryController.self |>> UILabel.self |^ T.firstOfType,
-           UIViewController.self |^ "Privacy" |>> UILabel.self |^ T.firstOfType,
-           CardController.self |>> UILabel.self |^ T.firstOfType,
-           PackResultsController.self |>> UILabel.self |^ T.firstOfType,
-           ContactUsController.self |>> UILabel.self |^ T.firstOfType], {(v: UILabel) -> Void in
+        $([UserSettingsContainerController.self ~>> UILabel.self ~* T.firstOfType,
+           PackSummaryController.self ~>> UILabel.self ~* T.firstOfType,
+           UIViewController.self ~* "Privacy" ~>> UILabel.self ~* T.firstOfType,
+           CardController.self ~>> UILabel.self ~* T.firstOfType,
+           PackResultsController.self ~>> UILabel.self ~* T.firstOfType,
+           ContactUsController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
             
             v.tag = 25
             v.setFontSize(CGFloat(saucyTheme.headingSize) * saucyTheme.multiplier())
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
-            if (v |+ (UIView.self |^ {$0.tag == 24})).count == 0 {
+            if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 {
                 self.createHeading(v)
             }
             
         })
-        $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
-           PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {
+        $([PackResultsController.self ~>> UILabel.self ~* T.nthOfType(1),
+           PackResultsController.self ~>> UILabel.self ~* T.nthOfType(2)], {
             $0.setFontSize(30 * saucyTheme.multiplier())
         })
-        $(PackResultsController.self |>> UILabel.self |^ T.nthOfType(3), {
+        $(PackResultsController.self ~>> UILabel.self ~* T.nthOfType(3), {
             $0.setFontSize(60 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
-        $([PackSummaryController.self |> UITableView.self,
-           UserSettingsController.self |> UITableView.self], {(v: UITableView) in
+        $([PackSummaryController.self ~> UITableView.self,
+           UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
             v.preservesSuperviewLayoutMargins = false
             v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
@@ -167,43 +168,43 @@ extension AppDelegate {
             //v.rowHeight = UITableViewAutomaticDimension
         })
         
-        $([PackSummaryController.self |> UITableView.self |> UITableViewCell.self,
-           UserSettingsController.self |> UITableView.self |> UITableViewCell.self], {(v: UITableViewCell) -> Void in
+        $([PackSummaryController.self ~> UITableView.self ~> UITableViewCell.self,
+           UserSettingsController.self ~> UITableView.self ~> UITableViewCell.self], {(v: UITableViewCell) -> Void in
             v.preservesSuperviewLayoutMargins = false
             v.layoutMargins = UIEdgeInsetsZero
             v.separatorInset = UIEdgeInsetsZero
         })
         
-        $(UserSettingsController.self |> UITableViewCell.self |>> UILabel.self |^ .firstOfType, {
+        $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* .firstOfType, {
             $0.setFontName(saucyTheme.subheadingFont)
         })
 
-        $(PackSummaryCell.self |> UILabel.self |^ T.firstOfType, {
+        $(PackSummaryCell.self ~> UILabel.self ~* T.firstOfType, {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         // packs and settings buttons on home page
-        $(HomeController.self |> UITableView.self |+ UIView.self |^ { $0.tag == 23 }, {
+        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)
         })
-        $(HomeController.self |> UITableView.self |+ UILabel.self, {
+        $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.subheadingFont)
         })
-        $(HomeController.self |> UITableView.self |> UILabel.self, {
+        $(HomeController.self ~> UITableView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
-        $([HomeController.self |> UITableView.self], {(v: UITableView) -> Void in
+        $([HomeController.self ~> UITableView.self], {(v: UITableView) -> Void in
             // Make the cell self size
             v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
             v.rowHeight = UITableViewAutomaticDimension
         })
 
         // settings header
-        $(UserSettingsController.self |> UITableViewHeaderFooterView.self, {
+        $(UserSettingsController.self ~> UITableViewHeaderFooterView.self, {
             $0.setBackground(saucyTheme.fontColor)
         })
-        $(UserSettingsController.self |> UITableViewHeaderFooterView.self |> UILabel.self, {
+        $(UserSettingsController.self ~> UITableViewHeaderFooterView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
             $0.setFontSize(CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier())
@@ -211,35 +212,35 @@ extension AppDelegate {
         
         // card button sizes
         // check and x font
-        $([CardSelfController.self |> UIButton.self,
-           CardSelfController.self |> UIButton.self |> UILabel.self,
-           PackResultsController.self |> UIButton.self,
-           PackResultsController.self |> UIButton.self |> UILabel.self], {
+        $([CardSelfController.self ~> UIButton.self,
+           CardSelfController.self ~> UIButton.self ~> UILabel.self,
+           PackResultsController.self ~> UIButton.self,
+           PackResultsController.self ~> UIButton.self ~> UILabel.self], {
             $0.setFontSize(80 * saucyTheme.multiplier())
         })
         // true and false button font
-        $([CardTrueFalseController.self |> UIButton.self,
-           CardTrueFalseController.self |> UIButton.self |> UILabel.self], {
+        $([CardTrueFalseController.self ~> UIButton.self,
+           CardTrueFalseController.self ~> UIButton.self ~> UILabel.self], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
-        $([CardBlankController.self |> UITextField.self,
-            CardBlankController.self |> UITextField.self |> UILabel.self], {
+        $([CardBlankController.self ~> UITextField.self,
+            CardBlankController.self ~> UITextField.self ~> UILabel.self], {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
-        $(ContactUsController.self |> UITextView.self, {
+        $(ContactUsController.self ~> UITextView.self, {
             $0.backgroundColor = UIColor.whiteColor()
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
             $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 0
             $0.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         })
-        $(UITextField.self |>> UILabel.self, {
+        $(UITextField.self ~>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
                 $0.setFontColor(saucyTheme.lightColor)
             }
         })
-        $([CardBlankController.self |> UITextField.self,
-            ContactUsController.self |> UITextField.self], {(v: UITextField) in
+        $([CardBlankController.self ~> UITextField.self,
+            ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()
             v.borderStyle = UITextBorderStyle.None
             v.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
@@ -247,7 +248,7 @@ extension AppDelegate {
             v.layer.cornerRadius = 0
         })
         
-        $(UIViewController.self |^ "Privacy" |> UITextView.self, {(v: UITextView) in
+        $(UIViewController.self ~* "Privacy" ~> UITextView.self, {(v: UITextView) in
             dispatch_async(dispatch_get_main_queue(), {
                 v.scrollRangeToVisible(NSMakeRange(0, 0))
             })
