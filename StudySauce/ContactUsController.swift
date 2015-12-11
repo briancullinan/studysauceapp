@@ -17,7 +17,8 @@ class ContactUsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]!
+        self.message.text = "App Version: \(version)\nModel: \(UIDevice.currentDevice().systemName)\nVersion: \(UIDevice.currentDevice().systemVersion)\n"
     }
     
     override func didReceiveMemoryWarning() {

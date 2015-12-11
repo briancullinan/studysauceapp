@@ -13,7 +13,7 @@ import UIKit
 class AutoSizingTextView: UITextView {
     
     var minSize: CGFloat = 12
-    var maxSize: CGFloat = 32
+    var origSize: CGFloat? = nil
     var isCalculating = false
     internal var setManually = false
     
@@ -21,8 +21,6 @@ class AutoSizingTextView: UITextView {
         let maximumLabelWidth = CGSizeMake(self.frame.width, CGFloat.max)
         let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.height)
         var expectSize: CGFloat
-        var numberOfLines: CGFloat
-        var origLines: CGFloat? = nil
         var words = self.text.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         for w in words {
             if w.isEmpty {
@@ -31,24 +29,20 @@ class AutoSizingTextView: UITextView {
                 })!)
             }
         }
-        var size = self.minSize
+        if self.origSize == nil {
+            self.origSize = self.font!.pointSize
+        }
+        var size = self.origSize!
         repeat {
-            size = size + 0.5
+            size = size - 0.5
             let font = UIFont(name: self.font!.fontName, size: size)
             expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
                 options:[.UsesLineFragmentOrigin, .UsesFontLeading],
                 attributes:[NSFontAttributeName : font!],
                 context:nil).height
-            numberOfLines = expectSize / font!.lineHeight
-            if origLines == nil {
-                origLines = numberOfLines + 1
-            }
-        } while size < self.maxSize && expectSize < maximumLabelHeight.height - font!.lineHeight
-            && expectSize < maximumLabelWidth.width - font!.lineHeight
-            && (numberOfLines < floor(CGFloat(words.count) / numberOfLines)
-                // resize but don't allow the words per line to increase
-                || numberOfLines <= origLines! || CGFloat(words.count) / numberOfLines / 6 > self.bounds.width / self.bounds.height)
-        return size - 0.5
+        } while size > self.minSize && expectSize > maximumLabelHeight.height - font!.lineHeight
+            && expectSize > maximumLabelWidth.width - font!.lineHeight
+        return size + 0.5
     }
     
     func calcFontSize() -> Void {
@@ -57,8 +51,6 @@ class AutoSizingTextView: UITextView {
         if !self.isCalculating && self.text != nil {
             self.isCalculating = true
             // if it goes over even on a small setting, turn scrollable back on.
-            self.scrollEnabled = true
-            self.scrollRangeToVisible(NSMakeRange(self.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding), 0));
             
             if !setManually && self.font != nil {
                 let size = self.getFontSize()

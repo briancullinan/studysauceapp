@@ -29,6 +29,7 @@
 		64766A9D1BF3C2B20010FD8C /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9C1BF3C2B20010FD8C /* UILabel.swift */; };
 		64766A9F1BF3DD040010FD8C /* TQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9E1BF3DD040010FD8C /* TQuery.swift */; };
 		64766AA11BF3F2700010FD8C /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766AA01BF3F2700010FD8C /* UIView.swift */; };
+		648CFC9F1C1903690018746F /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648CFC9E1C1903690018746F /* TextField.swift */; };
 		649B093D1BE07C1700A3F9A4 /* CardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B093C1BE07C1700A3F9A4 /* CardSegue.swift */; };
 		649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */; };
 		649B09411BE08D8700A3F9A4 /* CardSelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09401BE08D8700A3F9A4 /* CardSelfController.swift */; };
@@ -120,6 +121,7 @@
 		64766A9C1BF3C2B20010FD8C /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		64766A9E1BF3DD040010FD8C /* TQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TQuery.swift; sourceTree = "<group>"; };
 		64766AA01BF3F2700010FD8C /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		648CFC9E1C1903690018746F /* TextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		649B093C1BE07C1700A3F9A4 /* CardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSegue.swift; sourceTree = "<group>"; };
 		649B093E1BE08BE600A3F9A4 /* CardMultipleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardMultipleController.swift; sourceTree = "<group>"; };
 		649B09401BE08D8700A3F9A4 /* CardSelfController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSelfController.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
 				64F5FCF41BEC30BD005AF4FC /* PackRetentionCell.swift */,
 				64291C601BC5A2CD005AA348 /* SaucyButton.swift */,
+				648CFC9E1C1903690018746F /* TextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				64291C611BC5A2CD005AA348 /* SaucyButton.swift in Sources */,
 				643C20401BE461CE00A89A3F /* UIColor.swift in Sources */,
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
+				648CFC9F1C1903690018746F /* TextField.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
 				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
 				641E66EE1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift in Sources */,

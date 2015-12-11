@@ -45,12 +45,6 @@ class UserSettingsController: UITableViewController {
     @IBAction func returnToSettings(segue: UIStoryboardSegue) {
         
     }
-
-    //  Now in other methods you can reference `embeddedViewController`.
-    //  For example:
-    override func viewDidAppear(animated: Bool) {
-        
-    }
     
     @IBAction func saveClick(sender: UIButton) {
         self.editButton.hidden = false
@@ -129,12 +123,15 @@ class UserSettingsController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            return 0
+        }
         if self.privacyCell.hidden {
             if indexPath.section >= 2 {
                 return 0
             }
         }
-        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        return 40 * saucyTheme.multiplier()
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

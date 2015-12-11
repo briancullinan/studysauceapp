@@ -26,6 +26,10 @@ struct saucyTheme {
     static let headingSize = 20.0
     static let subheadingFont = "Avenir-Heavy"
     static let subheadingSize = 17.0
+    
+    static func multiplier () -> CGFloat {
+        return UIScreen.mainScreen().bounds.height / 600
+    }
 }
 
 let manager = CMMotionManager()
@@ -81,7 +85,7 @@ extension AppDelegate {
             // TODO: chaining would be nicer syntax here
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontName(saucyTheme.textFont)
-            $0.setFontSize(CGFloat(saucyTheme.textSize))
+            $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
         })
         
         $(UIImageView.self |^ {$0.tag == 23}, {background in
@@ -118,7 +122,7 @@ extension AppDelegate {
            UserInviteController.self |>> UILabel.self |^ T.firstOfType,
            UserLoginController.self |>> UILabel.self |^ T.firstOfType,
            UserResetController.self |>> UILabel.self |^ T.firstOfType], {
-            $0.setFontSize(30.0)
+            $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
         // headings
@@ -135,7 +139,7 @@ extension AppDelegate {
            ContactUsController.self |>> UILabel.self |^ T.firstOfType], {(v: UILabel) -> Void in
             
             v.tag = 25
-            v.setFontSize(CGFloat(saucyTheme.headingSize))
+            v.setFontSize(CGFloat(saucyTheme.headingSize) * saucyTheme.multiplier())
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
             if (v |+ (UIView.self |^ {$0.tag == 24})).count == 0 {
@@ -145,26 +149,35 @@ extension AppDelegate {
         })
         $([PackResultsController.self |>> UILabel.self |^ T.nthOfType(1),
            PackResultsController.self |>> UILabel.self |^ T.nthOfType(2)], {
-            $0.setFontSize(30)
+            $0.setFontSize(30 * saucyTheme.multiplier())
         })
         $(PackResultsController.self |>> UILabel.self |^ T.nthOfType(3), {
-            $0.setFontSize(60)
+            $0.setFontSize(60 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
         $([PackSummaryController.self |> UITableView.self,
-           UserSettingsController.self |> UITableView.self], {(v: UITableView) -> Void in
+           UserSettingsController.self |> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
             v.preservesSuperviewLayoutMargins = false
             v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             v.separatorInset = UIEdgeInsetsZero
+            // this doesn't work in appearence :(
+            //v.estimatedRowHeight = 40.0 * saucyTheme.multiplier()
+            //v.rowHeight = UITableViewAutomaticDimension
         })
+        
         $([PackSummaryController.self |> UITableView.self |> UITableViewCell.self,
            UserSettingsController.self |> UITableView.self |> UITableViewCell.self], {(v: UITableViewCell) -> Void in
             v.preservesSuperviewLayoutMargins = false
             v.layoutMargins = UIEdgeInsetsZero
             v.separatorInset = UIEdgeInsetsZero
         })
+        
+        $(UserSettingsController.self |> UITableViewCell.self |>> UILabel.self |^ .firstOfType, {
+            $0.setFontName(saucyTheme.subheadingFont)
+        })
+
         $(PackSummaryCell.self |> UILabel.self |^ T.firstOfType, {
             $0.setFontName(saucyTheme.subheadingFont)
         })
@@ -174,7 +187,7 @@ extension AppDelegate {
         })
         $(HomeController.self |> UITableView.self |+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
-            $0.setFontSize(CGFloat(saucyTheme.textSize))
+            $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.subheadingFont)
         })
         $(HomeController.self |> UITableView.self |> UILabel.self, {
@@ -182,7 +195,7 @@ extension AppDelegate {
         })
         $([HomeController.self |> UITableView.self], {(v: UITableView) -> Void in
             // Make the cell self size
-            v.estimatedRowHeight = 30.0
+            v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
             v.rowHeight = UITableViewAutomaticDimension
         })
 
@@ -193,7 +206,7 @@ extension AppDelegate {
         $(UserSettingsController.self |> UITableViewHeaderFooterView.self |> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
-            $0.setFontSize(CGFloat(saucyTheme.subheadingSize))
+            $0.setFontSize(CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier())
         })
         
         // card button sizes
@@ -202,22 +215,23 @@ extension AppDelegate {
            CardSelfController.self |> UIButton.self |> UILabel.self,
            PackResultsController.self |> UIButton.self,
            PackResultsController.self |> UIButton.self |> UILabel.self], {
-            $0.setFontSize(80)
+            $0.setFontSize(80 * saucyTheme.multiplier())
         })
         // true and false button font
         $([CardTrueFalseController.self |> UIButton.self,
            CardTrueFalseController.self |> UIButton.self |> UILabel.self], {
-            $0.setFontSize(40)
+            $0.setFontSize(40 * saucyTheme.multiplier())
         })
         $([CardBlankController.self |> UITextField.self,
             CardBlankController.self |> UITextField.self |> UILabel.self], {
-            $0.setFontSize(20)
+            $0.setFontSize(20 * saucyTheme.multiplier())
         })
         $(ContactUsController.self |> UITextView.self, {
             $0.backgroundColor = UIColor.whiteColor()
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
             $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 0
+            $0.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         })
         $(UITextField.self |>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
@@ -231,6 +245,16 @@ extension AppDelegate {
             v.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
             v.layer.borderWidth = 0.5
             v.layer.cornerRadius = 0
+        })
+        
+        $(UIViewController.self |^ "Privacy" |> UITextView.self, {(v: UITextView) in
+            dispatch_async(dispatch_get_main_queue(), {
+                v.scrollRangeToVisible(NSMakeRange(0, 0))
+            })
+        })
+
+        $(AutoSizingTextView.self, {(v: AutoSizingTextView) in
+            v.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
         //$(|^{$0.systemVersion.compare("8.0", options: .NumericSearch) == .OrderedDescending} |> UILabel.self, {

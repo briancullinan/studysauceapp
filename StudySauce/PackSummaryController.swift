@@ -18,7 +18,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func returnToPacks(segue: UIStoryboardSegue) {
         
     }
-
     // load the card content, display and available answers
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
@@ -226,12 +225,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
         // Load packs from database
         self.packs = getPacksFromLocalStore()
-        
-        // Make the cell self size
-        self.tableView.estimatedRowHeight = 66.0
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.layoutIfNeeded()
-        
+                
         // refresh data from server
         PackSummaryController.getPacks({ () -> Void in
             dispatch_async(dispatch_get_main_queue(), {
@@ -298,6 +292,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 self.performSegueWithIdentifier("card", sender: self)
             })
         }
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 66.0 * saucyTheme.multiplier()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
