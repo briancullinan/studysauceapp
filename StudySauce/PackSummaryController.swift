@@ -178,7 +178,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             let cards = newPack!.cards!.allObjects as! [Card]
                             for p in userPacks {
                                 let card = cards.filter({$0.id == p["card"] as? NSNumber}).first
-                                self.processResponses(card!, json: p["responses"] as! NSArray)
+                                if let responses = p["responses"] as? NSArray {
+                                    self.processResponses(card!, json: responses)
+                                }
                             }
                             downloadedHandler(newPack!)
                         })
