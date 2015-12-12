@@ -23,14 +23,14 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     internal static func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        if let moc = AppDelegate.getContext() {
-            let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
-            let ses = NSURLSession.sharedSession()
-            let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-                if (error != nil) {
-                    return completionHandler([], error)
-                }
-                
+        let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
+        let ses = NSURLSession.sharedSession()
+        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            if (error != nil) {
+                return completionHandler([], error)
+            }
+            
+            AppDelegate.getContext()?.performBlock {
                 do {
                     var ids = [NSNumber]()
                     
@@ -44,7 +44,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             }
                         }
                         if newCard == nil {
-                            newCard = moc.insert(Card.self)
+                            newCard = AppDelegate.getContext()!.insert(Card.self)
                             cards.insert(newCard!, atIndex: 0)
                         }
                         
@@ -56,18 +56,18 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newCard!.pack = forPack
                         newCard!.created = NSDate.parse(card["created"] as? String)
                         newCard!.modified = NSDate.parse(card["modified"] as? String)
+                        AppDelegate.saveContext()
                         
                         self.processAnswers(newCard!, json: card["answers"] as! NSArray)
                         
                         // sync responses
                         self.processResponses(newCard!, json: card["responses"] as! NSArray)
-                        AppDelegate.saveContext()
                     }
                     
                     // remove cards that no longer exist
                     for p in cards {
                         if ids.indexOf(p.id!) == nil {
-                            moc.deleteObject(p)
+                            AppDelegate.getContext()!.deleteObject(p)
                             cards.removeAtIndex(cards.indexOf(p)!)
                         }
                     }
@@ -78,9 +78,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 catch let error as NSError {
                     completionHandler([], error)
                 }
-            })
-            task.resume()
-        }
+            }
+        })
+        task.resume()
     }
     
     static private func processResponses(card: Card, json: NSArray) {
@@ -106,6 +106,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             newResponse!.user = AppDelegate.getUser()
         }
 
+        AppDelegate.saveContext()
     }
     
     static private func processAnswers(card: Card, json: NSArray) {
@@ -134,6 +135,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             newAnswer!.created = NSDate.parse(answer["created"] as? String)
             newAnswer!.modified = NSDate.parse(answer["modified"] as? String)
         }
+        AppDelegate.saveContext()
         
         // remove answers that no longer exist
         for a in answers {
@@ -143,21 +145,22 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
 
+        AppDelegate.saveContext()
     }
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
         getJson("/packs/list", done: {json in
-            if let moc = AppDelegate.getContext() {
+            AppDelegate.getContext()?.performBlock {
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {
                     var newPack: Pack?
-                    for p in moc.list(Pack.self) {
+                    for p in AppDelegate.getContext()!.list(Pack.self) {
                         if p.id == pack["id"] as? NSNumber {
                             newPack = p
                         }
                     }
                     if newPack == nil {
-                        newPack = moc.insert(Pack.self)
+                        newPack = AppDelegate.getContext()!.insert(Pack.self)
                     }
                     
                     ids.insert(pack["id"] as! NSNumber, atIndex: 0)
@@ -168,30 +171,37 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     newPack!.created = NSDate.parse(pack["created"] as? String)
                     newPack!.modified = NSDate.parse(pack["modified"] as? String)
                     newPack!.count = pack["count"] as? NSNumber
-                    if pack["downloaded"] as? NSNumber == 1 {
-                        self.downloadIfNeeded(newPack!, done: {
-                            downloadedHandler(newPack!)
-                        })
-                    }
+                    AppDelegate.saveContext()
+                    
                     if let userPacks = pack["user_packs"] as? NSArray where userPacks.count > 0 {
                         self.downloadIfNeeded(newPack!, done: {
                             let cards = newPack!.cards!.allObjects as! [Card]
                             for p in userPacks {
-                                let card = cards.filter({$0.id == p["card"] as? NSNumber}).first
+                                let id = p["card"] as? NSNumber
+                                var card = cards.filter({$0.id == id}).first
+                                if card == nil {
+                                    card = nil
+                                }
                                 if let responses = p["responses"] as? NSArray {
                                     self.processResponses(card!, json: responses)
                                 }
                             }
+                            AppDelegate.saveContext()
+                            downloadedHandler(newPack!)
+                        })
+                    }
+                    else if pack["downloaded"] as? NSNumber == 1 {
+                        self.downloadIfNeeded(newPack!, done: {
                             downloadedHandler(newPack!)
                         })
                     }
                 }
-                
+
                 // remove packs that no longer exist
-                for p in moc.list(Pack.self) {
+                for p in AppDelegate.getContext()!.list(Pack.self) {
                     if ids.indexOf(p.id!) == nil {
-                        moc.deleteObject(p)
-                        moc.deleteObject(p.getUserPack(AppDelegate.getUser()))
+                        AppDelegate.getContext()!.deleteObject(p)
+                        AppDelegate.getContext()!.deleteObject(p.getUserPack(AppDelegate.getUser()))
                     }
                 }
                 
@@ -263,15 +273,17 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let up = p.getUserPack(AppDelegate.getUser())
         if p.cards!.count == 0 || up.downloaded == nil
             || (p.modified != nil && p.modified! > up.downloaded!) {
+                
                 p.isDownloading = true
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
-                    PackSummaryController.getCards(p, completionHandler: {_,_ in
-                        // TODO: update downloading status in table row!
+                
+                PackSummaryController.getCards(p, completionHandler: {_,_ in
+                    // TODO: update downloading status in table row!
+                    AppDelegate.getContext()?.performBlockAndWait({
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
-                        p.isDownloading = false
-                        done()
                     })
+                    done()
+                    p.isDownloading = false
                 })
         }
         else {

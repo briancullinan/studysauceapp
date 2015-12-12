@@ -121,7 +121,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewWillDisappear(animated: Bool) {
         self.taskManager?.invalidate()
         self.taskManager = nil
     }
