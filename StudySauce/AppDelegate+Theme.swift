@@ -23,9 +23,9 @@ struct saucyTheme {
     static let textSize = 17.0
     
     static let headingFont = "Avenir-Heavy"
-    static let headingSize = 20.0
+    static let headingSize = 15.0
     static let subheadingFont = "Avenir-Heavy"
-    static let subheadingSize = 17.0
+    static let subheadingSize = 15.0
     
     static func multiplier () -> CGFloat {
         return UIScreen.mainScreen().bounds.height / 600
@@ -232,7 +232,7 @@ extension AppDelegate {
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
             $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 0
-            $0.contentInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+            $0.textContainerInset = UIEdgeInsets(10 * saucyTheme.multiplier())
         })
         $(UITextField.self ~>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
@@ -254,13 +254,18 @@ extension AppDelegate {
             })
         })
 
-        $(AutoSizingTextView.self, {(v: AutoSizingTextView) in
-            v.setFontSize(30.0 * saucyTheme.multiplier())
+        $(AutoSizingTextView.self, {
+            $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
-        //$(|^{$0.systemVersion.compare("8.0", options: .NumericSearch) == .OrderedDescending} |> UILabel.self, {
-        //    $0.setFontColor(UIColor.blueColor())
-        //})
+        $(T.device("ipad") ~> AutoSizingTextView.self, {(v: AutoSizingTextView) -> Void in
+            v.setFontSize(40.0 * saucyTheme.multiplier())
+        })
+
+        $([UIViewController.self ~> AutoSizingTextView.self,
+            UIViewController.self ~* "Privacy" ~> UITextView.self], {(v: UITextView) in
+            v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
+        })
         
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()

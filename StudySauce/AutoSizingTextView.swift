@@ -18,8 +18,8 @@ class AutoSizingTextView: UITextView {
     internal var setManually = false
     
     func getFontSize() -> CGFloat {
-        let maximumLabelWidth = CGSizeMake(self.frame.width, CGFloat.max)
-        let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.height)
+        let maximumLabelWidth = CGSizeMake(self.frame.width - self.textContainerInset.left - self.textContainerInset.right, CGFloat.max)
+        let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.height - self.textContainerInset.top - self.textContainerInset.bottom)
         var expectSize: CGFloat
         var words = self.text.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         for w in words {
@@ -40,9 +40,9 @@ class AutoSizingTextView: UITextView {
                 options:[.UsesLineFragmentOrigin, .UsesFontLeading],
                 attributes:[NSFontAttributeName : font!],
                 context:nil).height
-        } while size > self.minSize && expectSize > maximumLabelHeight.height - font!.lineHeight
-            && expectSize > maximumLabelWidth.width - font!.lineHeight
-        return size + 0.5
+        } while size > self.minSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
+            || expectSize > maximumLabelWidth.width)
+        return size
     }
     
     func calcFontSize() -> Void {

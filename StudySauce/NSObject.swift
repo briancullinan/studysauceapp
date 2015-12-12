@@ -7,9 +7,17 @@
 //
 
 import Foundation
+import UIKit
 
 extension NSObject {
     func isTypeOf(b: NSObject) -> Bool {
         return object_getClassName(self) == object_getClassName(b)
+    }
+}
+
+extension UIEdgeInsets {
+    
+    init(_ width: CGFloat) {
+        self.init(top: width, left: width, bottom: width, right: width)
     }
 }

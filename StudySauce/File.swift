@@ -23,6 +23,7 @@ class File: NSManagedObject {
         AppDelegate.saveContext()
         if file.filename != nil && fileManager.fileExistsAtPath(file.filename!) {
             done(file)
+            return
         }
         if file.downloading {
             return

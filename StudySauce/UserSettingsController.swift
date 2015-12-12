@@ -134,6 +134,17 @@ class UserSettingsController: UITableViewController {
         return 40 * saucyTheme.multiplier()
     }
     
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 0
+        }
+        return CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier() * 2
+    }
+    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1 {
             return nil
