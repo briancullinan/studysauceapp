@@ -30,12 +30,14 @@ class UserPack: NSManagedObject {
             || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) || refresh {
                 var retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
                 retries.shuffleInPlace()
-                self.retries = retries.map { c -> String in
-                    return "\(c.id!)"
-                    }.joinWithSeparator(",")
-                self.retry_to = NSDate()
-                // TODO: shouldn't really do database edits in the model
-                AppDelegate.saveContext()
+                AppDelegate.getContext()?.performBlockAndWait {
+                    self.retries = retries.map { c -> String in
+                        return "\(c.id!)"
+                        }.joinWithSeparator(",")
+                    self.retry_to = NSDate()
+                    // TODO: shouldn't really do database edits in the model
+                    AppDelegate.saveContext()
+                }
         }
         return self.retries!.componentsSeparatedByString(",").map{r -> Card? in
             return self.pack?.getCardById(Int(r)!)
