@@ -56,7 +56,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         else {
             path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
         }
-        return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
+        #if DEBUG
+            return NSURL(string: "https://staging.studysauce.com\(path_and_query)")!
+        #else
+            return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
+        #endif
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

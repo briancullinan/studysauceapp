@@ -200,8 +200,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 // remove packs that no longer exist
                 for p in AppDelegate.getContext()!.list(Pack.self) {
                     if ids.indexOf(p.id!) == nil {
+                        for up in p.user_packs?.allObjects as! [UserPack] {
+                            AppDelegate.getContext()!.deleteObject(up)
+                        }
                         AppDelegate.getContext()!.deleteObject(p)
-                        AppDelegate.getContext()!.deleteObject(p.getUserPack(AppDelegate.getUser()))
                     }
                 }
                 

@@ -71,9 +71,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setTotal() {
         
         if self.cardCount != nil {
-            let count = AppDelegate.getUser()!.getRetentionRemaining()
-            let s = count == 1 ? "" : "s"
-            self.cardCount!.text = "\(count) card\(s)"
+            AppDelegate.getContext()?.performBlock({
+                let count = AppDelegate.getUser()!.getRetentionRemaining()
+                let s = count == 1 ? "" : "s"
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.cardCount!.text = "\(count) card\(s)"
+                })
+            })
         }
 
     }
@@ -96,15 +100,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         if self.tableView != nil {
+            
             self.setTotal()
+            
             if self.taskManager == nil {
                 self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "viewDidLoad", userInfo: nil, repeats: true)
                 NSRunLoop.mainRunLoop().addTimer(self.taskManager!, forMode: NSRunLoopCommonModes)
             }
             
             // Load packs from database
-            self.packs = getPacksFromLocalStore()
-            self.tableView!.reloadData()
+            AppDelegate.getContext()?.performBlock({
+                self.packs = self.getPacksFromLocalStore()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+            })
             PackSummaryController.getPacks({
                 dispatch_async(dispatch_get_main_queue(), {
                     self.packs = self.getPacksFromLocalStore()
@@ -129,7 +139,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func getPacksFromLocalStore() -> [Pack]
     {
         return AppDelegate.getUser()!.getPacks()
-            .filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
+            .filter({
+                $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
+            })
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

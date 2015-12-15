@@ -15,7 +15,10 @@ class User: NSManagedObject {
     
     func getPacks() -> [Pack] {
         var result: [Pack] = []
-        for up in self.user_packs!.allObjects as! [UserPack] {
+        if self.user_packs == nil || self.user_packs!.count == 0 {
+            return result
+        }
+        for up in self.user_packs?.allObjects as? [UserPack] ?? [UserPack]() {
             result.append(up.pack!)
         }
         return result
