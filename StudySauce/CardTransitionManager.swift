@@ -233,21 +233,18 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         // move titles around
         let lastTitle = last.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
-        var lastButton: UIButton? = nil
-        if lastTitle != nil {
-            lastButton = (lastTitle! ~+ (UIButton.self ~* T.firstOfType)).first
-        }
+        let lastButton = last.view.subviews.filter({v -> Bool in return v.tag == 26}).first as? UIButton
         let nextTitle = next.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
-        var nextButton: UIButton? = nil
-        if nextTitle != nil {
-            nextButton = (nextTitle! ~+ (UIButton.self ~* T.firstOfType)).first
-        }
+        let nextButton = next.view.subviews.filter({v -> Bool in return v.tag == 26}).first as? UIButton
+
         if self.presenting {
             if lastButton != nil && nextButton != nil {
                 lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
+                nextButton!.hidden = !alreadyMoved
+            }
+            if lastTitle != nil && nextTitle != nil {
                 lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
                 lastTitle!.alpha = 1
-                nextButton!.hidden = !alreadyMoved
                 if lastTitle!.text == nextTitle!.text {
                     nextTitle!.hidden = !alreadyMoved
                 }
@@ -256,9 +253,11 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         else {
             if lastButton != nil && nextButton != nil {
                 lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                nextButton!.hidden = !alreadyMoved
+            }
+            if lastTitle != nil && nextTitle != nil {
                 lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
                 lastTitle!.alpha = 0
-                nextButton!.hidden = !alreadyMoved
                 if lastTitle!.text == nextTitle!.text {
                     nextTitle!.hidden = !alreadyMoved
                 }
@@ -284,6 +283,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                    }
+                    if lastTitle != nil && nextTitle != nil {
                         lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
                         lastTitle!.alpha = 0
                     }
@@ -299,6 +300,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
+                    }
+                    if lastTitle != nil && nextTitle != nil {
                         lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
                         lastTitle!.alpha = 1
                     }

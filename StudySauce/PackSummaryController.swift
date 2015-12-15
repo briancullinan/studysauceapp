@@ -280,12 +280,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 PackSummaryController.getCards(p, completionHandler: {_,_ in
                     // TODO: update downloading status in table row!
-                    AppDelegate.getContext()?.performBlockAndWait({
+                    AppDelegate.getContext()?.performBlock({
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
+                        done()
+                        p.isDownloading = false
                     })
-                    done()
-                    p.isDownloading = false
                 })
         }
         else {

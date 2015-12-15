@@ -35,6 +35,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
             self.url = self.card!.content!.substringWithRange(range)
             self.content.text.replaceRange(range, with: "")
             listenButton.hidden = false
+            playButton.hidden = false
         }
     }
     

@@ -385,10 +385,10 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
-				64C2F4A21C2090F100F7C854 /* DACircularProgress */,
 				643838651C12758500AF2314 /* StudySauce.entitlements */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				9D5ECB341BF3D16F00F09EE0 /* AppDelegate+Theme.swift */,
+				64C2F4A21C2090F100F7C854 /* DACircularProgress */,
 				6401F4A01BB5DF26004E0163 /* Controllers */,
 				6401F49F1BB5DF11004E0163 /* Models */,
 				6401F4A11BB5DF7F004E0163 /* Views */,

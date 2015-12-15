@@ -140,6 +140,7 @@ extension AppDelegate {
            ContactUsController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
             
             v.tag = 25
+            
             v.setFontSize(CGFloat(saucyTheme.headingSize) * saucyTheme.multiplier())
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
@@ -266,7 +267,31 @@ extension AppDelegate {
             UIViewController.self ~* "Privacy" ~> UITextView.self], {(v: UITextView) in
             v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
         })
-        
+        $([UserLoginController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserResetController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserLoginController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserRegisterController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserInviteController.self ~> UIButton.self ~* T.nthOfType(1),
+            DialogController.self ~> UIButton.self ~* T.nthOfType(0),
+            ContactUsController.self ~> UIButton.self ~* T.nthOfType(1)], {(v: UIButton) in
+                v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
+        })
+     
+        $([UserSettingsContainerController.self ~>> UIButton.self ~* T.firstOfType,
+            PackSummaryController.self ~>> UIButton.self ~* T.firstOfType,
+            UIViewController.self ~* "Privacy" ~>> UIButton.self ~* T.firstOfType,
+            CardController.self ~>> UIButton.self ~* T.firstOfType,
+            PackResultsController.self ~>> UIButton.self ~* T.firstOfType,
+            ContactUsController.self ~>> UIButton.self ~* T.firstOfType,
+            UserLoginController.self ~> UIButton.self ~* T.firstOfType,
+            UserResetController.self ~> UIButton.self ~* T.firstOfType,
+            UserLoginController.self ~> UIButton.self ~* T.firstOfType,
+            UserRegisterController.self ~> UIButton.self ~* T.firstOfType,
+            UserInviteController.self ~> UIButton.self ~* T.firstOfType,
+            ContactUsController.self ~> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
+                
+                v.tag = 26
+        })
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

@@ -116,10 +116,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 })
             })
             PackSummaryController.getPacks({
-                dispatch_async(dispatch_get_main_queue(), {
+                AppDelegate.getContext()?.performBlock({
                     self.packs = self.getPacksFromLocalStore()
-                    self.tableView!.reloadData()
-                    self.setTotal()
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.tableView!.reloadData()
+                        self.setTotal()
+                    })
                 })
                 }, downloadedHandler: {p in
                     AppDelegate.getContext()?.performBlock({
@@ -140,10 +142,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func getPacksFromLocalStore() -> [Pack]
     {
-        return AppDelegate.getUser()!.getPacks()
+        return AppDelegate.getUser()?.getPacks()
             .filter({
                 $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
-            })
+            }) ?? []
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

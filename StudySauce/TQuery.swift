@@ -22,9 +22,9 @@ enum T<B: UIView> {
         return {(v: B) -> Bool in
             let ofTypes = v.superview!.subviews
             if i < 0 {
-                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+                return ofTypes.indexOf(v) == ofTypes.count - i
             }
-            return v.superview != nil && ofTypes.indexOf(v) == i
+            return ofTypes.indexOf(v) == i
         }
     }
     
@@ -32,9 +32,9 @@ enum T<B: UIView> {
         return {(v: B) -> Bool in
             let ofTypes = v.superview!.subviews.filter({return $0 is B})
             if i < 0 {
-                return v.superview != nil && ofTypes.indexOf(v) == ofTypes.count - i
+                return ofTypes.indexOf(v) == ofTypes.count - i
             }
-            return v.superview != nil && ofTypes.indexOf(v) == i
+            return ofTypes.indexOf(v) == i
         }
     }
     
