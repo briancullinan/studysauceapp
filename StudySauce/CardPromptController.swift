@@ -10,15 +10,18 @@ import Foundation
 import CoreData
 import UIKit
 import AVFoundation
+import QuartzCore
 
 class CardPromptController: UIViewController, AVAudioPlayerDelegate {
     weak var card: Card? = nil
     var player: AVAudioPlayer? = nil
     var url: String? = nil
     var playing: Bool = false
+    var timer: NSTimer? = nil
 
     @IBOutlet weak var content: AutoSizingTextView!
     @IBOutlet weak var listenButton: UIButton!
+    @IBOutlet weak var playButton: DALabeledCircularProgressView!
     
     override func viewDidLoad() {
         self.content.text = self.card!.content
@@ -52,12 +55,20 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
             self.player?.delegate = self
             self.player?.prepareToPlay()
             self.player?.play()
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("updateProgress"), userInfo: nil, repeats: true)
         })
+    }
+    
+    func updateProgress() {
+        self.playButton.setProgress(CGFloat(self.player!.currentTime / self.player!.duration), animated: true)
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         self.playing = false
         self.listenButton.alpha = 0.5
+        self.timer?.invalidate()
+        self.playButton.setProgress(0, animated: true)
+        self.timer = nil
     }
 
     @IBAction func listenClick(sender: UIButton) {

@@ -46,8 +46,15 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
+                                <rect key="frame" x="253" y="378" width="94" height="94"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="height" multiplier="1:1" id="zB1-2i-ICB"/>
+                                </constraints>
+                            </view>
                             <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
-                                <rect key="frame" x="279" y="434" width="42" height="30"/>
+                                <rect key="frame" x="253" y="378" width="94" height="94"/>
                                 <state key="normal" title="Listen"/>
                                 <connections>
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
@@ -56,17 +63,23 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="top" secondItem="3hO-ob-mU8" secondAttribute="top" multiplier="0.8" id="1E2-5p-vXH"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="centerY" secondItem="Rib-6W-6bv" secondAttribute="centerY" id="3Wi-A4-Neu"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="height" secondItem="Rib-6W-6bv" secondAttribute="height" id="8lS-aQ-gkT"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leadingMargin" id="9KZ-L5-wSB"/>
                             <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="LBl-mY-aFi" secondAttribute="bottom" constant="8" symbolic="YES" id="Goi-TF-r6G"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="trailing" secondItem="bLY-bu-chj" secondAttribute="trailingMargin" id="NT0-NQ-gdM"/>
-                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="tcT-70-9cF" secondAttribute="bottom" constant="8" symbolic="YES" id="OAL-FR-goe"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="bsG-7u-QNY"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="centerX" secondItem="LBl-mY-aFi" secondAttribute="centerX" id="fAL-5g-MQp"/>
+                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="Rib-6W-6bv" secondAttribute="bottom" id="fRM-Bx-IH7"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="width" id="lDP-LH-MMa"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="8" symbolic="YES" id="thl-CF-Tc5"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="content" destination="LBl-mY-aFi" id="CXM-as-wmF"/>
                         <outlet property="listenButton" destination="tcT-70-9cF" id="zMb-js-fio"/>
+                        <outlet property="playButton" destination="Rib-6W-6bv" id="a6M-1J-cbO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yF9-Gl-5iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -689,26 +702,37 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">
-                                <rect key="frame" x="520" y="41" width="60" height="14"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">
+                                <rect key="frame" x="520" y="40" width="60" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-g1-5Au">
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="K8a-6n-xDa"/>
+                                    <constraint firstAttribute="width" constant="57" id="peu-0o-WaE"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="BeF-jh-fpd"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
                                 <rect key="frame" x="226" y="120" width="149" height="33"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Start over?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5O-Ga-XDa">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" text="Start over?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5O-Ga-XDa">
                                 <rect key="frame" x="20" y="269" width="560" height="28"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="M0c-QT-Bxo">
-                                <rect key="frame" x="216" y="163" width="169" height="95"/>
+                                <rect key="frame" x="216" y="163" width="169" height="96"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -736,17 +760,6 @@ support@studysauce.com
                                 </state>
                                 <connections>
                                     <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="ac2-3Y-K6Q"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-g1-5Au">
-                                <rect key="frame" x="20" y="28" width="57" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="K8a-6n-xDa"/>
-                                    <constraint firstAttribute="width" constant="57" id="peu-0o-WaE"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                                <connections>
-                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="BeF-jh-fpd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1470,7 +1483,7 @@ support@studysauce.com
                             <tableViewSection headerTitle="Basic information" id="BTy-7d-dQQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xSV-jN-HWd">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="50" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xSV-jN-HWd" id="XU1-QP-8j2">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -1498,7 +1511,7 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zJp-FK-9yM">
-                                        <rect key="frame" x="0.0" y="89.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="90" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJp-FK-9yM" id="ybY-Zq-emd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -1526,7 +1539,7 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lgW-Vk-SzC">
-                                        <rect key="frame" x="0.0" y="129.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="130" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgW-Vk-SzC" id="4h4-2R-VOr">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -1558,7 +1571,7 @@ support@studysauce.com
                             <tableViewSection headerTitle="Child information" id="hKr-42-xBk">
                                 <cells>
                                     <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qY0-eA-xul">
-                                        <rect key="frame" x="0.0" y="202.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="203" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qY0-eA-xul" id="pf3-OW-VZG">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -1586,7 +1599,7 @@ support@studysauce.com
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="JNr-I0-zUv">
-                                        <rect key="frame" x="0.0" y="242.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="243" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-I0-zUv" id="8mO-KZ-AQc">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -1618,7 +1631,7 @@ support@studysauce.com
                             <tableViewSection headerTitle="Privacy" id="F3V-vC-eWK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="45V-80-3rm">
-                                        <rect key="frame" x="0.0" y="315.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="316" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45V-80-3rm" id="W63-qk-s9q">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="40"/>
@@ -1645,7 +1658,7 @@ support@studysauce.com
                             <tableViewSection headerTitle="Support" id="fxT-ql-DSK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gsZ-sM-Rcm">
-                                        <rect key="frame" x="0.0" y="388.5" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="389" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gsZ-sM-Rcm" id="geq-rR-o0q">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="40"/>
@@ -2259,9 +2272,9 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="M6g-6I-YI4"/>
-        <segue reference="h3u-I4-U7Q"/>
         <segue reference="Dzv-wk-aJj"/>
         <segue reference="Edk-H5-39l"/>
+        <segue reference="hJi-Nu-qtH"/>
+        <segue reference="h3u-I4-U7Q"/>
     </inferredMetricsTieBreakers>
 </document>

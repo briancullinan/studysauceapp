@@ -122,10 +122,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.setTotal()
                 })
                 }, downloadedHandler: {p in
-                    dispatch_async(dispatch_get_main_queue(), {
+                    AppDelegate.getContext()?.performBlock({
                         self.packs = self.getPacksFromLocalStore()
-                        self.tableView!.reloadData()
-                        self.setTotal()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.tableView!.reloadData()
+                            self.setTotal()
+                        })
                     })
             })
         }

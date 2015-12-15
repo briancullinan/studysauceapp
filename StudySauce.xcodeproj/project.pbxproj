@@ -41,6 +41,8 @@
 		64A1646D1BFBC22600345E55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646B1BFBC22600345E55 /* File.swift */; };
 		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; };
 		64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */; };
+		64C2F4A71C2090F100F7C854 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */; };
+		64C2F4A81C2090F100F7C854 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A61C2090F100F7C854 /* DALabeledCircularProgressView.m */; };
 		64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */; };
 		64D0C0DC1BDFCECB006FEF44 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0DA1BDFCECB006FEF44 /* Answer.swift */; };
 		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; };
@@ -135,6 +137,11 @@
 		64A1646B1BFBC22600345E55 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
 		64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
+		64C2F4A31C2090F100F7C854 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
+		64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
+		64C2F4A51C2090F100F7C854 /* DALabeledCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALabeledCircularProgressView.h; sourceTree = "<group>"; };
+		64C2F4A61C2090F100F7C854 /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
+		64C2F4A91C2094C400F7C854 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D0C0DA1BDFCECB006FEF44 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -264,6 +271,17 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		64C2F4A21C2090F100F7C854 /* DACircularProgress */ = {
+			isa = PBXGroup;
+			children = (
+				64C2F4A31C2090F100F7C854 /* DACircularProgressView.h */,
+				64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */,
+				64C2F4A51C2090F100F7C854 /* DALabeledCircularProgressView.h */,
+				64C2F4A61C2090F100F7C854 /* DALabeledCircularProgressView.m */,
+			);
+			path = DACircularProgress;
+			sourceTree = "<group>";
+		};
 		64D219EC1BBB2BDC005F9094 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +385,7 @@
 		845052511BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXGroup;
 			children = (
+				64C2F4A21C2090F100F7C854 /* DACircularProgress */,
 				643838651C12758500AF2314 /* StudySauce.entitlements */,
 				845052541BA4AA3B005377D9 /* AppDelegate.swift */,
 				9D5ECB341BF3D16F00F09EE0 /* AppDelegate+Theme.swift */,
@@ -388,6 +407,7 @@
 				8450525D1BA4AA3B005377D9 /* Images.xcassets */,
 				8450525F1BA4AA3B005377D9 /* LaunchScreen.xib */,
 				845052531BA4AA3B005377D9 /* Info.plist */,
+				64C2F4A91C2094C400F7C854 /* Bridge.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -547,6 +567,7 @@
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,
 				64EAF91E1BF7059D008E66E2 /* TQueryOperators.swift in Sources */,
 				9D764C551BC5C6AB00A54B4C /* ContactUsController.swift in Sources */,
+				64C2F4A71C2090F100F7C854 /* DACircularProgressView.m in Sources */,
 				64D580F31BB37962005EF7F2 /* StudySauce.xcdatamodeld in Sources */,
 				644C4A621BB3516F00E4D52A /* CardController.swift in Sources */,
 				64306E0F1BFE62AD0069BF1F /* JSON.swift in Sources */,
@@ -597,6 +618,7 @@
 				9D5ECB371BF3D2A500F09EE0 /* UITextView.swift in Sources */,
 				64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */,
 				64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */,
+				64C2F4A81C2090F100F7C854 /* DALabeledCircularProgressView.m in Sources */,
 				64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */,
 				64D219E31BBB0CCB005F9094 /* User.swift in Sources */,
 				64ED1DCF1BEC173700A9E2A2 /* IQKeyboardManager.swift in Sources */,
@@ -750,6 +772,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.companyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = ./StudySauce/Bridge.h;
 			};
 			name = Debug;
 		};
@@ -767,6 +790,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.companyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = ./StudySauce/Bridge.h;
 			};
 			name = Release;
 		};
