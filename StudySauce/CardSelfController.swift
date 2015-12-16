@@ -39,8 +39,8 @@ class CardSelfController: UIViewController {
     
     func submitResponse(correct: Bool) {
         if let vc = self.parentViewController as? CardController {
-            if let moc = AppDelegate.getContext() {
-                let newResponse = moc.insert(Response.self)
+            AppDelegate.performContext {
+                let newResponse = AppDelegate.insert(Response.self)
                 newResponse.correct = correct
                 newResponse.card = self.card
                 newResponse.created = NSDate()

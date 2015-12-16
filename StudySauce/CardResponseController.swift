@@ -26,9 +26,7 @@ class CardResponseController : UIViewController {
             self.response!.text = "\(correct!.value!)\n\r\(self.card.response!)"
         }
         let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
-        if lines!.matchesInString(self.response.text!, options: [], range: NSMakeRange(0, self.response.text!.utf8.count - 1)).count > 0 {
-            self.response.text = lines!.stringByReplacingMatchesInString(self.response.text!, options: [], range: NSMakeRange(0, self.response.text!.utf8.count - 1), withTemplate: "\n")
-        }
+        self.response.text = lines!.stringByReplacingMatchesInString(self.response.text!, options: [], range: NSMakeRange(0, self.response.text!.utf8.count - 1), withTemplate: "\n")
     }
     
 }

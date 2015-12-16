@@ -60,8 +60,8 @@ class CardMultipleController: UIViewController {
     
     func saveResponse(value: String) {
         if let vc = self.parentViewController as? CardController {
-            if let moc = AppDelegate.getContext() {
-                let newResponse = moc.insert(Response.self)
+            AppDelegate.performContext {
+                let newResponse = AppDelegate.insert(Response.self)
                 for a in self.card!.answers!.allObjects as! [Answer] {
                     if a.value == value {
                         newResponse.correct = a.correct

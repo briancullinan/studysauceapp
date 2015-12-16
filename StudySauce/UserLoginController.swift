@@ -85,25 +85,17 @@ class UserLoginController : UIViewController {
     
     static func getUserByEmail(email: String?) -> User? {
         var user: User? = nil
-        do {
-            if email != nil {
-                if let moc = AppDelegate.getContext() {
-                    let fetchRequest = NSFetchRequest(entityName: "User")
-                    for u in try moc.executeFetchRequest(fetchRequest) as! [User] {
-                        if u.email == email {
-                            user = u
-                            break
-                        }
-                    }
-                    if user == nil {
-                        user = moc.insert(User.self)
-                    }
-                    user!.email = email
+        if email != nil {
+            for u in AppDelegate.list(User.self) {
+                if u.email == email {
+                    user = u
+                    break
                 }
             }
-        }
-        catch let error as NSError {
-            NSLog("\(error.description)")
+            if user == nil {
+                user = AppDelegate.insert(User.self)
+            }
+            user!.email = email
         }
         return user
     }

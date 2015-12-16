@@ -99,19 +99,18 @@ class UserSettingsController: UITableViewController {
             }
             cacheResetCount++
             if cacheResetCount == 10 {
-                AppDelegate.getContext()?.performBlock({
+                AppDelegate.performContext {
                     let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
                     for c in storage.cookies! {
                         storage.deleteCookie(c)
                     }
                     NSUserDefaults.standardUserDefaults()
-                    AppDelegate.managedObjectContext = nil
                     AppDelegate.resetLocalStore(true)
                     AppDelegate.instance().user = nil
                     UserLoginController.logout({
                         self.goHome(true)
                     })
-                })
+                }
             }
         }
         //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)

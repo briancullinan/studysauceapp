@@ -64,14 +64,12 @@ class User: NSManagedObject {
                 results.appendContentsOf(up.getRetention())
             }
             results.shuffleInPlace()
-            AppDelegate.getContext()!.performBlockAndWait {
-                self.retention = results.map { c -> String in
-                    return "\(c.id!)"
-                    }.joinWithSeparator(",")
-                self.retention_to = NSDate()
-                // TODO: shouldn't really do database edits in the model
-                AppDelegate.saveContext()
-            }
+            self.retention = results.map { c -> String in
+                return "\(c.id!)"
+                }.joinWithSeparator(",")
+            self.retention_to = NSDate()
+            // TODO: shouldn't really do database edits in the model
+            AppDelegate.saveContext()
         }
         else {
             for i in self.retention!.componentsSeparatedByString(",") {

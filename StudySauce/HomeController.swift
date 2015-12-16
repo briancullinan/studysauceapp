@@ -23,8 +23,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var bigbutton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
-        if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
-            self.performSegueWithIdentifier("card", sender: self)
+        AppDelegate.performContext {
+            if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.performSegueWithIdentifier("card", sender: self)
+                })
+            }
         }
     }
     
@@ -71,13 +75,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func setTotal() {
         
         if self.cardCount != nil {
-            AppDelegate.getContext()?.performBlock({
+            AppDelegate.performContext {
                 let count = AppDelegate.getUser()!.getRetentionRemaining()
                 let s = count == 1 ? "" : "s"
                 dispatch_async(dispatch_get_main_queue(), {
                     self.cardCount!.text = "\(count) card\(s)"
                 })
-            })
+            }
         }
 
     }
@@ -109,28 +113,28 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             // Load packs from database
-            AppDelegate.getContext()?.performBlock({
+            AppDelegate.performContext {
                 self.packs = self.getPacksFromLocalStore()
                 dispatch_async(dispatch_get_main_queue(), {
                     self.tableView!.reloadData()
                 })
-            })
+            }
             PackSummaryController.getPacks({
-                AppDelegate.getContext()?.performBlock({
+                AppDelegate.performContext {
                     self.packs = self.getPacksFromLocalStore()
                     dispatch_async(dispatch_get_main_queue(), {
                         self.tableView!.reloadData()
                         self.setTotal()
                     })
-                })
+                }
                 }, downloadedHandler: {p in
-                    AppDelegate.getContext()?.performBlock({
+                    AppDelegate.performContext {
                         self.packs = self.getPacksFromLocalStore()
                         dispatch_async(dispatch_get_main_queue(), {
                             self.tableView!.reloadData()
                             self.setTotal()
                         })
-                    })
+                    }
             })
         }
     }

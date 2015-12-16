@@ -58,20 +58,20 @@ class AutoSizingTextView: UITextView {
                     self.font = UIFont(name: self.font!.fontName, size: size)
                 }
             }
+            
             // center resized box in container?
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
             topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
-            if self.contentInset.top != topCorrect {
-                self.contentInset = UIEdgeInsets(top: topCorrect, left: 0,bottom: 0,right: 0)
+            if self.textContainerInset.top != topCorrect {
+                self.textContainerInset = UIEdgeInsets(top: topCorrect, left: self.textContainerInset.left,bottom: self.textContainerInset.bottom,right: self.textContainerInset.right)
             }
-        
             self.isCalculating = false
         }
     }
     
     override func layoutSubviews() {
-        self.calcFontSize()
         super.layoutSubviews()
+        self.calcFontSize()
     }
     
 }

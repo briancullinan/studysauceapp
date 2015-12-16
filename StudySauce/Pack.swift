@@ -22,7 +22,7 @@ class Pack: NSManagedObject {
             return false
         }))?.first as? UserPack
         if up == nil {
-            up = AppDelegate.getContext()!.insert(UserPack.self)
+            up = AppDelegate.insert(UserPack.self)
             up!.pack = self
             up!.user = AppDelegate.getUser()
             AppDelegate.saveContext()

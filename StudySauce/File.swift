@@ -17,7 +17,7 @@ class File: NSManagedObject {
     
     static func save(url: String, done: (_: File) -> Void = {(_: File) in}) {
         let fileManager = NSFileManager.defaultManager()
-        let file = AppDelegate.getContext()?.list(File.self).filter({$0.url! == url}).first ?? AppDelegate.getContext()!.insert(File.self) <| {
+        let file = AppDelegate.list(File.self).filter({$0.url! == url}).first ?? AppDelegate.insert(File.self) <| {
             $0.url = url
         }
         AppDelegate.saveContext()

@@ -45,8 +45,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return AppDelegate.instance().user
     }
     
-    static func getContext() -> NSManagedObjectContext? {
-        return AppDelegate.managedObjectContext
+    static func insert<A: NSManagedObject>(a: A.Type) -> A {
+        return AppDelegate.managedObjectContext!.insert(a)
+    }
+    
+    static func deleteObject(obj: NSManagedObject) {
+        AppDelegate.managedObjectContext?.deleteObject(obj)
+    }
+    
+    static func performContext(perform: () -> Void) -> Void {
+        AppDelegate.managedObjectContext?.performBlock(perform)
+    }
+    
+    static func list<A: NSManagedObject>(t: A.Type) -> [A] {
+        return AppDelegate.managedObjectContext!.list(t)
     }
     
     static func studySauceCom(var path_and_query: String) -> NSURL! {
@@ -222,7 +234,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return nil
     }
     
-    static var managedObjectContext: NSManagedObjectContext? = {
+    private static var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = AppDelegate.getPersistentStoreCoordinator()
         if coordinator == nil {

@@ -70,8 +70,8 @@ class CardBlankController: UIViewController {
     
     func saveResponse(value: String) {
         if let vc = self.parentViewController as? CardController {
-            if let moc = AppDelegate.getContext() {
-                let newResponse = moc.insert(Response.self)
+            AppDelegate.performContext {
+                let newResponse = AppDelegate.insert(Response.self)
                 let answer = self.card!.getCorrect()
                 newResponse.answer = answer
                 let ex = try? NSRegularExpression(pattern: answer!.value!, options: [NSRegularExpressionOptions.CaseInsensitive])
