@@ -311,7 +311,8 @@ extension AppDelegate {
             UserRegisterController.self ~> UIButton.self ~* T.nthOfType(1),
             UserInviteController.self ~> UIButton.self ~* T.nthOfType(1),
             DialogController.self ~> UIButton.self ~* T.nthOfType(0),
-            ContactUsController.self ~> UIButton.self ~* T.nthOfType(1)], {(v: UIButton) in
+            ContactUsController.self ~> UIButton.self ~* T.nthOfType(1),
+            HomeController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in
                 v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
         })
      

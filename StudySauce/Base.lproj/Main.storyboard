@@ -191,8 +191,8 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="KKE-iW-3IF">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLC-Bm-8Kl">
-                                <rect key="frame" x="158" y="435" width="285" height="50"/>
+                            <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLC-Bm-8Kl">
+                                <rect key="frame" x="151" y="428" width="300" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -203,13 +203,9 @@
                                     <segue destination="JIk-eY-fER" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="GQz-t5-qGU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fab-0R-fLt">
-                                <rect key="frame" x="158" y="365" width="285" height="50"/>
+                            <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fab-0R-fLt">
+                                <rect key="frame" x="151" y="372" width="300" height="36"/>
                                 <color key="backgroundColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="HHy-4t-kFs"/>
-                                    <constraint firstAttribute="width" constant="285" id="Jbw-aJ-uT6"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Sign up">
@@ -219,8 +215,8 @@
                                     <segue destination="pyw-KZ-FSd" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="XRc-D6-3Ln"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="3Rh-2w-q3F">
-                                <rect key="frame" x="167" y="60" width="266" height="248"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StudySauce Sketch" translatesAutoresizingMaskIntoConstraints="NO" id="3Rh-2w-q3F">
+                                <rect key="frame" x="168" y="60" width="266" height="248"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="3Rh-2w-q3F" secondAttribute="height" multiplier="177:184" constant="27" id="mEO-WE-NW3"/>
                                 </constraints>
@@ -234,6 +230,7 @@
                             <constraint firstItem="KKE-iW-3IF" firstAttribute="centerY" secondItem="FWh-z8-jjW" secondAttribute="centerY" id="9RF-3b-04f"/>
                             <constraint firstItem="xLC-Bm-8Kl" firstAttribute="width" secondItem="fab-0R-fLt" secondAttribute="width" id="A1X-sj-uDH"/>
                             <constraint firstItem="xLC-Bm-8Kl" firstAttribute="centerX" secondItem="FWh-z8-jjW" secondAttribute="centerX" id="EEO-uA-RD7"/>
+                            <constraint firstItem="fab-0R-fLt" firstAttribute="width" secondItem="FWh-z8-jjW" secondAttribute="width" multiplier="0.5" id="TGx-Xh-Jga"/>
                             <constraint firstItem="KKE-iW-3IF" firstAttribute="height" secondItem="FWh-z8-jjW" secondAttribute="height" id="WdO-7G-3bb"/>
                             <constraint firstItem="xLC-Bm-8Kl" firstAttribute="height" secondItem="fab-0R-fLt" secondAttribute="height" id="ZJf-it-9B0"/>
                             <constraint firstItem="3Rh-2w-q3F" firstAttribute="top" secondItem="23S-Fb-aqk" secondAttribute="top" multiplier="0.1" id="blO-VS-VeP"/>
@@ -859,21 +856,15 @@ support@studysauce.com
                                     <segue destination="kKK-Wn-MHf" kind="unwind" unwindAction="returnToHome:" id="SyP-QK-RxE"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter code to continue" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CZ5-1O-yqg" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter code to continue" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CZ5-1O-yqg" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="150" y="300" width="300" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="rnE-v0-dyc"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzk-so-izB">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lzk-so-izB">
                                 <rect key="frame" x="200" y="354" width="200" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="EHV-8D-BZA"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Submit">
@@ -908,6 +899,7 @@ support@studysauce.com
                             <constraint firstItem="Y1d-99-Ixa" firstAttribute="width" secondItem="Lhf-mT-Bct" secondAttribute="width" id="KyH-bT-IYg"/>
                             <constraint firstItem="Y1d-99-Ixa" firstAttribute="centerX" secondItem="Lhf-mT-Bct" secondAttribute="centerX" id="QpK-i7-aRw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Bf0-Fl-TON" secondAttribute="trailing" id="Qtg-XH-Ehq"/>
+                            <constraint firstItem="CZ5-1O-yqg" firstAttribute="width" secondItem="Lhf-mT-Bct" secondAttribute="width" multiplier="0.75" id="Xfc-ft-gum"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Bf0-Fl-TON" secondAttribute="leading" id="dNN-3G-0T4"/>
                             <constraint firstItem="Y1d-99-Ixa" firstAttribute="height" secondItem="Lhf-mT-Bct" secondAttribute="height" id="igI-hL-RmQ"/>
                             <constraint firstItem="Bf0-Fl-TON" firstAttribute="centerX" secondItem="Lhf-mT-Bct" secondAttribute="centerX" id="kfN-BY-rHV"/>
@@ -971,27 +963,18 @@ support@studysauce.com
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-B6-21P" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="120" width="276" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="250" constant="275" id="mMP-oP-tOl"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EjC-OO-MWE" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="157" width="560" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="250" constant="560" id="3PN-cH-Qns"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umH-Qo-rtw" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="304" y="120" width="276" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="250" constant="275" id="uVa-Ll-ZoQ"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                             </textField>
@@ -1008,9 +991,6 @@ support@studysauce.com
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJy-2L-83Z">
                                 <rect key="frame" x="200" y="397" width="200" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="T4T-lb-sxg"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Register">
@@ -1110,8 +1090,8 @@ support@studysauce.com
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33R-vM-XWY">
-                                <rect key="frame" x="212" y="295" width="176" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33R-vM-XWY">
+                                <rect key="frame" x="222" y="295" width="156" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Reset Password">
@@ -1173,11 +1153,8 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-ua-qD3">
-                                <rect key="frame" x="200" y="316" width="200" height="36"/>
+                                <rect key="frame" x="271" y="316" width="59" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="6BP-Ze-mQF"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Log in">
@@ -1188,20 +1165,14 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NS-tq-JHQ" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="150" y="210" width="300" height="29"/>
+                                <rect key="frame" x="75" y="210" width="450" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="q2h-d6-KaN"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g30-OR-S5R" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="150" y="262" width="300" height="29"/>
+                                <rect key="frame" x="75" y="262" width="450" height="29"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="2Lh-Vi-TWW"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                             </textField>
@@ -1221,12 +1192,14 @@ support@studysauce.com
                             <constraint firstItem="6NS-tq-JHQ" firstAttribute="centerX" secondItem="2LD-Jo-Wpk" secondAttribute="centerX" id="BDB-14-c32"/>
                             <constraint firstItem="6NS-tq-JHQ" firstAttribute="top" secondItem="qJg-50-cH3" secondAttribute="top" multiplier="0.35" id="HDg-H1-b00"/>
                             <constraint firstItem="HOa-he-Q7D" firstAttribute="width" secondItem="2LD-Jo-Wpk" secondAttribute="width" id="KS6-mo-h6w"/>
+                            <constraint firstItem="g30-OR-S5R" firstAttribute="width" secondItem="2LD-Jo-Wpk" secondAttribute="width" multiplier="0.75" id="KuO-C4-XVw"/>
                             <constraint firstItem="g30-OR-S5R" firstAttribute="top" secondItem="6NS-tq-JHQ" secondAttribute="bottom" constant="23" id="LaG-NI-dE2"/>
                             <constraint firstItem="HOa-he-Q7D" firstAttribute="height" secondItem="2LD-Jo-Wpk" secondAttribute="height" id="PQi-6Q-Qb1"/>
                             <constraint firstItem="ltW-ua-qD3" firstAttribute="centerX" secondItem="2LD-Jo-Wpk" secondAttribute="centerX" id="dOr-xZ-u2R"/>
                             <constraint firstItem="HOa-he-Q7D" firstAttribute="centerY" secondItem="2LD-Jo-Wpk" secondAttribute="centerY" id="dlc-pl-map"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ai9-OZ-uI0" secondAttribute="leading" id="iZ0-ng-Sbu"/>
                             <constraint firstItem="qJg-50-cH3" firstAttribute="top" secondItem="ypb-7w-Vb0" secondAttribute="bottom" constant="8" symbolic="YES" id="imE-7t-ksM"/>
+                            <constraint firstItem="6NS-tq-JHQ" firstAttribute="width" secondItem="2LD-Jo-Wpk" secondAttribute="width" multiplier="0.75" id="kTW-Pb-hdB"/>
                             <constraint firstItem="ltW-ua-qD3" firstAttribute="top" secondItem="g30-OR-S5R" secondAttribute="bottom" constant="25" id="sXf-ne-rXD"/>
                             <constraint firstItem="ai9-OZ-uI0" firstAttribute="top" secondItem="Mzx-Hk-Dve" secondAttribute="bottom" id="svt-BJ-MC6"/>
                             <constraint firstItem="ypb-7w-Vb0" firstAttribute="centerX" secondItem="2LD-Jo-Wpk" secondAttribute="centerX" id="uzc-vm-MgA"/>
@@ -1826,9 +1799,6 @@ support@studysauce.com
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eBW-g2-1yd">
                                 <rect key="frame" x="200" y="300" width="200" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="mpW-aR-m1W"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Try again">
@@ -1904,28 +1874,6 @@ support@studysauce.com
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBp-mM-08E">
-                                <rect key="frame" x="200" y="542" width="200" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="nfP-2Q-zcg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Send">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="loginClick:" destination="JIk-eY-fER" eventType="touchUpInside" id="D2V-tk-AY9"/>
-                                    <action selector="sendEmail:" destination="5Dr-EB-zmH" eventType="touchUpInside" id="t7w-Er-v8h"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-uv-BSZ">
-                                <rect key="frame" x="20" y="195" width="560" height="339"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sOL-3O-ryY" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="82" width="560" height="20"/>
                                 <nil key="textColor"/>
@@ -1944,11 +1892,30 @@ support@studysauce.com
                                     <action selector="DismissKeyboard:" destination="5Dr-EB-zmH" eventType="editingDidEndOnExit" id="JaI-ZR-JgB"/>
                                 </connections>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s3g-uv-BSZ">
+                                <rect key="frame" x="20" y="195" width="560" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBp-mM-08E">
+                                <rect key="frame" x="276" y="503" width="49" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Send">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginClick:" destination="JIk-eY-fER" eventType="touchUpInside" id="D2V-tk-AY9"/>
+                                    <action selector="sendEmail:" destination="5Dr-EB-zmH" eventType="touchUpInside" id="t7w-Er-v8h"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sOL-3O-ryY" firstAttribute="top" secondItem="eEn-Rh-4rQ" secondAttribute="bottom" constant="8" symbolic="YES" id="0qX-e8-2st"/>
-                            <constraint firstItem="PhD-z4-txW" firstAttribute="top" secondItem="LBp-mM-08E" secondAttribute="bottom" constant="8" symbolic="YES" id="214-7M-Wwf"/>
+                            <constraint firstItem="PhD-z4-txW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="LBp-mM-08E" secondAttribute="bottom" constant="8" symbolic="YES" id="214-7M-Wwf"/>
                             <constraint firstItem="k3P-lr-anK" firstAttribute="top" secondItem="l49-oY-aGI" secondAttribute="bottom" constant="8" symbolic="YES" id="4dY-5a-NsI"/>
                             <constraint firstItem="9pl-KT-nha" firstAttribute="centerX" secondItem="G2k-cE-b9f" secondAttribute="centerX" id="4qp-Kh-Sto"/>
                             <constraint firstItem="UKi-0L-j2x" firstAttribute="top" secondItem="k3P-lr-anK" secondAttribute="bottom" constant="8" symbolic="YES" id="5z4-jq-fZ9"/>
@@ -1963,6 +1930,7 @@ support@studysauce.com
                             <constraint firstItem="l49-oY-aGI" firstAttribute="top" secondItem="sOL-3O-ryY" secondAttribute="bottom" constant="8" symbolic="YES" id="Ed8-zs-10R"/>
                             <constraint firstAttribute="leadingMargin" secondItem="k3P-lr-anK" secondAttribute="leading" id="H1a-35-g6c"/>
                             <constraint firstItem="s3g-uv-BSZ" firstAttribute="top" secondItem="UKi-0L-j2x" secondAttribute="bottom" constant="8" symbolic="YES" id="Rv5-3T-7qQ"/>
+                            <constraint firstItem="s3g-uv-BSZ" firstAttribute="height" secondItem="G2k-cE-b9f" secondAttribute="height" multiplier="0.5" id="Vz3-hQ-QqC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k3P-lr-anK" secondAttribute="trailing" id="kao-4J-hY5"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bJk-DO-RNa" secondAttribute="leading" id="nbH-YF-4as"/>
                             <constraint firstItem="eEn-Rh-4rQ" firstAttribute="top" secondItem="9pl-KT-nha" secondAttribute="bottom" constant="14" id="qPa-zk-pkC"/>
@@ -1981,88 +1949,6 @@ support@studysauce.com
                 <exit id="Lez-iK-21r" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-2705"/>
-        </scene>
-        <!--UserInvite-->
-        <scene sceneID="flB-7k-TyY">
-            <objects>
-                <viewController title="UserInvite" id="c9t-jE-emQ" customClass="UserInviteController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BgW-fj-UAp"/>
-                        <viewControllerLayoutGuide type="bottom" id="YVV-Mc-4FU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="o2T-qX-gVi">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="drb-hX-i6R">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter code to continue" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zSN-Mr-KTu" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="150" y="300" width="300" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="7rx-bK-xeB"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter a code to unlock additional study packs" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ket-d5-LvW">
-                                <rect key="frame" x="20" y="210" width="560" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ggu-JI-7NZ">
-                                <rect key="frame" x="200" y="354" width="200" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="bb8-ex-NZo"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Submit">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitCode2:" destination="c9t-jE-emQ" eventType="touchUpInside" id="uxF-dB-Tpn"/>
-                                    <action selector="submitCode:" destination="c9t-jE-emQ" eventType="touchUpInside" id="MBb-Hk-OVB"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmD-r4-5W8">
-                                <rect key="frame" x="20" y="20" width="57" height="38"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="57" id="ZwW-DQ-c9l"/>
-                                    <constraint firstAttribute="height" constant="38" id="oJl-B3-hqq"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="StudySauceBackArrow"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ggu-JI-7NZ" firstAttribute="top" secondItem="zSN-Mr-KTu" secondAttribute="bottom" constant="25" id="091-ES-9Lc"/>
-                            <constraint firstItem="zSN-Mr-KTu" firstAttribute="centerX" secondItem="o2T-qX-gVi" secondAttribute="centerX" id="0cN-dJ-joQ"/>
-                            <constraint firstItem="drb-hX-i6R" firstAttribute="centerY" secondItem="o2T-qX-gVi" secondAttribute="centerY" id="4X4-b2-ahY"/>
-                            <constraint firstItem="Ket-d5-LvW" firstAttribute="centerX" secondItem="o2T-qX-gVi" secondAttribute="centerX" id="Clu-rX-uyB"/>
-                            <constraint firstItem="Ggu-JI-7NZ" firstAttribute="centerX" secondItem="o2T-qX-gVi" secondAttribute="centerX" id="HvJ-vb-Ubf"/>
-                            <constraint firstItem="drb-hX-i6R" firstAttribute="width" secondItem="o2T-qX-gVi" secondAttribute="width" id="TZJ-Jt-q1P"/>
-                            <constraint firstItem="drb-hX-i6R" firstAttribute="height" secondItem="o2T-qX-gVi" secondAttribute="height" id="Z9B-re-Mj6"/>
-                            <constraint firstItem="drb-hX-i6R" firstAttribute="centerX" secondItem="o2T-qX-gVi" secondAttribute="centerX" id="a2w-un-RPm"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="Ket-d5-LvW" secondAttribute="leading" id="akv-eb-c56"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="tmD-r4-5W8" secondAttribute="leading" id="djb-Fk-Vrx"/>
-                            <constraint firstItem="Ket-d5-LvW" firstAttribute="top" secondItem="YVV-Mc-4FU" secondAttribute="top" multiplier="0.35" id="e5u-t6-Y5G"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ket-d5-LvW" secondAttribute="trailing" id="k34-WD-n43"/>
-                            <constraint firstItem="tmD-r4-5W8" firstAttribute="top" secondItem="BgW-fj-UAp" secondAttribute="bottom" id="l2O-7F-xFN"/>
-                            <constraint firstItem="zSN-Mr-KTu" firstAttribute="top" secondItem="YVV-Mc-4FU" secondAttribute="top" multiplier="0.5" id="zlM-II-ehg"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="registrationCode" destination="zSN-Mr-KTu" id="eBI-Qh-B3g"/>
-                        <outlet property="registrationCode2" destination="zSN-Mr-KTu" id="Rsf-SV-oq7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S5b-ND-gOt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1135" y="-4280"/>
         </scene>
         <!--CardPrompt-->
         <scene sceneID="a8j-Kj-4i1">
@@ -2269,7 +2155,7 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Edk-H5-39l"/>
+        <segue reference="GQz-t5-qGU"/>
         <segue reference="GGa-Jv-qkY"/>
         <segue reference="Dzv-wk-aJj"/>
         <segue reference="DnL-J9-off"/>
