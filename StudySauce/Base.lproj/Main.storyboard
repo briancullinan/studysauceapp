@@ -732,7 +732,7 @@ support@studysauce.com
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="You scored" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VqX-kh-lXa">
-                                <rect key="frame" x="226" y="120" width="149" height="33"/>
+                                <rect key="frame" x="226" y="161" width="149" height="34"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -741,7 +741,7 @@ support@studysauce.com
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Start over?" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5O-Ga-XDa">
-                                <rect key="frame" x="20" y="269" width="560" height="28"/>
+                                <rect key="frame" x="20" y="310" width="560" height="28"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -750,7 +750,7 @@ support@studysauce.com
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="80%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="M0c-QT-Bxo">
-                                <rect key="frame" x="216" y="163" width="169" height="95"/>
+                                <rect key="frame" x="216" y="205" width="169" height="95"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="80"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -789,13 +789,13 @@ support@studysauce.com
                             <constraint firstItem="d5O-Ga-XDa" firstAttribute="centerX" secondItem="jDN-bc-vzY" secondAttribute="centerX" id="HNh-TF-Ztg"/>
                             <constraint firstItem="M0c-QT-Bxo" firstAttribute="top" secondItem="VqX-kh-lXa" secondAttribute="bottom" constant="10" id="KIL-BG-yq3"/>
                             <constraint firstItem="M0c-QT-Bxo" firstAttribute="centerX" secondItem="jDN-bc-vzY" secondAttribute="centerX" id="KUj-sL-pbc"/>
-                            <constraint firstItem="M0c-QT-Bxo" firstAttribute="centerY" secondItem="Gv8-FI-QsO" secondAttribute="top" multiplier="0.35" id="LUX-Eh-OJL"/>
                             <constraint firstItem="efU-5t-l7n" firstAttribute="top" secondItem="8oo-Mq-sfP" secondAttribute="top" id="N0j-nn-yaH"/>
                             <constraint firstItem="d5O-Ga-XDa" firstAttribute="top" secondItem="M0c-QT-Bxo" secondAttribute="bottom" constant="10" id="SlU-Yq-NfD"/>
                             <constraint firstItem="8oo-Mq-sfP" firstAttribute="width" secondItem="efU-5t-l7n" secondAttribute="width" id="TNk-jw-55L"/>
                             <constraint firstItem="8oo-Mq-sfP" firstAttribute="top" secondItem="jDN-bc-vzY" secondAttribute="bottomMargin" multiplier="0.85" id="ToA-rj-VeU"/>
                             <constraint firstItem="8oo-Mq-sfP" firstAttribute="height" secondItem="efU-5t-l7n" secondAttribute="height" id="a1g-wO-JxC"/>
                             <constraint firstAttribute="leadingMargin" secondItem="d5O-Ga-XDa" secondAttribute="leading" id="aZT-uA-to2"/>
+                            <constraint firstItem="M0c-QT-Bxo" firstAttribute="bottom" secondItem="jDN-bc-vzY" secondAttribute="centerY" id="cqY-p4-kPH"/>
                             <constraint firstItem="LAg-ej-lSQ" firstAttribute="centerY" secondItem="g6q-g1-5Au" secondAttribute="centerY" id="hQn-rq-LB5"/>
                             <constraint firstItem="VqX-kh-lXa" firstAttribute="centerX" secondItem="jDN-bc-vzY" secondAttribute="centerX" id="kQq-MD-GkM"/>
                             <constraint firstItem="g6q-g1-5Au" firstAttribute="leading" secondItem="d5O-Ga-XDa" secondAttribute="leading" id="lnz-la-fFl"/>
@@ -2156,7 +2156,7 @@ support@studysauce.com
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GQz-t5-qGU"/>
-        <segue reference="GGa-Jv-qkY"/>
+        <segue reference="M6g-6I-YI4"/>
         <segue reference="Dzv-wk-aJj"/>
         <segue reference="DnL-J9-off"/>
     </inferredMetricsTieBreakers>
