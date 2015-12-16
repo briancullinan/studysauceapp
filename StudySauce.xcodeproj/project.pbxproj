@@ -43,6 +43,7 @@
 		64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */; };
 		64C2F4A71C2090F100F7C854 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */; };
 		64C2F4A81C2090F100F7C854 /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A61C2090F100F7C854 /* DALabeledCircularProgressView.m */; };
+		64C2F4AB1C21FDF600F7C854 /* AutoSizingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4AA1C21FDF600F7C854 /* AutoSizingTextView.swift */; };
 		64D0C0DB1BDFCECB006FEF44 /* Answer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */; };
 		64D0C0DC1BDFCECB006FEF44 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0C0DA1BDFCECB006FEF44 /* Answer.swift */; };
 		64D219E21BBB0CCB005F9094 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */; };
@@ -141,6 +142,7 @@
 		64C2F4A51C2090F100F7C854 /* DALabeledCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALabeledCircularProgressView.h; sourceTree = "<group>"; };
 		64C2F4A61C2090F100F7C854 /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
 		64C2F4A91C2094C400F7C854 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
+		64C2F4AA1C21FDF600F7C854 /* AutoSizingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSizingTextView.swift; sourceTree = "<group>"; };
 		64D0C0D91BDFCECB006FEF44 /* Answer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Answer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D0C0DA1BDFCECB006FEF44 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		64D219DB1BBB0CCB005F9094 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 		6401F4A11BB5DF7F004E0163 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				64C2F4AA1C21FDF600F7C854 /* AutoSizingTextView.swift */,
 				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
 				64F5FCF41BEC30BD005AF4FC /* PackRetentionCell.swift */,
 				64291C601BC5A2CD005AA348 /* SaucyButton.swift */,
@@ -574,6 +577,7 @@
 				64ED1DD31BEC173700A9E2A2 /* IQTitleBarButtonItem.swift in Sources */,
 				64ED1DD41BEC173700A9E2A2 /* IQToolbar.swift in Sources */,
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
+				64C2F4AB1C21FDF600F7C854 /* AutoSizingTextView.swift in Sources */,
 				64984EA71C1B4D77007D9640 /* CardResponseController.swift in Sources */,
 				64ED1DD11BEC173700A9E2A2 /* IQTextView.swift in Sources */,
 				9D5ECB3B1BF3D47C00F09EE0 /* UITextField.swift in Sources */,

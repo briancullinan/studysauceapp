@@ -1,4 +1,4 @@
-//
+ //
 //  UIViewController.swift
 //  StudySauce
 //
@@ -10,8 +10,30 @@ import Foundation
 import UIKit
 import CoreData
 
+private struct AssociatedKeys {
+    static var orientation = "UIView_Orientation"
+}
+
 extension UIViewController {
     
+    var orientation: UIInterfaceOrientation? {
+        get {
+            let result = objc_getAssociatedObject(self, &AssociatedKeys.orientation) as? Int
+            if result == nil {
+                return nil
+            }
+            return UIInterfaceOrientation.init(rawValue: result!)
+        }
+        set(value) {
+            let intval = value!.rawValue
+            objc_setAssociatedObject(self,&AssociatedKeys.orientation,intval,objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    func getOrientation() -> UIInterfaceOrientation? {
+        return self.orientation
+    }
+
     func canPerformSegueWithIdentifier(identifier: NSString) -> Bool {
         let templates = self.valueForKey("storyboardSegueTemplates") as? NSArray
         let predicate:NSPredicate = NSPredicate(format: "identifier=%@", identifier)

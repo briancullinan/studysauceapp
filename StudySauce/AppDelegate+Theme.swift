@@ -20,15 +20,15 @@ struct saucyTheme {
     static let buttonFont = "Avenir-Medium"
     
     static let textFont = "Avenir-Medium"
-    static let textSize = 17.0
+    static let textSize = CGFloat(17.0)
     
     static let headingFont = "Avenir-Heavy"
-    static let headingSize = 15.0
+    static let headingSize = CGFloat(15.0)
     static let subheadingFont = "Avenir-Heavy"
-    static let subheadingSize = 15.0
+    static let subheadingSize = CGFloat(15.0)
     
     static func multiplier () -> CGFloat {
-        return max(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 600
+        return UIScreen.mainScreen().bounds.height / 600
     }
 }
 
@@ -59,7 +59,27 @@ extension AppDelegate {
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: CGFloat(14.0)))
     }
-
+    
+    func rotated()
+    {
+        if AppDelegate.instance().window != nil {
+            dispatch_async(dispatch_get_main_queue(), {
+                let vc = AppDelegate.visibleViewController()
+                if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
+                    vc.orientation = UIApplication.sharedApplication().statusBarOrientation
+                    self.rerenderView(vc.view)
+                }
+            })
+        }
+    }
+    
+    func rerenderView(v: UIView) {
+        v.setAppearanceFunc("")
+        for s in v.subviews {
+            rerenderView(s)
+        }
+    }
+    
     func setupTheme() {
         
         /*
@@ -73,6 +93,11 @@ extension AppDelegate {
         TODO: Override Tag with string for className matching instead of stupid number
         */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIApplicationDidBecomeActiveNotification, object: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
 
         // set up font names
         $(UIButton.self, {
@@ -86,7 +111,7 @@ extension AppDelegate {
             // TODO: chaining would be nicer syntax here
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontName(saucyTheme.textFont)
-            $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.textSize * saucyTheme.multiplier())
         })
         
         $(UIImageView.self ~* {$0.tag == 23}, {background in
@@ -141,7 +166,7 @@ extension AppDelegate {
             
             v.tag = 25
             
-            v.setFontSize(CGFloat(saucyTheme.headingSize) * saucyTheme.multiplier())
+            v.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
             if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 {
@@ -164,6 +189,7 @@ extension AppDelegate {
             v.preservesSuperviewLayoutMargins = false
             v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
             v.separatorInset = UIEdgeInsetsZero
+            v.reloadData()
             // this doesn't work in appearence :(
             //v.estimatedRowHeight = 40.0 * saucyTheme.multiplier()
             //v.rowHeight = UITableViewAutomaticDimension
@@ -184,12 +210,20 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         // packs and settings buttons on home page
+        $([HomeController.self ~>> UIButton.self ~* T.nthOfType(1),
+            HomeController.self ~>> UIButton.self ~* T.nthOfType(2)], {(v: UIButton) in
+            v.contentEdgeInsets = UIEdgeInsetsMake(
+                0,
+                saucyTheme.textSize * saucyTheme.multiplier(),
+                saucyTheme.textSize * saucyTheme.multiplier() * 2,
+                saucyTheme.textSize * saucyTheme.multiplier())
+        })
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)
         })
         $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
-            $0.setFontSize(CGFloat(saucyTheme.textSize) * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.textSize * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.subheadingFont)
         })
         $(HomeController.self ~> UITableView.self ~> UILabel.self, {
@@ -199,6 +233,7 @@ extension AppDelegate {
             // Make the cell self size
             v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
             v.rowHeight = UITableViewAutomaticDimension
+            v.reloadData()
         })
 
         // settings header
@@ -208,7 +243,7 @@ extension AppDelegate {
         $(UserSettingsController.self ~> UITableViewHeaderFooterView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
-            $0.setFontSize(CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.subheadingSize * saucyTheme.multiplier())
         })
         
         // card button sizes
@@ -254,16 +289,17 @@ extension AppDelegate {
                 v.scrollRangeToVisible(NSMakeRange(0, 0))
             })
         })
-
+        
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self], {
-            $0.setFontSize(30.0 * saucyTheme.multiplier())
+                $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
-        $(CardPromptController.self ~> UITextView.self ~* T.device("ipad"), {(v: UITextView) -> Void in
-            v.setFontSize(40.0 * saucyTheme.multiplier())
+        $([CardPromptController.self ~> UITextView.self ~* T.device("ipad"),
+            CardResponseController.self ~> UITextView.self ~* T.device("ipad")], {(v: UITextView) -> Void in
+                v.setFontSize(40.0 * saucyTheme.multiplier())
         })
-
+        
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self], {(v: UITextView) in
@@ -294,6 +330,7 @@ extension AppDelegate {
                 
                 v.tag = 26
         })
+        
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

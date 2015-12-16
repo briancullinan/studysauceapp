@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 extension UIView {
-        
+    
     func setFontName(name: String) {
         if let font = self.valueForKey("font") as? UIFont {
             self.setValue(UIFont(name: name, size: font.pointSize), forKey: "font")

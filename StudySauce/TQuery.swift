@@ -41,7 +41,7 @@ enum T<B: UIView> {
     static func device(d: String) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
-            let match = ex?.firstMatchInString(UIDevice.currentDevice().name, options: [], range:NSMakeRange(0, d.utf8.count - 1))
+            let match = ex?.firstMatchInString(UIDevice.currentDevice().systemName, options: [], range:NSMakeRange(0, d.utf8.count - 1))
             let matched = match?.rangeAtIndex(0)
             return matched != nil
         }
@@ -64,8 +64,10 @@ enum T<B: UIView> {
 
 extension UIView {
     
-    func setAppearanceFunc(i: String) {
-        queryList[Int(i)!](self)
+    func setAppearanceFunc(_: String) {
+        for q in queryList {
+            q(self)
+        }
     }
     
 }
@@ -79,14 +81,15 @@ class TAppearance<B: UIView> {
     var q: TQueryable<B>
     
     func appearence(b: B -> Void) {
-        let a = B.appearance()
         let i = queryList.count
         queryList.append({
             if self.q.matches($0) {
                 b($0 as! B)
             }
         })
-        a.setAppearanceFunc("\(i)")
+        if i == 0 {
+            UIView.appearance().setAppearanceFunc("")
+        }
     }
 }
 
@@ -97,7 +100,7 @@ protocol IQueryable {
 class TQueryable<B: AnyObject>: NSObject, IQueryable {
     
     func matches(view: AnyObject) -> Bool {
-        if view is B && view.isKindOfClass(self.b) {
+        if view.isKindOfClass(self.b) {
             return true
         }
         return false

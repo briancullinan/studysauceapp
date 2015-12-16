@@ -152,6 +152,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }) ?? []
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return saucyTheme.textSize * 2 * saucyTheme.multiplier()
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.packs.count == 0 {
             return 1

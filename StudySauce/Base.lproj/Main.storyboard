@@ -13,11 +13,11 @@
         <scene sceneID="3eO-Mn-zxo">
             <objects>
                 <viewController storyboardIdentifier="Default" title="CardPrompt" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="flipHorizontal" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wX3-J5-TSh" customClass="CardSelfController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="rMz-vh-Z4y">
+                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="Ppb-jM-Zvp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <connections>
-                            <segue destination="gnI-XW-KF9" kind="embed" id="Cao-0M-izt"/>
+                            <segue destination="gnI-XW-KF9" kind="embed" id="V9f-p1-jFG"/>
                         </connections>
                     </containerView>
                     <navigationItem key="navigationItem" id="hj1-FT-IXE"/>
@@ -38,42 +38,42 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
-                                <rect key="frame" x="20" y="8" width="560" height="456"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
-                                <rect key="frame" x="253" y="378" width="94" height="94"/>
+                                <rect key="frame" x="240" y="480" width="120" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="height" multiplier="1:1" id="zB1-2i-ICB"/>
                                 </constraints>
                             </view>
                             <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
-                                <rect key="frame" x="253" y="378" width="94" height="94"/>
+                                <rect key="frame" x="240" y="480" width="120" height="120"/>
                                 <state key="normal" title="Listen"/>
                                 <connections>
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1337" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="8" width="560" height="584"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Rib-6W-6bv" firstAttribute="top" secondItem="3hO-ob-mU8" secondAttribute="top" multiplier="0.8" id="1E2-5p-vXH"/>
+                            <constraint firstItem="LBl-mY-aFi" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leadingMargin" id="2d7-Od-l0N"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="centerY" secondItem="Rib-6W-6bv" secondAttribute="centerY" id="3Wi-A4-Neu"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="height" secondItem="Rib-6W-6bv" secondAttribute="height" id="8lS-aQ-gkT"/>
-                            <constraint firstItem="LBl-mY-aFi" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leadingMargin" id="9KZ-L5-wSB"/>
-                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="LBl-mY-aFi" secondAttribute="bottom" constant="8" symbolic="YES" id="Goi-TF-r6G"/>
-                            <constraint firstItem="LBl-mY-aFi" firstAttribute="trailing" secondItem="bLY-bu-chj" secondAttribute="trailingMargin" id="NT0-NQ-gdM"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="EZw-DT-qQ4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LBl-mY-aFi" secondAttribute="trailing" id="FkJ-ZD-FsO"/>
+                            <constraint firstItem="LBl-mY-aFi" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="8" symbolic="YES" id="YdJ-fr-7Xj"/>
                             <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="bsG-7u-QNY"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="centerX" secondItem="LBl-mY-aFi" secondAttribute="centerX" id="fAL-5g-MQp"/>
                             <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="Rib-6W-6bv" secondAttribute="bottom" id="fRM-Bx-IH7"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="width" id="lDP-LH-MMa"/>
-                            <constraint firstItem="LBl-mY-aFi" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="8" symbolic="YES" id="thl-CF-Tc5"/>
+                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="LBl-mY-aFi" secondAttribute="bottom" constant="8" symbolic="YES" id="tAe-qh-ZEd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1254,13 +1254,13 @@ support@studysauce.com
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMc-Ks-tu4">
-                                                    <rect key="frame" x="8" y="8" width="82" height="14"/>
+                                                    <rect key="frame" x="8" y="5" width="82" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wa-In-5pv">
-                                                    <rect key="frame" x="406" y="8" width="68" height="21"/>
+                                                    <rect key="frame" x="406" y="5" width="68" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="68" id="uqd-eo-OXg"/>
                                                     </constraints>
@@ -1271,11 +1271,10 @@ support@studysauce.com
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="0wa-In-5pv" firstAttribute="top" secondItem="dMc-Ks-tu4" secondAttribute="top" id="Hza-7b-YIy"/>
                                                 <constraint firstItem="dMc-Ks-tu4" firstAttribute="leading" secondItem="UU1-1l-M3y" secondAttribute="leadingMargin" id="biu-we-YxM"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="0wa-In-5pv" secondAttribute="trailing" id="ci3-dC-7fp"/>
-                                                <constraint firstItem="dMc-Ks-tu4" firstAttribute="bottom" secondItem="UU1-1l-M3y" secondAttribute="bottomMargin" id="mNq-25-jrs"/>
-                                                <constraint firstItem="dMc-Ks-tu4" firstAttribute="top" secondItem="UU1-1l-M3y" secondAttribute="topMargin" id="tvK-a2-duD"/>
+                                                <constraint firstItem="dMc-Ks-tu4" firstAttribute="centerY" secondItem="UU1-1l-M3y" secondAttribute="centerY" id="iYp-l4-afq"/>
+                                                <constraint firstItem="0wa-In-5pv" firstAttribute="centerY" secondItem="UU1-1l-M3y" secondAttribute="centerY" id="nYM-Vm-f7F"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1361,20 +1360,6 @@ support@studysauce.com
                                     <constraint firstAttribute="width" secondItem="JoE-dv-RIT" secondAttribute="height" multiplier="49:11" constant="23" id="RKK-jt-gH1"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-dT-1wv" userLabel="settings">
-                                <rect key="frame" x="411" y="502" width="78" height="78"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="bjU-dT-1wv" secondAttribute="height" multiplier="1:1" id="1nG-0L-fjf"/>
-                                </constraints>
-                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
-                                <state key="normal" image="gray settings icon with clear center"/>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="426" y="332" width="48" height="48"/>
-                                </variation>
-                                <connections>
-                                    <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9Uu-zL-5h0"/>
-                                </connections>
-                            </button>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-He-5Sh">
                                 <rect key="frame" x="58" y="72" width="482" height="168"/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
@@ -1382,18 +1367,6 @@ support@studysauce.com
                                     <segue destination="IJH-Jk-hIX" kind="embed" id="0VR-na-RqX"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My packs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-K6-zQf">
-                                <rect key="frame" x="114" y="552" width="73" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-wr-jnt">
-                                <rect key="frame" x="419" y="552" width="64" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VuU-ca-cmN" userLabel="bigbutton">
                                 <rect key="frame" x="201" y="270" width="198" height="198"/>
                                 <constraints>
@@ -1404,15 +1377,35 @@ support@studysauce.com
                                     <action selector="monkeyClick:" destination="Sib-XO-0qJ" eventType="touchUpInside" id="wBA-cG-BGf"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
-                                <rect key="frame" x="111" y="502" width="78" height="78"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-K6-zQf">
+                                <rect key="frame" x="113" y="572" width="73" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
+                                <rect key="frame" x="105" y="502" width="90" height="90"/>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
                                 <state key="normal" image="gray Study packs icon with clear center"/>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="126" y="332" width="48" height="48"/>
-                                </variation>
                                 <connections>
                                     <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-wr-jnt">
+                                <rect key="frame" x="419" y="572" width="63" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-dT-1wv" userLabel="settings">
+                                <rect key="frame" x="405" y="502" width="90" height="90"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bjU-dT-1wv" secondAttribute="height" multiplier="1:1" id="1nG-0L-fjf"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
+                                <state key="normal" image="gray settings icon with clear center"/>
+                                <connections>
+                                    <segue destination="9uY-OX-AMx" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9Uu-zL-5h0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1423,21 +1416,22 @@ support@studysauce.com
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.03" id="2qR-vW-rUo"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="width" secondItem="4O7-ka-miD" secondAttribute="width" id="34H-0a-X8b"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="height" secondItem="Cle-N8-wnH" secondAttribute="height" id="7Sv-vQ-tX4"/>
-                            <constraint firstItem="WDU-K6-zQf" firstAttribute="bottom" secondItem="4O7-ka-miD" secondAttribute="bottomMargin" id="9JL-VI-YLx"/>
+                            <constraint firstItem="WDU-K6-zQf" firstAttribute="bottom" secondItem="4O7-ka-miD" secondAttribute="bottom" id="9JL-VI-YLx"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.12" id="CRY-nK-KTK"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="leading" secondItem="Cle-N8-wnH" secondAttribute="trailingMargin" multiplier="0.1" id="CnZ-nN-tWw"/>
                             <constraint firstItem="4O7-ka-miD" firstAttribute="topMargin" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.85" id="Dyp-Ce-ZNT"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="trailing" secondItem="Cle-N8-wnH" secondAttribute="trailing" multiplier="0.9" id="IQk-j1-fsB"/>
-                            <constraint firstItem="81B-wr-jnt" firstAttribute="bottom" secondItem="bjU-dT-1wv" secondAttribute="bottomMargin" id="Ke3-Z1-rLK"/>
+                            <constraint firstItem="81B-wr-jnt" firstAttribute="bottom" secondItem="bjU-dT-1wv" secondAttribute="bottom" id="Ke3-Z1-rLK"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="SY0-Sl-ITs"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="TDv-uM-367"/>
+                            <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="8" symbolic="YES" id="VXb-aR-zw2"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="height" secondItem="4O7-ka-miD" secondAttribute="height" id="Z5l-HB-Mta"/>
+                            <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="bjU-dT-1wv" secondAttribute="bottom" constant="8" symbolic="YES" id="ZmY-9A-jZL"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" multiplier="1.5" id="bXN-64-tQU"/>
                             <constraint firstItem="81B-wr-jnt" firstAttribute="centerX" secondItem="bjU-dT-1wv" secondAttribute="centerX" id="fUn-HD-kzP"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.08" constant="3" id="h2B-dd-hhC"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.78" id="nFt-Sw-nHc"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="p88-ZB-uKr"/>
-                            <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="20" id="qCW-YR-Cir"/>
                             <constraint firstItem="WDU-K6-zQf" firstAttribute="centerX" secondItem="4O7-ka-miD" secondAttribute="centerX" id="scZ-9e-f6d"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="top" id="xNq-h1-Ngy"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="centerY" secondItem="Cle-N8-wnH" secondAttribute="centerY" id="xV5-zr-a4U"/>
@@ -2126,8 +2120,8 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
-                                <rect key="frame" x="20" y="28" width="560" height="564"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1337" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="8" width="560" height="456"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -2206,40 +2200,6 @@ support@studysauce.com
             </objects>
             <point key="canvasLocation" x="3527" y="-1151"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="9rJ-9f-eD3">
-            <objects>
-                <viewController id="Or4-Ay-KDq" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wbJ-Fb-U3Q"/>
-                        <viewControllerLayoutGuide type="bottom" id="88Y-jb-0v7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="xq2-bq-hQ4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jyy-H1-Jym" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nCJ-x8-hpe">
-            <objects>
-                <viewController id="nDk-hk-GcX" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rIb-lZ-5Wr"/>
-                        <viewControllerLayoutGuide type="bottom" id="8Im-Z3-Nny"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Tx1-qa-Xho">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="K5G-Cy-uaI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="Great_Hearts_logo" width="220" height="55"/>
@@ -2252,9 +2212,9 @@ support@studysauce.com
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Dzv-wk-aJj"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="ucz-Xl-O7T"/>
+        <segue reference="V9f-p1-jFG"/>
         <segue reference="h3u-I4-U7Q"/>
+        <segue reference="ucz-Xl-O7T"/>
     </inferredMetricsTieBreakers>
 </document>

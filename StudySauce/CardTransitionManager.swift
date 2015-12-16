@@ -15,7 +15,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var interactive = false
     private var flashView: UITextView? = nil
     
-    internal var fromView: UIViewController? = nil
     internal var reversed: Bool = false
     internal var transitioning = false
     
@@ -35,7 +34,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        let vc = AppDelegate.instance().visibleViewController()
+        let vc = AppDelegate.visibleViewController()
         if let card = vc as? CardController {
             if card.subview?.canPerformSegueWithIdentifier("next") == true || card.subview?.canPerformSegueWithIdentifier("last") == true {
                 return true
@@ -68,7 +67,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     */
     
     func handleOnstageTap(tap: UITapGestureRecognizer) {
-        let vc = AppDelegate.instance().visibleViewController()
+        let vc = AppDelegate.visibleViewController()
         self.interactive = false
         if let card = vc as? CardController {
             if card.subview?.canPerformSegueWithIdentifier("next") == true {
@@ -99,7 +98,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             if d != 0 && !self.transitioning {
                 self.interactive = true
                 self.transitioning = true
-                let vc = AppDelegate.instance().visibleViewController()
+                let vc = AppDelegate.visibleViewController()
                 if let card = vc as? CardController {
                     if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
                         card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
@@ -150,11 +149,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var screens : (from:UIViewController, to:UIViewController) = (
             transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!,
             transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!)
-        if self.fromView != nil {
-            screens.from.removeFromParentViewController()
-            screens.from.view.removeFromSuperview()
-            screens.from = self.fromView!
-        }
         
         // assign references to our menu view controller and the 'bottom' view controller from the tuple
         // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
@@ -180,6 +174,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         next.view.bounds = UIScreen.mainScreen().bounds
         last.view.bounds = UIScreen.mainScreen().bounds
+        if last.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
+            last.orientation = UIApplication.sharedApplication().statusBarOrientation
+            AppDelegate.instance().rerenderView(last.view)
+        }
+        if next.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
+            next.orientation = UIApplication.sharedApplication().statusBarOrientation
+            AppDelegate.instance().rerenderView(next.view)
+        }
         next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
         last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
 
@@ -339,7 +341,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.to.view)
                     
                 }
-                self.fromView = nil
                 self.reversed = false
                 self.transitioning = false
 

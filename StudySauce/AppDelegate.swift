@@ -23,11 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
-    func visibleViewController() -> UIViewController {
+    static func visibleViewController() -> UIViewController {
         return self.visibleViewController(AppDelegate.instance().window!.rootViewController!)
     }
     
-    func visibleViewController(rootViewController: UIViewController) -> UIViewController
+    static func visibleViewController(rootViewController: UIViewController) -> UIViewController
     {
         let presentedViewController = rootViewController.presentedViewController;
         if rootViewController.presentedViewController == nil {

@@ -21,6 +21,7 @@ class CardController: UIViewController {
     internal var subview: UIViewController? = nil {
         didSet {
             self.addChildViewController(self.subview!)
+            self.subview!.didMoveToParentViewController(self)
         }
     }
     internal var isRetention = false
@@ -70,12 +71,12 @@ class CardController: UIViewController {
             }
             self.subview = self.storyboard!.instantiateViewControllerWithIdentifier(view)
         }
+        self.subview!.view.translatesAutoresizingMaskIntoConstraints = false
         self.embeddedView.addSubview(self.subview!.view)
-        dispatch_async(dispatch_get_main_queue(),{
-            self.subview!.view.frame = CGRectMake(0, 0, self.embeddedView.frame.size.width, self.embeddedView.frame.size.height);
-            self.subview!.didMoveToParentViewController(self)
-        })
-            
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
