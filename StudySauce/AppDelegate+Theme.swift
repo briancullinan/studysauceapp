@@ -214,9 +214,9 @@ extension AppDelegate {
         $([HomeController.self ~>> UIButton.self ~* {$0.tag == 1337}], {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
                 0,
-                saucyTheme.textSize * saucyTheme.multiplier(),
-                saucyTheme.textSize * saucyTheme.multiplier() * 2,
-                saucyTheme.textSize * saucyTheme.multiplier())
+                saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2,
+                saucyTheme.textSize * saucyTheme.multiplier() * 1.5,
+                saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2)
         })
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)
