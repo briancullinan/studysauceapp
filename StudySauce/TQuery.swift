@@ -41,7 +41,7 @@ enum T<B: UIView> {
     static func device(d: String) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
-            let match = ex?.firstMatchInString(UIDevice.currentDevice().systemName, options: [], range:NSMakeRange(0, d.utf8.count - 1))
+            let match = ex?.firstMatchInString(UIDevice.currentDevice().systemName, options: [], range:NSMakeRange(0, d.utf8.count))
             let matched = match?.rangeAtIndex(0)
             return matched != nil
         }
