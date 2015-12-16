@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.studysauce.app</string>
+			<string>com.studysauce.companyapp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>studysauce</string>

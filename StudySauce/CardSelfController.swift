@@ -48,8 +48,8 @@ class CardSelfController: UIViewController {
                 AppDelegate.saveContext()
                 vc.intermediateResponse = newResponse
                 vc.submitResponse(newResponse)
+                self.performSegueWithIdentifier("card", sender: self)
             }
-            self.performSegueWithIdentifier("card", sender: self)
         }
     }
         
