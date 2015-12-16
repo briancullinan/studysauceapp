@@ -255,15 +255,17 @@ extension AppDelegate {
             })
         })
 
-        $(AutoSizingTextView.self, {
+        $([CardPromptController.self ~> UITextView.self,
+            CardResponseController.self ~> UITextView.self], {
             $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
-        $(T.device("ipad") ~> AutoSizingTextView.self, {(v: AutoSizingTextView) -> Void in
+        $(CardPromptController.self ~> UITextView.self ~* T.device("ipad"), {(v: UITextView) -> Void in
             v.setFontSize(40.0 * saucyTheme.multiplier())
         })
 
-        $([UIViewController.self ~> AutoSizingTextView.self,
+        $([CardPromptController.self ~> UITextView.self,
+            CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self], {(v: UITextView) in
             v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
         })

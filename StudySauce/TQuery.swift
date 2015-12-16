@@ -38,8 +38,8 @@ enum T<B: UIView> {
         }
     }
     
-    static func device(d: String) -> TQueryable<B> {
-        return TQueryable(B) ~* {(_: B) -> Bool in
+    static func device(d: String) -> (v: B) -> Bool {
+        return {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
             let match = ex?.firstMatchInString(UIDevice.currentDevice().name, options: [], range:NSMakeRange(0, d.utf8.count - 1))
             let matched = match?.rangeAtIndex(0)

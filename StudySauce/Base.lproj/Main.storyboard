@@ -41,7 +41,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
                                 <rect key="frame" x="20" y="8" width="560" height="456"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2126,7 +2126,7 @@ support@studysauce.com
                         <rect key="frame" x="0.0" y="0.0" width="600" height="472"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
                                 <rect key="frame" x="20" y="28" width="560" height="564"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -2254,7 +2254,7 @@ support@studysauce.com
     <inferredMetricsTieBreakers>
         <segue reference="Dzv-wk-aJj"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="hJi-Nu-qtH"/>
+        <segue reference="ucz-Xl-O7T"/>
         <segue reference="h3u-I4-U7Q"/>
     </inferredMetricsTieBreakers>
 </document>

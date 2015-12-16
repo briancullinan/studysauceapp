@@ -13,7 +13,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     private var presenting = false
     private var interactive = false
-    private var flashView: AutoSizingTextView? = nil
+    private var flashView: UITextView? = nil
     
     internal var fromView: UIViewController? = nil
     internal var reversed: Bool = false
@@ -363,9 +363,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
 */
     
     func setupCorrectFlash(correct: Bool, container: UIView) {
-        self.flashView = AutoSizingTextView()
+        self.flashView = UITextView()
         container.addSubview(self.flashView!)
-        self.flashView!.setManually = true // only use vertical center alignment benefits of this control, do not automatically set fond size
         self.flashView!.alpha = 1.0
         self.flashView!.textColor = UIColor.whiteColor()
         self.flashView!.textAlignment = NSTextAlignment.Center

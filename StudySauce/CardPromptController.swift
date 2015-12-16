@@ -19,7 +19,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
     var playing: Bool = false
     var timer: NSTimer? = nil
 
-    @IBOutlet weak var content: AutoSizingTextView!
+    @IBOutlet weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
     

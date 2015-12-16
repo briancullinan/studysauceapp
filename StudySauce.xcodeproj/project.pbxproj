@@ -53,7 +53,6 @@
 		64D219E71BBB0CCB005F9094 /* UserPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E01BBB0CCB005F9094 /* UserPack.swift */; };
 		64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */; };
 		64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219E91BBB2BCE005F9094 /* NSDate.swift */; };
-		64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */; };
 		64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219EF1BBCAE34005F9094 /* UIViewController.swift */; };
 		64D219F21BBCD05F005F9094 /* UserInviteController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F11BBCD05F005F9094 /* UserInviteController.swift */; };
 		64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D219F31BBCD133005F9094 /* UserRegisterController.swift */; };
@@ -152,7 +151,6 @@
 		64D219E01BBB0CCB005F9094 /* UserPack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPack.swift; sourceTree = "<group>"; };
 		64D219E11BBB0CCB005F9094 /* Response+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64D219E91BBB2BCE005F9094 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDate.swift; sourceTree = "<group>"; };
-		64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoSizingTextView.swift; sourceTree = "<group>"; };
 		64D219EF1BBCAE34005F9094 /* UIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		64D219F11BBCD05F005F9094 /* UserInviteController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInviteController.swift; sourceTree = "<group>"; };
 		64D219F31BBCD133005F9094 /* UserRegisterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterController.swift; sourceTree = "<group>"; };
@@ -262,7 +260,6 @@
 		6401F4A11BB5DF7F004E0163 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				64D219ED1BBC62A7005F9094 /* AutoSizingTextView.swift */,
 				644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */,
 				64F5FCF41BEC30BD005AF4FC /* PackRetentionCell.swift */,
 				64291C601BC5A2CD005AA348 /* SaucyButton.swift */,
@@ -577,7 +574,6 @@
 				64ED1DD31BEC173700A9E2A2 /* IQTitleBarButtonItem.swift in Sources */,
 				64ED1DD41BEC173700A9E2A2 /* IQToolbar.swift in Sources */,
 				64D219E61BBB0CCB005F9094 /* UserPack+CoreDataProperties.swift in Sources */,
-				64D219EE1BBC62A7005F9094 /* AutoSizingTextView.swift in Sources */,
 				64984EA71C1B4D77007D9640 /* CardResponseController.swift in Sources */,
 				64ED1DD11BEC173700A9E2A2 /* IQTextView.swift in Sources */,
 				9D5ECB3B1BF3D47C00F09EE0 /* UITextField.swift in Sources */,

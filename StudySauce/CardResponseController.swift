@@ -12,7 +12,7 @@ import UIKit
 class CardResponseController : UIViewController {
     weak var card: Card!
     
-    @IBOutlet weak var response: AutoSizingTextView!
+    @IBOutlet weak var response: UITextView!
 
     override func viewDidLoad() {
         let correct = self.card.getCorrect()
