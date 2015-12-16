@@ -28,7 +28,8 @@ struct saucyTheme {
     static let subheadingSize = CGFloat(15.0)
     
     static func multiplier () -> CGFloat {
-        return UIScreen.mainScreen().bounds.height / 600
+        let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 400
+        return result
     }
 }
 
@@ -210,8 +211,7 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         // packs and settings buttons on home page
-        $([HomeController.self ~>> UIButton.self ~* T.nthOfType(1),
-            HomeController.self ~>> UIButton.self ~* T.nthOfType(2)], {(v: UIButton) in
+        $([HomeController.self ~>> UIButton.self ~* {$0.tag == 1337}], {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
                 0,
                 saucyTheme.textSize * saucyTheme.multiplier(),
@@ -252,7 +252,7 @@ extension AppDelegate {
            CardSelfController.self ~> UIButton.self ~> UILabel.self,
            PackResultsController.self ~> UIButton.self,
            PackResultsController.self ~> UIButton.self ~> UILabel.self], {
-            $0.setFontSize(80 * saucyTheme.multiplier())
+            $0.setFontSize(60 * saucyTheme.multiplier())
         })
         // true and false button font
         $([CardTrueFalseController.self ~> UIButton.self,

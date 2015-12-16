@@ -13,7 +13,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     private var presenting = false
     private var interactive = false
-    private var flashView: UITextView? = nil
+    private var flashView: AutoSizingTextView? = nil
     
     internal var reversed: Bool = false
     internal var transitioning = false
@@ -364,7 +364,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
 */
     
     func setupCorrectFlash(correct: Bool, container: UIView) {
-        self.flashView = UITextView()
+        self.flashView = AutoSizingTextView()
+        self.flashView!.setManually = true
         container.addSubview(self.flashView!)
         self.flashView!.alpha = 1.0
         self.flashView!.textColor = UIColor.whiteColor()
