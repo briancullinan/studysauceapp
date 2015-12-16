@@ -40,7 +40,7 @@ class CardTrueFalseController: UIViewController {
                 for a in self.card!.answers!.allObjects as! [Answer] {
                     if a.value == value {
                         let ex = try? NSRegularExpression(pattern: a.value!, options: [NSRegularExpressionOptions.CaseInsensitive])
-                        let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.utf16.count))
+                        let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.utf8.count - 1))
                         newResponse.correct = match != nil
                         newResponse.answer = a
                         break

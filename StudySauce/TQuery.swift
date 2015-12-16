@@ -41,7 +41,7 @@ enum T<B: UIView> {
     static func device(d: String) -> TQueryable<B> {
         return TQueryable(B) ~* {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
-            let match = ex?.firstMatchInString(UIDevice.currentDevice().name, options: [], range:NSMakeRange(0, d.utf16.count))
+            let match = ex?.firstMatchInString(UIDevice.currentDevice().name, options: [], range:NSMakeRange(0, d.utf8.count - 1))
             let matched = match?.rangeAtIndex(0)
             return matched != nil
         }
@@ -88,7 +88,6 @@ class TAppearance<B: UIView> {
         })
         a.setAppearanceFunc("\(i)")
     }
-
 }
 
 protocol IQueryable {
@@ -109,14 +108,20 @@ class TQueryable<B: AnyObject>: NSObject, IQueryable {
     required init(_ b: B.Type) {
         self.b = b
     }
+    
+    override var description: String {
+        get {
+            return "object is \(self.b)"
+        }
+    }
 }
 
 class TSibling<B: UIView>: TQueryable<B> {
-    var q: IQueryable? = nil
+    var q: IQueryable
     
     init(_ query: IQueryable, _ b: B.Type) {
-        super.init(b)
         self.q = query
+        super.init(b)
     }
     
     override func matches(view: AnyObject) -> Bool {
@@ -131,7 +136,7 @@ class TSibling<B: UIView>: TQueryable<B> {
         if let parent = view.superview {
             let siblings = parent.subviews
             for s in siblings {
-                if self.q != nil && self.q!.matches(s) {
+                if self.q.matches(s) {
                     result.append(s as! B)
                 }
             }
@@ -144,12 +149,18 @@ class TSibling<B: UIView>: TQueryable<B> {
         if let parent = view.superview where super.matches(view) {
             let siblings = parent.subviews
             for s in siblings {
-                if self.q != nil && self.q!.matches(s) {
+                if self.q.matches(s) {
                     return true
                 }
             }
         }
         return false
+    }
+    
+    override var description: String {
+        get {
+            return "sibling matches \(self.q)"
+        }
     }
 }
 
@@ -198,6 +209,14 @@ class TChild<B: UIView>: TQueryable<B> {
         }
         return false
     }
+    
+    
+    override var description: String {
+        get {
+            return "child of \(self.q)"
+        }
+    }
+
 }
 
 class TImmediateChild<B: UIView>: TQueryable<B> {
@@ -231,27 +250,39 @@ class TImmediateChild<B: UIView>: TQueryable<B> {
         }
         return false
     }
+    
+    override var description: String {
+        get {
+            return "immediate child of \(self.q)"
+        }
+    }
 }
 
 
 class TMatching<B: AnyObject>: TQueryable<B> {
-    var q: IQueryable? = nil
+    var q: IQueryable
     
     init(_ query: IQueryable, _ matches: B -> Bool) {
         self.matching = matches
-        super.init(B.self)
         self.q = query
+        super.init(B.self)
     }
     
     var matching: (B) -> Bool
     
     override func matches(view: AnyObject) -> Bool {
         if super.matches(view) {
-            if self.matching(view as! B) && self.q!.matches(view) {
+            if self.matching(view as! B) && self.q.matches(view) {
                 return true
             }
         }
         return false
+    }
+    
+    override var description: String {
+        get {
+            return "matches \(self.matching) and \(self.q)"
+        }
     }
 }
 
@@ -274,6 +305,13 @@ class TCombination<B: UIView> :TQueryable<B> {
             }
         }
         return false
+    }
+    
+    override var description: String {
+        get {
+            let queries = self.queries.map({"\($0)"}).joinWithSeparator(" or ")
+            return "any of \(queries)"
+        }
     }
 }
 

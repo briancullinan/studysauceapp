@@ -183,10 +183,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                                     card = nil
                                 }
                                 if let responses = p["responses"] as? NSArray {
-                                    self.processResponses(card!, json: responses)
+                                    AppDelegate.getContext()?.performBlock({
+                                        self.processResponses(card!, json: responses)
+                                    })
                                 }
                             }
-                            AppDelegate.saveContext()
                             downloadedHandler(newPack!)
                         })
                     }

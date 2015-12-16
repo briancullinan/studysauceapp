@@ -28,7 +28,7 @@ struct saucyTheme {
     static let subheadingSize = 15.0
     
     static func multiplier () -> CGFloat {
-        return UIScreen.mainScreen().bounds.height / 600
+        return max(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 600
     }
 }
 
