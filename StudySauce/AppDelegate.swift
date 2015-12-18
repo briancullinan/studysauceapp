@@ -93,6 +93,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        var pageController = UIPageControl.appearance()
+        pageController.pageIndicatorTintColor = UIColor.lightGrayColor()
+        pageController.currentPageIndicatorTintColor = UIColor(0xFF9900)
+        pageController.backgroundColor = UIColor(0x424242)
+        
         IQKeyboardManager.sharedManager().enable = true
         self.setupTheme()
         
