@@ -20,7 +20,7 @@ enum T<B: UIView> {
     
     static func nthChild(i: Int) -> (v: B) -> Bool {
         return {(v: B) -> Bool in
-            let ofTypes = v.superview!.subviews
+            let ofTypes = v ~+ UIView.self
             if i < 0 {
                 return ofTypes.indexOf(v) == ofTypes.count - i
             }
@@ -30,7 +30,7 @@ enum T<B: UIView> {
     
     static func nthOfType(i: Int) -> (v: B) -> Bool {
         return {(v: B) -> Bool in
-            let ofTypes = v.superview!.subviews.filter({return $0 is B})
+            let ofTypes = v ~+ B.self
             if i < 0 {
                 return ofTypes.indexOf(v) == ofTypes.count - i
             }
@@ -184,6 +184,18 @@ class TChild<B: UIView>: TQueryable<B> {
             nextResponder = nextResponder?.nextResponder()
         }
         return nil
+    }
+    
+    func enumerate(view: UIView) -> [B] {
+        var result: [B] = []
+        let children = view.subviews
+        for s in children {
+            if self.q.matches(s) {
+                result.append(s as! B)
+            }
+            result.appendContentsOf(self.enumerate(s))
+        }
+        return result
     }
     
     override func matches(view: AnyObject) -> Bool {

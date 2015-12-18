@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
     @IBOutlet weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
     var packs = [Pack]()
@@ -21,6 +21,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
+    @IBOutlet weak var userButton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
         AppDelegate.performContext {
@@ -86,6 +87,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     }
     
+    @IBAction func userClick(sender: UIButton) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        alert.addAction(UIAlertAction(title: "Switch User", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Log Out", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
+            
+        }))
+        alert.popoverPresentationController?.sourceView = self.userButton
+        alert.popoverPresentationController?.sourceRect = self.userButton!.bounds
+        self.presentViewController(alert, animated: true) { () -> Void in }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       /*
@@ -101,6 +115,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         if AppDelegate.getUser() == nil {
             return
+        }
+        
+        if self.userButton != nil {
+            self.userButton?.setTitle(AppDelegate.getUser()?.first, forState: .Normal)
         }
         
         if self.tableView != nil {

@@ -62,17 +62,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     static func studySauceCom(var path_and_query: String) -> NSURL! {
-        if path_and_query.containsString("?") {
-            path_and_query = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
-        }
-        else {
-            path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
-        }
         #if DEBUG
+            if path_and_query.containsString("?") {
+                path_and_query = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
+            }
+            else {
+                path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
+            }
             return NSURL(string: "https://staging.studysauce.com\(path_and_query)")!
         #else
             return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
         #endif
+    }
+    
+    func loadHomeVC(done: (UIViewController) -> Void = {vc in }) {
+        if self.storyboard == nil {
+            self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+        }
+        if self.window == nil {
+            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
+            viewController.transitioningDelegate = CardSegue.transitionManager
+            self.window!.rootViewController = viewController
+            viewController.view.clipsToBounds = false
+            self.window!.backgroundColor = UIColor.clearColor()
+            self.window!.opaque = false
+            self.window!.makeKeyAndVisible();
+        }
+        done(self.window!.rootViewController!)
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -81,23 +98,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
-        let done = {
-            if self.storyboard == nil {
-                self.storyboard = UIStoryboard(name: "Main", bundle: nil)
-            }
-            if self.window == nil {
-                self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-                let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-                viewController.transitioningDelegate = CardSegue.transitionManager
-                self.window!.rootViewController = viewController
-                viewController.view.clipsToBounds = false
-                self.window!.backgroundColor = UIColor.clearColor()
-                self.window!.opaque = false
-                self.window!.makeKeyAndVisible();
+        if AppDelegate.isConnectedToNetwork() {
+            UserLoginController.home { () -> Void in
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.loadHomeVC()
+                })
             }
         }
-        UserLoginController.home { () -> Void in
-            dispatch_async(dispatch_get_main_queue(), done)
+        else {
+            // TODO: work in offline mode
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            if let email = userDefaults.valueForKey("user") as? String {
+                self.user = UserLoginController.getUserByEmail(email)
+                self.loadHomeVC()
+            }
+            else {
+                self.loadHomeVC {v in
+                    v.showNoConnectionDialog({ () -> Void in
+                        v.goHome()
+                    })
+                }
+            }
         }
         return true
     }

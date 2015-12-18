@@ -53,14 +53,23 @@ class UserLoginController : UIViewController {
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
-                if json["email"] as? String != nil {
-                    if let user = UserLoginController.getUserByEmail(json["email"] as? String) {
-                        user.id = json["id"] as? NSNumber
-                        user.first = json["first"] as? String
-                        user.last = json["last"] as? String
-                        AppDelegate.instance().user = user
-                        AppDelegate.saveContext()
+                if let email = json["email"] as? String {
+                    let user = UserLoginController.getUserByEmail(email)
+                    user.id = json["id"] as? NSNumber
+                    user.first = json["first"] as? String
+                    user.last = json["last"] as? String
+                    for c in json["children"] as? [NSDictionary] ?? [] {
+                        let childEmail = c["email"] as? String
+                        if childEmail == nil {
+                            continue;
+                        }
+                        let child = UserLoginController.getUserByEmail(childEmail!)
+                        child.id = c["id"] as? NSNumber
+                        child.first = c["first"] as? String
+                        child.last = c["last"] as? String
                     }
+                    AppDelegate.instance().user = user
+                    AppDelegate.saveContext()
                 }
                 dispatch_async(dispatch_get_main_queue(), {
                     done()
@@ -83,21 +92,19 @@ class UserLoginController : UIViewController {
         })
     }
     
-    static func getUserByEmail(email: String?) -> User? {
+    static func getUserByEmail(email: String) -> User {
         var user: User? = nil
-        if email != nil {
-            for u in AppDelegate.list(User.self) {
-                if u.email == email {
-                    user = u
-                    break
-                }
+        for u in AppDelegate.list(User.self) {
+            if u.email == email {
+                user = u
+                break
             }
-            if user == nil {
-                user = AppDelegate.insert(User.self)
-            }
-            user!.email = email
         }
-        return user
+        if user == nil {
+            user = AppDelegate.insert(User.self)
+        }
+        user!.email = email
+        return user!
     }
     
     func authenticate() {

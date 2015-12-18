@@ -141,6 +141,24 @@ extension AppDelegate {
         })
         
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
+        $([DialogController.self ~>> UIButton.self], {(v: UIView) in
+            if (v ~+ UIVisualEffectView.self).count == 0 {
+                if !UIAccessibilityIsReduceTransparencyEnabled() {
+                    v.superview!.backgroundColor = UIColor.clearColor()
+                    
+                    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+                    let blurEffectView = UIVisualEffectView(effect: blurEffect)
+                    //always fill the view
+                    blurEffectView.frame = v.superview!.bounds
+                    blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+                    
+                    v.superview!.insertSubview(blurEffectView, atIndex: 0) //if you have more UIViews, use an insertSubview API to place it where needed
+                } 
+                else {
+                    v.superview!.backgroundColor = UIColor.clearColor()
+                }
+            }
+        })
         $([DialogController.self ~> UILabel.self,
            UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)

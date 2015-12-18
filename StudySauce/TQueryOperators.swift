@@ -21,6 +21,14 @@ func ~> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B> 
     return TChild<B>(q, b)
 }
 
+func ~> <B: UIView>(v: UIView, b: B.Type) -> [B] {
+    return v ~> TQueryable<B>(b)
+}
+
+func ~> <B: UIView>(v: UIView, b: TQueryable<B>) -> [B] {
+    return TChild<B>(b, B.self).enumerate(v)
+}
+
 // |>>
 
 infix operator ~>> {associativity left precedence 255}

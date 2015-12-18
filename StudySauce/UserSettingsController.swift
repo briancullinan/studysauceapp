@@ -11,6 +11,8 @@ import CoreData
 import UIKit
 
 class UserSettingsController: UITableViewController {
+    private var users: [User]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.backgroundColor = UIColor.clearColor()
@@ -22,9 +24,19 @@ class UserSettingsController: UITableViewController {
         self.userEmail.text = AppDelegate.getUser()?.email
         //self.childFirstName.text = AppDelegate.getUser().childFirst
         //self.childLastName.text = AppDelegate.getUser().childLast
-    
-    
+        self.getUsersFromLocalStore {
+            self.childTable.reloadData()
+        }
     }
+    
+    private func getUsersFromLocalStore(done: () -> Void) {
+        AppDelegate.performContext {
+            self.users = AppDelegate.list(User.self)
+            done()
+        }
+    }
+    
+    @IBOutlet weak var childTable: UITableView!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var userEmail: UITextField!
@@ -91,14 +103,18 @@ class UserSettingsController: UITableViewController {
     var cacheResetCount: Int = 0
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView == self.childTable {
+            return
+        }
         if indexPath.row == 0 && indexPath.section == 0 {
-            let twentyMinutesAgo = NSDate().dateByAddingTimeInterval(-20)
-            if cacheResetTime == nil || cacheResetTime! < twentyMinutesAgo {
+            let twoMinutesAgo = NSDate().dateByAddingTimeInterval(-2)
+            if cacheResetTime == nil || cacheResetTime! < twoMinutesAgo {
                 cacheResetTime = NSDate()
                 cacheResetCount = 0
             }
             cacheResetCount++
-            if cacheResetCount == 10 {
+            if cacheResetCount > 10 {
+                cacheResetCount = 0
                 AppDelegate.performContext {
                     let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
                     for c in storage.cookies! {
@@ -116,16 +132,26 @@ class UserSettingsController: UITableViewController {
         //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 {
+    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+        if tableView == self.childTable {
             return 0
+        }
+        return super.tableView(tableView, sectionForSectionIndexTitle: title, atIndex: index)
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == self.childTable {
+            if self.users == nil || self.users!.count == 0 {
+                return 1
+            }
+            return self.users!.count * 2 + 1
         }
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 {
-            return 0
+        if indexPath.section == 1 && self.users != nil && self.users!.count > 0 {
+            return 40 * saucyTheme.multiplier() * CGFloat(self.users!.count * 2 + 1)
         }
         if self.privacyCell.hidden {
             if indexPath.section >= 2 {
@@ -140,14 +166,14 @@ class UserSettingsController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
+        if tableView == self.childTable {
             return 0
         }
         return CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier() * 2
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
+        if tableView == self.childTable {
             return nil
         }
         if self.privacyCell.hidden {
@@ -159,10 +185,32 @@ class UserSettingsController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        //if indexPath.section < 3 {
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-        //}
+        let cell: UITableViewCell
+        if tableView == self.childTable {
+            if self.users == nil {
+                cell = tableView.dequeueReusableCellWithIdentifier("loading", forIndexPath: indexPath)
+            }
+            else if self.users!.count == 0 || indexPath.row == self.users!.count * 2 {
+                cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
+            }
+            else if indexPath.row % 2 == 0 {
+                cell = tableView.dequeueReusableCellWithIdentifier("childFirst", forIndexPath: indexPath)
+                if let name = (cell ~> (UILabel.self ~* {$0.text == "Johnny"})).first {
+                    name.text = self.users![indexPath.row / 2].first!
+                }
+            }
+            else {
+                cell = tableView.dequeueReusableCellWithIdentifier("childLast", forIndexPath: indexPath)
+                if let name = (cell ~> (UILabel.self ~* {$0.text == "Doe"})).first {
+                    name.text = self.users![indexPath.row / 2].last!
+                }
+            }
+        }
+        else {
+            cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+
         if self.privacyCell.hidden {
             if indexPath.section >= 2 {
                 cell.hidden = true

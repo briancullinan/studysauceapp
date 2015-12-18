@@ -89,9 +89,6 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
                 NSLog("\(error.description)")
             }
         }
-        else {
-            done(json: nil)
-        }
     })
     task.resume()
     

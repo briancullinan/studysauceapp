@@ -146,7 +146,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let container = transitionContext.containerView()
         
         // create a tuple of our screens
-        var screens : (from:UIViewController, to:UIViewController) = (
+        let screens : (from:UIViewController, to:UIViewController) = (
             transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!,
             transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!)
         
@@ -160,10 +160,24 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             container!.addSubview(last.view)
             container!.addSubview(next.view)
             if self.presenting {
-                next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                if !UIAccessibilityIsReduceTransparencyEnabled() {
+                    if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
+                        vis.alpha = 0
+                    }
+                }
+                else {
+                    next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                }
             }
             else {
-                next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                if !UIAccessibilityIsReduceTransparencyEnabled() {
+                    if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
+                        vis.alpha = 0.85
+                    }
+                }
+                else {
+                    next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                }
             }
         }
         else {
@@ -278,7 +292,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     next.view.transform = CGAffineTransformIdentity
                     last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                     if next.modalPresentationStyle == .OverCurrentContext {
-                        next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                        if !UIAccessibilityIsReduceTransparencyEnabled() {
+                            if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
+                                vis.alpha = 0.85
+                            }
+                        }
+                        else {
+                            next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                        }
                     }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
@@ -295,7 +316,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     last.view.transform = CGAffineTransformMakeTranslation(0, 0)
                     next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
                     if next.modalPresentationStyle == .OverCurrentContext {
-                        next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                        if !UIAccessibilityIsReduceTransparencyEnabled() {
+                            if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
+                                vis.alpha = 0
+                            }
+                        }
+                        else {
+                            next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                        }
                     }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
