@@ -75,7 +75,7 @@ class CardBlankController: UIViewController {
                 let answer = self.card!.getCorrect()
                 newResponse.answer = answer
                 let ex = try? NSRegularExpression(pattern: answer!.value!, options: [NSRegularExpressionOptions.CaseInsensitive])
-                let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.utf8.count))
+                let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.characters.count))
                 newResponse.correct = match != nil
                 newResponse.value = value
                 newResponse.card = self.card

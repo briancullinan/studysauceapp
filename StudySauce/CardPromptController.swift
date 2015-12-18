@@ -26,7 +26,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         self.content.text = self.card!.content
         let ex = try? NSRegularExpression(pattern: "https://.*", options: NSRegularExpressionOptions.CaseInsensitive)
-        let match = ex?.firstMatchInString(self.card!.content!, options: [], range:NSMakeRange(0, self.card!.content!.utf8.count))
+        let match = ex?.firstMatchInString(self.card!.content!, options: [], range:NSMakeRange(0, self.card!.content!.characters.count))
         let matched = match?.rangeAtIndex(0)
         if matched != nil {
             let range = Range(
@@ -38,7 +38,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
             playButton.hidden = false
         }
         let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
-        self.content.text = lines?.stringByReplacingMatchesInString(self.content.text, options: [], range: NSMakeRange(0, self.content.text.utf8.count), withTemplate: "\n")
+        self.content.text = lines?.stringByReplacingMatchesInString(self.content.text, options: [], range: NSMakeRange(0, self.content.text.characters.count), withTemplate: "\n")
     }
     
     func downloadAudio(url: String) {
