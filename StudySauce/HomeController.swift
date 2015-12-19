@@ -95,11 +95,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }))
         alert.addAction(UIAlertAction(title: "Log Out", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
             UserLoginController.logout({
-                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-                for c in storage.cookies! {
-                    storage.deleteCookie(c)
-                }
-                NSUserDefaults.standardUserDefaults()
                 AppDelegate.instance().user = nil
                 self.goHome(true)
             })

@@ -120,11 +120,6 @@ class UserSettingsController: UITableViewController {
                 cacheResetCount = 0
                 AppDelegate.performContext {
                     UserLoginController.logout({
-                        let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-                        for c in storage.cookies! {
-                            storage.deleteCookie(c)
-                        }
-                        NSUserDefaults.standardUserDefaults()
                         AppDelegate.resetLocalStore(true)
                         AppDelegate.instance().user = nil
                         self.goHome(true)

@@ -10,6 +10,18 @@ import Foundation
 import UIKit
 import CoreData
 
+extension CollectionType where Generator.Element == NSHTTPCookie {
+    func getJSON() -> [Dictionary<String,AnyObject>] {
+        let result = self.map { (c: NSHTTPCookie) -> Dictionary<String,AnyObject> in
+            var prop = c.properties
+            prop!["HttpOnly"] = false
+            prop!["Expires"] = (prop!["Expires"] as! NSDate).toRFC()
+            return prop!
+        }
+        return result
+    }
+}
+
 class UserLoginController : UIViewController {
     
     internal static var token: String?
@@ -53,20 +65,14 @@ class UserLoginController : UIViewController {
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
-                let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies
+                let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
                 if let email = json["email"] as? String {
                     // cookie value
-                    let props = cookies!.map({ (c: NSHTTPCookie) -> Dictionary<String,AnyObject> in
-                            var prop = c.properties
-                            prop!["HttpOnly"] = false
-                            prop!["Expires"] = (prop!["Expires"] as! NSDate).toRFC()
-                            return prop!
-                    })
                     let user = UserLoginController.getUserByEmail(email)
                     user.id = json["id"] as? NSNumber
                     user.first = json["first"] as? String
                     user.last = json["last"] as? String
-                    user.setProperty("session", props)
+                    user.setProperty("session", cookies)
                     for c in json["children"] as? [NSDictionary] ?? [] {
                         let childEmail = c["email"] as? String
                         if childEmail == nil {
@@ -76,7 +82,7 @@ class UserLoginController : UIViewController {
                         child.id = c["id"] as? NSNumber
                         child.first = c["first"] as? String
                         child.last = c["last"] as? String
-                        child.setProperty("session", props)
+                        child.setProperty("session", cookies)
                     }
                     AppDelegate.instance().user = user
                     AppDelegate.saveContext()

@@ -18,11 +18,6 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         let home = self.presentingViewController!
         self.dismissViewControllerAnimated(true, completion: {
             dispatch_async(dispatch_get_main_queue(), {
-                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-                for c in storage.cookies! {
-                    storage.deleteCookie(c)
-                }
-                NSUserDefaults.standardUserDefaults()
                 AppDelegate.instance().user = nil
                 home.performSegueWithIdentifier("login", sender: self)
             })
@@ -48,18 +43,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.users != nil && self.users!.count > 0 {
-            let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-            for c in storage.cookies! {
-                storage.deleteCookie(c)
-            }
-            NSUserDefaults.standardUserDefaults()
             AppDelegate.instance().user = self.users![indexPath.row]
-            let cookies = AppDelegate.instance().user?.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-            for var cookie in cookies {
-                cookie["Expires"] = NSDate.parse(cookie["Expires"] as? String)
-                let otherCookie = NSHTTPCookie(properties: cookie)!
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(otherCookie)
-            }
             let home = self.presentingViewController as! HomeController
             self.dismissViewControllerAnimated(true, completion: {
                 home.viewDidAppear(true)

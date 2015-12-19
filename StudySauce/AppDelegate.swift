@@ -17,9 +17,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     var storyboard: UIStoryboard?
     var user: User? {
         didSet {
+            if user == nil {
+                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+                for c in storage.cookies! {
+                    storage.deleteCookie(c)
+                }
+            }
+
             let userDefaults = NSUserDefaults.standardUserDefaults()
             userDefaults.setValue(user?.email, forKey: "user")
             userDefaults.synchronize() // don't forget this!!!!
+            
+            if user != nil {
+                let cookies = user!.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+                for var cookie in cookies {
+                    cookie["Expires"] = NSDate.parse(cookie["Expires"] as? String)
+                    let otherCookie = NSHTTPCookie(properties: cookie)!
+                    NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(otherCookie)
+                }
+            }
         }
     }
     
@@ -99,6 +115,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
+        let userDefaults = NSUserDefaults.standardUserDefaults()
+        if let email = userDefaults.valueForKey("user") as? String {
+            self.user = UserLoginController.getUserByEmail(email)
+        }
         if AppDelegate.isConnectedToNetwork() {
             UserLoginController.home { () -> Void in
                 dispatch_async(dispatch_get_main_queue(), {
@@ -108,7 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
         else {
             // TODO: work in offline mode
-            let userDefaults = NSUserDefaults.standardUserDefaults()
             if let email = userDefaults.valueForKey("user") as? String {
                 self.user = UserLoginController.getUserByEmail(email)
                 self.loadHomeVC()
