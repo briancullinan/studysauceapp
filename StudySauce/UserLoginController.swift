@@ -54,19 +54,24 @@ class UserLoginController : UIViewController {
                     self.token = json["csrf_token"] as? String
                 }
                 if let email = json["email"] as? String {
+                    // cookie value
+                    var cookie = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.filter({$0.name == "PHPSESSID"}).first?.properties
+                    cookie!["Expires"] = (cookie!["Expires"] as! NSDate).toRFC().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
                     let user = UserLoginController.getUserByEmail(email)
                     user.id = json["id"] as? NSNumber
                     user.first = json["first"] as? String
                     user.last = json["last"] as? String
+                    user.setProperty("session", cookie)
                     for c in json["children"] as? [NSDictionary] ?? [] {
                         let childEmail = c["email"] as? String
                         if childEmail == nil {
-                            continue;
+                            continue
                         }
                         let child = UserLoginController.getUserByEmail(childEmail!)
                         child.id = c["id"] as? NSNumber
                         child.first = c["first"] as? String
                         child.last = c["last"] as? String
+                        child.setProperty("session", cookie)
                     }
                     AppDelegate.instance().user = user
                     AppDelegate.saveContext()

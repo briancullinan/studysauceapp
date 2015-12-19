@@ -18,6 +18,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var normalImage:UIImage!
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
+    var firstTime = true
 
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
@@ -90,11 +91,20 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func userClick(sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "Switch User", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
-            
+            self.performSegueWithIdentifier("switch", sender: self)
         }))
         alert.addAction(UIAlertAction(title: "Log Out", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
-            
+            UserLoginController.logout({
+                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+                for c in storage.cookies! {
+                    storage.deleteCookie(c)
+                }
+                NSUserDefaults.standardUserDefaults()
+                AppDelegate.instance().user = nil
+                self.goHome(true)
+            })
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         alert.popoverPresentationController?.sourceView = self.userButton
         alert.popoverPresentationController?.sourceRect = self.userButton!.bounds
         self.presentViewController(alert, animated: true) { () -> Void in }
@@ -119,6 +129,20 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if self.userButton != nil {
             self.userButton?.setTitle(AppDelegate.getUser()?.first, forState: .Normal)
+            
+            if self.firstTime {
+                AppDelegate.performContext({
+                    if true || AppDelegate.getUser()?.getProperty("seen_tutorial") as? Bool != true
+                    {
+                        AppDelegate.getUser()?.setProperty("seen_tutorial", true)
+                        AppDelegate.saveContext()
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.performSegueWithIdentifier("tutorial", sender: self)
+                        })
+                    }
+                })
+                self.firstTime = false
+            }
         }
         
         if self.tableView != nil {

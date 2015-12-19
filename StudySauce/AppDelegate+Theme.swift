@@ -23,9 +23,10 @@ struct saucyTheme {
     static let textSize = CGFloat(17.0)
     
     static let headingFont = "Avenir-Heavy"
-    static let headingSize = CGFloat(15.0)
+    static let headingSize = CGFloat(17.0)
     static let subheadingFont = "Avenir-Heavy"
     static let subheadingSize = CGFloat(15.0)
+    static let labelFont = "Avenir-Heavy"
     
     static func multiplier () -> CGFloat {
         let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 400
@@ -141,8 +142,8 @@ extension AppDelegate {
         })
         
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $([DialogController.self ~>> UIButton.self], {(v: UIView) in
-            if (v ~+ UIVisualEffectView.self).count == 0 {
+        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self, {(v: UIView) in
+            if (v.viewController()!.view! ~> UIVisualEffectView.self).count == 0 {
                 if !UIAccessibilityIsReduceTransparencyEnabled() {
                     v.superview!.backgroundColor = UIColor.clearColor()
                     
@@ -159,10 +160,18 @@ extension AppDelegate {
                 }
             }
         })
-        $([DialogController.self ~> UILabel.self,
+        $([UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self,
+           DialogController.self ~> UILabel.self,
            UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
+        $(UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self, {
+            $0.setFontName(saucyTheme.labelFont)
+        })
+        $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
+            $0.setFontSize(40 * saucyTheme.multiplier())
+        })
+        
         $([DialogController.self ~>> UILabel.self ~* T.firstOfType,
            UserInviteController.self ~>> UILabel.self ~* T.firstOfType,
            UserLoginController.self ~>> UILabel.self ~* T.firstOfType,
@@ -175,13 +184,23 @@ extension AppDelegate {
             $0.backgroundColor = UIColor.clearColor()
             $0.separatorStyle = UITableViewCellSeparatorStyle.None
             $0.separatorColor = UIColor.clearColor()
+            $0.preservesSuperviewLayoutMargins = false
+            $0.separatorInset = UIEdgeInsetsZero
+            $0.layoutMargins = UIEdgeInsetsZero
         })
+        
+        $(UITableView.self ~> UITableViewCell.self, {
+            $0.selectionStyle = .None
+        })
+        
         $([UserSettingsContainerController.self ~>> UILabel.self ~* T.firstOfType,
            PackSummaryController.self ~>> UILabel.self ~* T.firstOfType,
            UIViewController.self ~* "Privacy" ~>> UILabel.self ~* T.firstOfType,
+            UIViewController.self ~* "About" ~>> UILabel.self ~* T.firstOfType,
            CardController.self ~>> UILabel.self ~* T.firstOfType,
            PackResultsController.self ~>> UILabel.self ~* T.firstOfType,
-           ContactUsController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
+           ContactUsController.self ~>> UILabel.self ~* T.firstOfType,
+           UserSwitchController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
             
             v.tag = 25
             
@@ -205,24 +224,13 @@ extension AppDelegate {
         $([PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
-            v.preservesSuperviewLayoutMargins = false
             v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-            v.separatorInset = UIEdgeInsetsZero
-            v.reloadData()
             // this doesn't work in appearence :(
             //v.estimatedRowHeight = 40.0 * saucyTheme.multiplier()
             //v.rowHeight = UITableViewAutomaticDimension
         })
-        
-        $([PackSummaryController.self ~> UITableView.self ~> UITableViewCell.self,
-           UserSettingsController.self ~> UITableView.self ~> UITableViewCell.self], {(v: UITableViewCell) -> Void in
-            v.preservesSuperviewLayoutMargins = false
-            v.layoutMargins = UIEdgeInsetsZero
-            v.separatorInset = UIEdgeInsetsZero
-        })
-        
-        $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* .firstOfType, {
-            $0.setFontName(saucyTheme.subheadingFont)
+                $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* .firstOfType, {
+            $0.setFontName(saucyTheme.labelFont)
         })
 
         $(PackSummaryCell.self ~> UILabel.self ~* T.firstOfType, {
@@ -252,6 +260,9 @@ extension AppDelegate {
             v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
             v.rowHeight = UITableViewAutomaticDimension
             v.reloadData()
+        })
+        $(HomeController.self ~> UIButton.self ~* {$0.tag == 1}, {
+            $0.setFontColor(saucyTheme.primary)
         })
 
         // settings header
@@ -302,7 +313,8 @@ extension AppDelegate {
             v.layer.cornerRadius = 0
         })
         
-        $(UIViewController.self ~* "Privacy" ~> UITextView.self, {(v: UITextView) in
+        $([UIViewController.self ~* "Privacy" ~> UITextView.self,
+            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
             dispatch_async(dispatch_get_main_queue(), {
                 v.scrollRangeToVisible(NSMakeRange(0, 0))
             })
@@ -320,7 +332,8 @@ extension AppDelegate {
         
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self,
-            UIViewController.self ~* "Privacy" ~> UITextView.self], {(v: UITextView) in
+            UIViewController.self ~* "Privacy" ~> UITextView.self,
+            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
             v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
         })
         $([UserLoginController.self ~> UIButton.self ~* T.nthOfType(1),
@@ -331,13 +344,15 @@ extension AppDelegate {
             DialogController.self ~> UIButton.self ~* T.nthOfType(0),
             CardBlankController.self ~> UIButton.self ~* T.nthOfType(0),
             ContactUsController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserSwitchController.self ~> UIButton.self ~* T.nthOfType(1),
+            UserSwitchController.self ~> UIButton.self ~* T.nthOfType(2),
             HomeController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in
                 v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
         })
-     
         $([UserSettingsContainerController.self ~>> UIButton.self ~* T.firstOfType,
             PackSummaryController.self ~>> UIButton.self ~* T.firstOfType,
             UIViewController.self ~* "Privacy" ~>> UIButton.self ~* T.firstOfType,
+            UIViewController.self ~* "About" ~>> UIButton.self ~* T.firstOfType,
             CardController.self ~>> UIButton.self ~* T.firstOfType,
             PackResultsController.self ~>> UIButton.self ~* T.firstOfType,
             ContactUsController.self ~>> UIButton.self ~* T.firstOfType,
@@ -346,11 +361,40 @@ extension AppDelegate {
             UserLoginController.self ~> UIButton.self ~* T.firstOfType,
             UserRegisterController.self ~> UIButton.self ~* T.firstOfType,
             UserInviteController.self ~> UIButton.self ~* T.firstOfType,
-            ContactUsController.self ~> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
+            ContactUsController.self ~> UIButton.self ~* T.firstOfType,
+            UserSwitchController.self ~> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
                 
                 v.tag = 26
         })
         
+        var combos: [Dictionary<String,UIColor>] = []
+        let colors = [saucyTheme.primary, saucyTheme.secondary, saucyTheme.lightColor, saucyTheme.middle, saucyTheme.fontColor]
+        for c in colors {
+            for c2 in colors.filter({$0 != c}) {
+                combos.append(["background": c, "foreground": c2])
+            }
+        }
+        
+        $(UserSwitchController.self ~> FaceView.self, {
+            let combo = Int(arc4random_uniform(UInt32(combos.count)))
+            $0.backgroundColor = combos[combo]["background"]
+            $0.color = combos[combo]["foreground"]!
+            $0.smiliness = Double(Int(arc4random_uniform(UInt32(50))))/50
+        })
+        
+        $(TutorialContentViewController.self ~> UILabel.self, {
+            $0.setFontColor(saucyTheme.lightColor)
+            $0.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
+        })
+        $(TutorialContentViewController.self ~> UILabel.self ~* .firstOfType, {
+            $0.setFontColor(saucyTheme.primary)
+            $0.setFontSize(30 * saucyTheme.multiplier())
+        })
+        $(TutorialPageViewController.self ~> UIScrollView.self, {
+            $0.alwaysBounceHorizontal = false
+            $0.bounces = false
+        })
+
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

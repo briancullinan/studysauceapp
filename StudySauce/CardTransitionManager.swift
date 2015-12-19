@@ -23,10 +23,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         let panGesture = UIPanGestureRecognizer()
         panGesture.delegate = self
+        panGesture.cancelsTouchesInView = false
         panGesture.addTarget(self, action: "handleOnstagePan:")
         let tap = UITapGestureRecognizer()
         tap.delegate = self
         tap.numberOfTapsRequired = 1
+        tap.cancelsTouchesInView = false
         tap.addTarget(self, action: "handleOnstageTap:")
         AppDelegate.instance().window!.addGestureRecognizer(panGesture)
         AppDelegate.instance().window!.addGestureRecognizer(tap)
@@ -35,15 +37,21 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         let vc = AppDelegate.visibleViewController()
-        if let card = vc as? CardController {
-            if card.subview?.canPerformSegueWithIdentifier("next") == true || card.subview?.canPerformSegueWithIdentifier("last") == true {
+        if let page = vc as? TutorialPageViewController {
+            let total = page.presentationCountForPageViewController(page)
+            let index = page.presentationIndexForPageViewController(page)
+            if index < total || index > 0 {
                 return true
             }
         }
-        else {
-            if vc.canPerformSegueWithIdentifier("next") || vc.canPerformSegueWithIdentifier("last") {
-                return true
-            }
+        
+        if vc.canPerformSegueWithIdentifier("next")
+            || vc.canPerformSegueWithIdentifier("last")
+            || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
+            || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true {
+                if !self.transitioning {
+                    return true
+                }
         }
         return false
     }
@@ -67,16 +75,29 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     */
     
     func handleOnstageTap(tap: UITapGestureRecognizer) {
-        let vc = AppDelegate.visibleViewController()
-        self.interactive = false
-        if let card = vc as? CardController {
-            if card.subview?.canPerformSegueWithIdentifier("next") == true {
-                card.subview?.performSegueWithIdentifier("next", sender: self)
+        NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "doNextTap", userInfo: nil, repeats: false)
+    }
+    
+    func doNextTap() {
+        if !self.transitioning {
+            let vc = AppDelegate.visibleViewController()
+            self.interactive = false
+            if let page = vc as? TutorialPageViewController {
+                if let next = page.pageViewController(page, viewControllerAfterViewController: page.viewControllers![0]) {
+                    page.setViewControllers([next], direction: .Forward, animated: true, completion: nil)
+                    return
+                }
             }
-        }
-        else {
-            if vc.canPerformSegueWithIdentifier("next") {
-                vc.performSegueWithIdentifier("next", sender: self)
+
+            if let card = vc as? CardController {
+                if card.subview?.canPerformSegueWithIdentifier("next") == true {
+                    card.subview?.performSegueWithIdentifier("next", sender: self)
+                }
+            }
+            else {
+                if vc.canPerformSegueWithIdentifier("next") {
+                    vc.performSegueWithIdentifier("next", sender: self)
+                }
             }
         }
     }
@@ -96,19 +117,44 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         case UIGestureRecognizerState.Began:
             // set our interactive flag to true
             if d != 0 && !self.transitioning {
-                self.interactive = true
-                self.transitioning = true
+
                 let vc = AppDelegate.visibleViewController()
+                if let page = vc as? TutorialPageViewController {
+                    if d > 0 {
+                        if let last = page.pageViewController(page, viewControllerBeforeViewController: page.viewControllers![0]) {
+                            self.transitioning = true
+                            page.setViewControllers([last], direction: .Reverse, animated: true, completion: {_ in
+                                self.transitioning = false
+                            })
+                            return
+                        }
+                    }
+                    else {
+                        if let next = page.pageViewController(page, viewControllerAfterViewController: page.viewControllers![0]) {
+                            self.transitioning = true
+                            page.setViewControllers([next], direction: .Forward, animated: true, completion: {_ in
+                                self.transitioning = false
+                            })
+                            return
+                        }
+                    }
+                }
+
                 if let card = vc as? CardController {
                     if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
+                        self.transitioning = true
+                        self.interactive = true
                         card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
                 else {
                     if vc.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") {
+                        self.transitioning = true
+                        self.interactive = true
                         vc.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
+                
             }
             // trigger the start of the transition
             else if d < -0.02 {
@@ -121,18 +167,18 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             break
             
         default: // .Ended, .Cancelled, .Failed ...
-            
-            // return flag to false and finish the transition
-            self.interactive = false
-            if d < -0.1 || d > 0.1 {
-                // threshold crossed: finish
-                self.finishInteractiveTransition()
+            if self.interactive {
+                // return flag to false and finish the transition
+                self.interactive = false
+                if d < -0.1 || d > 0.2 {
+                    // threshold crossed: finish
+                    self.finishInteractiveTransition()
+                }
+                else {
+                    // threshold not met: cancel
+                    self.cancelInteractiveTransition()
+                }
             }
-            else {
-                // threshold not met: cancel
-                self.cancelInteractiveTransition()
-            }
-            self.transitioning = false
         }
     }
     

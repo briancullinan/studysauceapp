@@ -24,6 +24,47 @@ class User: NSManagedObject {
         return result
     }
     
+    func getProperty(prop: String) -> AnyObject? {
+        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
+                if let val = (json as? NSDictionary)?[prop] {
+                    return val
+                }
+            }
+        }
+        return nil
+    }
+    
+    func setProperty(prop: String, _ obj: AnyObject?) {
+        var props: Dictionary<String,AnyObject>
+        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
+                if let existing = json as? Dictionary<String,AnyObject> {
+                    props = existing
+                }
+                else {
+                    props = Dictionary<String,AnyObject>()
+                }
+            }
+            else {
+                props = Dictionary<String,AnyObject>()
+            }
+        }
+        else {
+            props = Dictionary<String,AnyObject>()
+        }
+        if obj == nil {
+            props.removeValueForKey(prop)
+        }
+        else {
+            props[prop] = obj!
+        }
+        
+        if let newStr = try? NSJSONSerialization.dataWithJSONObject(props, options: []) {
+            self.properties = "\(NSString(data: newStr, encoding: NSUTF8StringEncoding)!)"
+        }
+    }
+    
     func getRetentionIndex(card: Card) -> Int {
         return self.retention!.componentsSeparatedByString(",").indexOf("\(card.id!)")!
     }

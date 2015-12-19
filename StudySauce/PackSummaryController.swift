@@ -226,8 +226,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor.clearColor()
-        self.tableView.backgroundView = nil
         
         // Load packs from database
         AppDelegate.performContext {

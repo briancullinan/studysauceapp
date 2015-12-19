@@ -14,10 +14,7 @@ class UserSettingsController: UITableViewController {
     private var users: [User]? = nil
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableView.backgroundColor = UIColor.clearColor()
-        self.tableView.backgroundView = nil
-        
+        super.viewDidLoad()        
         
         self.firstName.text = AppDelegate.getUser()?.first
         self.lastName.text = AppDelegate.getUser()?.last
@@ -31,7 +28,7 @@ class UserSettingsController: UITableViewController {
     
     private func getUsersFromLocalStore(done: () -> Void) {
         AppDelegate.performContext {
-            self.users = AppDelegate.list(User.self)
+            self.users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser()}
             done()
         }
     }
@@ -116,14 +113,14 @@ class UserSettingsController: UITableViewController {
             if cacheResetCount > 10 {
                 cacheResetCount = 0
                 AppDelegate.performContext {
-                    let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-                    for c in storage.cookies! {
-                        storage.deleteCookie(c)
-                    }
-                    NSUserDefaults.standardUserDefaults()
-                    AppDelegate.resetLocalStore(true)
-                    AppDelegate.instance().user = nil
                     UserLoginController.logout({
+                        let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+                        for c in storage.cookies! {
+                            storage.deleteCookie(c)
+                        }
+                        NSUserDefaults.standardUserDefaults()
+                        AppDelegate.resetLocalStore(true)
+                        AppDelegate.instance().user = nil
                         self.goHome(true)
                     })
                 }
@@ -162,9 +159,9 @@ class UserSettingsController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        return 0.01
     }
-    
+        
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.childTable {
             return 0
@@ -195,13 +192,13 @@ class UserSettingsController: UITableViewController {
             }
             else if indexPath.row % 2 == 0 {
                 cell = tableView.dequeueReusableCellWithIdentifier("childFirst", forIndexPath: indexPath)
-                if let name = (cell ~> (UILabel.self ~* {$0.text == "Johnny"})).first {
+                if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
                     name.text = self.users![indexPath.row / 2].first!
                 }
             }
             else {
                 cell = tableView.dequeueReusableCellWithIdentifier("childLast", forIndexPath: indexPath)
-                if let name = (cell ~> (UILabel.self ~* {$0.text == "Doe"})).first {
+                if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
                     name.text = self.users![indexPath.row / 2].last!
                 }
             }

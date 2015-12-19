@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ContentViewController: UIViewController {
+class TutorialContentViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var explanationlabel: UILabel!
