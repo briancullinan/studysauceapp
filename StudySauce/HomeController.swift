@@ -78,11 +78,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if self.cardCount != nil {
             AppDelegate.performContext {
-                let count = AppDelegate.getUser()!.getRetentionRemaining()
-                let s = count == 1 ? "" : "s"
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.cardCount!.text = "\(count) card\(s)"
-                })
+                if AppDelegate.getUser() != nil {
+                    let count = AppDelegate.getUser()!.getRetentionRemaining()
+                    let s = count == 1 ? "" : "s"
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.cardCount!.text = "\(count) card\(s)"
+                    })
+                }
             }
         }
 
@@ -91,9 +93,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func userClick(sender: UIButton) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "Switch User", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
+            self.stopTasks()
             self.performSegueWithIdentifier("switch", sender: self)
         }))
         alert.addAction(UIAlertAction(title: "Log Out", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
+            self.stopTasks()
             UserLoginController.logout({
                 AppDelegate.instance().user = nil
                 self.goHome(true)
@@ -177,8 +181,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewWillDisappear(animated: Bool) {
+        self.stopTasks()
+    }
+    
+    private func stopTasks() {
         self.taskManager?.invalidate()
         self.taskManager = nil
+        for vc in self.childViewControllers {
+            (vc as? HomeController)?.taskManager?.invalidate()
+            (vc as? HomeController)?.taskManager = nil
+        }
     }
     
     private func getPacksFromLocalStore() -> [Pack]

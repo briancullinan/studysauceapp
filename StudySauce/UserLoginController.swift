@@ -62,33 +62,36 @@ class UserLoginController : UIViewController {
     internal static func home(done: () -> Void = {}) {
         getJson("/home", done: {
             if let json = $0 as? NSDictionary {
-                if json["csrf_token"] as? String != nil {
-                    self.token = json["csrf_token"] as? String
-                }
                 let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
-                if let email = json["email"] as? String {
-                    // cookie value
-                    let user = UserLoginController.getUserByEmail(email)
-                    user.id = json["id"] as? NSNumber
-                    user.first = json["first"] as? String
-                    user.last = json["last"] as? String
-                    user.setProperty("session", cookies)
-                    for c in json["children"] as? [NSDictionary] ?? [] {
-                        let childEmail = c["email"] as? String
-                        if childEmail == nil {
-                            continue
-                        }
-                        let child = UserLoginController.getUserByEmail(childEmail!)
-                        child.id = c["id"] as? NSNumber
-                        child.first = c["first"] as? String
-                        child.last = c["last"] as? String
-                        child.setProperty("session", cookies)
+                AppDelegate.performContext({
+                    if json["csrf_token"] as? String != nil {
+                        self.token = json["csrf_token"] as? String
                     }
-                    AppDelegate.instance().user = user
-                    AppDelegate.saveContext()
-                }
-                dispatch_async(dispatch_get_main_queue(), {
-                    done()
+                    if let email = json["email"] as? String {
+                        // cookie value
+                        let user = UserLoginController.getUserByEmail(email)
+                        user.id = json["id"] as? NSNumber
+                        user.first = json["first"] as? String
+                        user.last = json["last"] as? String
+                        user.setProperty("session", cookies)
+                        for c in json["children"] as? [NSDictionary] ?? [] {
+                            let childEmail = c["email"] as? String
+                            if childEmail == nil {
+                                continue
+                            }
+                            let child = UserLoginController.getUserByEmail(childEmail!)
+                            child.id = c["id"] as? NSNumber
+                            child.first = c["first"] as? String
+                            child.last = c["last"] as? String
+                            child.setProperty("session", cookies)
+                        }
+                        AppDelegate.instance().user = user
+                        AppDelegate.saveContext()
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        done()
+                    })
+
                 })
             }
         })
