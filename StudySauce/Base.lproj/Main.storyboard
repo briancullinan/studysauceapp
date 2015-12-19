@@ -1675,6 +1675,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" id="GGa-Jv-qkY"/>
                         <segue destination="kzq-S3-nGY" kind="custom" identifier="switch" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="s3Q-ny-RjP"/>
                         <segue destination="Edf-VY-aVM" kind="custom" identifier="tutorial" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="VZv-oZ-K0f"/>
+                        <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="WbQ-di-EFr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rT6-Mt-KQL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1791,7 +1792,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="258"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="childFirst" id="OyK-Ax-3G6">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="childFirst" id="OyK-Ax-3G6">
                                                             <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OyK-Ax-3G6" id="nVc-5D-TLq">
@@ -1819,7 +1820,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                         </tableViewCell>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="childLast" id="JNr-I0-zUv">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="childLast" id="JNr-I0-zUv">
                                                             <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-I0-zUv" id="8mO-KZ-AQc">
@@ -2615,7 +2616,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     </view>
                     <connections>
                         <outlet property="tableView" destination="HGV-vM-NA4" id="kSE-J5-Nrf"/>
-                        <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="BjC-XH-CRT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bx4-uy-2lK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2636,8 +2636,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="WbQ-di-EFr"/>
         <segue reference="GGa-Jv-qkY"/>
-        <segue reference="BjC-XH-CRT"/>
         <segue reference="h3u-I4-U7Q"/>
         <segue reference="EWc-CM-6Df"/>
     </inferredMetricsTieBreakers>

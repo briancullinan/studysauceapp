@@ -394,6 +394,14 @@ extension AppDelegate {
             $0.alwaysBounceHorizontal = false
             $0.bounces = false
         })
+        
+        $(TutorialPageViewController.self ~> UIPageControl.self, {
+            
+            $0.pageIndicatorTintColor = saucyTheme.lightColor
+            $0.currentPageIndicatorTintColor = saucyTheme.primary
+            $0.backgroundColor = saucyTheme.fontColor
+
+        })
 
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()

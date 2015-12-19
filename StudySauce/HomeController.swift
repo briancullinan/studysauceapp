@@ -132,7 +132,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if self.firstTime {
                 AppDelegate.performContext({
-                    if true || AppDelegate.getUser()?.getProperty("seen_tutorial") as? Bool != true
+                    if AppDelegate.getUser()?.getProperty("seen_tutorial") as? Bool != true
                     {
                         AppDelegate.getUser()?.setProperty("seen_tutorial", true)
                         AppDelegate.saveContext()

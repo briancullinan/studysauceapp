@@ -53,15 +53,20 @@ class UserLoginController : UIViewController {
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
+                let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies
                 if let email = json["email"] as? String {
                     // cookie value
-                    var cookie = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.filter({$0.name == "PHPSESSID"}).first?.properties
-                    cookie!["Expires"] = (cookie!["Expires"] as! NSDate).toRFC().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+                    let props = cookies!.map({ (c: NSHTTPCookie) -> Dictionary<String,AnyObject> in
+                            var prop = c.properties
+                            prop!["HttpOnly"] = false
+                            prop!["Expires"] = (prop!["Expires"] as! NSDate).toRFC()
+                            return prop!
+                    })
                     let user = UserLoginController.getUserByEmail(email)
                     user.id = json["id"] as? NSNumber
                     user.first = json["first"] as? String
                     user.last = json["last"] as? String
-                    user.setProperty("session", cookie)
+                    user.setProperty("session", props)
                     for c in json["children"] as? [NSDictionary] ?? [] {
                         let childEmail = c["email"] as? String
                         if childEmail == nil {
@@ -71,7 +76,7 @@ class UserLoginController : UIViewController {
                         child.id = c["id"] as? NSNumber
                         child.first = c["first"] as? String
                         child.last = c["last"] as? String
-                        child.setProperty("session", cookie)
+                        child.setProperty("session", props)
                     }
                     AppDelegate.instance().user = user
                     AppDelegate.saveContext()

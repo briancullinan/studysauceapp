@@ -22,14 +22,20 @@ class UserSettingsController: UITableViewController {
         //self.childFirstName.text = AppDelegate.getUser().childFirst
         //self.childLastName.text = AppDelegate.getUser().childLast
         self.getUsersFromLocalStore {
+            self.tableView.reloadData()
             self.childTable.reloadData()
         }
     }
     
     private func getUsersFromLocalStore(done: () -> Void) {
         AppDelegate.performContext {
-            self.users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser()}
-            done()
+            let currentCookie = (AppDelegate.getUser()?.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
+            let users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser() && (
+                $0.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie}
+            dispatch_async(dispatch_get_main_queue(), {
+                self.users = users
+                done()
+            })
         }
     }
     
@@ -138,10 +144,13 @@ class UserSettingsController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.childTable {
+            if section == 0 {
             if self.users == nil || self.users!.count == 0 {
                 return 1
             }
             return self.users!.count * 2 + 1
+            }
+            return 0
         }
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
@@ -181,9 +190,14 @@ class UserSettingsController: UITableViewController {
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
     
+    override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
+        return 0
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if tableView == self.childTable {
+            let userIndex = (indexPath.row - indexPath.row % 2) / 2
             if self.users == nil {
                 cell = tableView.dequeueReusableCellWithIdentifier("loading", forIndexPath: indexPath)
             }
@@ -193,19 +207,20 @@ class UserSettingsController: UITableViewController {
             else if indexPath.row % 2 == 0 {
                 cell = tableView.dequeueReusableCellWithIdentifier("childFirst", forIndexPath: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
-                    name.text = self.users![indexPath.row / 2].first!
+                    name.text = self.users![userIndex].first!
                 }
             }
             else {
                 cell = tableView.dequeueReusableCellWithIdentifier("childLast", forIndexPath: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
-                    name.text = self.users![indexPath.row / 2].last!
+                    name.text = self.users![userIndex].last!
                 }
             }
         }
         else {
             cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
         }
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
 
         if self.privacyCell.hidden {

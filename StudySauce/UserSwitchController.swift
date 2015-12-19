@@ -15,7 +15,18 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addAccount(sender: UIButton) {
-        self.performSegueWithIdentifier("login", sender: self)
+        let home = self.presentingViewController!
+        self.dismissViewControllerAnimated(true, completion: {
+            dispatch_async(dispatch_get_main_queue(), {
+                let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+                for c in storage.cookies! {
+                    storage.deleteCookie(c)
+                }
+                NSUserDefaults.standardUserDefaults()
+                AppDelegate.instance().user = nil
+                home.performSegueWithIdentifier("login", sender: self)
+            })
+        })
     }
     
     override func viewDidLoad() {
@@ -37,12 +48,22 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.users != nil && self.users!.count > 0 {
-            AppDelegate.instance().user = self.users![indexPath.row]
-            if var cookie = AppDelegate.instance().user?.getProperty("session") as? [String : AnyObject] {
-                cookie["Expires"] = NSDate.parse(cookie["Expires"] as? String)
-                NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(NSHTTPCookie(properties: cookie)!)
+            let storage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+            for c in storage.cookies! {
+                storage.deleteCookie(c)
             }
-            self.performSegueWithIdentifier("last", sender: self)
+            NSUserDefaults.standardUserDefaults()
+            AppDelegate.instance().user = self.users![indexPath.row]
+            let cookies = AppDelegate.instance().user?.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+            for var cookie in cookies {
+                cookie["Expires"] = NSDate.parse(cookie["Expires"] as? String)
+                let otherCookie = NSHTTPCookie(properties: cookie)!
+                NSHTTPCookieStorage.sharedHTTPCookieStorage().setCookie(otherCookie)
+            }
+            let home = self.presentingViewController as! HomeController
+            self.dismissViewControllerAnimated(true, completion: {
+                home.viewDidAppear(true)
+            })
         }
     }
     
