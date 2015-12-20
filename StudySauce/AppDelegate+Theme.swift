@@ -160,14 +160,17 @@ extension AppDelegate {
                 }
             }
         })
+        
         $([UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self,
            DialogController.self ~> UILabel.self,
            UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
+        
         $(UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self, {
             $0.setFontName(saucyTheme.labelFont)
         })
+        
         $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
@@ -212,15 +215,18 @@ extension AppDelegate {
             }
             
         })
+        
         $([PackResultsController.self ~>> UILabel.self ~* T.nthOfType(1),
            PackResultsController.self ~>> UILabel.self ~* T.nthOfType(2)], {
             $0.setFontSize(30 * saucyTheme.multiplier())
         })
+        
         $(PackResultsController.self ~>> UILabel.self ~* T.nthOfType(3), {
             $0.setFontSize(60 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
+        
         $([PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
@@ -236,6 +242,7 @@ extension AppDelegate {
         $(PackSummaryCell.self ~> UILabel.self ~* T.firstOfType, {
             $0.setFontName(saucyTheme.subheadingFont)
         })
+        
         // packs and settings buttons on home page
         $([HomeController.self ~>> UIButton.self ~* {$0.tag == 1337}], {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
@@ -244,23 +251,28 @@ extension AppDelegate {
                 saucyTheme.textSize * saucyTheme.multiplier() * 1.5,
                 saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2)
         })
+        
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* { $0.tag == 23 }, {
             $0.setBackground(saucyTheme.fontColor)
         })
+        
         $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontSize(saucyTheme.textSize * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.subheadingFont)
         })
+        
         $(HomeController.self ~> UITableView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
+        
         $([HomeController.self ~> UITableView.self], {(v: UITableView) -> Void in
             // Make the cell self size
             v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
             v.rowHeight = UITableViewAutomaticDimension
             v.reloadData()
         })
+        
         $(HomeController.self ~> UIButton.self ~* {$0.tag == 1}, {
             $0.setFontColor(saucyTheme.primary)
         })
@@ -269,6 +281,7 @@ extension AppDelegate {
         $(UserSettingsController.self ~> UITableViewHeaderFooterView.self, {
             $0.setBackground(saucyTheme.fontColor)
         })
+        
         $(UserSettingsController.self ~> UITableViewHeaderFooterView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
@@ -279,19 +292,22 @@ extension AppDelegate {
         // check and x font
         $([CardSelfController.self ~> UIButton.self,
            CardSelfController.self ~> UIButton.self ~> UILabel.self,
-           PackResultsController.self ~> UIButton.self,
-           PackResultsController.self ~> UIButton.self ~> UILabel.self], {
+           PackResultsController.self ~> UIButton.self ~* {$0.tag == 2},
+           PackResultsController.self ~> UIButton.self ~* {$0.tag == 2} ~> UILabel.self], {
             $0.setFontSize(60 * saucyTheme.multiplier())
         })
+        
         // true and false button font
         $([CardTrueFalseController.self ~> UIButton.self,
            CardTrueFalseController.self ~> UIButton.self ~> UILabel.self], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
+        
         $([CardBlankController.self ~> UITextField.self,
             CardBlankController.self ~> UITextField.self ~> UILabel.self], {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
+        
         $(ContactUsController.self ~> UITextView.self, {
             $0.backgroundColor = UIColor.whiteColor()
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
@@ -299,11 +315,13 @@ extension AppDelegate {
             $0.layer.cornerRadius = 0
             $0.textContainerInset = UIEdgeInsets(10 * saucyTheme.multiplier())
         })
+        
         $(UITextField.self ~>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
                 $0.setFontColor(saucyTheme.lightColor)
             }
         })
+        
         $([CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()
@@ -336,6 +354,7 @@ extension AppDelegate {
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
             v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
         })
+        
         $([UserLoginController.self ~> UIButton.self ~* T.nthOfType(1),
             UserResetController.self ~> UIButton.self ~* T.nthOfType(1),
             UserLoginController.self ~> UIButton.self ~* T.nthOfType(1),
@@ -346,9 +365,13 @@ extension AppDelegate {
             ContactUsController.self ~> UIButton.self ~* T.nthOfType(1),
             UserSwitchController.self ~> UIButton.self ~* T.nthOfType(1),
             UserSwitchController.self ~> UIButton.self ~* T.nthOfType(2),
+            PackResultsController.self ~> UIButton.self ~* {$0.tag == 1},
             HomeController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in
+                v.setFontName(saucyTheme.textFont)
+                v.setFontColor(saucyTheme.lightColor)
                 v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
         })
+        
         $([UserSettingsContainerController.self ~>> UIButton.self ~* T.firstOfType,
             PackSummaryController.self ~>> UIButton.self ~* T.firstOfType,
             UIViewController.self ~* "Privacy" ~>> UIButton.self ~* T.firstOfType,
@@ -386,10 +409,12 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
         })
+        
         $(TutorialContentViewController.self ~> UILabel.self ~* .firstOfType, {
             $0.setFontColor(saucyTheme.primary)
             $0.setFontSize(30 * saucyTheme.multiplier())
         })
+        
         $(TutorialPageViewController.self ~> UIScrollView.self, {
             $0.alwaysBounceHorizontal = false
             $0.bounces = false

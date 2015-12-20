@@ -16,6 +16,9 @@ class PackResultsController: UIViewController {
     @IBOutlet weak var packTitle: UILabel!
     @IBOutlet weak var percent: UILabel!
     @IBOutlet weak var review: UILabel!
+    @IBOutlet weak var goHome: UIButton!
+    @IBOutlet weak var crossButton: UIButton!
+    @IBOutlet weak var checkButton: UIButton!
     
     internal var isRetention = false
     
@@ -77,13 +80,8 @@ class PackResultsController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // add up results differently when loading from a retention pack
-        if self.isRetention {
-            self.packTitle.text = "Today's cards"
-        }
-        else {
-            self.packTitle.text = self.pack.title
-        }
         var correct = 0
         var wrong = 0
         let cards = self.isRetention ? AppDelegate.getUser()!.getRetention() : self.pack.cards?.allObjects as! [Card]
@@ -100,6 +98,33 @@ class PackResultsController: UIViewController {
         
         let score = Int32(round(Double(correct) / Double(correct + wrong) * 100.0));
         self.percent.text = "\(score)%"
+        
+        self.goHome.hidden = true
+        self.crossButton.hidden = false
+        self.checkButton.hidden = false
+        
+        // set up buttons and text
+        if self.isRetention {
+            self.packTitle.text = "Today's cards"
+            if score == 100 {
+                self.review.text = NSLocalizedString("Congratulations!  You answered all of today's questions correctly.", comment: "Big button all correct")
+                self.goHome.hidden = false
+                self.crossButton.hidden = true
+                self.checkButton.hidden = true
+            }
+            else {
+                self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Big button with wrong answers")
+            }
+        }
+        else {
+            self.packTitle.text = self.pack.title
+            if score == 100 {
+                self.review.text = NSLocalizedString("Congratulations!  You answered all the questions correctly.  Start again?", comment: "Pack summary all correct")
+            }
+            else {
+                self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Pack summary with wrong answers")
+            }
+        }
     }
     
 }
