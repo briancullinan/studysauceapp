@@ -19,6 +19,7 @@
 		64292E111BE2F3C60038505B /* CardTransitionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64292E101BE2F3C60038505B /* CardTransitionManager.swift */; };
 		64306E0F1BFE62AD0069BF1F /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64306E0E1BFE62AD0069BF1F /* JSON.swift */; };
 		643C20401BE461CE00A89A3F /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643C203F1BE461CE00A89A3F /* UIColor.swift */; };
+		6441DA6F1C28D9FD0018543C /* UserAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6441DA6E1C28D9FD0018543C /* UserAddController.swift */; };
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; };
 		644C4A621BB3516F00E4D52A /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardController.swift */; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; };
@@ -119,6 +120,7 @@
 		64306E0E1BFE62AD0069BF1F /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		643838651C12758500AF2314 /* StudySauce.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StudySauce.entitlements; sourceTree = "<group>"; };
 		643C203F1BE461CE00A89A3F /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		6441DA6E1C28D9FD0018543C /* UserAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddController.swift; sourceTree = "<group>"; };
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				9D99FF071C235931002857FD /* TutorialPageViewController.swift */,
 				9D99FF031C2326BB002857FD /* TutorialContentViewController.swift */,
 				64C2F4AC1C24655700F7C854 /* UserSwitchController.swift */,
+				6441DA6E1C28D9FD0018543C /* UserAddController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				643C20401BE461CE00A89A3F /* UIColor.swift in Sources */,
 				64D219E51BBB0CCB005F9094 /* Pack+CoreDataProperties.swift in Sources */,
 				648CFC9F1C1903690018746F /* TextField.swift in Sources */,
+				6441DA6F1C28D9FD0018543C /* UserAddController.swift in Sources */,
 				6401F49C1BB52A78004E0163 /* Pack.swift in Sources */,
 				649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */,
 				641E66EE1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift in Sources */,

@@ -189,6 +189,10 @@ class UserSettingsController: UITableViewController {
         return 0
     }
     
+    func addClick(sender: UIButton) {
+        self.performSegueWithIdentifier("switch", sender: self)
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if tableView == self.childTable {
@@ -198,17 +202,20 @@ class UserSettingsController: UITableViewController {
             }
             else if self.users!.count == 0 || indexPath.row == self.users!.count * 2 {
                 cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
+                if let add = (cell ~> (UIButton.self ~* {$0.tag == 1})).first {
+                    add.addTarget(self, action: "addClick:", forControlEvents: UIControlEvents.TouchUpInside)
+                }
             }
             else if indexPath.row % 2 == 0 {
                 cell = tableView.dequeueReusableCellWithIdentifier("childFirst", forIndexPath: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
-                    name.text = self.users![userIndex].first!
+                    name.text = self.users![userIndex].first
                 }
             }
             else {
                 cell = tableView.dequeueReusableCellWithIdentifier("childLast", forIndexPath: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
-                    name.text = self.users![userIndex].last!
+                    name.text = self.users![userIndex].last
                 }
             }
         }

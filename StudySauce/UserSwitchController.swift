@@ -14,16 +14,6 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func addAccount(sender: UIButton) {
-        let home = self.presentingViewController!
-        self.dismissViewControllerAnimated(true, completion: {
-            dispatch_async(dispatch_get_main_queue(), {
-                AppDelegate.instance().user = nil
-                home.performSegueWithIdentifier("login", sender: self)
-            })
-        })
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,8 +32,9 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.users != nil && self.users!.count > 0 {
-            AppDelegate.instance().user = self.users![indexPath.row]
+        let i = indexPath.row - 1
+        if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
+            AppDelegate.instance().user = self.users![i]
             let home = self.presentingViewController as! HomeController
             self.dismissViewControllerAnimated(true, completion: {
                 home.viewDidAppear(true)
@@ -53,9 +44,25 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.users == nil || self.users!.count == 0 {
-            return 1
+            return 2
         }
-        return self.users!.count
+        return self.users!.count + 2
+    }
+    
+    func logout() {
+        let home = self.presentingViewController!
+        self.dismissViewControllerAnimated(true, completion: {
+            dispatch_async(dispatch_get_main_queue(), {
+                UserLoginController.logout({
+                    AppDelegate.instance().user = nil
+                    home.goHome(true)
+                })
+            })
+        })
+    }
+    
+    func addChild() {
+        self.performSegueWithIdentifier("addChild", sender: self)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -64,14 +71,20 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         if self.users == nil {
             cell = tableView.dequeueReusableCellWithIdentifier("loading", forIndexPath: indexPath)
         }
-        else if self.users!.count == 0 {
+        else if self.users!.count == 0 || indexPath.row == self.users!.count + 1 {
             cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
+            (cell ~> UIButton.self).first?.addTarget(self, action: "addChild", forControlEvents: UIControlEvents.TouchUpInside)
+        }
+        else if indexPath.row == 0 {
+            cell = tableView.dequeueReusableCellWithIdentifier("logout", forIndexPath: indexPath)
+            (cell ~> UIButton.self).first?.addTarget(self, action: "logout", forControlEvents: UIControlEvents.TouchUpInside)
         }
         else {
             cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-            (cell ~> (UILabel.self ~* T.nthOfType(1))).first!.text = self.users![indexPath.row].first
-            (cell ~> (UILabel.self ~* T.nthOfType(0))).first!.text = self.users![indexPath.row].last
-            (cell ~> (UILabel.self ~* {$0.text == "✔︎"})).first!.hidden = self.users![indexPath.row] != AppDelegate.getUser()
+            let i = indexPath.row - 1
+            (cell ~> (UILabel.self ~* T.nthOfType(1))).first!.text = self.users![i].first
+            (cell ~> (UILabel.self ~* T.nthOfType(0))).first!.text = self.users![i].last
+            (cell ~> (UILabel.self ~* {$0.text == "✔︎"})).first!.hidden = self.users![i] != AppDelegate.getUser()
         }
         
         return cell

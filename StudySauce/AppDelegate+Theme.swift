@@ -120,14 +120,15 @@ extension AppDelegate {
             background.hidden = true
             background.viewController()!.view.clipsToBounds = false
             if saucyBackground == nil {
-                let max = UIScreen.mainScreen().bounds.height > UIScreen.mainScreen().bounds.width ? UIScreen.mainScreen().bounds.height : UIScreen.mainScreen().bounds.width
                 saucyBackground = UIWindow(frame: UIScreen.mainScreen().bounds)
                 saucyBackground!.rootViewController = HomeController()
+
                 let saucyImage = UIImageView(image: background.image)
                 saucyBackground!.rootViewController!.view.addSubview(saucyImage)
-                saucyImage.frame = CGRect(x: 0, y: 0, width: max, height: max)
+                saucyImage.frame = background.superview!.bounds
+                saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                 saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
-                saucyImage.translatesAutoresizingMaskIntoConstraints = false
+                
                 saucyBackground!.hidden = false
                 self.window!.makeKeyAndVisible()
             }
@@ -150,8 +151,10 @@ extension AppDelegate {
                     let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
                     let blurEffectView = UIVisualEffectView(effect: blurEffect)
                     //always fill the view
+                    blurEffectView.tag = 23
                     blurEffectView.frame = v.superview!.bounds
                     blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+                    blurEffectView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
                     
                     v.superview!.insertSubview(blurEffectView, atIndex: 0) //if you have more UIViews, use an insertSubview API to place it where needed
                 } 
@@ -210,7 +213,7 @@ extension AppDelegate {
             v.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
-            if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 {
+            if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 && !v.hidden {
                 self.createHeading(v)
             }
             
@@ -363,10 +366,9 @@ extension AppDelegate {
             DialogController.self ~> UIButton.self ~* T.nthOfType(0),
             CardBlankController.self ~> UIButton.self ~* T.nthOfType(0),
             ContactUsController.self ~> UIButton.self ~* T.nthOfType(1),
-            UserSwitchController.self ~> UIButton.self ~* T.nthOfType(1),
-            UserSwitchController.self ~> UIButton.self ~* T.nthOfType(2),
             PackResultsController.self ~> UIButton.self ~* {$0.tag == 1},
-            HomeController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in
+            HomeController.self ~> UIButton.self ~* {$0.tag == 1338},
+            UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in
                 v.setFontName(saucyTheme.textFont)
                 v.setFontColor(saucyTheme.lightColor)
                 v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())

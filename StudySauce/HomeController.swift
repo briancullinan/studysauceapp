@@ -91,22 +91,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func userClick(sender: UIButton) {
+        /*
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "Switch User", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
             self.stopTasks()
             self.performSegueWithIdentifier("switch", sender: self)
         }))
         alert.addAction(UIAlertAction(title: "Log Out", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
-            self.stopTasks()
-            UserLoginController.logout({
-                AppDelegate.instance().user = nil
-                self.goHome(true)
-            })
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         alert.popoverPresentationController?.sourceView = self.userButton
         alert.popoverPresentationController?.sourceRect = self.userButton!.bounds
         self.presentViewController(alert, animated: true) { () -> Void in }
+        */
+        self.stopTasks()
+        self.performSegueWithIdentifier("switch", sender: self)
     }
     
     override func viewDidLoad() {

@@ -202,7 +202,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         // add the both views to our view controller
-        if next.modalPresentationStyle == .OverCurrentContext {
+        if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
             container!.addSubview(last.view)
             container!.addSubview(next.view)
             if self.presenting {
@@ -218,7 +218,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             else {
                 if !UIAccessibilityIsReduceTransparencyEnabled() {
                     if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
-                        vis.alpha = 0.85
+                        vis.alpha = 1
                     }
                 }
                 else {
@@ -259,20 +259,25 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let moveNext = UIScreen.mainScreen().bounds.width
         var moveLast = -UIScreen.mainScreen().bounds.width
         
-        if next.modalPresentationStyle == .OverCurrentContext {
+        if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
             moveLast = 0.0
         }
         
         // if both controllers have nueral dark transition content
-        let lastBackground = last.view.subviews.filter({v -> Bool in return v.tag == 23}).first
-        let nextBackground = next.view.subviews.filter({v -> Bool in return v.tag == 23}).first
+        let lastBackground = (last.view ~> (UIView.self ~* {$0.tag == 23})).first
+        let nextBackground = (next.view ~> (UIView.self ~* {$0.tag == 23})).first
         if lastBackground != nil && nextBackground != nil {
-            lastBackground!.alpha = 0
             if self.presenting {
+                lastBackground!.hidden = true
+                nextBackground!.hidden = false
                 nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
             }
             else {
+                lastBackground!.hidden = true
+                nextBackground!.hidden = false
                 nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                lastBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
             }
         }
 
@@ -294,11 +299,15 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
         
         // move titles around
-        let lastTitle = last.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
-        let lastButton = last.view.subviews.filter({v -> Bool in return v.tag == 26}).first as? UIButton
-        let nextTitle = next.view.subviews.filter({v -> Bool in return v.tag == 25}).first as? UILabel
-        let nextButton = next.view.subviews.filter({v -> Bool in return v.tag == 26}).first as? UIButton
+        let lastTitle = (last.view ~> (UILabel.self ~* {$0.tag == 25})).first
+        let lastButton = (last.view ~> (UIButton.self ~* {$0.tag == 26})).first
+        let nextTitle = (next.view ~> (UILabel.self ~* {$0.tag == 25})).first
+        let nextButton = (next.view ~> (UIButton.self ~* {$0.tag == 26})).first
 
+        var alwaysHidden = false
+        if nextTitle?.hidden == true {
+            alwaysHidden = true
+        }
         if self.presenting {
             if lastButton != nil && nextButton != nil {
                 lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
@@ -337,10 +346,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 if self.presenting {
                     next.view.transform = CGAffineTransformIdentity
                     last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
-                    if next.modalPresentationStyle == .OverCurrentContext {
+                    if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
                         if !UIAccessibilityIsReduceTransparencyEnabled() {
                             if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
-                                vis.alpha = 0.85
+                                vis.alpha = 1
                             }
                         }
                         else {
@@ -349,6 +358,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                        lastBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                     }
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
@@ -361,7 +371,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 else {
                     last.view.transform = CGAffineTransformMakeTranslation(0, 0)
                     next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
-                    if next.modalPresentationStyle == .OverCurrentContext {
+                    if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
                         if !UIAccessibilityIsReduceTransparencyEnabled() {
                             if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
                                 vis.alpha = 0
@@ -373,6 +383,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                     if lastBackground != nil && nextBackground != nil {
                         nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                        lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
                     }
                     if lastButton != nil && nextButton != nil {
                         lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
@@ -387,18 +398,20 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             }, completion: { finished in
                 self.flashView = nil
                 origLast.view.backgroundColor = origColor
-                if lastBackground != nil && nextBackground != nil {
-                    lastBackground!.alpha = 1
-                    nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
-                }
                 if nextButton != nil {
                     nextButton!.hidden = false
                 }
-                if nextTitle != nil {
+                if !alwaysHidden && nextTitle != nil {
                     nextTitle!.hidden = false
                 }
-                last.view.transform = CGAffineTransformMakeTranslation(0, 0)
-                next.view.transform = CGAffineTransformMakeTranslation(0, 0)
+                if lastBackground != nil && nextBackground != nil {
+                    if self.presenting {
+                        nextBackground!.hidden = false
+                    }
+                    else {
+                        lastBackground!.hidden = false
+                    }
+                }
                 AppDelegate.instance().window!.rootViewController!.view.layer.mask = nil
                 // tell our transitionContext object that we've finished animating
                 if(transitionContext.transitionWasCancelled()){
