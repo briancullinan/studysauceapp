@@ -47,7 +47,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         if vc.canPerformSegueWithIdentifier("next")
             || vc.canPerformSegueWithIdentifier("last")
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
-            || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true {
+            || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true
+            || vc.respondsToSelector("lastClick") {
                 if !self.transitioning {
                     return true
                 }
@@ -135,6 +136,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                             return
                         }
                     }
+                }
+                
+                if d > 0 && vc.respondsToSelector("lastClick") {
+                    self.transitioning = true
+                    self.interactive = true
+                    vc.performSelector("lastClick")
                 }
 
                 if let card = vc as? CardController {

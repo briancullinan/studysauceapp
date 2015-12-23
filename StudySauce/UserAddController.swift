@@ -16,13 +16,17 @@ class UserAddController : UIViewController {
     @IBOutlet weak var childLast: UITextField!
     internal var token: String?
 
-    @IBAction func backClick(sender: UIButton) {
+    func lastClick() {
         if let _ = self.presentingViewController as? UserSettingsContainerController {
             self.performSegueWithIdentifier("settings", sender: self)
         }
         else {
             self.performSegueWithIdentifier("switch", sender: self)
         }
+    }
+    
+    @IBAction func backClick(sender: UIButton) {
+        self.lastClick()
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
