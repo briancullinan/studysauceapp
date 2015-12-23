@@ -13,6 +13,12 @@ import UIKit
 class UserSettingsController: UITableViewController {
     private var users: [User]? = nil
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.viewDidLoad()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()        
         
@@ -58,7 +64,7 @@ class UserSettingsController: UITableViewController {
     }
     
     @IBAction func returnToSettings(segue: UIStoryboardSegue) {
-        
+        self.viewDidAppear(true)
     }
     
     @IBAction func saveClick(sender: UIButton) {

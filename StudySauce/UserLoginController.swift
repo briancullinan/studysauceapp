@@ -74,6 +74,7 @@ class UserLoginController : UIViewController {
                         user.first = json["first"] as? String
                         user.last = json["last"] as? String
                         user.setProperty("session", cookies)
+                        user.created = NSDate.parse(json["created"] as? String)
                         for c in json["children"] as? [NSDictionary] ?? [] {
                             let childEmail = c["email"] as? String
                             if childEmail == nil {
@@ -84,6 +85,7 @@ class UserLoginController : UIViewController {
                             child.first = c["first"] as? String
                             child.last = c["last"] as? String
                             child.setProperty("session", cookies)
+                            child.created = NSDate.parse(c["created"] as? String)
                         }
                         AppDelegate.instance().user = user
                         AppDelegate.saveContext()

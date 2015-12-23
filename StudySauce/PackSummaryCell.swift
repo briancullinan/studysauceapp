@@ -23,10 +23,12 @@ public class PackSummaryCell: UITableViewCell {
     func downloadLogo(url: String) {
         self.logoImage.hidden = true
         File.save(url, done: {(_:File) in
+            dispatch_async(dispatch_get_main_queue(), {
             if self.updateTableView != nil {
                 self.updateTableView!()
                 self.logoImage.hidden = false
             }
+            })
         })
     }
     

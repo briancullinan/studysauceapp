@@ -14,6 +14,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     private var presenting = false
     private var interactive = false
     private var flashView: AutoSizingTextView? = nil
+    var panGesture: UIPanGestureRecognizer? = nil
+    var tap: UITapGestureRecognizer? = nil
     
     internal var reversed: Bool = false
     internal var transitioning = false
@@ -21,26 +23,23 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     override init() {
         super.init()
         
-        let panGesture = UIPanGestureRecognizer()
-        panGesture.delegate = self
-        panGesture.cancelsTouchesInView = false
-        panGesture.addTarget(self, action: "handleOnstagePan:")
-        let tap = UITapGestureRecognizer()
-        tap.delegate = self
-        tap.numberOfTapsRequired = 1
-        tap.cancelsTouchesInView = false
-        tap.addTarget(self, action: "handleOnstageTap:")
-        AppDelegate.instance().window!.addGestureRecognizer(panGesture)
-        AppDelegate.instance().window!.addGestureRecognizer(tap)
-
+        self.panGesture = UIPanGestureRecognizer()
+        panGesture!.delegate = self
+        panGesture!.cancelsTouchesInView = false
+        panGesture!.addTarget(self, action: "handleOnstagePan:")
+        self.tap = UITapGestureRecognizer()
+        tap!.delegate = self
+        tap!.numberOfTapsRequired = 1
+        tap!.cancelsTouchesInView = false
+        tap!.addTarget(self, action: "handleOnstageTap:")
+        AppDelegate.instance().window!.addGestureRecognizer(self.panGesture!)
+        AppDelegate.instance().window!.addGestureRecognizer(self.tap!)
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
         let vc = AppDelegate.visibleViewController()
         if let page = vc as? TutorialPageViewController {
-            let total = page.presentationCountForPageViewController(page)
-            let index = page.presentationIndexForPageViewController(page)
-            if index < total || index > 0 {
+            if page.index < page.pageTitles.count - 1 || page.index > 0 {
                 return true
             }
         }
@@ -83,8 +82,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             let vc = AppDelegate.visibleViewController()
             self.interactive = false
             if let page = vc as? TutorialPageViewController {
-                if let next = page.pageViewController(page, viewControllerAfterViewController: page.viewControllers![0]) {
-                    page.setViewControllers([next], direction: .Forward, animated: true, completion: nil)
+                if page.index < page.pageTitles.count -  1 {
+                    page.next()
                     return
                 }
             }
@@ -121,20 +120,18 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 let vc = AppDelegate.visibleViewController()
                 if let page = vc as? TutorialPageViewController {
                     if d > 0 {
-                        if let last = page.pageViewController(page, viewControllerBeforeViewController: page.viewControllers![0]) {
+                        if page.index > 0 {
                             self.transitioning = true
-                            page.setViewControllers([last], direction: .Reverse, animated: true, completion: {_ in
-                                self.transitioning = false
-                            })
+                            self.interactive = true
+                            page.last()
                             return
                         }
                     }
                     else {
-                        if let next = page.pageViewController(page, viewControllerAfterViewController: page.viewControllers![0]) {
+                        if page.index < page.pageTitles.count - 1 {
                             self.transitioning = true
-                            page.setViewControllers([next], direction: .Forward, animated: true, completion: {_ in
-                                self.transitioning = false
-                            })
+                            self.interactive = true
+                            page.next()
                             return
                         }
                     }
@@ -256,7 +253,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
         
         //self.setupShadow(container)
-        let moveNext = UIScreen.mainScreen().bounds.width
+        var moveNext = UIScreen.mainScreen().bounds.width
         var moveLast = -UIScreen.mainScreen().bounds.width
         
         if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
@@ -290,48 +287,45 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
             next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         }
-        var alreadyMoved = false
         if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardResponseController == nil || (vc.subview as? CardSelfController)?.correctButton != nil) {
-            alreadyMoved = true
             next.view.transform = CGAffineTransformMakeTranslation(0, 0)
             last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+            moveNext = 0.0
             self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
         }
         
         // move titles around
         let lastTitle = (last.view ~> (UILabel.self ~* {$0.tag == 25})).first
-        let lastButton = (last.view ~> (UIButton.self ~* {$0.tag == 26})).first
+        let lastButton = (last.view ~> (UIView.self ~* {$0.tag == 26}))
         let nextTitle = (next.view ~> (UILabel.self ~* {$0.tag == 25})).first
-        let nextButton = (next.view ~> (UIButton.self ~* {$0.tag == 26})).first
+        let nextButton = (next.view ~> (UIView.self ~* {$0.tag == 26}))
 
         var alwaysHidden = false
         if nextTitle?.hidden == true {
             alwaysHidden = true
         }
+        
+        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+
         if self.presenting {
-            if lastButton != nil && nextButton != nil {
-                lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
-                nextButton!.hidden = !alreadyMoved
+            if lastButton.count > 0 && nextButton.count > 0 {
+                lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+                nextButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveNext, 0)}
             }
             if lastTitle != nil && nextTitle != nil {
                 lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
                 lastTitle!.alpha = 1
-                if lastTitle!.text == nextTitle!.text {
-                    nextTitle!.hidden = !alreadyMoved
-                }
             }
         }
         else {
-            if lastButton != nil && nextButton != nil {
-                lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
-                nextButton!.hidden = !alreadyMoved
+            if lastButton.count > 0 && nextButton.count > 0 {
+                lastButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveLast, 0)}
+                nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
             }
             if lastTitle != nil && nextTitle != nil {
                 lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
                 lastTitle!.alpha = 0
-                if lastTitle!.text == nextTitle!.text {
-                    nextTitle!.hidden = !alreadyMoved
-                }
             }
         }
         
@@ -360,8 +354,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                         nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
                         lastBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                     }
-                    if lastButton != nil && nextButton != nil {
-                        lastButton!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                    if lastButton.count > 0 && nextButton.count > 0 {
+                        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveLast, 0)}
+                        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
                     }
                     if lastTitle != nil && nextTitle != nil {
                         lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
@@ -385,8 +380,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                         nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
                         lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
                     }
-                    if lastButton != nil && nextButton != nil {
-                        lastButton!.transform = CGAffineTransformMakeTranslation(0, 0)
+                    if lastButton.count > 0 && nextButton.count > 0 {
+                        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+                        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveNext, 0)}
                     }
                     if lastTitle != nil && nextTitle != nil {
                         lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
@@ -398,9 +394,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             }, completion: { finished in
                 self.flashView = nil
                 origLast.view.backgroundColor = origColor
-                if nextButton != nil {
-                    nextButton!.hidden = false
-                }
                 if !alwaysHidden && nextTitle != nil {
                     nextTitle!.hidden = false
                 }

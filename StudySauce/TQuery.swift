@@ -257,7 +257,7 @@ class TImmediateChild<B: UIView>: TQueryable<B> {
                 view.nextResponder()!.nextResponder() != nil && self.q.matches(view.nextResponder()!.nextResponder()!)) {
                 return true
             }
-            else if let parent = view.superview {
+            else if let parent = view.superview where parent != nil {
                 if self.q.matches(parent!) {
                     return true
                 }

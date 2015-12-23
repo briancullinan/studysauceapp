@@ -47,6 +47,7 @@ extension AppDelegate {
         }
         v.backgroundColor = saucyTheme.fontColor
         s.insertSubview(v, belowSubview: label)
+        s.sendSubviewToBack(v)
         v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         v.translatesAutoresizingMaskIntoConstraints = false
         s.addConstraint(NSLayoutConstraint(
@@ -222,6 +223,7 @@ extension AppDelegate {
         $([PackResultsController.self ~>> UILabel.self ~* T.nthOfType(1),
            PackResultsController.self ~>> UILabel.self ~* T.nthOfType(2)], {
             $0.setFontSize(30 * saucyTheme.multiplier())
+            $0.setFontName(saucyTheme.headingFont)
         })
         
         $(PackResultsController.self ~>> UILabel.self ~* T.nthOfType(3), {
@@ -381,13 +383,13 @@ extension AppDelegate {
             CardController.self ~>> UIButton.self ~* T.firstOfType,
             PackResultsController.self ~>> UIButton.self ~* T.firstOfType,
             ContactUsController.self ~>> UIButton.self ~* T.firstOfType,
-            UserLoginController.self ~> UIButton.self ~* T.firstOfType,
-            UserResetController.self ~> UIButton.self ~* T.firstOfType,
-            UserLoginController.self ~> UIButton.self ~* T.firstOfType,
-            UserRegisterController.self ~> UIButton.self ~* T.firstOfType,
-            UserInviteController.self ~> UIButton.self ~* T.firstOfType,
-            ContactUsController.self ~> UIButton.self ~* T.firstOfType,
-            UserSwitchController.self ~> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
+            UserLoginController.self ~>> UIButton.self ~* T.firstOfType,
+            UserResetController.self ~>> UIButton.self ~* T.firstOfType,
+            UserLoginController.self ~>> UIButton.self ~* T.firstOfType,
+            UserRegisterController.self ~>> UIButton.self ~* T.firstOfType,
+            UserInviteController.self ~>> UIButton.self ~* T.firstOfType,
+            ContactUsController.self ~>> UIButton.self ~* T.firstOfType,
+            UserSwitchController.self ~>> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
                 
                 v.tag = 26
         })
@@ -409,12 +411,12 @@ extension AppDelegate {
         
         $(TutorialContentViewController.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
-            $0.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
+            $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
         $(TutorialContentViewController.self ~> UILabel.self ~* .firstOfType, {
             $0.setFontColor(saucyTheme.primary)
-            $0.setFontSize(30 * saucyTheme.multiplier())
+            $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
         $(TutorialPageViewController.self ~> UIScrollView.self, {

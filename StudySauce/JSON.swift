@@ -51,6 +51,9 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
 func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
     var postData = ""
     for (k, v) in params {
+        if v == nil {
+            continue
+        }
         postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
     }
     let data = postData.dataUsingEncoding(NSUTF8StringEncoding)

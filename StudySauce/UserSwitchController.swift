@@ -14,12 +14,22 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.viewDidLoad()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.getUsersFromLocalStore({
             self.tableView.reloadData()
         })
+    }
+    
+    @IBAction func returnToSwitch(segue: UIStoryboardSegue) {
+        self.viewDidAppear(true)
     }
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
@@ -35,9 +45,8 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         let i = indexPath.row - 1
         if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
-            let home = self.presentingViewController as! HomeController
             self.dismissViewControllerAnimated(true, completion: {
-                home.viewDidAppear(true)
+                //self.presentingViewController?.viewDidAppear(true)
             })
         }
     }
@@ -50,12 +59,11 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func logout() {
-        let home = self.presentingViewController!
         self.dismissViewControllerAnimated(true, completion: {
             dispatch_async(dispatch_get_main_queue(), {
                 UserLoginController.logout({
                     AppDelegate.instance().user = nil
-                    home.goHome(true)
+                    self.performSegueWithIdentifier("home", sender: self)
                 })
             })
         })

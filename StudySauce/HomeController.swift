@@ -35,7 +35,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func returnToHome(segue: UIStoryboardSegue) {
-        
+        self.viewDidAppear(true)
     }
     
     /*

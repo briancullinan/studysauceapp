@@ -25,3 +25,11 @@ extension UIEdgeInsets {
         self.init(top: vertical, left: horizontal, bottom: vertical, right: horizontal)
     }
 }
+
+extension Array {
+    func each(each: (Element) -> ()){
+        for object: Element in self {
+            each(object)
+        }
+    }
+}
