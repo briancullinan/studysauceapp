@@ -76,7 +76,7 @@ class CardMultipleController: UIViewController {
                 AppDelegate.saveContext()
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse
-                vc.submitResponse(newResponse)
+                CardController.syncResponses()
                 dispatch_async(dispatch_get_main_queue(), {
                     self.performSegueWithIdentifier("correct", sender: self)
                 })

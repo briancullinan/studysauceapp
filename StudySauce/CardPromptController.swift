@@ -54,24 +54,26 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate {
             try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
             try! AVAudioSession.sharedInstance().setActive(true)
             
-            self.player = try? AVAudioPlayer(contentsOfURL: url)
-            self.player?.delegate = self
-            self.player?.prepareToPlay()
-            self.player?.play()
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: Selector("updateProgress"), userInfo: nil, repeats: true)
+            if self.player == nil {
+                self.player = try? AVAudioPlayer(contentsOfURL: url)
+                self.player?.delegate = self
+                self.player?.prepareToPlay()
+            }
+            self.player!.play()
+            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
         })
     }
     
     func updateProgress() {
-        self.playButton.setProgress(CGFloat(self.player!.currentTime / self.player!.duration), animated: true)
+        self.playButton.setProgress(CGFloat(self.player!.currentTime) / CGFloat(self.player!.duration), animated: false)
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
         self.playing = false
         self.listenButton.alpha = 0.5
         self.timer?.invalidate()
-        self.playButton.setProgress(0, animated: true)
         self.timer = nil
+        self.playButton.setProgress(0, animated: false)
     }
 
     @IBAction func listenClick(sender: UIButton) {

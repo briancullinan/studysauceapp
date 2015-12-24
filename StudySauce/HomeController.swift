@@ -18,8 +18,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var normalImage:UIImage!
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
-    var firstTime = true
-
+    var user: User? = nil
+    
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
     @IBOutlet weak var userButton: UIButton? = nil
@@ -128,7 +128,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.userButton != nil {
             self.userButton?.setTitle(AppDelegate.getUser()?.first, forState: .Normal)
             
-            if self.firstTime {
+            if self.user != AppDelegate.getUser() {
                 AppDelegate.performContext({
                     if AppDelegate.getUser()?.getProperty("seen_tutorial") as? Bool != true
                     {
@@ -139,7 +139,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                         })
                     }
                 })
-                self.firstTime = false
+                self.user = AppDelegate.getUser()
             }
         }
         

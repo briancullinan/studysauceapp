@@ -37,6 +37,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if touch.view is UIButton {
+            return false
+        }
+        
         let vc = AppDelegate.visibleViewController()
         if let page = vc as? TutorialPageViewController {
             if page.index < page.pageTitles.count - 1 || page.index > 0 {

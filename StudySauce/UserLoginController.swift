@@ -59,35 +59,60 @@ class UserLoginController : UIViewController {
         })
     }
     
+    private static func processUsers(json: NSDictionary) -> Void {
+        var ids = [NSNumber]()
+        if let email = json["email"] as? String {
+            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
+            let user = UserLoginController.getUserByEmail(email)
+            user.id = json["id"] as? NSNumber
+            ids.append(user.id!)
+            user.first = json["first"] as? String
+            user.last = json["last"] as? String
+            user.setProperty("session", cookies)
+            user.created = NSDate.parse(json["created"] as? String)
+            for c in json["children"] as? [NSDictionary] ?? [] {
+                let childEmail = c["email"] as? String
+                if childEmail == nil {
+                    continue
+                }
+                let child = UserLoginController.getUserByEmail(childEmail!)
+                child.id = c["id"] as? NSNumber
+                ids.append(child.id!)
+                child.first = c["first"] as? String
+                child.last = c["last"] as? String
+                child.setProperty("session", cookies)
+                child.created = NSDate.parse(c["created"] as? String)
+            }
+        }
+        
+        
+        // remove packs that no longer exist
+        for u in AppDelegate.list(User.self) {
+            if ids.indexOf(u.id!) == nil {
+                for up in u.user_packs?.allObjects as! [UserPack] {
+                    AppDelegate.deleteObject(up)
+                }
+                for r in u.responses?.allObjects as! [Response] {
+                    AppDelegate.deleteObject(r)
+                }
+                AppDelegate.deleteObject(u)
+            }
+        }
+
+    }
+    
     internal static func home(done: () -> Void = {}) {
         getJson("/home", done: {
             if let json = $0 as? NSDictionary {
-                let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
                 AppDelegate.performContext({
                     if json["csrf_token"] as? String != nil {
                         self.token = json["csrf_token"] as? String
                     }
                     if let email = json["email"] as? String {
                         // cookie value
-                        let user = UserLoginController.getUserByEmail(email)
-                        user.id = json["id"] as? NSNumber
-                        user.first = json["first"] as? String
-                        user.last = json["last"] as? String
-                        user.setProperty("session", cookies)
-                        user.created = NSDate.parse(json["created"] as? String)
-                        for c in json["children"] as? [NSDictionary] ?? [] {
-                            let childEmail = c["email"] as? String
-                            if childEmail == nil {
-                                continue
-                            }
-                            let child = UserLoginController.getUserByEmail(childEmail!)
-                            child.id = c["id"] as? NSNumber
-                            child.first = c["first"] as? String
-                            child.last = c["last"] as? String
-                            child.setProperty("session", cookies)
-                            child.created = NSDate.parse(c["created"] as? String)
-                        }
-                        AppDelegate.instance().user = user
+                        UserLoginController.processUsers(json)
+                        
+                        AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
                         AppDelegate.saveContext()
                     }
                     dispatch_async(dispatch_get_main_queue(), {

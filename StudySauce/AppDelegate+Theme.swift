@@ -39,6 +39,7 @@ let manager = CMMotionManager()
 var saucyBackground: UIWindow? = nil
 
 extension AppDelegate {
+    
     func createHeading(label: UILabel) {
         let s = label.superview!
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
@@ -346,6 +347,7 @@ extension AppDelegate {
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self], {
                 $0.setFontSize(30.0 * saucyTheme.multiplier())
+                $0.superview?.sendSubviewToBack($0)
         })
         
         $([CardPromptController.self ~> UITextView.self ~* T.device("ipad"),
@@ -401,6 +403,11 @@ extension AppDelegate {
                 combos.append(["background": c, "foreground": c2])
             }
         }
+        
+        $(DACircularProgressView.self, {
+            $0.trackTintColor = saucyTheme.middle
+            $0.progressTintColor = saucyTheme.secondary
+        })
         
         $(UserSwitchController.self ~> FaceView.self, {
             let combo = Int(arc4random_uniform(UInt32(combos.count)))

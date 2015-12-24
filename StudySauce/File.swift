@@ -24,7 +24,9 @@ class File: NSManagedObject {
             AppDelegate.saveContext()
 
             if file.filename != nil && fileManager.fileExistsAtPath(file.filename!) {
-                done(file)
+                dispatch_async(dispatch_get_main_queue(), {
+                    done(file)
+                })
                 return
             }
             if file.downloading {

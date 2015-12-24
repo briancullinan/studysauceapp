@@ -41,6 +41,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="8" width="560" height="584"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="240" y="480" width="120" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -56,11 +61,6 @@
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="8" width="560" height="584"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -890,7 +890,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <action selector="backClick:" destination="RhB-Zp-1b3" eventType="touchUpInside" id="AqQ-80-r2y"/>
+                                    <action selector="backClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="ehv-HP-JT0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LAg-ej-lSQ">

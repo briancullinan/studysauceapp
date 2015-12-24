@@ -116,27 +116,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        if let email = userDefaults.valueForKey("user") as? String {
-            self.user = UserLoginController.getUserByEmail(email)
-        }
+        let email = userDefaults.valueForKey("user") as? String        
         if AppDelegate.isConnectedToNetwork() {
             UserLoginController.home { () -> Void in
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.loadHomeVC()
+                AppDelegate.performContext({
+                    if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
+                        self.user = user
+                    }
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.loadHomeVC()
+                    })
                 })
             }
         }
         else {
             // TODO: work in offline mode
-            if let email = userDefaults.valueForKey("user") as? String {
-                self.user = UserLoginController.getUserByEmail(email)
+            if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
+                self.user = user
                 self.loadHomeVC()
             }
             else {
                 self.loadHomeVC {v in
-                    v.showNoConnectionDialog({ () -> Void in
-                        v.goHome()
-                    })
+                    v.showNoConnectionDialog { () -> Void in
+                        UserLoginController.home { () -> Void in
+                            self.loadHomeVC()
+                        }
+                    }
                 }
             }
         }

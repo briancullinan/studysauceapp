@@ -45,8 +45,9 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         let i = indexPath.row - 1
         if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
+            let home = self.presentingViewController!
             self.dismissViewControllerAnimated(true, completion: {
-                //self.presentingViewController?.viewDidAppear(true)
+                home.viewDidAppear(true)
             })
         }
     }
@@ -63,7 +64,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
             dispatch_async(dispatch_get_main_queue(), {
                 UserLoginController.logout({
                     AppDelegate.instance().user = nil
-                    self.performSegueWithIdentifier("home", sender: self)
+                    let home = self.presentingViewController!
+                    self.dismissViewControllerAnimated(true, completion: {
+                        home.viewDidAppear(true)
+                    })
                 })
             })
         })

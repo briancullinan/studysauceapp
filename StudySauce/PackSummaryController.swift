@@ -149,7 +149,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
-        getJson("/packs/list", done: {json in
+        getJson("/packs/list/\(AppDelegate.getUser()!.id!)", done: {json in
             AppDelegate.performContext {
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {

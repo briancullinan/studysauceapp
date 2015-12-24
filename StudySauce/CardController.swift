@@ -106,13 +106,32 @@ class CardController: UIViewController {
     
     // TODO: Store response in the database
     
-    internal func submitResponse(response: Response) {
-        let correct = response.correct != nil && response.correct == 1
-        let answer = response.answer != nil ? response.answer!.id! : 0
-        let created = response.created!.toRFC().stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        getJson("/packs/responses", params: ["pack": self.pack.id!, "card": self.card!.id!, "correct": correct, "answer": answer, "created": created], done: {json -> Void in
-            response.id = json as? NSNumber
-            AppDelegate.saveContext()
+    internal static func syncResponses() {
+        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil})
+        var index = 0
+        var data = Dictionary<String, AnyObject?>()
+        for response in responses {
+            let correct = response.correct != nil && response.correct == 1
+            let answer = response.answer != nil ? response.answer!.id! : 0
+            let created = response.created!.toRFC()
+            data["responses[\(index)][pack]"] = response.card!.pack!.id!
+            data["responses[\(index)][card]"] = response.card!.id!
+            data["responses[\(index)][correct]"] = correct
+            data["responses[\(index)][answer]"] = answer
+            data["responses[\(index)][created]"] = created
+            index++
+        }
+        getJson("/packs/responses/\(AppDelegate.getUser()!.id!)", params: data, done: {json -> Void in
+            if let ids = json as? NSArray {
+                AppDelegate.performContext({
+                    var index = 0
+                    for r in ids {
+                        responses[index].id = r as? NSNumber
+                        index++
+                    }
+                    AppDelegate.saveContext()
+                })
+            }
         })
     }
 }
