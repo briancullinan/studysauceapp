@@ -107,7 +107,7 @@ class CardController: UIViewController {
     // TODO: Store response in the database
     
     internal static func syncResponses() {
-        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil})
+        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
         var index = 0
         var data = Dictionary<String, AnyObject?>()
         for response in responses {
@@ -121,7 +121,7 @@ class CardController: UIViewController {
             data["responses[\(index)][created]"] = created
             index++
         }
-        getJson("/packs/responses/\(AppDelegate.getUser()!.id!)", params: data, done: {json -> Void in
+        postJson("/packs/responses/\(AppDelegate.getUser()!.id!)", params: data, done: {json -> Void in
             if let ids = json as? NSArray {
                 AppDelegate.performContext({
                     var index = 0
