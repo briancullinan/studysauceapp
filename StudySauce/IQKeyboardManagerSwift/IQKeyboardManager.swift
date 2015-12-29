@@ -876,7 +876,10 @@ public class IQKeyboardManager: NSObject, UIGestureRecognizerDelegate {
         _IQShowLog("Need to move: \(move)")
 
         //  Getting it's superScrollView.   //  (Enhancement ID: #21, #24)
-        let superScrollView = textFieldView.superviewOfClassType(UIScrollView) as? UIScrollView
+        var superScrollView = textFieldView.superviewOfClassType(UIScrollView) as? UIScrollView
+        if superScrollView?.scrollEnabled == false {
+            superScrollView = superScrollView?.superviewOfClassType(UIScrollView) as? UIScrollView
+        }
         
         //If there was a lastScrollView.    //  (Bug ID: #34)
         if let lastScrollView = _lastScrollView {

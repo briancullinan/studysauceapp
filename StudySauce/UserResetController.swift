@@ -52,6 +52,7 @@ class UserResetController: UIViewController {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
         self.view.endEditing(true)
     }
     

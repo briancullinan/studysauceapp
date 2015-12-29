@@ -278,6 +278,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 PackSummaryController.getCards(p, completionHandler: {_,_ in
                     // TODO: update downloading status in table row!
                     AppDelegate.performContext {
+                        up.retries = ""
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
                         done()

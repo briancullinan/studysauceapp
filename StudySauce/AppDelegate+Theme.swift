@@ -40,7 +40,7 @@ var saucyBackground: UIWindow? = nil
 
 extension AppDelegate {
     
-    func createHeading(label: UILabel) {
+    static func createHeading(label: UILabel) {
         let s = label.superview!
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
             $0.backgroundColor = saucyTheme.fontColor
@@ -82,6 +82,26 @@ extension AppDelegate {
         for s in v.subviews {
             rerenderView(s)
         }
+    }
+    
+    static func createBlurView(v: UIView) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        //always fill the view
+        blurEffectView.tag = 23
+        blurEffectView.frame = v.superview!.bounds
+        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurEffectView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        
+        v.superview!.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
+        
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+        
+        return blurEffectView
     }
     
     func setupTheme() {
@@ -150,55 +170,6 @@ extension AppDelegate {
 
         })
         
-        // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self, {(v: UIView) in
-            if (v.viewController()!.view! ~> UIVisualEffectView.self).count == 0 {
-                if !UIAccessibilityIsReduceTransparencyEnabled() {
-                    v.superview!.backgroundColor = UIColor.clearColor()
-                    
-                    let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
-                    let blurEffectView = UIVisualEffectView(effect: blurEffect)
-                    //always fill the view
-                    blurEffectView.tag = 23
-                    blurEffectView.frame = v.superview!.bounds
-                    blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-                    blurEffectView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
-                    blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-                    
-                    v.superview!.insertSubview(blurEffectView, atIndex: 0) //if you have more UIViews, use an insertSubview API to place it where needed
-                    
-                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
-                }
-                else {
-                    v.superview!.backgroundColor = UIColor.clearColor()
-                }
-            }
-        })
-        
-        $([UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self,
-           DialogController.self ~> UILabel.self,
-           UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
-            $0.setFontColor(saucyTheme.lightColor)
-        })
-        
-        $(UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self, {
-            $0.setFontName(saucyTheme.labelFont)
-        })
-        
-        $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
-            $0.setFontSize(40 * saucyTheme.multiplier())
-        })
-        
-        $([DialogController.self ~>> UILabel.self ~* T.firstOfType,
-           UserInviteController.self ~>> UILabel.self ~* T.firstOfType,
-           UserLoginController.self ~>> UILabel.self ~* T.firstOfType,
-           UserResetController.self ~>> UILabel.self ~* T.firstOfType], {
-            $0.setFontSize(30.0 * saucyTheme.multiplier())
-        })
-        
         // headings
         $(UITableView.self, {
             $0.backgroundColor = UIColor.clearColor()
@@ -211,6 +182,50 @@ extension AppDelegate {
         
         $(UITableView.self ~> UITableViewCell.self, {
             $0.selectionStyle = .None
+            $0.separatorInset = UIEdgeInsetsZero
+            $0.layoutMargins = UIEdgeInsetsZero
+        })
+        
+
+        // nueral background has a tag of 23 and any sibling or sibling child label should be light color
+        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self, {(v: UIView) in
+            if (v.viewController()!.view! ~> UIVisualEffectView.self).count == 0 {
+                if !UIAccessibilityIsReduceTransparencyEnabled() {
+                    v.superview!.backgroundColor = UIColor.clearColor()
+                    let blur = AppDelegate.createBlurView(v)
+                    blur.superview!.sendSubviewToBack(blur)
+                }
+                else {
+                    v.superview!.backgroundColor = UIColor.clearColor()
+                }
+            }
+        })
+        
+        $([DialogController.self ~> UILabel.self,
+           UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
+            $0.setFontColor(saucyTheme.lightColor)
+        })
+        
+        $([UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self,
+            UserSwitchController.self ~> UITableViewCell.self ~> UIButton.self], {
+            $0.setFontName(saucyTheme.labelFont)
+            $0.setFontColor(saucyTheme.fontColor)
+        })
+        
+        $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
+            $0.setFontSize(40 * saucyTheme.multiplier())
+        })
+        
+        $(UserSwitchController.self ~> UITableView.self, {
+            $0.separatorColor = saucyTheme.middle
+            $0.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        })
+        
+        $([DialogController.self ~>> UILabel.self ~* T.firstOfType,
+           UserInviteController.self ~>> UILabel.self ~* T.firstOfType,
+           UserLoginController.self ~>> UILabel.self ~* T.firstOfType,
+           UserResetController.self ~>> UILabel.self ~* T.firstOfType], {
+            $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
         $([UserSettingsContainerController.self ~>> UILabel.self ~* T.firstOfType,
@@ -219,8 +234,7 @@ extension AppDelegate {
             UIViewController.self ~* "About" ~>> UILabel.self ~* T.firstOfType,
            CardController.self ~>> UILabel.self ~* T.firstOfType,
            PackResultsController.self ~>> UILabel.self ~* T.firstOfType,
-           ContactUsController.self ~>> UILabel.self ~* T.firstOfType,
-           UserSwitchController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
+           ContactUsController.self ~>> UILabel.self ~* T.firstOfType], {(v: UILabel) -> Void in
             
             v.tag = 25
             
@@ -228,7 +242,7 @@ extension AppDelegate {
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
             if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 && !v.hidden {
-                self.createHeading(v)
+                AppDelegate.createHeading(v)
             }
             
         })
@@ -253,7 +267,8 @@ extension AppDelegate {
             //v.estimatedRowHeight = 40.0 * saucyTheme.multiplier()
             //v.rowHeight = UITableViewAutomaticDimension
         })
-                $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* .firstOfType, {
+        
+        $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* .firstOfType, {
             $0.setFontName(saucyTheme.labelFont)
         })
 
@@ -402,9 +417,8 @@ extension AppDelegate {
             UserLoginController.self ~>> UIButton.self ~* T.firstOfType,
             UserRegisterController.self ~>> UIButton.self ~* T.firstOfType,
             UserInviteController.self ~>> UIButton.self ~* T.firstOfType,
-            ContactUsController.self ~>> UIButton.self ~* T.firstOfType,
-            UserSwitchController.self ~>> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
-                
+            ContactUsController.self ~>> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
+                v.contentMode = .ScaleAspectFit
                 v.tag = 26
         })
         

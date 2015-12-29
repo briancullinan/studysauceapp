@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate {
+class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
     var packs = [Pack]()
@@ -58,8 +58,25 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     */
     
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        // Return no adaptive presentation style, use default presentation behaviour
+        return .None
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
+        
+        if segue.identifier == "switch" {
+            segue.destinationViewController.popoverPresentationController?.delegate = self
+            segue.destinationViewController.popoverPresentationController?.sourceRect = self.userButton!.bounds
+            let blur = AppDelegate.createBlurView(self.userButton!)
+            blur.alpha = 0
+            blur.superview!.bringSubviewToFront(blur)
+            self.view.bringSubviewToFront(self.userButton!)
+            UIView.animateWithDuration(0.15, animations: {
+                blur.alpha = 1
+            })
+        }
         
         if let vc = segue.destinationViewController as? CardController {
             vc.isRetention = true
@@ -68,6 +85,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(animated: Bool) {
         self.viewDidLoad()
+        
+        if let blur = (self.view ~> UIVisualEffectView.self).first {
+            UIView.animateWithDuration(0.15, animations: {
+                blur.alpha = 0
+                }, completion: {_ in
+                    blur.removeFromSuperview()
+            })
+        }
     }
     
     override func shouldAutorotate() -> Bool {

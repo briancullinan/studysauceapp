@@ -17,19 +17,25 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.viewDidLoad()
+        self.getUsersFromLocalStore({
+            self.tableView.reloadData()
+            let size = CGSizeMake(200, CGFloat(self.tableView.numberOfRowsInSection(0) * 50) * saucyTheme.multiplier())
+            let preferred = self.preferredContentSize.height
+            if preferred != size.height {
+                self.preferredContentSize = size
+            }
+        })
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        self.presentingViewController?.viewDidAppear(animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.getUsersFromLocalStore({
-            self.tableView.reloadData()
-        })
-    }
-    
-    @IBAction func returnToSwitch(segue: UIStoryboardSegue) {
-        self.viewDidAppear(true)
+        
+        self.preferredContentSize = CGSizeMake(200, CGFloat(3 * 50) * saucyTheme.multiplier())
     }
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
@@ -70,7 +76,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func addChild() {
-        self.performSegueWithIdentifier("addChild", sender: self)
+        let home = self.presentingViewController!
+        self.dismissViewControllerAnimated(true, completion: {
+            home.performSegueWithIdentifier("addChild", sender: self)
+        })        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -90,8 +99,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         else {
             cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
             let i = indexPath.row - 1
-            (cell ~> (UILabel.self ~* T.nthOfType(1))).first!.text = self.users![i].first
-            (cell ~> (UILabel.self ~* T.nthOfType(0))).first!.text = self.users![i].last
+            (cell ~> (UILabel.self ~* {$0.text != "✔︎"})).first!.text = "\(self.users![i].first!) \(self.users![i].last!)"
             (cell ~> (UILabel.self ~* {$0.text == "✔︎"})).first!.hidden = self.users![i] != AppDelegate.getUser()
         }
         
@@ -99,7 +107,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 80 * saucyTheme.multiplier()
+        return 50 * saucyTheme.multiplier()
     }
     
 }

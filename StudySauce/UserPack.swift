@@ -25,9 +25,7 @@ class UserPack: NSManagedObject {
     
     func getRetries(refresh: Bool = false) -> [Card] {
         // if retries is empty generate a list and randomize it
-        if self.retries == nil || self.retries == ""
-            // if pack was modified add new cards to current set to finish
-            || (self.pack?.modified != nil && self.retry_to! < self.pack!.modified!) || refresh {
+        if self.retries == nil || self.retries == "" || refresh {
                 var retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
                 retries.shuffleInPlace()
                 self.retries = retries.map { c -> String in
