@@ -1545,7 +1545,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <viewControllerLayoutGuide type="bottom" id="RvA-nH-U02"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tqg-qt-S22">
-                        <rect key="frame" x="0.0" y="0.0" width="482" height="182"/>
+                        <rect key="frame" x="0.0" y="0.0" width="482" height="174"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50 cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6w-Bw-D7U">
@@ -1568,7 +1568,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="30" sectionHeaderHeight="10" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="nGh-BS-F0b">
-                                <rect key="frame" x="0.0" y="41" width="482" height="141"/>
+                                <rect key="frame" x="0.0" y="41" width="482" height="133"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1684,7 +1684,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <containerView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-He-5Sh">
-                                <rect key="frame" x="58" y="58" width="482" height="182"/>
+                                <rect key="frame" x="58" y="66" width="482" height="174"/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                 <connections>
                                     <segue destination="IJH-Jk-hIX" kind="embed" id="0VR-na-RqX"/>
@@ -1754,7 +1754,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="WDU-K6-zQf" firstAttribute="bottom" secondItem="4O7-ka-miD" secondAttribute="bottom" id="9JL-VI-YLx"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="top" secondItem="Avt-4M-VMm" secondAttribute="top" id="A7Y-x4-Rl0"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="leading" secondItem="Cle-N8-wnH" secondAttribute="trailingMargin" multiplier="0.1" id="CnZ-nN-tWw"/>
-                            <constraint firstItem="Hsw-He-5Sh" firstAttribute="top" secondItem="JoE-dv-RIT" secondAttribute="bottom" id="CwV-Xi-nay"/>
+                            <constraint firstItem="Hsw-He-5Sh" firstAttribute="top" secondItem="JoE-dv-RIT" secondAttribute="bottom" constant="8" symbolic="YES" id="CwV-Xi-nay"/>
                             <constraint firstItem="4O7-ka-miD" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.85" id="Dyp-Ce-ZNT"/>
                             <constraint firstItem="Hsw-He-5Sh" firstAttribute="trailing" secondItem="Cle-N8-wnH" secondAttribute="trailing" multiplier="0.9" id="IQk-j1-fsB"/>
                             <constraint firstItem="81B-wr-jnt" firstAttribute="bottom" secondItem="bjU-dT-1wv" secondAttribute="bottom" id="Ke3-Z1-rLK"/>

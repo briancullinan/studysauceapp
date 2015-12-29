@@ -16,8 +16,6 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     internal var last: String?
     internal var mail: String?
     internal var child: Bool?
-    internal var childFirstName: String?
-    internal var childLastName: String?
     internal var token: String?
     internal var pass: String?
     internal var childrenCount = 1
@@ -63,8 +61,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.child = self.childSwitch.on
         self.pass = self.password.text
 
-        if self.first != "" && self.last != "" && self.mail != "" && self.password != ""
-            && (self.child != true || self.childFirstName != "" && self.childLastName != "") {
+        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" {
             self.registerUser()
         }
     }
@@ -81,7 +78,6 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             children.hidden = false
             addButton.hidden = false
         }
-        
         else
         {
             children.hidden = true
@@ -108,8 +104,10 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             "csrf_token" : self.token
         ]
         if self.child == true {
-            registrationInfo["childFirst"] = self.childFirstName
-            registrationInfo["childLast"] = self.childLastName
+            (self.view ~> UITableViewCell.self).each {
+                registrationInfo["childFirst"] = ($0 ~> (UITextField.self ~* T.nthOfType(0))).first!.text
+                registrationInfo["childLast"] = ($0 ~> (UITextField.self ~* T.nthOfType(1))).first!.text
+            }
         }
         
         self.showNoConnectionDialog({
