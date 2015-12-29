@@ -1124,64 +1124,11 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" title="Button" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="PGv-Im-Avy" kind="unwind" identifier="last" unwindAction="returnToHome:" id="AS5-3p-d1o"/>
+                                    <segue destination="PGv-Im-Avy" kind="unwind" identifier="last" unwindAction="returnToInvite:" id="AS5-3p-d1o"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="First name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-B6-21P" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="120" width="276" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EjC-OO-MWE" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="157" width="560" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umH-Qo-rtw" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="304" y="120" width="276" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-cE-xhK" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="274" width="560" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-Zh-Hs5" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="311" width="560" height="29"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0n4-Ii-dk1">
-                                <rect key="frame" x="108" y="206" width="310" height="48"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Child account attached">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="switchClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="0LV-wA-Bd0"/>
-                                </connections>
-                            </button>
-                            <switch opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-jG-ov5">
-                                <rect key="frame" x="20" y="206" width="82" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="rDe-jG-ov5" secondAttribute="height" multiplier="5:3" id="FS6-Fi-PAM"/>
-                                </constraints>
-                                <color key="onTintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <variation key="heightClass=compact" misplaced="YES">
-                                    <rect key="frame" x="20" y="166" width="82" height="48"/>
-                                </variation>
-                                <connections>
-                                    <action selector="childSwitchOn:" destination="MV6-Iy-bIY" eventType="valueChanged" id="8FZ-Ii-PHg"/>
-                                </connections>
-                            </switch>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EJy-2L-83Z">
-                                <rect key="frame" x="260" y="372" width="81" height="36"/>
+                                <rect key="frame" x="260" y="556" width="81" height="36"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1192,37 +1139,106 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="MOp-Mx-Mq1"/>
                                 </connections>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" directionalLockEnabled="YES" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dns-jm-dBY">
+                                <rect key="frame" x="0.0" y="74" width="600" height="474"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="teK-Wh-Efb" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="94" width="308" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" secureTextEntry="YES"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="umH-Qo-rtw" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="328" y="20" width="0.0" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-cE-xhK" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="194" width="156" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0n4-Ii-dk1">
+                                        <rect key="frame" x="80" y="135" width="310" height="48"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <state key="normal" title="Child account attached">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="switchClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="0LV-wA-Bd0"/>
+                                        </connections>
+                                    </button>
+                                    <switch opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-jG-ov5">
+                                        <rect key="frame" x="20" y="143" width="54" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="rDe-jG-ov5" secondAttribute="height" multiplier="5:3" id="FS6-Fi-PAM"/>
+                                        </constraints>
+                                        <color key="onTintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="childSwitchOn:" destination="MV6-Iy-bIY" eventType="valueChanged" id="8FZ-Ii-PHg"/>
+                                        </connections>
+                                    </switch>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Parent first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-B6-21P" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="20" width="300" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EjC-OO-MWE" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="57" width="308" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1h7-Zh-Hs5" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="184" y="194" width="144" height="29"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="teK-Wh-Efb" firstAttribute="leading" secondItem="dns-jm-dBY" secondAttribute="leading" constant="20" symbolic="YES" id="6VW-3N-YbZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="umH-Qo-rtw" secondAttribute="trailing" constant="20" symbolic="YES" id="7PE-RQ-TVT"/>
+                                    <constraint firstItem="1h7-Zh-Hs5" firstAttribute="centerY" secondItem="uBf-cE-xhK" secondAttribute="centerY" id="9K7-8K-lfF"/>
+                                    <constraint firstItem="uBf-cE-xhK" firstAttribute="top" secondItem="rDe-jG-ov5" secondAttribute="bottom" constant="20" id="BwL-iQ-d5N"/>
+                                    <constraint firstItem="uBf-cE-xhK" firstAttribute="leading" secondItem="dns-jm-dBY" secondAttribute="leading" constant="20" symbolic="YES" id="CUT-93-ts2"/>
+                                    <constraint firstAttribute="trailing" secondItem="1h7-Zh-Hs5" secondAttribute="trailing" constant="20" symbolic="YES" id="DZs-cP-qk4"/>
+                                    <constraint firstAttribute="bottom" secondItem="1h7-Zh-Hs5" secondAttribute="bottom" constant="20" symbolic="YES" id="Dbh-S5-IDj"/>
+                                    <constraint firstItem="rDe-jG-ov5" firstAttribute="top" secondItem="teK-Wh-Efb" secondAttribute="bottom" constant="20" id="Epv-48-tW6"/>
+                                    <constraint firstItem="umH-Qo-rtw" firstAttribute="leading" secondItem="i5D-B6-21P" secondAttribute="trailing" constant="8" symbolic="YES" id="KQG-am-LPn"/>
+                                    <constraint firstItem="umH-Qo-rtw" firstAttribute="centerY" secondItem="i5D-B6-21P" secondAttribute="centerY" id="MAU-Cc-KPe"/>
+                                    <constraint firstItem="0n4-Ii-dk1" firstAttribute="leading" secondItem="rDe-jG-ov5" secondAttribute="trailing" constant="8" symbolic="YES" id="Q2V-Lc-svf"/>
+                                    <constraint firstItem="EjC-OO-MWE" firstAttribute="leading" secondItem="dns-jm-dBY" secondAttribute="leading" constant="20" symbolic="YES" id="QSl-OM-VvU"/>
+                                    <constraint firstItem="1h7-Zh-Hs5" firstAttribute="leading" secondItem="uBf-cE-xhK" secondAttribute="trailing" constant="8" symbolic="YES" id="T8b-4Y-0Id"/>
+                                    <constraint firstItem="rDe-jG-ov5" firstAttribute="centerY" secondItem="0n4-Ii-dk1" secondAttribute="centerY" id="U1l-36-zej"/>
+                                    <constraint firstItem="i5D-B6-21P" firstAttribute="leading" secondItem="dns-jm-dBY" secondAttribute="leading" constant="20" symbolic="YES" id="XYt-Gi-sRk"/>
+                                    <constraint firstItem="EjC-OO-MWE" firstAttribute="top" secondItem="i5D-B6-21P" secondAttribute="bottom" constant="8" symbolic="YES" id="eQd-pJ-aVg"/>
+                                    <constraint firstItem="rDe-jG-ov5" firstAttribute="leading" secondItem="dns-jm-dBY" secondAttribute="leading" constant="20" symbolic="YES" id="flO-uW-qHd"/>
+                                    <constraint firstItem="teK-Wh-Efb" firstAttribute="top" secondItem="EjC-OO-MWE" secondAttribute="bottom" constant="8" symbolic="YES" id="gBM-2l-Bg8"/>
+                                    <constraint firstItem="i5D-B6-21P" firstAttribute="top" secondItem="dns-jm-dBY" secondAttribute="top" constant="20" symbolic="YES" id="mJ2-TW-tCm"/>
+                                    <constraint firstAttribute="trailing" secondItem="EjC-OO-MWE" secondAttribute="trailing" constant="20" symbolic="YES" id="oFN-Cg-GtR"/>
+                                    <constraint firstItem="i5D-B6-21P" firstAttribute="width" secondItem="dns-jm-dBY" secondAttribute="width" multiplier="0.5" id="tdl-GU-v5I"/>
+                                    <constraint firstAttribute="trailing" secondItem="teK-Wh-Efb" secondAttribute="trailing" constant="20" symbolic="YES" id="w2a-kE-gDT"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1h7-Zh-Hs5" firstAttribute="top" secondItem="uBf-cE-xhK" secondAttribute="bottom" constant="8" id="3jI-ey-g45"/>
-                            <constraint firstItem="umH-Qo-rtw" firstAttribute="top" secondItem="i5D-B6-21P" secondAttribute="top" id="71E-gd-NrI"/>
-                            <constraint firstItem="rDe-jG-ov5" firstAttribute="top" secondItem="0n4-Ii-dk1" secondAttribute="top" id="9DZ-Hp-zQz"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="rDe-jG-ov5" secondAttribute="leading" id="Ekg-Jp-MfB"/>
+                            <constraint firstItem="EJy-2L-83Z" firstAttribute="centerX" secondItem="1DC-Hk-dOg" secondAttribute="centerX" id="2IX-g4-46s"/>
                             <constraint firstItem="AdN-IZ-eeH" firstAttribute="height" secondItem="1DC-Hk-dOg" secondAttribute="height" id="FPc-Oa-KYU"/>
                             <constraint firstItem="AdN-IZ-eeH" firstAttribute="width" secondItem="1DC-Hk-dOg" secondAttribute="width" id="GOu-z5-0p2"/>
                             <constraint firstItem="AdN-IZ-eeH" firstAttribute="centerX" secondItem="1DC-Hk-dOg" secondAttribute="centerX" id="HHp-Gd-gZM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="EjC-OO-MWE" secondAttribute="trailing" id="K0m-tW-86x"/>
-                            <constraint firstItem="rDe-jG-ov5" firstAttribute="bottom" secondItem="0n4-Ii-dk1" secondAttribute="bottom" id="LGD-Gi-8dy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1h7-Zh-Hs5" secondAttribute="trailing" id="LaG-Xs-VES"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="uBf-cE-xhK" secondAttribute="trailing" id="OGy-bk-mU0"/>
-                            <constraint firstItem="i5D-B6-21P" firstAttribute="top" secondItem="C9U-g6-Ibl" secondAttribute="top" multiplier="0.2" id="R6u-QD-fwV"/>
-                            <constraint firstItem="uBf-cE-xhK" firstAttribute="top" secondItem="rDe-jG-ov5" secondAttribute="bottom" constant="20" id="VNB-p8-3n8"/>
-                            <constraint firstItem="0n4-Ii-dk1" firstAttribute="leading" secondItem="rDe-jG-ov5" secondAttribute="trailing" constant="8" symbolic="YES" id="Y3c-9K-gAH"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="EjC-OO-MWE" secondAttribute="leading" id="f4n-X4-2DK"/>
+                            <constraint firstItem="dns-jm-dBY" firstAttribute="width" secondItem="1DC-Hk-dOg" secondAttribute="width" id="Lgt-qB-rtr"/>
+                            <constraint firstItem="C9U-g6-Ibl" firstAttribute="top" secondItem="EJy-2L-83Z" secondAttribute="bottom" constant="8" symbolic="YES" id="R8e-ti-SPF"/>
+                            <constraint firstItem="dns-jm-dBY" firstAttribute="centerX" secondItem="1DC-Hk-dOg" secondAttribute="centerX" id="Tf4-Ts-fam"/>
                             <constraint firstAttribute="leadingMargin" secondItem="WLF-wa-yXu" secondAttribute="leading" id="fQQ-Xf-0YT"/>
                             <constraint firstItem="AdN-IZ-eeH" firstAttribute="centerY" secondItem="1DC-Hk-dOg" secondAttribute="centerY" id="hrW-ua-2am"/>
-                            <constraint firstItem="EJy-2L-83Z" firstAttribute="centerX" secondItem="1DC-Hk-dOg" secondAttribute="centerX" id="ilx-uD-Hpu"/>
                             <constraint firstItem="WLF-wa-yXu" firstAttribute="top" secondItem="HGi-r1-HMk" secondAttribute="bottom" constant="8" symbolic="YES" id="iwd-Ig-DSe"/>
-                            <constraint firstItem="umH-Qo-rtw" firstAttribute="leading" secondItem="i5D-B6-21P" secondAttribute="trailing" constant="8" symbolic="YES" id="k76-hX-27R"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="uBf-cE-xhK" secondAttribute="leading" id="lBf-zX-60Y"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="i5D-B6-21P" secondAttribute="leading" id="lXp-dE-vnv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="umH-Qo-rtw" secondAttribute="trailing" id="leR-jt-sE6"/>
-                            <constraint firstItem="i5D-B6-21P" firstAttribute="width" secondItem="umH-Qo-rtw" secondAttribute="width" id="lml-xu-Fdw"/>
-                            <constraint firstItem="rDe-jG-ov5" firstAttribute="top" secondItem="EjC-OO-MWE" secondAttribute="bottom" constant="20" id="nP2-rI-qip"/>
-                            <constraint firstItem="EJy-2L-83Z" firstAttribute="top" secondItem="1h7-Zh-Hs5" secondAttribute="bottom" constant="32" id="po9-oV-Mbl"/>
-                            <constraint firstItem="EjC-OO-MWE" firstAttribute="top" secondItem="i5D-B6-21P" secondAttribute="bottom" constant="8" symbolic="YES" id="uIT-A1-aNt"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="1h7-Zh-Hs5" secondAttribute="leading" id="y9O-1n-U8S"/>
+                            <constraint firstItem="dns-jm-dBY" firstAttribute="top" secondItem="WLF-wa-yXu" secondAttribute="bottom" constant="8" symbolic="YES" id="l8i-tv-MXK"/>
+                            <constraint firstItem="EJy-2L-83Z" firstAttribute="top" secondItem="dns-jm-dBY" secondAttribute="bottom" constant="8" symbolic="YES" id="oz0-G5-YBF"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1232,6 +1248,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="email" destination="EjC-OO-MWE" id="4RC-tV-eLa"/>
                         <outlet property="firstName" destination="i5D-B6-21P" id="9Zy-eW-jJQ"/>
                         <outlet property="lastName" destination="umH-Qo-rtw" id="3Uh-T4-SeJ"/>
+                        <outlet property="password" destination="teK-Wh-Efb" id="mtY-M9-umn"/>
                         <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Edk-H5-39l"/>
                     </connections>
                 </viewController>
@@ -2693,6 +2710,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                 <exit id="q6B-5t-nXC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2747" y="-5074"/>
+        </scene>
+        <!--Storyboard Reference-->
+        <scene sceneID="HEV-jt-8QW">
+            <objects>
+                <viewControllerPlaceholder id="hgm-K6-AF3" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euB-b7-5zo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

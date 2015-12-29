@@ -130,9 +130,15 @@ extension AppDelegate {
                 saucyImage.frame = background.superview!.bounds
                 saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                 saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+                saucyImage.translatesAutoresizingMaskIntoConstraints = false
                 
                 saucyBackground!.hidden = false
                 self.window!.makeKeyAndVisible()
+                
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
             }
             //if manager.deviceMotionAvailable {
             //    manager.deviceMotionUpdateInterval = 0.01
@@ -157,9 +163,15 @@ extension AppDelegate {
                     blurEffectView.frame = v.superview!.bounds
                     blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                     blurEffectView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
+                    blurEffectView.translatesAutoresizingMaskIntoConstraints = false
                     
                     v.superview!.insertSubview(blurEffectView, atIndex: 0) //if you have more UIViews, use an insertSubview API to place it where needed
-                } 
+                    
+                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+                    v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+                }
                 else {
                     v.superview!.backgroundColor = UIColor.clearColor()
                 }
@@ -258,7 +270,7 @@ extension AppDelegate {
                 saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2)
         })
         
-        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* { $0.tag == 23 }, {
+        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* {$0.tag == 2}, {
             $0.setBackground(saucyTheme.fontColor)
         })
         

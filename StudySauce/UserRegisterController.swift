@@ -19,6 +19,7 @@ class UserRegisterController : UIViewController {
     internal var childFirstName: String?
     internal var childLastName: String?
     internal var token: String?
+    internal var pass: String?
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -26,6 +27,7 @@ class UserRegisterController : UIViewController {
     @IBOutlet weak var childSwitch: UISwitch!
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
+    @IBOutlet weak var password: UITextField!
     
     @IBAction func registerClick(sender: UIButton) {
         self.firstName.resignFirstResponder()
@@ -33,6 +35,7 @@ class UserRegisterController : UIViewController {
         self.email.resignFirstResponder()
         self.childFirst.resignFirstResponder()
         self.childLast.resignFirstResponder()
+        self.password.resignFirstResponder()
         
         self.first = self.firstName.text
         self.last = self.lastName.text
@@ -40,8 +43,10 @@ class UserRegisterController : UIViewController {
         self.child = self.childSwitch.on
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
-        if self.first != "" && self.last != "" && self.mail != "" &&
-            (self.child != true || self.childFirstName != "" && self.childLastName != "") {
+        self.pass = self.password.text
+
+        if self.first != "" && self.last != "" && self.mail != "" && self.password != ""
+            && (self.child != true || self.childFirstName != "" && self.childLastName != "") {
             self.registerUser()
         }
     }
@@ -69,9 +74,9 @@ class UserRegisterController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        lastName.text = self.last
-        firstName.text = self.first
-        email.text = self.mail
+        self.lastName.text = self.last
+        self.firstName.text = self.first
+        self.email.text = self.mail
     }
     
     func registerUser() {
@@ -80,6 +85,7 @@ class UserRegisterController : UIViewController {
             "first" : self.first,
             "last" : self.last,
             "email" : self.mail,
+            "pass" : self.pass,
             "csrf_token" : self.token
         ]
         if self.child == true {

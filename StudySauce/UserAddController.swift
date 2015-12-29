@@ -17,12 +17,7 @@ class UserAddController : UIViewController {
     internal var token: String?
 
     func lastClick() {
-        if let _ = self.presentingViewController as? UserSettingsContainerController {
-            self.performSegueWithIdentifier("settings", sender: self)
-        }
-        else {
-            self.performSegueWithIdentifier("switch", sender: self)
-        }
+        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func backClick(sender: UIButton) {
@@ -55,7 +50,7 @@ class UserAddController : UIViewController {
                                 }
                                 AppDelegate.instance().user = newUser
                                 dispatch_async(dispatch_get_main_queue(), {
-                                    self.backClick(sender)
+                                    self.lastClick()
                                 })
                             }
                         }

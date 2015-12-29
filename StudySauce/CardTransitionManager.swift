@@ -272,20 +272,22 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
         
         // if both controllers have nueral dark transition content
-        let lastBackground = (last.view ~> (UIView.self ~* {$0.tag == 23})).first
-        let nextBackground = (next.view ~> (UIView.self ~* {$0.tag == 23})).first
+        let lastBackground = (last.view ~> (UIVisualEffectView.self ~* {$0.tag == 23})).first
+        let nextBackground = (next.view ~> (UIVisualEffectView.self ~* {$0.tag == 23})).first
+        nextBackground?.transform = CGAffineTransformMakeTranslation(0, 0)
+        lastBackground?.transform = CGAffineTransformMakeTranslation(0, 0)
         if lastBackground != nil && nextBackground != nil {
             if self.presenting {
-                lastBackground!.hidden = true
                 nextBackground!.hidden = false
-                nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                lastBackground!.hidden = true
+                nextBackground!.transform = CGAffineTransformMakeTranslation(-moveNext, 0)
                 lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
             }
             else {
-                lastBackground!.hidden = true
                 nextBackground!.hidden = false
+                lastBackground!.hidden = true
                 nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
-                lastBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                lastBackground!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
             }
         }
 
