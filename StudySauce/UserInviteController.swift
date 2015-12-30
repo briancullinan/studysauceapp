@@ -75,7 +75,7 @@ class UserInviteController : UIViewController {
             }
             }, redirect: {(path) in
                 if path == "/home" {
-                    self.goHome(true)
+                    AppDelegate.goHome(self, true)
                 }
             }, done: {(json) in
                 self.first = json["first"] as? String

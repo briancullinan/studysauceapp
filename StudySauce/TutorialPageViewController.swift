@@ -23,6 +23,10 @@ class TutorialPageViewController: UIViewController {
         }
     }
     
+    @IBAction func skipClick(sender: UIButton) {
+        AppDelegate.goHome(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.transitioningDelegate = CardSegue.transitionManager

@@ -402,6 +402,17 @@ extension AppDelegate {
                 v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
         })
         
+        $([CardController.self ~>> UIView.self ~* T.firstOfType,
+            PackSummaryController.self ~>> UIView.self ~* T.firstOfType,
+            UserSettingsContainerController.self ~>> UIView.self ~* T.firstOfType,
+            UserSettingsController.self ~>> UIView.self ~* T.firstOfType,
+            UIViewController.self ~* "Privacy" ~>> UIView.self ~* T.firstOfType,
+            UIViewController.self ~* "About" ~>> UIView.self ~* T.firstOfType,
+            ContactUsController.self ~>> UIView.self ~* T.firstOfType], {
+                
+            $0.viewController()!.view.backgroundColor = saucyTheme.lightColor
+        })
+        
         $([UserSettingsContainerController.self ~>> UIButton.self ~* T.firstOfType,
             PackSummaryController.self ~>> UIButton.self ~* T.firstOfType,
             UIViewController.self ~* "Privacy" ~>> UIButton.self ~* T.firstOfType,
@@ -416,6 +427,8 @@ extension AppDelegate {
             UserInviteController.self ~>> UIButton.self ~* T.firstOfType,
             ContactUsController.self ~>> UIButton.self ~* T.firstOfType], {(v: UIButton) -> Void in
                 v.contentMode = .ScaleAspectFit
+                v.setTitle(" ", forState: .Normal)
+                v.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
                 v.tag = 26
         })
         

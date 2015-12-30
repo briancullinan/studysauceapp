@@ -315,7 +315,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
             }
             if lastTitle != nil && nextTitle != nil {
-                lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                lastTitle!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
                 lastTitle!.alpha = 0
             }
         }
@@ -350,7 +350,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                         nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
                     }
                     if lastTitle != nil && nextTitle != nil {
-                        lastTitle!.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+                        lastTitle!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
                         lastTitle!.alpha = 0
                     }
                 }
