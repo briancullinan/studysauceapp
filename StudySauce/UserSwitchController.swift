@@ -11,6 +11,7 @@ import Foundation
 class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var users: [User]? = nil
+    var rowHeight = CGFloat(40.0)
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -19,11 +20,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.getUsersFromLocalStore({
             self.tableView.reloadData()
-            let size = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(self.tableView.numberOfRowsInSection(0) * 50) * saucyTheme.multiplier())
-            let preferred = self.preferredContentSize.height
-            if preferred != size.height {
-                self.preferredContentSize = size
-            }
+            self.preferredContentSize = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(self.tableView.numberOfRowsInSection(0)) * self.rowHeight * saucyTheme.multiplier())
         })
     }
     
@@ -35,7 +32,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         self.popoverPresentationController?.backgroundColor = saucyTheme.lightColor
-        self.preferredContentSize = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(3 * 50) * saucyTheme.multiplier())
+        self.preferredContentSize = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(3 * self.rowHeight) * saucyTheme.multiplier())
     }
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
@@ -113,7 +110,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50 * saucyTheme.multiplier()
+        return self.rowHeight * saucyTheme.multiplier()
     }
     
 }

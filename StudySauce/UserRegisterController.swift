@@ -103,6 +103,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             self.children.hidden = false
         }
         if self.props?["child_disabled"] as? Bool == true {
+            self.firstName.placeholder = NSLocalizedString("First name", comment: "Placeholder text for first name registration")
             self.childSwitch.on = false
             self.childSwitch.hidden = true
             self.childButton.hidden = true
