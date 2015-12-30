@@ -206,8 +206,7 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.lightColor)
         })
         
-        $([UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self,
-            UserSwitchController.self ~> UITableViewCell.self ~> UIButton.self], {
+        $(UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self, {
             $0.setFontName(saucyTheme.labelFont)
             $0.setFontColor(saucyTheme.fontColor)
         })

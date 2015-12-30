@@ -19,7 +19,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.getUsersFromLocalStore({
             self.tableView.reloadData()
-            let size = CGSizeMake(200, CGFloat(self.tableView.numberOfRowsInSection(0) * 50) * saucyTheme.multiplier())
+            let size = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(self.tableView.numberOfRowsInSection(0) * 50) * saucyTheme.multiplier())
             let preferred = self.preferredContentSize.height
             if preferred != size.height {
                 self.preferredContentSize = size
@@ -35,7 +35,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         self.popoverPresentationController?.backgroundColor = saucyTheme.lightColor
-        self.preferredContentSize = CGSizeMake(200, CGFloat(3 * 50) * saucyTheme.multiplier())
+        self.preferredContentSize = CGSizeMake(250 * saucyTheme.multiplier(), CGFloat(3 * 50) * saucyTheme.multiplier())
     }
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
@@ -49,6 +49,14 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let i = indexPath.row - 1
+        if indexPath.row == 0 {
+            self.logout()
+            return
+        }
+        if indexPath.row == self.users!.count + 1 {
+            self.addChild()
+            return
+        }
         if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
             let home = self.presentingViewController!
@@ -90,11 +98,9 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         else if self.users!.count == 0 || indexPath.row == self.users!.count + 1 {
             cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
-            (cell ~> UIButton.self).first?.addTarget(self, action: "addChild", forControlEvents: UIControlEvents.TouchUpInside)
         }
         else if indexPath.row == 0 {
             cell = tableView.dequeueReusableCellWithIdentifier("logout", forIndexPath: indexPath)
-            (cell ~> UIButton.self).first?.addTarget(self, action: "logout", forControlEvents: UIControlEvents.TouchUpInside)
         }
         else {
             cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
