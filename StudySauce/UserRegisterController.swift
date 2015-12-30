@@ -18,6 +18,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     internal var child: Bool?
     internal var token: String?
     internal var pass: String?
+    internal var props: NSDictionary?
     internal var childrenCount = 1
     
     @IBOutlet weak var firstName: UITextField!
@@ -28,6 +29,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var childHeight: NSLayoutConstraint!
     @IBOutlet weak var children: UITableView!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var childButton: UIButton!
     
     @IBAction func addChild(sender: UIButton) {
         self.childrenCount++
@@ -75,13 +77,11 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         
         if childSwitch.on
         {
-            children.hidden = false
-            addButton.hidden = false
+            self.children.hidden = false
         }
         else
         {
-            children.hidden = true
-            addButton.hidden = true
+            self.children.hidden = true
         }
     }
         
@@ -92,6 +92,22 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.firstName.text = self.first
         self.email.text = self.mail
         self.childHeight.constant = CGFloat(self.childrenCount * 60) * saucyTheme.multiplier()
+        self.childSwitch.on = true
+        self.childSwitch.hidden = false
+        self.childButton.hidden = false
+        self.children.hidden = false
+        if self.props?["child_required"] as? Bool == true {
+            self.childSwitch.on = true
+            self.childSwitch.hidden = true
+            self.childButton.hidden = true
+            self.children.hidden = false
+        }
+        if self.props?["child_disabled"] as? Bool == true {
+            self.childSwitch.on = false
+            self.childSwitch.hidden = true
+            self.childButton.hidden = true
+            self.children.hidden = true
+        }
     }
     
     func registerUser() {

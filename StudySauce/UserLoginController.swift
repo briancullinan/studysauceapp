@@ -168,8 +168,8 @@ class UserLoginController : UIViewController {
                     self.goHome(true)
                 }
             }, done: {(json) in
-                if json?["csrf_token"] as? String != nil {
-                        UserLoginController.token = json!["csrf_token"] as? String
+                if json["csrf_token"] as? String != nil {
+                        UserLoginController.token = json["csrf_token"] as? String
                     }
             })
     }

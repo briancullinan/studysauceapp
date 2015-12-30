@@ -8,7 +8,7 @@
 
 import Foundation
 
-func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}) {
+func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}) {
     var postData = ""
     for (k, v) in params {
         postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
@@ -48,7 +48,7 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
     task.resume()
 }
 
-func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject?) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
+func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
     var postData = ""
     for (k, v) in params {
         if v == nil {

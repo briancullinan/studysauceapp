@@ -34,7 +34,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        self.popoverPresentationController?.backgroundColor = saucyTheme.lightColor
         self.preferredContentSize = CGSizeMake(200, CGFloat(3 * 50) * saucyTheme.multiplier())
     }
     

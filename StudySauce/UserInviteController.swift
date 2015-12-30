@@ -16,6 +16,7 @@ class UserInviteController : UIViewController {
     internal var mail: String?
     internal var regCode: String?
     internal var token: String?
+    internal var props: NSDictionary?
 
     @IBOutlet weak var registrationCode: UITextField!
     @IBOutlet weak var registrationCode2: UITextField!
@@ -63,6 +64,7 @@ class UserInviteController : UIViewController {
             vc.last = self.last
             vc.mail = self.mail
             vc.token = self.token
+            vc.props = self.props
         }
     }
     
@@ -76,10 +78,12 @@ class UserInviteController : UIViewController {
                     self.goHome(true)
                 }
             }, done: {(json) in
-                self.first = json!["first"] as? String
-                self.last = json!["last"] as? String
-                self.mail = json!["email"] as? String
-                self.token = json!["csrf_token"] as? String
+                self.first = json["first"] as? String
+                self.last = json["last"] as? String
+                self.mail = json["email"] as? String
+                self.token = json["csrf_token"] as? String
+                self.props = json["properties"] as? NSDictionary
+                
                 self.performSegueWithIdentifier("register", sender: self)
         })
     }

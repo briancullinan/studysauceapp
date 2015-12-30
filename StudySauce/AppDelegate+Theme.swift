@@ -91,7 +91,7 @@ extension AppDelegate {
         blurEffectView.tag = 23
         blurEffectView.frame = v.superview!.bounds
         blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        blurEffectView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.2)
+        blurEffectView.backgroundColor = UIColor.clearColor()
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         
         v.superview!.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed

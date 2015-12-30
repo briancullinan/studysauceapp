@@ -70,12 +70,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             segue.destinationViewController.popoverPresentationController?.delegate = self
             segue.destinationViewController.popoverPresentationController?.sourceRect = self.userButton!.bounds
             let blur = AppDelegate.createBlurView(self.userButton!)
-            blur.alpha = 0
+            blur.alpha = 1
             blur.superview!.bringSubviewToFront(blur)
             self.view.bringSubviewToFront(self.userButton!)
-            UIView.animateWithDuration(0.15, animations: {
-                blur.alpha = 1
-            })
         }
         
         if let vc = segue.destinationViewController as? CardController {
