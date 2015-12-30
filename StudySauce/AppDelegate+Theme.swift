@@ -394,8 +394,6 @@ extension AppDelegate {
             UserRegisterController.self ~> UIButton.self ~* T.nthOfType(1),
             UserInviteController.self ~> UIButton.self ~* T.nthOfType(1),
             DialogController.self ~> UIButton.self ~* T.nthOfType(0),
-            CardBlankController.self ~> UIButton.self ~* T.nthOfType(0),
-            ContactUsController.self ~> UIButton.self ~* T.nthOfType(1),
             PackResultsController.self ~> UIButton.self ~* {$0.tag == 1},
             HomeController.self ~> UIButton.self ~* {$0.tag == 1338},
             UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}], {(v: UIButton) in

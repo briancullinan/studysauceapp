@@ -91,21 +91,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         #endif
     }
     
-    func loadHomeVC(done: (UIViewController) -> Void = {vc in }) {
-        if self.storyboard == nil {
-            self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+    static func goHome (fromView: UIViewController? = nil, _ refetch: Bool = false, _ done: (v: UIViewController) -> Void = {_ in}) {
+        if self.instance().storyboard == nil {
+            self.instance().storyboard = UIStoryboard(name: "Main", bundle: nil)
         }
-        if self.window == nil {
-            self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            let viewController = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-            viewController.transitioningDelegate = CardSegue.transitionManager
-            self.window!.rootViewController = viewController
-            viewController.view.clipsToBounds = false
-            self.window!.backgroundColor = UIColor.clearColor()
-            self.window!.opaque = false
-            self.window!.makeKeyAndVisible();
+        
+        let handleUser = {
+            AppDelegate.performContext({
+                let user = AppDelegate.getUser()
+                let home: UIViewController
+                if user == nil {
+                    home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Landing")
+                }
+                else if user!.getProperty("seen_tutorial") as? Bool != true
+                {
+                    user!.setProperty("seen_tutorial", true)
+                    AppDelegate.saveContext()
+                    home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Tutorial")
+                }
+                else {
+                    home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
+                }
+                dispatch_async(dispatch_get_main_queue(), {
+                    if self.instance().window == nil {
+                        self.instance().window = UIWindow(frame: UIScreen.mainScreen().bounds)
+                        self.instance().window!.rootViewController = home
+                        self.instance().window!.backgroundColor = UIColor.clearColor()
+                        self.instance().window!.opaque = false
+                        self.instance().window!.makeKeyAndVisible();
+                        home.transitioningDelegate = CardSegue.transitionManager
+                        done(v: home)
+                    }
+                    else if fromView == nil {
+                        home.transitioningDelegate = CardSegue.transitionManager
+                        self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
+                            done(v: home)
+                        })
+                    }
+                    else {
+                        home.transitioningDelegate = CardSegue.transitionManager
+                        fromView!.transitioningDelegate = CardSegue.transitionManager
+                        fromView!.presentViewController(home, animated: true, completion: {
+                            done(v: home)
+                        })
+                    }
+                })
+            })
         }
-        done(self.window!.rootViewController!)
+        
+        if !refetch && AppDelegate.getUser() != nil {
+            handleUser()
+        }
+        else {
+            UserLoginController.home({
+                handleUser()
+            })
+        }
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -124,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                         self.user = user
                     }
                     dispatch_async(dispatch_get_main_queue(), {
-                        self.loadHomeVC()
+                        AppDelegate.goHome()
                     })
                 })
             }
@@ -133,13 +174,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             // TODO: work in offline mode
             if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                 self.user = user
-                self.loadHomeVC()
+                AppDelegate.goHome()
             }
             else {
-                self.loadHomeVC {v in
+                AppDelegate.goHome {v in
                     v.showNoConnectionDialog { () -> Void in
                         UserLoginController.home { () -> Void in
-                            self.loadHomeVC()
+                            AppDelegate.goHome()
                         }
                     }
                 }

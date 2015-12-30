@@ -12,13 +12,12 @@ import UIKit
 import CoreData
 
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate {
-    @IBOutlet weak var embeddedView: UIView!
+    @IBOutlet internal weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
     var packs = [Pack]()
     var normalImage:UIImage!
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
-    var user: User? = nil
     
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigbutton: UIButton? = nil
@@ -81,7 +80,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         self.viewDidLoad()
+        self.childViewControllers.each{$0.viewDidAppear(animated)}
         
         if let blur = (self.view ~> UIVisualEffectView.self).first {
             UIView.animateWithDuration(0.15, animations: {
@@ -149,20 +150,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if self.userButton != nil {
             self.userButton?.setTitle(AppDelegate.getUser()?.first, forState: .Normal)
-            
-            if self.user != AppDelegate.getUser() {
-                AppDelegate.performContext({
-                    if AppDelegate.getUser()?.getProperty("seen_tutorial") as? Bool != true
-                    {
-                        AppDelegate.getUser()?.setProperty("seen_tutorial", true)
-                        AppDelegate.saveContext()
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.performSegueWithIdentifier("tutorial", sender: self)
-                        })
-                    }
-                })
-                self.user = AppDelegate.getUser()
-            }
         }
         
         if self.tableView != nil {

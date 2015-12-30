@@ -107,7 +107,7 @@ class PackResultsController: UIViewController {
         if self.isRetention {
             self.packTitle.text = "Today's cards"
             if score == 100 {
-                self.review.text = NSLocalizedString("Congratulations!  You answered all of today's questions correctly.", comment: "Big button all correct")
+                self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all of today's questions correctly.", comment: "Big button all correct")
                 self.goHome.hidden = false
                 self.crossButton.hidden = true
                 self.checkButton.hidden = true
@@ -119,7 +119,7 @@ class PackResultsController: UIViewController {
         else {
             self.packTitle.text = self.pack.title
             if score == 100 {
-                self.review.text = NSLocalizedString("Congratulations!  You answered all the questions correctly.  Start again?", comment: "Pack summary all correct")
+                self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all the questions correctly.\r\n\r\nStart again?", comment: "Pack summary all correct")
             }
             else {
                 self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Pack summary with wrong answers")

@@ -42,17 +42,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
         
         let vc = AppDelegate.visibleViewController()
-        if let page = vc as? TutorialPageViewController {
-            if page.index < page.pageTitles.count - 1 || page.index > 0 {
-                return true
-            }
-        }
         
         if vc.canPerformSegueWithIdentifier("next")
             || vc.canPerformSegueWithIdentifier("last")
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true
-            || vc.respondsToSelector("lastClick") {
+            || vc.respondsToSelector("lastClick") || vc.respondsToSelector("nextClick") {
                 if !self.transitioning {
                     return true
                 }
@@ -86,20 +81,20 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         if !self.transitioning {
             let vc = AppDelegate.visibleViewController()
             self.interactive = false
-            if let page = vc as? TutorialPageViewController {
-                if page.index < page.pageTitles.count -  1 {
-                    page.next()
-                    return
-                }
+            
+            if vc.respondsToSelector("nextClick") {
+                vc.performSelector("nextClick")
             }
 
             if let card = vc as? CardController {
                 if card.subview?.canPerformSegueWithIdentifier("next") == true {
+                    self.transitioning = true
                     card.subview?.performSegueWithIdentifier("next", sender: self)
                 }
             }
             else {
                 if vc.canPerformSegueWithIdentifier("next") {
+                    self.transitioning = true
                     vc.performSegueWithIdentifier("next", sender: self)
                 }
             }
@@ -121,44 +116,26 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         case UIGestureRecognizerState.Began:
             // set our interactive flag to true
             if d != 0 && !self.transitioning {
-
+                self.interactive = true
+                
                 let vc = AppDelegate.visibleViewController()
-                if let page = vc as? TutorialPageViewController {
-                    if d > 0 {
-                        if page.index > 0 {
-                            self.transitioning = true
-                            self.interactive = true
-                            page.last()
-                            return
-                        }
-                    }
-                    else {
-                        if page.index < page.pageTitles.count - 1 {
-                            self.transitioning = true
-                            self.interactive = true
-                            page.next()
-                            return
-                        }
-                    }
-                }
                 
                 if d > 0 && vc.respondsToSelector("lastClick") {
-                    self.transitioning = true
-                    self.interactive = true
                     vc.performSelector("lastClick")
+                }
+                else if vc.respondsToSelector("nextClick") {
+                    vc.performSelector("nextClick")
                 }
 
                 if let card = vc as? CardController {
                     if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
                         self.transitioning = true
-                        self.interactive = true
                         card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
                 else {
                     if vc.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") {
                         self.transitioning = true
-                        self.interactive = true
                         vc.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
                     }
                 }
@@ -178,6 +155,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             if self.interactive {
                 // return flag to false and finish the transition
                 self.interactive = false
+                self.transitioning = false
                 if d < -0.1 || d > 0.2 {
                     // threshold crossed: finish
                     self.finishInteractiveTransition()

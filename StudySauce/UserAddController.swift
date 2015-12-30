@@ -17,6 +17,7 @@ class UserAddController : UIViewController {
     internal var token: String?
 
     func lastClick() {
+        CardSegue.transitionManager.transitioning = true
         self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     

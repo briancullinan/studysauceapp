@@ -23,10 +23,6 @@ class TutorialPageViewController: UIViewController {
         }
     }
     
-    @IBAction func skipClick(sender: UIButton) {
-        self.performSegueWithIdentifier("next", sender: self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.transitioningDelegate = CardSegue.transitionManager
@@ -40,14 +36,23 @@ class TutorialPageViewController: UIViewController {
         self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
     }
     
-    internal func next() {
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Tutorial") as! TutorialPageViewController
-        vc.index = self.index + 1
-        self.subview!.presentViewController(vc, animated: true, completion: nil)
+    internal func lastClick() {
+        if self.index > 0 {
+            CardSegue.transitionManager.transitioning = true
+            self.subview!.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
-    internal func last() {
-        self.subview!.dismissViewControllerAnimated(true, completion: nil)
+    internal func nextClick() {
+        CardSegue.transitionManager.transitioning = true
+        if self.index < self.pageTitles.count - 1 {
+            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Tutorial") as! TutorialPageViewController
+            vc.index = self.index + 1
+            self.subview!.presentViewController(vc, animated: true, completion: nil)
+        }
+        else {
+            AppDelegate.goHome(self)
+        }
     }
 
     override func didReceiveMemoryWarning() {

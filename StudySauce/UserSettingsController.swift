@@ -128,7 +128,7 @@ class UserSettingsController: UITableViewController {
                     UserLoginController.logout({
                         AppDelegate.resetLocalStore(true)
                         AppDelegate.instance().user = nil
-                        self.goHome(true)
+                        AppDelegate.goHome(self, true)
                     })
                 }
             }

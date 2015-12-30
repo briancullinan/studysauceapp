@@ -42,26 +42,7 @@ extension UIViewController {
         return (filteredtemplates?.count>0)
     }
     
-    func goHome(refetch: Bool = false) {
-        if !refetch && AppDelegate.getUser() != nil {
-            let home = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
-            self.transitioningDelegate = CardSegue.transitionManager
-            home.transitioningDelegate = CardSegue.transitionManager
-            dispatch_async(dispatch_get_main_queue(),{
-                self.presentViewController(home, animated: true, completion: {})
-            })
-        }
-        else {
-            UserLoginController.home({
-                let home = self.storyboard!.instantiateViewControllerWithIdentifier(AppDelegate.getUser() == nil ? "Landing" : "Home")
-                self.transitioningDelegate = CardSegue.transitionManager
-                home.transitioningDelegate = CardSegue.transitionManager
-                dispatch_async(dispatch_get_main_queue(),{
-                    self.presentViewController(home, animated: true, completion: {})
-                })
-            })
-        }
-    }
+    
         
     func showDialog(message: String?, button: String?, click: (() -> Bool)? = nil, done: (() -> Void)? = nil) -> DialogController {
         let dialog = self.storyboard!.instantiateViewControllerWithIdentifier("Dialog") as! DialogController

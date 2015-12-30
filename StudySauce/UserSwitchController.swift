@@ -56,9 +56,9 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
-            let home = self.presentingViewController!
+            let home = self.presentingViewController! as? HomeController
             self.dismissViewControllerAnimated(true, completion: {
-                home.viewDidAppear(true)
+                home?.viewDidAppear(true)
             })
         }
     }
@@ -71,11 +71,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func logout() {
-        let home = self.presentingViewController!
         UserLoginController.logout({
             AppDelegate.instance().user = nil
             self.dismissViewControllerAnimated(true, completion: {
-                home.goHome()
+                AppDelegate.goHome()
             })
         })
     }

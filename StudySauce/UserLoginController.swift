@@ -165,7 +165,7 @@ class UserLoginController : UIViewController {
                     self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails"))
                 }
                 if path == "/home" {
-                    self.goHome(true)
+                    AppDelegate.goHome(self, true)
                 }
             }, done: {(json) in
                 if json["csrf_token"] as? String != nil {
