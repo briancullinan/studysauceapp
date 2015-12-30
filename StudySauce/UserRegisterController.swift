@@ -122,8 +122,8 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         ]
         if self.child == true {
             (self.view ~> UITableViewCell.self).each {
-                registrationInfo["childFirst"] = ($0 ~> (UITextField.self ~* T.nthOfType(0))).first!.text
-                registrationInfo["childLast"] = ($0 ~> (UITextField.self ~* T.nthOfType(1))).first!.text
+                registrationInfo["childFirst"] = ($0 ~> (UITextField.self ~* 1)).first!.text
+                registrationInfo["childLast"] = ($0 ~> (UITextField.self ~* 2)).first!.text
             }
         }
         

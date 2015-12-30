@@ -73,16 +73,14 @@ func ~* <B>(b: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
     return TMatching<B>(b, matches)
 }
 
-func ~* <B>(b: B.Type, type: T<B>) -> TQueryable<B> {
-    return TQueryable<B>(b) ~* type
+func ~* <B: UIView>(b: B.Type, tag: Int) -> TMatching<B> {
+    return TQueryable<B>(b) ~* tag
 }
 
-func ~* <B>(q: TQueryable<B>, type: T<B>) -> TQueryable<B> {
-    return TMatching<B>(q, type.get())
+func ~* <B: UIView>(b: TQueryable<B>, tag: Int) -> TMatching<B> {
+    return TMatching<B>(b, {$0.tag == tag})
 }
 
-// |#
-//prefix operator |^ {}
 func ~* <B: UIView>(b: B.Type, id: String) -> TMatching<B> {
     return TQueryable<B>(b) ~* id
 }

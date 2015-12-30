@@ -13,50 +13,12 @@ private var queryList: [UIView -> Void] = []
 
 enum T<B: UIView> {
     
-    case first
-    case firstOfType
-    case last
-    case lastOfType
-    
-    static func nthChild(i: Int) -> (v: B) -> Bool {
-        return {(v: B) -> Bool in
-            let ofTypes = v ~+ UIView.self
-            if i < 0 {
-                return ofTypes.indexOf(v) == ofTypes.count - i
-            }
-            return ofTypes.indexOf(v) == i
-        }
-    }
-    
-    static func nthOfType(i: Int) -> (v: B) -> Bool {
-        return {(v: B) -> Bool in
-            let ofTypes = v ~+ B.self
-            if i < 0 {
-                return ofTypes.indexOf(v) == ofTypes.count - i
-            }
-            return ofTypes.indexOf(v) == i
-        }
-    }
-    
     static func device(d: String) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
             let match = ex?.firstMatchInString(UIDevice.currentDevice().systemName, options: [], range:NSMakeRange(0, d.characters.count))
             let matched = match?.rangeAtIndex(0)
             return matched != nil
-        }
-    }
-    
-    func get() -> (v: B) -> Bool {
-        switch self {
-        case first:
-            return T.nthChild(0)
-        case last:
-            return T.nthChild(-1)
-        case firstOfType:
-            return T.nthOfType(0)
-        case lastOfType:
-            return T.nthOfType(-1)
         }
     }
 }

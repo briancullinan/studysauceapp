@@ -71,10 +71,11 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func logout() {
+        let home = self.presentingViewController!
         UserLoginController.logout({
             AppDelegate.instance().user = nil
             self.dismissViewControllerAnimated(true, completion: {
-                AppDelegate.goHome()
+                AppDelegate.goHome(home)
             })
         })
     }
