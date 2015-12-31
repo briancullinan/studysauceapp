@@ -16,17 +16,29 @@ struct saucyTheme {
     static let primary = UIColor(0xFF9900)
     static let secondary = UIColor(0x2299BB)
     static let middle = UIColor(0xBBBBBB)
+    static let padding = 10.0 * saucyTheme.multiplier()
+    static let vertical: CGFloat = {
+        let view = UIView()
+        let sibling = NSLayoutConstraint.constraintsWithVisualFormat("[view]-[view]", options: [], metrics: nil, views: ["view" : view])
+        return sibling.first!.constant   // 8.0
+        
+        //NSView* superview = [NSView new] ;
+        //[superview addSubview:view] ;
+        //NSLayoutConstraint* constraintWithStandardConstantBetweenSuperview = [NSLayoutConstraint constraintsWithVisualFormat:@"[view]-|"  options:0  metrics:nil  views:NSDictionaryOfVariableBindings(view) ] [0] ;
+        //CGFloat standardConstantBetweenSuperview = constraintWithStandardConstantBetweenSuperview.constant ;    // 20.0
+    }()
     
     static let buttonFont = "Avenir-Medium"
     
     static let textFont = "Avenir-Medium"
-    static let textSize = CGFloat(17.0)
+    static let textSize = 14.0 * saucyTheme.multiplier()
     
     static let headingFont = "Avenir-Heavy"
-    static let headingSize = CGFloat(17.0)
+    static let headingSize = 15.0 * saucyTheme.multiplier()
     static let subheadingFont = "Avenir-Heavy"
-    static let subheadingSize = CGFloat(15.0)
+    static let subheadingSize = 14 * saucyTheme.multiplier()
     static let labelFont = "Avenir-Heavy"
+    static let lineHeight = CGFloat(1.8)
     
     static func multiplier () -> CGFloat {
         let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 400
@@ -135,7 +147,7 @@ extension AppDelegate {
             // TODO: chaining would be nicer syntax here
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontName(saucyTheme.textFont)
-            $0.setFontSize(saucyTheme.textSize * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.textSize)
         })
         
         $(UIImageView.self ~* {$0.tag == 23}, {background in
@@ -212,7 +224,7 @@ extension AppDelegate {
         })
         
         $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
-            $0.setFontSize(40 * saucyTheme.multiplier())
+            $0.setFontSize(30 * saucyTheme.multiplier())
         })
         
         $(UserSwitchController.self ~> UITableView.self, {
@@ -228,7 +240,7 @@ extension AppDelegate {
         })
         
         $(UIViewController.self ~>> UILabel.self ~* {$0.tag == 25}, {(v: UILabel) -> Void in
-            v.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
+            v.setFontSize(saucyTheme.headingSize)
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
             if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 && !v.hidden {
@@ -270,9 +282,9 @@ extension AppDelegate {
         $([HomeController.self ~>> UIButton.self ~* {$0.tag == 1337}], {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
                 0,
-                saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2,
-                saucyTheme.textSize * saucyTheme.multiplier() * 1.5,
-                saucyTheme.textSize * saucyTheme.multiplier() * 1.5 / 2)
+                saucyTheme.textSize * 1.5 / 2,
+                saucyTheme.textSize * 1.5,
+                saucyTheme.textSize * 1.5 / 2)
         })
         
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* {$0.tag == 2}, {
@@ -281,21 +293,14 @@ extension AppDelegate {
         
         $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
-            $0.setFontSize(saucyTheme.textSize * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.textSize)
             $0.setFontName(saucyTheme.subheadingFont)
         })
         
         $(HomeController.self ~> UITableView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
-        
-        $([HomeController.self ~> UITableView.self], {(v: UITableView) -> Void in
-            // Make the cell self size
-            v.estimatedRowHeight = 30.0 * saucyTheme.multiplier()
-            v.rowHeight = UITableViewAutomaticDimension
-            v.reloadData()
-        })
-        
+
         $(HomeController.self ~> UIButton.self ~* {$0.tag == 1}, {
             $0.setFontColor(saucyTheme.primary)
         })
@@ -308,7 +313,7 @@ extension AppDelegate {
         $(UserSettingsController.self ~> UITableViewHeaderFooterView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
-            $0.setFontSize(saucyTheme.subheadingSize * saucyTheme.multiplier())
+            $0.setFontSize(saucyTheme.subheadingSize)
         })
         
         // card button sizes
@@ -336,7 +341,7 @@ extension AppDelegate {
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
             $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 0
-            $0.textContainerInset = UIEdgeInsets(10 * saucyTheme.multiplier())
+            $0.textContainerInset = UIEdgeInsets(saucyTheme.padding)
         })
         
         $(UITextField.self ~>> UILabel.self, {
@@ -376,13 +381,13 @@ extension AppDelegate {
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            v.textContainerInset = UIEdgeInsets(20 * saucyTheme.multiplier())
+            v.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
         
         $(UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}, {(v: UIButton) in
                 v.setFontName(saucyTheme.textFont)
                 v.setFontColor(saucyTheme.lightColor)
-                v.contentEdgeInsets = UIEdgeInsets(20 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
+                v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
         })
         
         $([CardController.self ~>> UIView.self,
@@ -395,10 +400,12 @@ extension AppDelegate {
             $0.viewController()!.view.backgroundColor = saucyTheme.lightColor
         })
         
+        $(TutorialPageViewController.self ~>> UIButton.self ~* {$0.tag == 26}, {
+            $0.setFontColor(saucyTheme.lightColor)
+        })
+        
         $(UIViewController.self ~>> UIButton.self ~* {$0.tag == 26}, {
             $0.contentMode = .ScaleAspectFit
-            $0.setTitle(" ", forState: .Normal)
-            $0.setFontSize(saucyTheme.headingSize * saucyTheme.multiplier())
         })
         
         var combos: [Dictionary<String,UIColor>] = []

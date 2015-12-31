@@ -12,13 +12,18 @@ import UIKit
 class UserAddController : UIViewController {
     internal var childFirstName: String?
     internal var childLastName: String?
+    internal var code: String?
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
+    @IBOutlet weak var inviteCode: TextField!
     internal var token: String?
 
     func lastClick() {
         CardSegue.transitionManager.transitioning = true
-        self.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        let last = self.presentingViewController
+            last?.dismissViewControllerAnimated(true, completion: {
+            last?.viewDidAppear(true)
+        })
     }
     
     @IBAction func backClick(sender: UIButton) {
@@ -34,11 +39,13 @@ class UserAddController : UIViewController {
         self.childLast.resignFirstResponder()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
-        if self.childFirstName != "" && self.childLastName != "" {
+        self.code = self.inviteCode.text
+        if self.childFirstName != "" && self.childLastName != "" && self.code != "" {
             let registrationInfo: Dictionary<String,AnyObject?> = [
                 "csrf_token" : self.token,
                 "childFirst" : self.childFirstName,
-                "childLast" : self.childLastName
+                "childLast" : self.childLastName,
+                "_code" : self.code
             ]
 
             self.showNoConnectionDialog({

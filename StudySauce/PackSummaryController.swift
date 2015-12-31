@@ -309,7 +309,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 66.0 * saucyTheme.multiplier()
+        return saucyTheme.textSize * saucyTheme.lineHeight * 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

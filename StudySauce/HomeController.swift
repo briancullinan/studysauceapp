@@ -210,7 +210,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return saucyTheme.textSize * 2 * saucyTheme.multiplier()
+        return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

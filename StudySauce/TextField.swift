@@ -11,10 +11,10 @@ import UIKit
 
 class TextField: UITextField {
     override func textRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, 10 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
+        return CGRectInset(bounds, saucyTheme.padding, saucyTheme.padding)
     }
     
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, 10 * saucyTheme.multiplier(), 10 * saucyTheme.multiplier())
+        return CGRectInset(bounds, saucyTheme.padding, saucyTheme.padding)
     }
 }

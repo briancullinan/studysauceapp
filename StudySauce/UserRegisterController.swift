@@ -33,12 +33,12 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addChild(sender: UIButton) {
         self.childrenCount++
-        self.childHeight.constant = CGFloat(self.childrenCount * 60) * saucyTheme.multiplier()
+        self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
         self.children.reloadData()
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 60 * saucyTheme.multiplier()
+        return saucyTheme.textSize * saucyTheme.padding
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -91,7 +91,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.lastName.text = self.last
         self.firstName.text = self.first
         self.email.text = self.mail
-        self.childHeight.constant = CGFloat(self.childrenCount * 60) * saucyTheme.multiplier()
+        self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
         self.childSwitch.on = true
         self.childSwitch.hidden = false
         self.childButton.hidden = false

@@ -158,14 +158,14 @@ class UserSettingsController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 1 && self.users != nil && self.users!.count > 0 {
-            return 40 * saucyTheme.multiplier() * CGFloat(self.users!.count * 2 + 1)
+            return (saucyTheme.textSize + saucyTheme.padding * 2) * CGFloat(self.users!.count * 2 + 1)
         }
         if self.privacyCell.hidden {
             if indexPath.section >= 2 {
                 return 0
             }
         }
-        return 40 * saucyTheme.multiplier()
+        return (saucyTheme.textSize + saucyTheme.padding * 2)
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -176,7 +176,7 @@ class UserSettingsController: UITableViewController {
         if tableView == self.childTable {
             return 0
         }
-        return CGFloat(saucyTheme.subheadingSize) * saucyTheme.multiplier() * 2
+        return saucyTheme.subheadingSize * saucyTheme.lineHeight
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
