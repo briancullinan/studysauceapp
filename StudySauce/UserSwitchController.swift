@@ -11,7 +11,8 @@ import Foundation
 class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var users: [User]? = nil
-
+    var selected = false
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidAppear(animated: Bool) {
@@ -24,7 +25,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.presentingViewController?.viewDidAppear(animated)
+        // call this extra because over current context doesn't fire it when it switches back
+        if self.selected != true {
+            self.presentingViewController?.viewDidAppear(animated)
+        }
     }
     
     override func viewDidLoad() {
@@ -37,14 +41,14 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     func getUsersFromLocalStore(done: () -> Void = {}) {
         AppDelegate.performContext({
             self.users = AppDelegate.list(User.self)
-            dispatch_async(dispatch_get_main_queue(), {
-                done()
-            })
+            doMain(done)
         })
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.selected = true
         let i = indexPath.row - 1
+        
         if indexPath.row == 0 {
             self.logout()
             return
@@ -57,7 +61,12 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
             AppDelegate.instance().user = self.users![i]
             let home = self.presentingViewController! as? HomeController
             self.dismissViewControllerAnimated(true, completion: {
-                home?.viewDidAppear(true)
+                if self.users![i].getProperty("seen_tutorial") as? Bool != true {
+                    AppDelegate.goHome(home)
+                }
+                else {
+                    home?.viewDidAppear(true)
+                }
             })
         }
     }

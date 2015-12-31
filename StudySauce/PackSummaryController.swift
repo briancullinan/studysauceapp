@@ -16,8 +16,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func returnToPacks(segue: UIStoryboardSegue) {
-        
+        self.viewDidLoad()
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.viewDidLoad()
+    }
+    
     // load the card content, display and available answers
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
@@ -230,26 +235,26 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         // Load packs from database
         AppDelegate.performContext {
             self.packs = self.getPacksFromLocalStore()
-            dispatch_async(dispatch_get_main_queue(), {
+            doMain {
                 self.tableView.reloadData()
-            })
+            }
         }
         
         // refresh data from server
         PackSummaryController.getPacks({ () -> Void in
             AppDelegate.performContext {
                 self.packs = self.getPacksFromLocalStore()
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     self.tableView.reloadData()
-                })
+                }
             }
             }, downloadedHandler: {(newPack: Pack) -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
+            doMain {
                 // calls every time to check if this pack was clicked on while downloaded
                 //if self.pack != nil && self.pack! == newPack {
                 //    self.tableView(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: self.packs.indexOf(self.pack!)!, inSection: 0))
                 //}
-            })
+            }
         })
     }
     
@@ -295,7 +300,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = self.packs[indexPath.row]
         PackSummaryController.downloadIfNeeded(self.pack!) { () -> Void in
-            dispatch_async(dispatch_get_main_queue(), {
+            doMain {
                 if self.pack!.cards!.count  == 0 {
                     // something went wrong
                     return
@@ -304,7 +309,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     self.pack!.getUserPack(AppDelegate.getUser()).getRetries(true)
                 }
                 self.performSegueWithIdentifier("card", sender: self)
-            })
+            }
         }
     }
     

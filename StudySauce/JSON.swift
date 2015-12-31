@@ -30,7 +30,7 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
         if data != nil {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
                         redirect(path: json["redirect"] as! String)
@@ -38,7 +38,7 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
                     if !hadError {
                         done(json: json)
                     }
-                })
+                }
             }
             catch let error as NSError {
                 NSLog("\(error.description)")
@@ -77,7 +77,7 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
         if data != nil {
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
                         let url = NSURL(string: json["redirect"] as! String)
@@ -86,7 +86,7 @@ func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(
                     if !hadError {
                         done(json: json)
                     }
-                })
+                }
             }
             catch let error as NSError {
                 NSLog("\(error.description)")

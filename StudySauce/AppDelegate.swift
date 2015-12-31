@@ -13,6 +13,8 @@ import SystemConfiguration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
+    var timeout = 60.0
+    
     var window: UIWindow?
     var storyboard: UIStoryboard?
     var user: User? {
@@ -38,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             }
         }
     }
+    
+    static var lastTouch = NSDate()
     
     static func visibleViewController() -> UIViewController {
         return self.visibleViewController(AppDelegate.instance().window!.rootViewController!)
@@ -112,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 else {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
                 }
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     if self.instance().window == nil {
                         self.instance().window = UIWindow(frame: UIScreen.mainScreen().bounds)
                         self.instance().window!.rootViewController = home
@@ -124,9 +128,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     }
                     else if fromView == nil {
                         home.transitioningDelegate = CardSegue.transitionManager
-                        self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
-                            done(v: home)
-                        })
+                        
+                        if !self.instance().window!.rootViewController!.isTypeOf(home) {
+                            self.instance().window!.rootViewController!.dismissViewControllerAnimated(false, completion: {
+                                self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
+                                    done(v: home)
+                                })
+                            })
+                        }
+                        else {
+                            self.instance().window!.rootViewController!.dismissViewControllerAnimated(true, completion: {
+                                done(v: self.instance().window!.rootViewController!)
+                            })
+                        }
                     }
                     else {
                         home.transitioningDelegate = CardSegue.transitionManager
@@ -135,7 +149,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                             done(v: home)
                         })
                     }
-                })
+                }
             })
         }
         
@@ -164,9 +178,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                         self.user = user
                     }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        AppDelegate.goHome()
-                    })
+                    doMain {
+                        AppDelegate.goHome {h in
+                            if h is HomeController {
+                                self.didTimeout()
+                            }
+                        }
+                    }
                 })
             }
         }
@@ -174,19 +192,64 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             // TODO: work in offline mode
             if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                 self.user = user
-                AppDelegate.goHome()
+                AppDelegate.goHome{h in
+                    if h is HomeController {
+                        self.didTimeout()
+                    }
+                }
             }
             else {
                 AppDelegate.goHome {v in
                     v.showNoConnectionDialog { () -> Void in
                         UserLoginController.home { () -> Void in
-                            AppDelegate.goHome()
+                            AppDelegate.goHome{h in
+                                if h is HomeController {
+                                    self.didTimeout()
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+        
+        // timeout timer
+        NSTimer.scheduledTimerWithTimeInterval(1,
+            target: self, selector: "checkTimeout", userInfo: nil, repeats: true)
+        
         return true
+    }
+    
+    func checkTimeout () {
+        if AppDelegate.lastTouch < NSDate().dateByAddingTimeInterval(-self.timeout) {
+            self.didTimeout()
+            AppDelegate.lastTouch = NSDate()
+        }
+    }
+    
+    func didTimeout() {
+        if self.window == nil {
+            return
+        }
+        AppDelegate.performContext({
+            if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 0 {
+                doMain {
+                    if !(AppDelegate.visibleViewController() is UserSwitchController) {
+                        if let home = AppDelegate.visibleViewController() as? HomeController {
+                            home.userClick(home.userButton!)
+                        }
+                        else {
+                            AppDelegate.goHome {home in
+                                let h = home as! HomeController
+                                doMain {
+                                    h.userClick(h.userButton!)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {

@@ -115,10 +115,7 @@ class UserLoginController : UIViewController {
                         AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
                         AppDelegate.saveContext()
                     }
-                    dispatch_async(dispatch_get_main_queue(), {
-                        done()
-                    })
-
+                    doMain(done)
                 })
             }
         })
@@ -131,9 +128,7 @@ class UserLoginController : UIViewController {
                 if json["csrf_token"] as? String != nil {
                     self.token = json["csrf_token"] as? String
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    done()
-                })
+                doMain(done)
             }
         })
     }

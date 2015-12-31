@@ -38,49 +38,55 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="272"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="8" width="560" height="486"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
-                                <rect key="frame" x="250" y="401" width="100" height="101"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
+                                <rect key="frame" x="228" y="200" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="height" multiplier="1:1" id="zB1-2i-ICB"/>
-                                </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
-                                <rect key="frame" x="228" y="497" width="144" height="86"/>
+                            <button hidden="YES" opaque="NO" alpha="0.5" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
+                                <rect key="frame" x="228" y="200" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="6bm-vP-DFC"/>
+                                    <constraint firstAttribute="width" secondItem="tcT-70-9cF" secondAttribute="height" multiplier="1:1" id="Id9-xS-6xf"/>
+                                </constraints>
                                 <state key="normal" image="audio"/>
                                 <connections>
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="8" width="560" height="256"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="gnI-XW-KF9" id="xqb-wD-pYr"/>
+                                </connections>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Rib-6W-6bv" firstAttribute="top" secondItem="3hO-ob-mU8" secondAttribute="top" multiplier="0.8" id="1E2-5p-vXH"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leadingMargin" id="2d7-Od-l0N"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="centerY" secondItem="Rib-6W-6bv" secondAttribute="centerY" id="3Wi-A4-Neu"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="height" secondItem="Rib-6W-6bv" secondAttribute="height" id="8lS-aQ-gkT"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="EZw-DT-qQ4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LBl-mY-aFi" secondAttribute="trailing" id="FkJ-ZD-FsO"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="tcT-70-9cF" secondAttribute="centerX" id="WCz-RM-FuS"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leadingMargin" constant="208" id="XKA-5F-bwG"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="8" symbolic="YES" id="YdJ-fr-7Xj"/>
-                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="bsG-7u-QNY"/>
-                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="Rib-6W-6bv" secondAttribute="bottom" id="fRM-Bx-IH7"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="width" id="lDP-LH-MMa"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="200" id="pEZ-hA-1bM"/>
                             <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="LBl-mY-aFi" secondAttribute="bottom" constant="8" symbolic="YES" id="tAe-qh-ZEd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="content" destination="LBl-mY-aFi" id="CXM-as-wmF"/>
+                        <outlet property="left" destination="XKA-5F-bwG" id="uGF-wp-KLI"/>
                         <outlet property="listenButton" destination="tcT-70-9cF" id="zMb-js-fio"/>
                         <outlet property="playButton" destination="Rib-6W-6bv" id="a6M-1J-cbO"/>
+                        <outlet property="size" destination="6bm-vP-DFC" id="oUf-gH-LhB"/>
+                        <outlet property="top" destination="pEZ-hA-1bM" id="8jS-HQ-X15"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yF9-Gl-5iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,7 +146,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="US History" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXH-st-0Tk">
-                                <rect key="frame" x="505" y="28" width="75" height="38"/>
+                                <rect key="frame" x="505" y="28" width="74.5" height="38"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -240,11 +246,11 @@
                                 <color key="textColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahg-L8-JPt">
-                                <rect key="frame" x="0.0" y="126" width="600" height="298"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ahg-L8-JPt">
+                                <rect key="frame" x="0.0" y="156" width="600" height="308"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92h-7Y-T0y">
-                                <rect key="frame" x="20" y="8" width="560" height="120"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92h-7Y-T0y">
+                                <rect key="frame" x="20" y="28" width="560" height="120"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -449,7 +455,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="My study packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1e-oo-7Yc">
-                                <rect key="frame" x="229" y="28" width="143" height="38"/>
+                                <rect key="frame" x="229" y="28" width="142.5" height="38"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1275,7 +1281,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                     </textField>
                                     <switch opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rDe-jG-ov5">
-                                        <rect key="frame" x="20" y="143" width="54" height="31"/>
+                                        <rect key="frame" x="20" y="143" width="53.5" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="rDe-jG-ov5" secondAttribute="height" multiplier="5:3" id="FS6-Fi-PAM"/>
                                         </constraints>
@@ -1318,7 +1324,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <rect key="frame" x="0.0" y="28" width="560" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xjx-iy-IFg" id="saC-qr-TB7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child first name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uBf-cE-xhK" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
@@ -1739,13 +1745,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50 cards" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X6w-Bw-D7U">
-                                <rect key="frame" x="401" y="8" width="73" height="21"/>
+                                <rect key="frame" x="401" y="8" width="72.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZC-oJ-aGv">
-                                <rect key="frame" x="8" y="8" width="50" height="21"/>
+                                <rect key="frame" x="8" y="8" width="50" height="20.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2009,7 +2015,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <tableViewSection headerTitle="Basic information" id="BTy-7d-dQQ">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="xSV-jN-HWd">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xSV-jN-HWd" id="XU1-QP-8j2">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -2037,7 +2043,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="zJp-FK-9yM">
-                                        <rect key="frame" x="0.0" y="90" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="89.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zJp-FK-9yM" id="ybY-Zq-emd">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -2065,7 +2071,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lgW-Vk-SzC">
-                                        <rect key="frame" x="0.0" y="130" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="129.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgW-Vk-SzC" id="4h4-2R-VOr">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
@@ -2097,7 +2103,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <tableViewSection headerTitle="Child information" id="hKr-42-xBk">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="258" id="qY0-eA-xul">
-                                        <rect key="frame" x="0.0" y="203" width="600" height="258"/>
+                                        <rect key="frame" x="0.0" y="202.5" width="600" height="258"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qY0-eA-xul" id="pf3-OW-VZG">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="258"/>
@@ -2111,7 +2117,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                             <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OyK-Ax-3G6" id="nVc-5D-TLq">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiW-fh-aXa">
@@ -2139,7 +2145,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                             <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-I0-zUv" id="8mO-KZ-AQc">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Doe" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MEB-Rl-9FC">
@@ -2167,7 +2173,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                             <rect key="frame" x="0.0" y="116" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IIa-TW-UQF" id="Z0O-Ic-qU2">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n2z-bl-Geu">
@@ -2185,7 +2191,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                             <rect key="frame" x="0.0" y="160" width="600" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQr-Om-UDX" id="OQh-RI-u2U">
-                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MB-dS-Kv3">
@@ -2221,7 +2227,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <tableViewSection headerTitle="Privacy" id="F3V-vC-eWK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="45V-80-3rm">
-                                        <rect key="frame" x="0.0" y="494" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="493.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45V-80-3rm" id="W63-qk-s9q">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="40"/>
@@ -2248,7 +2254,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <tableViewSection headerTitle="Support" id="fxT-ql-DSK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gsZ-sM-Rcm">
-                                        <rect key="frame" x="0.0" y="567" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="566.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gsZ-sM-Rcm" id="geq-rR-o0q">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="40"/>
@@ -2271,7 +2277,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="y9r-vT-VH4">
-                                        <rect key="frame" x="0.0" y="607" width="600" height="40"/>
+                                        <rect key="frame" x="0.0" y="606.5" width="600" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y9r-vT-VH4" id="Oyr-M5-FhM">
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="40"/>
@@ -2416,7 +2422,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No internet connection" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzM-kw-zvO">
-                                <rect key="frame" x="20" y="229" width="560" height="31"/>
+                                <rect key="frame" x="20" y="228.5" width="560" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2473,13 +2479,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <rect key="frame" x="0.0" y="54" width="600" height="538"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEn-Rh-4rQ">
-                                        <rect key="frame" x="20" y="20" width="87" height="21"/>
+                                        <rect key="frame" x="20" y="20" width="87" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l49-oY-aGI">
-                                        <rect key="frame" x="20" y="76" width="115" height="21"/>
+                                        <rect key="frame" x="20" y="76" width="114.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2494,7 +2500,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKi-0L-j2x">
-                                        <rect key="frame" x="20" y="133" width="74" height="21"/>
+                                        <rect key="frame" x="20" y="133" width="73.5" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2599,17 +2605,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtg-gQ-K4n">
-                                <rect key="frame" x="457" y="510" width="123" height="82"/>
-                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <state key="normal" title="True">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="trueClick:" destination="WFa-kw-IKE" eventType="touchUpInside" id="h6s-WH-Cjc"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rSg-TN-Foe">
                                 <rect key="frame" x="20" y="510" width="123" height="82"/>
                                 <color key="backgroundColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2631,6 +2626,17 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <segue destination="gnI-XW-KF9" kind="embed" id="Dzv-wk-aJj"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gtg-gQ-K4n">
+                                <rect key="frame" x="457" y="510" width="123" height="82"/>
+                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <state key="normal" title="True">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="trueClick:" destination="WFa-kw-IKE" eventType="touchUpInside" id="h6s-WH-Cjc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2672,16 +2678,52 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <scene sceneID="rGd-da-InK">
             <objects>
                 <viewController storyboardIdentifier="Blank" title="CardPrompt" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GSF-sY-ir3" customClass="CardBlankController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="Ln5-gf-Sak">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ewj-Tk-Wnr"/>
+                        <viewControllerLayoutGuide type="bottom" id="VXm-rk-bAZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dOA-sd-DiZ">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <connections>
-                            <segue destination="gnI-XW-KF9" kind="embed" id="cEO-mr-k0m"/>
-                        </connections>
-                    </containerView>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="300" width="560" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                            </textField>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfB-8a-8h8">
+                                <rect key="frame" x="0.0" y="20" width="600" height="272"/>
+                                <connections>
+                                    <segue destination="gnI-XW-KF9" kind="embed" id="B8Y-rH-ahi"/>
+                                </connections>
+                            </containerView>
+                            <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fy8-Cm-4pg">
+                                <rect key="frame" x="232.5" y="325" width="135" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <state key="normal" title="Get answer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dfB-8a-8h8" firstAttribute="centerX" secondItem="dOA-sd-DiZ" secondAttribute="centerX" id="DLC-RH-7OQ"/>
+                            <constraint firstItem="Fy8-Cm-4pg" firstAttribute="centerX" secondItem="dOA-sd-DiZ" secondAttribute="centerX" id="MkO-Pd-cHc"/>
+                            <constraint firstItem="NkX-xa-Rjn" firstAttribute="top" secondItem="dOA-sd-DiZ" secondAttribute="centerY" id="OrY-uj-iiv"/>
+                            <constraint firstItem="NkX-xa-Rjn" firstAttribute="top" secondItem="dfB-8a-8h8" secondAttribute="bottom" constant="8" symbolic="YES" id="QOg-wT-47f"/>
+                            <constraint firstItem="dfB-8a-8h8" firstAttribute="width" secondItem="dOA-sd-DiZ" secondAttribute="width" id="UJe-4g-SX2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NkX-xa-Rjn" secondAttribute="trailing" id="bBz-fY-LrI"/>
+                            <constraint firstItem="dfB-8a-8h8" firstAttribute="top" secondItem="Ewj-Tk-Wnr" secondAttribute="bottom" id="fJV-7q-RMN"/>
+                            <constraint firstItem="Fy8-Cm-4pg" firstAttribute="top" secondItem="NkX-xa-Rjn" secondAttribute="bottom" constant="8" symbolic="YES" id="ftu-9q-VsU"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="NkX-xa-Rjn" secondAttribute="leading" id="jpN-bT-3Sz"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" id="WZU-L0-OyD"/>
                     <connections>
-                        <segue destination="mLj-Q7-xON" kind="show" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="eQ2-NB-6z6"/>
+                        <outlet property="inputText" destination="NkX-xa-Rjn" id="k4B-xr-9HA"/>
+                        <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9qz-n1-wHJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wHd-Om-87V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2722,59 +2764,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JLM-5S-ywR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-1929"/>
-        </scene>
-        <!--CardResponse-->
-        <scene sceneID="WOK-vh-FAN">
-            <objects>
-                <viewController title="CardResponse" id="mLj-Q7-xON" customClass="CardBlankController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dKv-nM-XPI"/>
-                        <viewControllerLayoutGuide type="bottom" id="KAe-89-UJO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8Tr-f4-9ll">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3fg-Rj-6Lw" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="20" y="142" width="560" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                <connections>
-                                    <action selector="beginEdit:" destination="mLj-Q7-xON" eventType="editingDidBegin" id="UeU-XT-BCJ"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" tag="1338" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOd-z4-PhJ">
-                                <rect key="frame" x="200" y="167" width="200" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Get answer">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="correctClick:" destination="mLj-Q7-xON" eventType="touchUpInside" id="UDo-2T-FRT"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="JOd-z4-PhJ" firstAttribute="top" secondItem="3fg-Rj-6Lw" secondAttribute="bottom" constant="8" symbolic="YES" id="8oO-VD-HVA"/>
-                            <constraint firstItem="3fg-Rj-6Lw" firstAttribute="leading" secondItem="8Tr-f4-9ll" secondAttribute="leadingMargin" id="Els-dt-8vy"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3fg-Rj-6Lw" secondAttribute="trailing" id="Lr4-MO-IUx"/>
-                            <constraint firstItem="3fg-Rj-6Lw" firstAttribute="centerY" secondItem="8Tr-f4-9ll" secondAttribute="centerY" multiplier="0.5" id="NuZ-kA-Cfe"/>
-                            <constraint firstItem="JOd-z4-PhJ" firstAttribute="centerX" secondItem="8Tr-f4-9ll" secondAttribute="centerX" id="oYR-jl-cBf"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="inputText" destination="3fg-Rj-6Lw" id="ZOM-If-qOn"/>
-                        <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="VCf-ft-oRv"/>
-                        <segue destination="bKm-7T-5yA" kind="unwind" identifier="last" unwindAction="returnToBlank:" id="SyC-M2-y0O"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="MVp-Xa-4AI" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bKm-7T-5yA" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="3527" y="-1151"/>
         </scene>
         <!--User Switch Controller-->
         <scene sceneID="U4j-j6-lZw">
@@ -2957,10 +2946,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GGa-Jv-qkY"/>
-        <segue reference="mZN-Ns-J7P"/>
+        <segue reference="M6g-6I-YI4"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="VCf-ft-oRv"/>
-        <segue reference="Dzv-wk-aJj"/>
+        <segue reference="mZN-Ns-J7P"/>
+        <segue reference="B8Y-rH-ahi"/>
+        <segue reference="9qz-n1-wHJ"/>
     </inferredMetricsTieBreakers>
 </document>

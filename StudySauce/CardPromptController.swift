@@ -12,33 +12,103 @@ import UIKit
 import AVFoundation
 import QuartzCore
 
-class CardPromptController: UIViewController, AVAudioPlayerDelegate {
+class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollViewDelegate {
     weak var card: Card? = nil
     var player: AVAudioPlayer? = nil
     var url: String? = nil
     var playing: Bool = false
     var timer: NSTimer? = nil
 
+    @IBOutlet weak var top: NSLayoutConstraint!
+    @IBOutlet weak var left: NSLayoutConstraint!
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
+    @IBOutlet weak var size: NSLayoutConstraint!
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        doMain(self.updateListenPosition)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.updateListenPosition()
+    }
+    
+    func getAttributedText(content: NSString) -> NSAttributedString {
+        // align listen button to substring
+        let wholeRange = NSMakeRange(0, content.length)
+        let range = content.rangeOfString("L1ST3N", options: [], range: wholeRange)
+        
+        // set the listen text to clear
+        let attr = NSMutableAttributedString(string: content as String)
+        attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
+        
+        // center it
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .Center
+        attr.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: wholeRange)
+        
+        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 200.0)!, range: range)
+        attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
+        return attr
+    }
+    
+    func updateListenPosition() {
+        if self.listenButton.hidden == false {
+            let text = self.content.attributedText.string as NSString
+            let wholeRange = NSMakeRange(0, self.content.attributedText.length)
+            let range = text.rangeOfString("L1ST3N", options: [], range: wholeRange)
+            
+            self.content.layoutManager.ensureLayoutForTextContainer(self.content.textContainer)
+            let start = self.content.positionFromPosition(self.content.beginningOfDocument, offset: range.location)!
+            // text position of the end of the range
+            let end = self.content.positionFromPosition(start, offset: range.length)!
+            
+            // text range of the range
+            let tRange = self.content.textRangeFromPosition(start, toPosition: end)
+            let position = self.content.firstRectForRange(tRange!)
+            let globalPoint = self.content.convertPoint(position.origin, toView: self.view)
+            self.size.constant = 100 * saucyTheme.multiplier()
+            self.top.constant = globalPoint.y + ((position.height - self.size.constant) / 2)
+            self.left.constant = globalPoint.x + ((position.width - self.size.constant) / 2)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.updateListenPosition()
+    }
     
     override func viewDidLoad() {
-        self.content.text = self.card!.content
+        super.viewDidLoad()
+        
+        var content = self.card!.content
+        
+        // replace new line characters with real lines
+        let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
+        content = lines?.stringByReplacingMatchesInString(content!, options: [], range: NSMakeRange(0, content!.characters.count), withTemplate: "\n")
+
+        
+        // find the hyperlink and replace it with a listen button
         let ex = try? NSRegularExpression(pattern: "https://.*", options: NSRegularExpressionOptions.CaseInsensitive)
-        let match = ex?.firstMatchInString(self.card!.content!, options: [], range:NSMakeRange(0, self.card!.content!.characters.count))
+        let match = ex?.firstMatchInString(content!, options: [], range:NSMakeRange(0, content!.characters.count))
         let matched = match?.rangeAtIndex(0)
         if matched != nil {
             let range = Range(
                 start: self.card!.content!.startIndex.advancedBy(matched!.location),
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
-            self.content.text.replaceRange(range, with: "")
-            listenButton.hidden = false
-            playButton.hidden = false
+            content!.replaceRange(range, with: "L1ST3N")
+            self.listenButton.hidden = false
+            self.playButton.hidden = false
+            self.content.attributedText = self.getAttributedText(content!)
         }
-        let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
-        self.content.text = lines?.stringByReplacingMatchesInString(self.content.text, options: [], range: NSMakeRange(0, self.content.text.characters.count), withTemplate: "\n")
+        else {
+            self.content.text = content
+        }
     }
     
     func downloadAudio(url: String) {

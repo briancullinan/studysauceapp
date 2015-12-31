@@ -57,9 +57,9 @@ extension UIViewController {
         dialog.modalPresentationStyle = .OverCurrentContext
         self.transitioningDelegate = CardSegue.transitionManager
         dialog.transitioningDelegate = CardSegue.transitionManager
-        dispatch_async(dispatch_get_main_queue(),{
+        doMain {
             self.presentViewController(dialog, animated: true, completion: nil)
-        })
+        }
         return dialog
     }
     

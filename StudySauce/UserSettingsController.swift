@@ -38,10 +38,10 @@ class UserSettingsController: UITableViewController {
             let currentCookie = (AppDelegate.getUser()?.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
             let users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser() && (
                 $0.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie}
-            dispatch_async(dispatch_get_main_queue(), {
+            doMain {
                 self.users = users
                 done()
-            })
+            }
         }
     }
     

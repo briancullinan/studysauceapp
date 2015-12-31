@@ -24,9 +24,9 @@ class File: NSManagedObject {
             AppDelegate.saveContext()
 
             if file.filename != nil && fileManager.fileExistsAtPath(file.filename!) {
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     done(file)
-                })
+                }
                 return
             }
             if file.downloading {
@@ -38,12 +38,14 @@ class File: NSManagedObject {
                 let fileName = fileManager.displayNameAtPath(url)
                 let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
                 fileManager.createFileAtPath(tempFile.path!, contents: data, attributes: nil)
-                file.filename = tempFile.path
-                AppDelegate.saveContext()
-                file.downloading = false
-                // show image
-                dispatch_async(dispatch_get_main_queue(), {
-                    done(file)
+                AppDelegate.performContext({
+                    file.filename = tempFile.path
+                    AppDelegate.saveContext()
+                    file.downloading = false
+                    // show image
+                    doMain {
+                        done(file)
+                    }
                 })
             })
         })

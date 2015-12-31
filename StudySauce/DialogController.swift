@@ -38,9 +38,9 @@ class DialogController: UIViewController {
     @IBAction func buttonClick(sender: UIButton) {
         if click() {
             self.dismissViewControllerAnimated(true, completion: {
-                dispatch_async(dispatch_get_main_queue(),{
+                doMain {
                     self.done()
-                })
+                }
             })
         }
     }

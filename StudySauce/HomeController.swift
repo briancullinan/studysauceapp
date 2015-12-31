@@ -26,9 +26,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func monkeyClick(sender: UIButton) {
         AppDelegate.performContext {
             if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     self.performSegueWithIdentifier("card", sender: self)
-                })
+                }
             }
         }
     }
@@ -104,9 +104,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if AppDelegate.getUser() != nil {
                     let count = AppDelegate.getUser()!.getRetentionRemaining()
                     let s = count == 1 ? "" : "s"
-                    dispatch_async(dispatch_get_main_queue(), {
+                    doMain {
                         self.cardCount!.text = "\(count) card\(s)"
-                    })
+                    }
                 }
             }
         }
@@ -164,25 +164,25 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Load packs from database
             AppDelegate.performContext {
                 self.packs = self.getPacksFromLocalStore()
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     self.tableView!.reloadData()
-                })
+                }
             }
             PackSummaryController.getPacks({
                 AppDelegate.performContext {
                     self.packs = self.getPacksFromLocalStore()
-                    dispatch_async(dispatch_get_main_queue(), {
+                    doMain {
                         self.tableView!.reloadData()
                         self.setTotal()
-                    })
+                    }
                 }
                 }, downloadedHandler: {p in
                     AppDelegate.performContext {
                         self.packs = self.getPacksFromLocalStore()
-                        dispatch_async(dispatch_get_main_queue(), {
+                        doMain {
                             self.tableView!.reloadData()
                             self.setTotal()
-                        })
+                        }
                     }
             })
         }

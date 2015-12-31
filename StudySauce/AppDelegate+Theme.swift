@@ -79,13 +79,13 @@ extension AppDelegate {
     func rotated()
     {
         if AppDelegate.instance().window != nil {
-            dispatch_async(dispatch_get_main_queue(), {
+            doMain {
                 let vc = AppDelegate.visibleViewController()
                 if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
                     vc.orientation = UIApplication.sharedApplication().statusBarOrientation
                     self.rerenderView(vc.view)
                 }
-            })
+            }
         }
     }
     
@@ -322,13 +322,13 @@ extension AppDelegate {
            CardSelfController.self ~> UIButton.self ~> UILabel.self,
            PackResultsController.self ~> UIButton.self ~* {$0.tag == 2},
            PackResultsController.self ~> UIButton.self ~* {$0.tag == 2} ~> UILabel.self], {
-            $0.setFontSize(60 * saucyTheme.multiplier())
+            $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
         // true and false button font
         $([CardTrueFalseController.self ~> UIButton.self,
            CardTrueFalseController.self ~> UIButton.self ~> UILabel.self], {
-            $0.setFontSize(40 * saucyTheme.multiplier())
+            $0.setFontSize(30 * saucyTheme.multiplier())
         })
         
         $([CardBlankController.self ~> UITextField.self,
@@ -361,9 +361,9 @@ extension AppDelegate {
         
         $([UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            dispatch_async(dispatch_get_main_queue(), {
-                v.scrollRangeToVisible(NSMakeRange(0, 0))
-            })
+                doMain {
+                    v.scrollRangeToVisible(NSMakeRange(0, 0))
+                }
         })
         
         $([CardPromptController.self ~> UITextView.self,

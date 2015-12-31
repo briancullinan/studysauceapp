@@ -14,3 +14,7 @@ func <|<T: AnyObject>(obj: T, f: T -> () ) -> T {
     f(obj)
     return obj
 }
+
+func doMain (block: () -> Void) {
+    dispatch_async(dispatch_get_main_queue(), block)
+}

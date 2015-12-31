@@ -48,9 +48,9 @@ class CardSelfController: UIViewController {
                 AppDelegate.saveContext()
                 vc.intermediateResponse = newResponse
                 CardController.syncResponses()
-                dispatch_async(dispatch_get_main_queue(), {
+                doMain {
                     self.performSegueWithIdentifier("card", sender: self)
-                })
+                }
             }
         }
     }

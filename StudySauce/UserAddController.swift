@@ -57,9 +57,9 @@ class UserAddController : UIViewController {
                                     return x.created! <= y.created!
                                 }
                                 AppDelegate.instance().user = newUser
-                                dispatch_async(dispatch_get_main_queue(), {
+                                doMain {
                                     self.lastClick()
-                                })
+                                }
                             }
                         }
                     }

@@ -37,6 +37,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        AppDelegate.lastTouch = NSDate()
+        
         if touch.view is UIButton {
             return false
         }
