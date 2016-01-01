@@ -67,7 +67,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if segue.identifier == "switch" {
             segue.destinationViewController.popoverPresentationController?.delegate = self
-            segue.destinationViewController.popoverPresentationController?.sourceRect = self.userButton!.bounds
+            segue.destinationViewController.popoverPresentationController?.sourceView = self.userButton!.titleLabel!
+            segue.destinationViewController.popoverPresentationController?.sourceRect = self.userButton!.titleLabel!.bounds
             let blur = AppDelegate.createBlurView(self.userButton!)
             blur.alpha = 1
             blur.superview!.bringSubviewToFront(blur)
