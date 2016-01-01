@@ -28,7 +28,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     internal static func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        let url = AppDelegate.studySauceCom("/packs/download?pack=\(forPack.id!)")
+        let url = AppDelegate.studySauceCom("/packs/download/\(AppDelegate.getUser()!.id!)?pack=\(forPack.id!)")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if (error != nil) {
@@ -318,10 +318,16 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.packs.count == 0 {
+            return 1
+        }
         return self.packs.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if self.packs.count == 0 {
+            return tableView.dequeueReusableCellWithIdentifier("NoPacks")!
+        }
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
         let object = self.packs[indexPath.row]

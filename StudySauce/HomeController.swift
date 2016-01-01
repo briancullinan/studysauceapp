@@ -203,13 +203,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func getPacksFromLocalStore() -> [Pack]
     {
-        return AppDelegate.getUser()?.getPacks()
+        return AppDelegate.getUser()!.getPacks()
             .filter({
                 $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
             }) ?? []
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if self.packs.count == 0 {
+            return saucyTheme.textSize * saucyTheme.lineHeight * 2
+        }
         return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
@@ -221,7 +224,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs.count == 0 {
+        if AppDelegate.getUser()!.user_packs!.count == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
+            return cell
+        }
+        else if self.packs.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)
             return cell
         }

@@ -175,9 +175,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         if AppDelegate.isConnectedToNetwork() {
             UserLoginController.home { () -> Void in
                 AppDelegate.performContext({
-                    if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
-                        self.user = user
-                    }
+                    //if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
+                    //    self.user = user
+                    //}
                     doMain {
                         AppDelegate.goHome {h in
                             if h.restorationIdentifier == "Home" {

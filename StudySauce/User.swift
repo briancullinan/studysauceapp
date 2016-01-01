@@ -24,6 +24,10 @@ class User: NSManagedObject {
         return result
     }
     
+    func hasRole(role: String) -> Bool {
+        return self.roles?.componentsSeparatedByString(",").contains(role) == true
+    }
+    
     func getProperty(prop: String) -> AnyObject? {
         if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
             if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {

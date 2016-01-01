@@ -70,6 +70,7 @@ class UserLoginController : UIViewController {
             user.last = json["last"] as? String
             user.setProperty("session", cookies)
             user.created = NSDate.parse(json["created"] as? String)
+            user.roles = json["roles"] as? String
             for c in json["children"] as? [NSDictionary] ?? [] {
                 let childEmail = c["email"] as? String
                 if childEmail == nil {
@@ -82,6 +83,7 @@ class UserLoginController : UIViewController {
                 child.last = c["last"] as? String
                 child.setProperty("session", cookies)
                 child.created = NSDate.parse(c["created"] as? String)
+                child.roles = c["roles"] as? String
             }
         }
         
@@ -111,8 +113,12 @@ class UserLoginController : UIViewController {
                     if let email = json["email"] as? String {
                         // cookie value
                         UserLoginController.processUsers(json)
-                        
-                        AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
+                        if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last where AppDelegate.instance().user == nil {
+                            AppDelegate.instance().user = child
+                        }
+                        else {
+                            AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
+                        }
                         AppDelegate.saveContext()
                     }
                     doMain(done)

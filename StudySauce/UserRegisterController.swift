@@ -139,18 +139,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             postJson("/account/create", params: registrationInfo, redirect: {(path) in
                     // login was a success!
                     if path == "/home" {
-                        AppDelegate.goHome(self, true) {home in
-                            if let childFirst = registrationInfo["childFirst"] as? String {
-                                AppDelegate.performContext({
-                                    if let child = AppDelegate.list(User.self).filter({$0.first == childFirst}).first {
-                                        AppDelegate.instance().user = child
-                                        if home.restorationIdentifier == "Home" {
-                                            home.viewDidAppear(true)
-                                        }
-                                    }
-                                })
-                            }
-                        }
+                        AppDelegate.goHome(self, true)
                     }
                     if path == "/login" {
                         self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
