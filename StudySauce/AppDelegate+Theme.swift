@@ -41,7 +41,7 @@ struct saucyTheme {
     static let lineHeight = CGFloat(1.8)
     
     static func multiplier () -> CGFloat {
-        let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 400
+        let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 300
         return result
     }
 }
@@ -117,7 +117,7 @@ extension AppDelegate {
     }
     
     func setupTheme() {
-        
+
         /*
         Key:
         ~>  Any descendent
@@ -373,8 +373,8 @@ extension AppDelegate {
         })
         
         $([CardPromptController.self ~> UITextView.self ~* T.device("ipad"),
-            CardResponseController.self ~> UITextView.self ~* T.device("ipad")], {(v: UITextView) -> Void in
-                v.setFontSize(40.0 * saucyTheme.multiplier())
+            CardResponseController.self ~> UITextView.self ~* T.device("ipad")], {
+                $0.setFontSize(40.0 * saucyTheme.multiplier())
         })
         
         $([CardPromptController.self ~> UITextView.self,

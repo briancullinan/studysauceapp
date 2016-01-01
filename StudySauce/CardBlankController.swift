@@ -20,11 +20,21 @@ class CardBlankController: UIViewController {
         
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if self.inputText != nil {
             inputText!.becomeFirstResponder()
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        UIView.setAnimationsEnabled(false)
+        self.inputText!.resignFirstResponder()
+        UIView.setAnimationsEnabled(true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -36,13 +46,6 @@ class CardBlankController: UIViewController {
             }
             if let vc = segue.destinationViewController as? CardResponseController {
                 vc.card = self.card
-            }
-            if let _ = segue.destinationViewController as? CardBlankController {
-                if self.inputText != nil {
-                    UIView.setAnimationsEnabled(false)
-                    self.inputText!.resignFirstResponder()
-                    UIView.setAnimationsEnabled(true)
-                }
             }
         }
     }
@@ -93,7 +96,9 @@ class CardBlankController: UIViewController {
     }
 
     @IBAction func correctClick(sender: UIButton) {
-        inputText!.resignFirstResponder()
+        UIView.setAnimationsEnabled(false)
+        self.inputText!.resignFirstResponder()
+        UIView.setAnimationsEnabled(true)
         // TODO: check for correctness and continue
         self.saveResponse(self.inputText!.text!)
     }

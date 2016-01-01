@@ -39,27 +39,31 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     func getAttributedText(content: NSString) -> NSAttributedString {
         // align listen button to substring
         let wholeRange = NSMakeRange(0, content.length)
-        let range = content.rangeOfString("L1ST3N", options: [], range: wholeRange)
+        let range = content.rangeOfString("p14y", options: [], range: wholeRange)
         
         // set the listen text to clear
         let attr = NSMutableAttributedString(string: content as String)
-        attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
         
-        // center it
+        attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
+        attr.addAttribute(NSForegroundColorAttributeName, value: self.content!.textColor!, range: wholeRange)
+        
+        // center itß
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .Center
         attr.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: wholeRange)
         
-        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 200.0)!, range: range)
+        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
         attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
+        
         return attr
     }
     
     func updateListenPosition() {
         if self.listenButton.hidden == false {
+            self.content.attributedText = self.getAttributedText(self.content.text)
             let text = self.content.attributedText.string as NSString
             let wholeRange = NSMakeRange(0, self.content.attributedText.length)
-            let range = text.rangeOfString("L1ST3N", options: [], range: wholeRange)
+            let range = text.rangeOfString("p14y", options: [], range: wholeRange)
             
             self.content.layoutManager.ensureLayoutForTextContainer(self.content.textContainer)
             let start = self.content.positionFromPosition(self.content.beginningOfDocument, offset: range.location)!
@@ -70,7 +74,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let tRange = self.content.textRangeFromPosition(start, toPosition: end)
             let position = self.content.firstRectForRange(tRange!)
             let globalPoint = self.content.convertPoint(position.origin, toView: self.view)
-            self.size.constant = 100 * saucyTheme.multiplier()
+            self.size.constant = position.height
             self.top.constant = globalPoint.y + ((position.height - self.size.constant) / 2)
             self.left.constant = globalPoint.x + ((position.width - self.size.constant) / 2)
         }
@@ -101,14 +105,14 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 start: self.card!.content!.startIndex.advancedBy(matched!.location),
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
-            content!.replaceRange(range, with: "L1ST3N")
+            content!.replaceRange(range, with: "p14y")
             self.listenButton.hidden = false
             self.playButton.hidden = false
-            self.content.attributedText = self.getAttributedText(content!)
+            self.content.scrollEnabled = false
+            self.content.scrollEnabled = true
         }
-        else {
-            self.content.text = content
-        }
+        self.content.text = content
+
     }
     
     func downloadAudio(url: String) {

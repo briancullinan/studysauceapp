@@ -19,7 +19,12 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     internal var token: String?
     internal var pass: String?
     internal var props: NSDictionary?
-    internal var childrenCount = 1
+    internal var childrenCount = 1 {
+        didSet {
+            self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
+            self.children.reloadData()
+        }
+    }
     
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
@@ -33,12 +38,10 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     
     @IBAction func addChild(sender: UIButton) {
         self.childrenCount++
-        self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
-        self.children.reloadData()
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return saucyTheme.textSize * saucyTheme.padding
+        return saucyTheme.textSize + saucyTheme.padding * 2
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -78,10 +81,12 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         if childSwitch.on
         {
             self.children.hidden = false
+            //self.addButton.hidden = false
         }
         else
         {
             self.children.hidden = true
+            //self.addButton.hidden = true
         }
     }
         
@@ -95,12 +100,14 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.childSwitch.on = true
         self.childSwitch.hidden = false
         self.childButton.hidden = false
+        //self.addButton.hidden = false
         self.children.hidden = false
         if self.props?["child_required"] as? Bool == true {
             self.childSwitch.on = true
             self.childSwitch.hidden = true
             self.childButton.hidden = true
             self.children.hidden = false
+            //self.addButton.hidden = false
         }
         if self.props?["child_disabled"] as? Bool == true {
             self.firstName.placeholder = NSLocalizedString("First name", comment: "Placeholder text for first name registration")
@@ -108,6 +115,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             self.childSwitch.hidden = true
             self.childButton.hidden = true
             self.children.hidden = true
+            //self.addButton.hidden = true
         }
     }
     
@@ -136,7 +144,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
                                 AppDelegate.performContext({
                                     if let child = AppDelegate.list(User.self).filter({$0.first == childFirst}).first {
                                         AppDelegate.instance().user = child
-                                        if home is HomeController {
+                                        if home.restorationIdentifier == "Home" {
                                             home.viewDidAppear(true)
                                         }
                                     }

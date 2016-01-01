@@ -13,7 +13,7 @@ import SystemConfiguration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
-    var timeout = 60.0
+    var timeout = 60.0 * 60.0
     
     var window: UIWindow?
     var storyboard: UIStoryboard?
@@ -180,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     }
                     doMain {
                         AppDelegate.goHome {h in
-                            if h is HomeController {
+                            if h.restorationIdentifier == "Home" {
                                 self.didTimeout()
                             }
                         }
@@ -193,7 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                 self.user = user
                 AppDelegate.goHome{h in
-                    if h is HomeController {
+                    if h.restorationIdentifier == "Home" {
                         self.didTimeout()
                     }
                 }
@@ -203,7 +203,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     v.showNoConnectionDialog { () -> Void in
                         UserLoginController.home { () -> Void in
                             AppDelegate.goHome{h in
-                                if h is HomeController {
+                                if h.restorationIdentifier == "Home" {
                                     self.didTimeout()
                                 }
                             }
@@ -228,7 +228,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     func didTimeout() {
-        if self.window == nil {
+        if self.window == nil || self.user == nil {
             return
         }
         AppDelegate.performContext({

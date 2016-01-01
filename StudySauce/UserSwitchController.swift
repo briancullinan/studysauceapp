@@ -118,7 +118,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return saucyTheme.textSize * saucyTheme.lineHeight
+        return saucyTheme.textSize * saucyTheme.lineHeight + saucyTheme.padding
     }
     
 }
