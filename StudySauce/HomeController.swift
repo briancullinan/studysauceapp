@@ -14,7 +14,7 @@ import CoreData
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet internal weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
-    var packs = [Pack]()
+    var packs: [Pack]? = nil
     var normalImage:UIImage!
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
@@ -163,27 +163,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             // Load packs from database
-            AppDelegate.performContext {
-                self.packs = self.getPacksFromLocalStore()
-                doMain {
-                    self.tableView!.reloadData()
-                }
+            self.getPacksFromLocalStore {
+                self.tableView!.reloadData()
             }
             PackSummaryController.getPacks({
-                AppDelegate.performContext {
-                    self.packs = self.getPacksFromLocalStore()
-                    doMain {
-                        self.tableView!.reloadData()
-                        self.setTotal()
-                    }
+                self.getPacksFromLocalStore {
+                    self.tableView!.reloadData()
+                    self.setTotal()
                 }
                 }, downloadedHandler: {p in
-                    AppDelegate.performContext {
-                        self.packs = self.getPacksFromLocalStore()
-                        doMain {
-                            self.tableView!.reloadData()
-                            self.setTotal()
-                        }
+                    
+                    self.getPacksFromLocalStore {
+                        self.tableView!.reloadData()
+                        self.setTotal()
                     }
             })
         }
@@ -202,26 +194,29 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    private func getPacksFromLocalStore() -> [Pack]
+    private func getPacksFromLocalStore(done: () -> Void)
     {
-        return AppDelegate.getUser()!.getPacks()
-            .filter({
-                $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
-            }) ?? []
+        AppDelegate.performContext {
+            self.packs = AppDelegate.getUser()!.getPacks()
+                .filter({
+                    $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
+                })
+            doMain(done)
+        }
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.packs.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 {
             return saucyTheme.textSize * saucyTheme.lineHeight * 2
         }
         return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.packs.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 {
             return 1
         }
-        return self.packs.count
+        return self.packs!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -229,13 +224,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
         }
-        else if self.packs.count == 0 {
+        else if self.packs == nil {
+            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
+        }
+        else if self.packs!.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)
             return cell
         }
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackRetentionCell
-            let object = self.packs[indexPath.row]
+            let object = self.packs![indexPath.row]
             cell.configure(object)
             return cell
         }

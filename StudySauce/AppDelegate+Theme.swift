@@ -435,7 +435,7 @@ extension AppDelegate {
         
         $(TutorialContentViewController.self ~> UILabel.self ~* {$0.tag == 1}, {
             $0.setFontColor(saucyTheme.primary)
-            $0.setFontSize(40 * saucyTheme.multiplier())
+            $0.setFontSize(30 * saucyTheme.multiplier())
         })
         
         $(TutorialPageViewController.self ~> UIScrollView.self, {

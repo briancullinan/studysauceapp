@@ -20,7 +20,8 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         
         self.getUsersFromLocalStore({
             self.tableView.reloadData()
-            self.preferredContentSize = CGSizeMake(200 * saucyTheme.multiplier(), CGFloat(self.tableView.numberOfRowsInSection(0)) * saucyTheme.textSize * saucyTheme.lineHeight)
+            let rows = self.tableView.numberOfRowsInSection(0)
+            self.preferredContentSize = CGSizeMake(200 * saucyTheme.multiplier(), CGFloat(rows) * (saucyTheme.textSize * saucyTheme.lineHeight + saucyTheme.padding))
         })
     }
     
@@ -35,7 +36,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         
         self.popoverPresentationController?.backgroundColor = saucyTheme.lightColor
-        self.preferredContentSize = CGSizeMake(200 * saucyTheme.multiplier(), 3.0 * saucyTheme.textSize * saucyTheme.lineHeight)
+        self.preferredContentSize = CGSizeMake(200 * saucyTheme.multiplier(), 3.0 * (saucyTheme.textSize * saucyTheme.lineHeight + saucyTheme.padding))
     }
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
