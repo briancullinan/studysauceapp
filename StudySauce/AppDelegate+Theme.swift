@@ -336,6 +336,11 @@ extension AppDelegate {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
+        $([CardBlankController.self ~> UITextField.self ~* T.orientation("landscape"),
+            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.orientation("landscape")], {
+                $0.setFontSize(saucyTheme.textSize)
+        })
+        
         $(ContactUsController.self ~> UITextView.self, {
             $0.backgroundColor = UIColor.whiteColor()
             $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
@@ -377,11 +382,23 @@ extension AppDelegate {
                 $0.setFontSize(40.0 * saucyTheme.multiplier())
         })
         
+        $(CardPromptController.self ~> UIButton.self ~* {$0.tag == 1}, {
+            let image = $0.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
+            $0.setBackgroundImage(image, forState: .Normal)
+        })
+
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
             v.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
+        })
+        
+        $([CardPromptController.self ~> UITextView.self ~* T.orientation("landscape"),
+            CardResponseController.self ~> UITextView.self ~* T.orientation("landscape"),
+            UIViewController.self ~* "Privacy" ~> UITextView.self ~* T.orientation("landscape"),
+            UIViewController.self ~* "About" ~> UITextView.self ~* T.orientation("landscape")], {(v: UITextView) in
+                v.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2, 0.0)
         })
         
         $(UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}, {(v: UIButton) in

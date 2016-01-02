@@ -21,10 +21,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
 
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
+    @IBOutlet weak var size: NSLayoutConstraint!
+    
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
-    @IBOutlet weak var size: NSLayoutConstraint!
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
@@ -44,8 +45,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         // set the listen text to clear
         let attr = NSMutableAttributedString(string: content as String)
         
-        attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
-        attr.addAttribute(NSForegroundColorAttributeName, value: self.content!.textColor!, range: wholeRange)
+        //attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
+        //attr.addAttribute(NSForegroundColorAttributeName, value: self.content!.textColor ?? , range: wholeRange)
         
         // center itß
         let paragraph = NSMutableParagraphStyle()
@@ -54,13 +55,13 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         
         attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
         attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
-        
+                
         return attr
     }
     
     func updateListenPosition() {
         if self.listenButton.hidden == false {
-            self.content.attributedText = self.getAttributedText(self.content.text)
+            //self.content.attributedText = self.getAttributedText(self.content.text)
             let text = self.content.attributedText.string as NSString
             let wholeRange = NSMakeRange(0, self.content.attributedText.length)
             let range = text.rangeOfString("p14y", options: [], range: wholeRange)
@@ -75,8 +76,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let position = self.content.firstRectForRange(tRange!)
             let globalPoint = self.content.convertPoint(position.origin, toView: self.view)
             self.size.constant = position.height
-            self.top.constant = globalPoint.y + ((position.height - self.size.constant) / 2)
-            self.left.constant = globalPoint.x + ((position.width - self.size.constant) / 2)
+            self.top.constant = globalPoint.y
+            self.left.constant = position.origin.x + ((position.width - self.size.constant) / 2)
         }
     }
     
@@ -108,10 +109,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             content!.replaceRange(range, with: "p14y")
             self.listenButton.hidden = false
             self.playButton.hidden = false
-            self.content.scrollEnabled = false
-            self.content.scrollEnabled = true
+            self.content.attributedText = self.getAttributedText(content!)
         }
-        self.content.text = content
+        else {
+            self.content.text = content
+        }
 
     }
     

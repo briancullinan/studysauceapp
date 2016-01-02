@@ -49,7 +49,11 @@ class UserAddController : UIViewController {
             ]
 
             self.showNoConnectionDialog({
-                postJson("/account/create", params: registrationInfo, redirect: {(path) in
+                postJson("/account/create", params: registrationInfo, error: {code in
+                    if code == 404 {
+                        self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), button: NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
+                    }
+                    }, redirect: {(path) in
                     if path == "/home" {
                         UserLoginController.home { () -> Void in
                             AppDelegate.performContext {

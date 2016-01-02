@@ -55,7 +55,7 @@ class AutoSizingTextView: UITextView {
             if !setManually && self.font != nil {
                 let size = self.getFontSize()
                 if size != self.font?.pointSize {
-                    self.font = UIFont(name: self.font!.fontName, size: size)
+                    self.setFontSize(size)
                 }
             }
             

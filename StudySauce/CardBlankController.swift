@@ -94,6 +94,11 @@ class CardBlankController: UIViewController {
             }
         }
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        self.inputText?.becomeFirstResponder()
+    }
 
     @IBAction func correctClick(sender: UIButton) {
         UIView.setAnimationsEnabled(false)

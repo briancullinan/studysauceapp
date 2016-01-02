@@ -16,11 +16,45 @@ enum T<B: UIView> {
     static func device(d: String) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
-            let match = ex?.firstMatchInString(UIDevice.currentDevice().systemName, options: [], range:NSMakeRange(0, d.characters.count))
+            let current = UIDevice.currentDevice().systemName
+            let match = ex?.firstMatchInString(current, options: [], range:NSMakeRange(0, current.characters.count))
             let matched = match?.rangeAtIndex(0)
             return matched != nil
         }
     }
+    
+    static func orientation(d: String) -> (v: B) -> Bool {
+        return {(_: B) -> Bool in
+            if d.lowercaseString == "landscape" && (UIApplication.sharedApplication().statusBarOrientation == .LandscapeLeft ||
+                UIApplication.sharedApplication().statusBarOrientation == .LandscapeRight) {
+                    return true
+            }
+            if d.lowercaseString == "portrait" && (UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown ||
+                UIApplication.sharedApplication().statusBarOrientation == .Portrait) {
+                    return true
+            }
+            if d.lowercaseString == "landscapeleft" && UIApplication.sharedApplication().statusBarOrientation == .LandscapeLeft {
+                    return true
+            }
+            if d.lowercaseString == "landscaperight" && UIApplication.sharedApplication().statusBarOrientation == .LandscapeRight {
+                return true
+            }
+            if d.lowercaseString == "portrait" && UIApplication.sharedApplication().statusBarOrientation == .Portrait {
+                return true
+            }
+            if d.lowercaseString == "portraitupsidedown" && UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown {
+                return true
+            }
+            return false
+        }
+    }
+    
+    static func orientation(d: UIInterfaceOrientation) -> (v: B) -> Bool {
+        return {(_: B) -> Bool in
+            return UIApplication.sharedApplication().statusBarOrientation == d
+        }
+    }
+
 }
 
 
