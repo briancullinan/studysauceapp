@@ -19,6 +19,7 @@ extension UITextView {
         //}
         self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
             var attrs = s
+            print(r)
             if let oldFont = attrs[NSFontAttributeName] as? UIFont {
                 if oldFont.pointSize == self.font?.pointSize {
                     attrs[NSFontAttributeName] = UIFont(name: oldFont.familyName, size: size)!
@@ -41,6 +42,7 @@ extension UITextView {
         //}
         self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
             var attrs = s
+            print(r)
             if let oldFont = attrs[NSFontAttributeName] as? UIFont {
                 if oldFont.familyName == self.font?.familyName {
                     attrs[NSFontAttributeName] = UIFont(name: name, size: oldFont.pointSize)!
@@ -63,8 +65,9 @@ extension UITextView {
         //}
         self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
             var attrs = s
+            print(r)
             if let oldColor = attrs[NSForegroundColorAttributeName] as? UIColor {
-                if oldColor == self.textColor {
+                if oldColor == self.textColor && oldColor != UIColor.clearColor() {
                     attrs[NSForegroundColorAttributeName] = color
                 }
             }
