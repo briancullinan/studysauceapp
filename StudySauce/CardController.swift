@@ -114,8 +114,8 @@ class CardController: UIViewController {
             let correct = response.correct != nil && response.correct == 1
             let answer = response.answer != nil ? response.answer!.id! : 0
             let created = response.created!.toRFC()
-            data["responses[\(index)][pack]"] = response.card!.pack!.id!
-            data["responses[\(index)][card]"] = response.card!.id!
+            let cardId = response.card!.id!
+            data["responses[\(index)][card]"] = cardId
             data["responses[\(index)][correct]"] = correct
             data["responses[\(index)][answer]"] = answer
             data["responses[\(index)][created]"] = created

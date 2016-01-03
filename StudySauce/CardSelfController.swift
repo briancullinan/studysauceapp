@@ -47,8 +47,8 @@ class CardSelfController: UIViewController {
                 newResponse.user = AppDelegate.getUser()
                 AppDelegate.saveContext()
                 vc.intermediateResponse = newResponse
-                CardController.syncResponses()
                 doMain {
+                    CardController.syncResponses()
                     self.performSegueWithIdentifier("card", sender: self)
                 }
             }

@@ -150,14 +150,6 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
         })
         
-        $(UITextView.self ~* {!$0.editable}) {
-            $0.replaceAttribute(NSParagraphStyleAttributeName) {(a: NSParagraphStyle?) in
-                let newPara = a as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
-                newPara.lineSpacing = saucyTheme.padding * 2
-                return newPara
-            }
-        }
-
         $(UIViewController.self ~* "About" ~>> UITextView.self) {
             let newPara = NSMutableParagraphStyle()
             newPara.defaultTabInterval = 10.5

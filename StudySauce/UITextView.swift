@@ -51,8 +51,18 @@ extension UITextView {
     override func setFontName(name: String) {
         if !self.editable {
             let newFont = UIFont(name: name, size: self.font!.pointSize)!
-            let newAttr = self.replaceAttribute(NSFontAttributeName) {
-                return UIFont(descriptor: newFont.fontDescriptor().fontDescriptorWithSymbolicTraits(($0 ?? self.font!).fontDescriptor().symbolicTraits), size: ($0 ?? self.font!).pointSize)
+            let newAttr = self.replaceAttribute(NSFontAttributeName) {(f: UIFont?) in
+                let currentFont = f ?? self.font!
+                let currentTraits = currentFont.fontDescriptor().symbolicTraits
+                var newTraits = newFont.fontDescriptor()
+                if currentTraits.contains(UIFontDescriptorSymbolicTraits.TraitItalic) {
+                    newTraits = newTraits.fontDescriptorWithSymbolicTraits(UIFontDescriptorSymbolicTraits.TraitItalic)
+                }
+                if currentTraits.contains(UIFontDescriptorSymbolicTraits.TraitBold) {
+                    newTraits = newTraits.fontDescriptorWithSymbolicTraits(UIFontDescriptorSymbolicTraits.TraitBold)
+                }
+                let newFontWithDescriptors = UIFont(descriptor: newTraits, size: currentFont.pointSize)
+                return newFontWithDescriptors
             }
             super.setFontName(name)
             self.attributedText = newAttr
