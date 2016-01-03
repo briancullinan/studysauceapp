@@ -17,17 +17,13 @@ class UserAddController : UIViewController {
     @IBOutlet weak var childLast: UITextField!
     @IBOutlet weak var inviteCode: TextField!
     internal var token: String?
-
-    func lastClick() {
-        CardSegue.transitionManager.transitioning = true
-        let last = self.presentingViewController
-            last?.dismissViewControllerAnimated(true, completion: {
-            last?.viewDidAppear(true)
-        })
-    }
     
     @IBAction func backClick(sender: UIButton) {
-        self.lastClick()
+        CardSegue.transitionManager.transitioning = true
+        let last = self.presentingViewController
+        last?.dismissViewControllerAnimated(true, completion: {
+            last?.viewDidAppear(true)
+        })
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -62,7 +58,10 @@ class UserAddController : UIViewController {
                                 }
                                 AppDelegate.instance().user = newUser
                                 doMain {
-                                    self.lastClick()
+                                    let last = self.presentingViewController
+                                    last?.dismissViewControllerAnimated(true, completion: {
+                                        AppDelegate.goHome(last)
+                                    })
                                 }
                             }
                         }

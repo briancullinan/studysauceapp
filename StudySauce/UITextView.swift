@@ -36,29 +36,43 @@ extension UITextView {
     }
 
     override func setFontSize(size: CGFloat) {
-        let newAttr = self.replaceAttribute(NSFontAttributeName) {
-            return UIFont(descriptor: ($0 ?? self.font!).fontDescriptor(), size: ($0 ?? self.font!).pointSize == self.font!.pointSize ? size : ($0 ?? self.font!).pointSize)
+        if !self.editable {
+            let newAttr = self.replaceAttribute(NSFontAttributeName) {
+                return UIFont(descriptor: ($0 ?? self.font!).fontDescriptor(), size: ($0 ?? self.font!).pointSize == self.font!.pointSize ? size : ($0 ?? self.font!).pointSize)
+            }
+            super.setFontSize(size)
+            self.attributedText = newAttr
         }
-        super.setFontSize(size)
-        self.attributedText = newAttr
+        else {
+            super.setFontSize(size)
+        }
     }
 
     override func setFontName(name: String) {
-        let newFont = UIFont(name: name, size: self.font!.pointSize)!
-        let newAttr = self.replaceAttribute(NSFontAttributeName) {
-            return UIFont(descriptor: newFont.fontDescriptor().fontDescriptorWithSymbolicTraits(($0 ?? self.font!).fontDescriptor().symbolicTraits), size: ($0 ?? self.font!).pointSize)
+        if !self.editable {
+            let newFont = UIFont(name: name, size: self.font!.pointSize)!
+            let newAttr = self.replaceAttribute(NSFontAttributeName) {
+                return UIFont(descriptor: newFont.fontDescriptor().fontDescriptorWithSymbolicTraits(($0 ?? self.font!).fontDescriptor().symbolicTraits), size: ($0 ?? self.font!).pointSize)
+            }
+            super.setFontName(name)
+            self.attributedText = newAttr
         }
-        super.setFontName(name)
-        self.attributedText = newAttr
+        else {
+            super.setFontName(name)
+        }
     }
     
     override func setFontColor(color: UIColor) {
-        let newAttr = self.replaceAttribute(NSForegroundColorAttributeName) {
-            return $0 == self.textColor && $0 != UIColor.clearColor() ? color : $0 ?? color
+        if !self.editable {
+            let newAttr = self.replaceAttribute(NSForegroundColorAttributeName) {
+                return $0 == self.textColor && $0 != UIColor.clearColor() ? color : $0 ?? color
+            }
+            super.setFontColor(color)
+            self.attributedText = newAttr
         }
-        super.setFontColor(color)
-        self.attributedText = newAttr
-
+        else {
+            super.setFontColor(color)
+        }
     }
 
 }

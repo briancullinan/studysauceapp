@@ -150,11 +150,12 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
         })
         
-        $(UITextView.self) {
-            let newPara = NSMutableParagraphStyle()
-            newPara.lineSpacing = saucyTheme.padding
-            newPara.lineHeightMultiple = saucyTheme.lineHeight
-            $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
+        $(UITextView.self ~* {!$0.editable}) {
+            $0.replaceAttribute(NSParagraphStyleAttributeName) {(a: NSParagraphStyle?) in
+                let newPara = a as? NSMutableParagraphStyle ?? NSMutableParagraphStyle()
+                newPara.lineSpacing = saucyTheme.padding * 2
+                return newPara
+            }
         }
 
         $(UIViewController.self ~* "About" ~>> UITextView.self) {
@@ -165,7 +166,6 @@ extension AppDelegate {
             newPara.firstLineHeadIndent = 0.0
             newPara.headIndent = 10.5
             newPara.lineSpacing = saucyTheme.padding
-            newPara.lineHeightMultiple = saucyTheme.lineHeight
             $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
         }
         
@@ -421,7 +421,7 @@ extension AppDelegate {
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            v.textContainerInset = UIEdgeInsets(saucyTheme.padding, saucyTheme.padding / 2)
+            v.textContainerInset = UIEdgeInsets(saucyTheme.padding)
         })
                 
         $(UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}, {(v: UIButton) in

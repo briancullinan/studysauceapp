@@ -12,7 +12,6 @@ import UIKit
 
 class AutoSizingTextView: UITextView {
     
-    var minSize: CGFloat = 12
     var origSize: CGFloat? = nil
     var isCalculating = false
     internal var setManually = false
@@ -40,7 +39,7 @@ class AutoSizingTextView: UITextView {
                 options:[.UsesLineFragmentOrigin, .UsesFontLeading],
                 attributes:[NSFontAttributeName : font!],
                 context:nil).height
-        } while size > self.minSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
+        } while size > saucyTheme.textSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
             || expectSize > maximumLabelWidth.width)
         return floor(size)
     }
@@ -60,11 +59,11 @@ class AutoSizingTextView: UITextView {
             }
             
             // center resized box in container?
-            var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
-            topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
-            if self.contentInset.top != topCorrect {
-                self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
-            }
+            //var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
+            //topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
+            //if self.contentInset.top != topCorrect {
+            //    self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
+            //}
             self.isCalculating = false
         }
     }

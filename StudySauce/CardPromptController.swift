@@ -51,9 +51,6 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         // center it
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .Center
-        paragraph.lineSpacing = saucyTheme.padding * 2
-        paragraph.maximumLineHeight = 50.0 * saucyTheme.multiplier() * saucyTheme.lineHeight + saucyTheme.padding * 2
-        paragraph.lineHeightMultiple = saucyTheme.lineHeight
         attr.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: wholeRange)
         
         attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
@@ -79,8 +76,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let position = self.content.firstRectForRange(tRange!)
             let global = self.view.convertRect(position, fromView: self.content)
             
-            self.size.constant = global.height / 1.5 - saucyTheme.padding * 2
-            self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2) + saucyTheme.padding
+            self.size.constant = global.height - saucyTheme.padding * 2
+            self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2) - saucyTheme.padding
             self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2) - saucyTheme.padding
         }
     }
