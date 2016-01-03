@@ -40,6 +40,7 @@
 		649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09441BE12DA000A3F9A4 /* CardBlankController.swift */; };
 		64A1646C1BFBC22600345E55 /* File+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */; };
 		64A1646D1BFBC22600345E55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646B1BFBC22600345E55 /* File.swift */; };
+		64C167CE1C38A4FF00ECDFED /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167CD1C38A4FF00ECDFED /* UIDevice.swift */; };
 		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; };
 		64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */; };
 		64C2F4A71C2090F100F7C854 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */; };
@@ -141,6 +142,7 @@
 		649B09441BE12DA000A3F9A4 /* CardBlankController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBlankController.swift; sourceTree = "<group>"; };
 		64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "File+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64A1646B1BFBC22600345E55 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		64C167CD1C38A4FF00ECDFED /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
 		64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		64C2F4A31C2090F100F7C854 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				64EAF91B1BF6F825008E66E2 /* AnyObject.swift */,
 				64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */,
 				64306E0E1BFE62AD0069BF1F /* JSON.swift */,
+				64C167CD1C38A4FF00ECDFED /* UIDevice.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */,
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
 				64766A9F1BF3DD040010FD8C /* TQuery.swift in Sources */,
+				64C167CE1C38A4FF00ECDFED /* UIDevice.swift in Sources */,
 				64EF7D241BE88E730025E094 /* NSObject.swift in Sources */,
 				64ED1DC91BEC173700A9E2A2 /* IQUITextFieldView+Additions.swift in Sources */,
 				64D219F41BBCD133005F9094 /* UserRegisterController.swift in Sources */,

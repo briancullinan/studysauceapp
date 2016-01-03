@@ -14,7 +14,7 @@ import SystemConfiguration
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
 
     var timeout = 60.0 * 60.0
-    
+    internal var device: String? = nil
     var window: UIWindow?
     var storyboard: UIStoryboard?
     var user: User? {

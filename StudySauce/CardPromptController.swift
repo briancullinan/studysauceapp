@@ -51,9 +51,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         // center itß
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .Center
+        paragraph.lineSpacing = saucyTheme.padding
+        paragraph.lineHeightMultiple = saucyTheme.lineHeight
         attr.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: wholeRange)
         
-        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
+        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 30.0 * saucyTheme.multiplier())!, range: range)
         attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
                 
         return attr

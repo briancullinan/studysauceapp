@@ -73,7 +73,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.users == nil || self.users!.count == 0 {
+        if self.users == nil {
+            return 1
+        }
+        else if self.users!.count == 0 {
             return 2
         }
         return self.users!.count + 2

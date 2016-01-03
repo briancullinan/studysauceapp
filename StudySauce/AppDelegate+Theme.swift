@@ -337,7 +337,9 @@ extension AppDelegate {
         })
         
         $([CardBlankController.self ~> UITextField.self ~* T.orientation("landscape"),
-            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.orientation("landscape")], {
+            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.orientation("landscape"),
+            CardBlankController.self ~> UITextField.self ~* T.device("ipad"),
+            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.device("ipad")], {
                 $0.setFontSize(saucyTheme.textSize)
         })
         
@@ -391,7 +393,7 @@ extension AppDelegate {
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            v.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
+            v.textContainerInset = UIEdgeInsets(saucyTheme.padding, 0.0)
         })
         
         $([CardPromptController.self ~> UITextView.self ~* T.orientation("landscape"),
