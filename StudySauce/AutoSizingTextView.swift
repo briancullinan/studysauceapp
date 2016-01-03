@@ -60,7 +60,7 @@ class AutoSizingTextView: UITextView {
             
             // center resized box in container?
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
-            topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect / 2
+            topCorrect = floor(topCorrect < 0.0 ? 0.0 : topCorrect / 2)
             if self.contentInset.top != topCorrect {
                 self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
             }

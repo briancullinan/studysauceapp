@@ -28,6 +28,7 @@ class UserLoginController : UIViewController {
     internal var email: String?
     internal var pass: String?
     
+    @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBAction func loginClick(sender: UIButton) {
@@ -154,14 +155,30 @@ class UserLoginController : UIViewController {
         return user!
     }
     
+    func done() {
+        self.loginButton.enabled = true
+        self.loginButton.alpha = 1
+        self.loginButton.setFontColor(saucyTheme.lightColor)
+        self.loginButton.setBackground(saucyTheme.secondary)
+    }
+    
     func authenticate() {
+        doMain {
+            self.loginButton.enabled = false
+            self.loginButton.alpha = 0.85
+            self.loginButton.setFontColor(saucyTheme.fontColor)
+            self.loginButton.setBackground(saucyTheme.lightColor)
+        }
         postJson("/authenticate",
             params: [
                 "email"        : self.email,
                 "pass"         : self.pass,
                 "_remember_me" : "on",
                 "csrf_token"   : UserLoginController.token]
-            , redirect: {(path) in
+            , error: {_ in
+                doMain(self.done)
+            }, redirect: {(path) in
+                doMain(self.done)
                 if path == "/login" {
                     self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails"))
                 }
@@ -169,6 +186,7 @@ class UserLoginController : UIViewController {
                     AppDelegate.goHome(self, true)
                 }
             }, done: {(json) in
+                doMain(self.done)
                 if json["csrf_token"] as? String != nil {
                         UserLoginController.token = json["csrf_token"] as? String
                     }

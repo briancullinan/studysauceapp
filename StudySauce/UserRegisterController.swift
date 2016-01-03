@@ -26,6 +26,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
     @IBOutlet weak var email: UITextField!
@@ -119,6 +120,13 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func done() {
+        self.registerButton.enabled = true
+        self.registerButton.alpha = 1
+        self.registerButton.setFontColor(saucyTheme.lightColor)
+        self.registerButton.setBackground(saucyTheme.secondary)
+    }
+    
     func registerUser() {
         var registrationInfo: Dictionary<String,AnyObject?> = [
             "code" : self.registrationCode,
@@ -134,9 +142,19 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
                 registrationInfo["childLast"] = ($0 ~> (UITextField.self ~* 2)).first!.text
             }
         }
-        
+        doMain {
+            self.registerButton.enabled = false
+            self.registerButton.alpha = 0.85
+            self.registerButton.setFontColor(saucyTheme.fontColor)
+            self.registerButton.setBackground(saucyTheme.lightColor)
+        }
         self.showNoConnectionDialog({
-            postJson("/account/create", params: registrationInfo, redirect: {(path) in
+            postJson("/account/create", params: registrationInfo, error: {_ in
+                doMain(self.done)
+                }, done: {_ in
+                    doMain(self.done)
+                }, redirect: {(path) in
+                    doMain (self.done)
                     // login was a success!
                     if path == "/home" {
                         AppDelegate.goHome(self, true)

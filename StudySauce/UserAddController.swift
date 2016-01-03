@@ -16,6 +16,7 @@ class UserAddController : UIViewController {
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
     @IBOutlet weak var inviteCode: TextField!
+    @IBOutlet weak var addButton: UIButton!
     internal var token: String?
     
     @IBAction func backClick(sender: UIButton) {
@@ -30,9 +31,24 @@ class UserAddController : UIViewController {
         self.view.endEditing(true)
     }
     
+    func done() {
+        doMain {
+        self.addButton.enabled = true
+        self.addButton.alpha = 1
+        self.addButton.setFontColor(saucyTheme.lightColor)
+        self.addButton.setBackground(saucyTheme.secondary)
+        }
+    }
+
     @IBAction func addClick(sender: UIButton) {
         self.childFirst.resignFirstResponder()
         self.childLast.resignFirstResponder()
+        doMain {
+            self.addButton.enabled = false
+            self.addButton.alpha = 0.85
+            self.addButton.setFontColor(saucyTheme.fontColor)
+            self.addButton.setBackground(saucyTheme.lightColor)
+        }
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
         self.code = self.inviteCode.text
@@ -45,11 +61,16 @@ class UserAddController : UIViewController {
             ]
 
             self.showNoConnectionDialog({
-                postJson("/account/create", params: registrationInfo, error: {code in
+                postJson("/account/create", params: registrationInfo,
+                    done: {_ in
+                        self.done()
+                    }, error: {code in
+                    self.done()
                     if code == 404 {
                         self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), button: NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
                     }
                     }, redirect: {(path) in
+                        self.done()
                     if path == "/home" {
                         UserLoginController.home { () -> Void in
                             AppDelegate.performContext {

@@ -19,7 +19,7 @@ class UserInviteController : UIViewController {
     internal var props: NSDictionary?
 
     @IBOutlet weak var registrationCode: UITextField!
-    @IBOutlet weak var registrationCode2: UITextField!
+    @IBOutlet weak var inviteButton: UIButton!
     
     @IBAction func returnToInvite(segue: UIStoryboardSegue) {
         
@@ -32,18 +32,6 @@ class UserInviteController : UIViewController {
     @IBAction func submitCode(sender: UIButton) {
         self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text
-        if self.regCode == "" {
-            return
-        }
-        
-        self.showNoConnectionDialog({
-            self.getInvite()
-        })
-    }
-    
-    @IBAction func submitCode2(sender: UIButton) {
-        self.registrationCode2.resignFirstResponder()
-        self.regCode = self.registrationCode2.text
         if self.regCode == "" {
             return
         }
@@ -67,17 +55,33 @@ class UserInviteController : UIViewController {
             vc.props = self.props
         }
     }
+
+    func done() {
+        self.inviteButton.enabled = true
+        self.inviteButton.alpha = 1
+        self.inviteButton.setFontColor(saucyTheme.lightColor)
+        self.inviteButton.setBackground(saucyTheme.secondary)
+    }
     
     func getInvite() -> Void {
+        doMain {
+            self.inviteButton.enabled = false
+            self.inviteButton.alpha = 0.85
+            self.inviteButton.setFontColor(saucyTheme.fontColor)
+            self.inviteButton.setBackground(saucyTheme.lightColor)
+        }
         postJson("/register", params: ["_code": self.regCode], error: {(code) in
+            doMain(self.done)
             if code == 404 {
                 self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), button: NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
             }
             }, redirect: {(path) in
+                doMain(self.done)
                 if path == "/home" {
                     AppDelegate.goHome(self, true)
                 }
             }, done: {(json) in
+                doMain(self.done)
                 self.first = json["first"] as? String
                 self.last = json["last"] as? String
                 self.mail = json["email"] as? String

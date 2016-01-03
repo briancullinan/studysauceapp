@@ -1499,6 +1499,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="inviteButton" destination="Lzk-so-izB" id="IdW-aL-d9h"/>
                         <outlet property="registrationCode" destination="CZ5-1O-yqg" id="z7L-Vb-pOk"/>
                         <segue destination="MV6-Iy-bIY" kind="custom" identifier="register" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="oMh-sk-QnC"/>
                     </connections>
@@ -1712,6 +1713,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="firstName" destination="i5D-B6-21P" id="9Zy-eW-jJQ"/>
                         <outlet property="lastName" destination="umH-Qo-rtw" id="3Uh-T4-SeJ"/>
                         <outlet property="password" destination="teK-Wh-Efb" id="mtY-M9-umn"/>
+                        <outlet property="registerButton" destination="EJy-2L-83Z" id="8m9-JG-8PF"/>
                         <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Edk-H5-39l"/>
                     </connections>
                 </viewController>
@@ -1790,6 +1792,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     </view>
                     <connections>
                         <outlet property="inputText" destination="zbm-Ci-bEG" id="Fu5-bS-m3W"/>
+                        <outlet property="resetButton" destination="33R-vM-XWY" id="12n-pD-woQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8Q-Gq-h0y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1887,6 +1890,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="loginButton" destination="ltW-ua-qD3" id="7Gg-Dc-Ks8"/>
                         <outlet property="password" destination="g30-OR-S5R" id="LF6-1F-77Q"/>
                         <outlet property="username" destination="6NS-tq-JHQ" id="kZE-ae-j3v"/>
                     </connections>
@@ -1978,6 +1982,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="ZrM-Nu-8oj" id="5c2-fV-34L"/>
                         <outlet property="childFirst" destination="xDh-Kk-7NG" id="1cz-Yf-mG1"/>
                         <outlet property="childLast" destination="x5I-8x-auy" id="T9B-5F-hzJ"/>
                         <outlet property="inviteCode" destination="MG9-jv-G3h" id="ckQ-as-hhv"/>
@@ -2263,7 +2268,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="81B-wr-jnt" firstAttribute="bottom" secondItem="bjU-dT-1wv" secondAttribute="bottom" id="Ke3-Z1-rLK"/>
                             <constraint firstItem="Avt-4M-VMm" firstAttribute="leading" secondItem="JoE-dv-RIT" secondAttribute="trailing" constant="8" symbolic="YES" id="Pqd-DX-8bw"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="bottom" secondItem="Avt-4M-VMm" secondAttribute="bottom" id="RAR-je-vA7"/>
-                            <constraint firstItem="4O7-ka-miD" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.75" id="RBW-l7-EI5"/>
+                            <constraint firstItem="4O7-ka-miD" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.7" id="RBW-l7-EI5"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="TDv-uM-367"/>
                             <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="8" symbolic="YES" id="VXb-aR-zw2"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="height" secondItem="4O7-ka-miD" secondAttribute="height" id="Z5l-HB-Mta"/>

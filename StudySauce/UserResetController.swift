@@ -16,6 +16,7 @@ class UserResetController: UIViewController {
     var password: String? = nil
     internal var token: String? = nil
     @IBOutlet weak var inputText: UITextField!
+    @IBOutlet weak var resetButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +26,21 @@ class UserResetController: UIViewController {
         }
     }
     
+    func done() {
+        self.resetButton.enabled = true
+        self.resetButton.alpha = 1
+        self.resetButton.setFontColor(saucyTheme.lightColor)
+        self.resetButton.setBackground(saucyTheme.secondary)
+    }
+    
     @IBAction func resetClick(sender: UIButton) {
         self.inputText.resignFirstResponder()
+        doMain {
+            self.resetButton.enabled = false
+            self.resetButton.alpha = 0.85
+            self.resetButton.setFontColor(saucyTheme.fontColor)
+            self.resetButton.setBackground(saucyTheme.lightColor)
+        }
         if self.token != nil {
             self.password = self.inputText.text
             self.showNoConnectionDialog({
@@ -42,6 +56,7 @@ class UserResetController: UIViewController {
             self.showNoConnectionDialog({
                 postJson("/reset", params: ["email": self.mail], done: {(json) in
                     self.showDialog(NSLocalizedString("Your password has been reset.  Please check your email.", comment: "Password reset confirmation message"), button: NSLocalizedString("Go home", comment: "Return to the landing page after password is reset"), done: {
+                        doMain(self.done)
                             // password resets don't change users until code is entered so don't bother refetching
                             AppDelegate.goHome(self)
                         
