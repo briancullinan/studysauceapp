@@ -16,4 +16,9 @@ extension String {
     func localizedWithComment(comment:String) -> String {
         return NSLocalizedString(self, tableName: nil, bundle: NSBundle.mainBundle(), value: "", comment: comment)
     }
+    
+    func htmlToAttributedString() -> NSAttributedString? {
+        guard let data = dataUsingEncoding(NSUTF8StringEncoding) else { return nil }
+        return try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
+    }
 }

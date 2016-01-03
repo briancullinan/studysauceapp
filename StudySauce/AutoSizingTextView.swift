@@ -42,7 +42,7 @@ class AutoSizingTextView: UITextView {
                 context:nil).height
         } while size > self.minSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
             || expectSize > maximumLabelWidth.width)
-        return size
+        return floor(size)
     }
     
     func calcFontSize() -> Void {

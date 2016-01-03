@@ -40,7 +40,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     func getAttributedText(content: NSString) -> NSAttributedString {
         // align listen button to substring
         let wholeRange = NSMakeRange(0, content.length)
-        let range = content.rangeOfString("p14y", options: [], range: wholeRange)
+        let range = content.rangeOfString("P14y", options: [], range: wholeRange)
         
         // set the listen text to clear
         let attr = NSMutableAttributedString(string: content as String)
@@ -48,14 +48,15 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         //attr.addAttribute(NSFontAttributeName, value: self.content.font!, range: wholeRange)
         //attr.addAttribute(NSForegroundColorAttributeName, value: self.content!.textColor ?? , range: wholeRange)
         
-        // center itß
+        // center it
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .Center
-        paragraph.lineSpacing = saucyTheme.padding
+        paragraph.lineSpacing = saucyTheme.padding * 2
+        paragraph.maximumLineHeight = 50.0 * saucyTheme.multiplier() * saucyTheme.lineHeight + saucyTheme.padding * 2
         paragraph.lineHeightMultiple = saucyTheme.lineHeight
         attr.addAttribute(NSParagraphStyleAttributeName, value: paragraph, range: wholeRange)
         
-        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 30.0 * saucyTheme.multiplier())!, range: range)
+        attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
         attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
                 
         return attr
@@ -66,7 +67,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             //self.content.attributedText = self.getAttributedText(self.content.text)
             let text = self.content.attributedText.string as NSString
             let wholeRange = NSMakeRange(0, self.content.attributedText.length)
-            let range = text.rangeOfString("p14y", options: [], range: wholeRange)
+            let range = text.rangeOfString("P14y", options: [], range: wholeRange)
             
             self.content.layoutManager.ensureLayoutForTextContainer(self.content.textContainer)
             let start = self.content.positionFromPosition(self.content.beginningOfDocument, offset: range.location)!
@@ -76,10 +77,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             // text range of the range
             let tRange = self.content.textRangeFromPosition(start, toPosition: end)
             let position = self.content.firstRectForRange(tRange!)
-            let globalPoint = self.content.convertPoint(position.origin, toView: self.view)
-            self.size.constant = position.height
-            self.top.constant = globalPoint.y
-            self.left.constant = position.origin.x + ((position.width - self.size.constant) / 2)
+            let global = self.view.convertRect(position, fromView: self.content)
+            
+            self.size.constant = global.height / 1.5 - saucyTheme.padding * 2
+            self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2) + saucyTheme.padding
+            self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2) - saucyTheme.padding
         }
     }
     
@@ -108,7 +110,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 start: self.card!.content!.startIndex.advancedBy(matched!.location),
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
-            content!.replaceRange(range, with: "p14y")
+            content!.replaceRange(range, with: "P14y")
             self.listenButton.hidden = false
             self.playButton.hidden = false
             self.content.attributedText = self.getAttributedText(content!)

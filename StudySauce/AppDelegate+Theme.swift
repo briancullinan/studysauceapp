@@ -150,6 +150,25 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
         })
         
+        $(UITextView.self) {
+            let newPara = NSMutableParagraphStyle()
+            newPara.lineSpacing = saucyTheme.padding
+            newPara.lineHeightMultiple = saucyTheme.lineHeight
+            $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
+        }
+
+        $(UIViewController.self ~* "About" ~>> UITextView.self) {
+            let newPara = NSMutableParagraphStyle()
+            newPara.defaultTabInterval = 10.5
+            newPara.paragraphSpacing = 4
+            newPara.paragraphSpacingBefore = 4
+            newPara.firstLineHeadIndent = 0.0
+            newPara.headIndent = 10.5
+            newPara.lineSpacing = saucyTheme.padding
+            newPara.lineHeightMultiple = saucyTheme.lineHeight
+            $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
+        }
+        
         $(UIImageView.self ~* {$0.tag == 23}, {background in
             background.hidden = true
             background.viewController()!.view.clipsToBounds = false
@@ -261,6 +280,15 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.primary)
         })
         
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.orientation("landscape"),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape")], {
+                $0.setFontSize(30 * saucyTheme.multiplier())
+        })
+        
+        $(PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape"), {
+            $0.setFontSize(40 * saucyTheme.multiplier())
+        })
+
         $([PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
@@ -393,20 +421,14 @@ extension AppDelegate {
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            v.textContainerInset = UIEdgeInsets(saucyTheme.padding, 0.0)
+            v.textContainerInset = UIEdgeInsets(saucyTheme.padding, saucyTheme.padding / 2)
         })
-        
-        $([CardPromptController.self ~> UITextView.self ~* T.orientation("landscape"),
-            CardResponseController.self ~> UITextView.self ~* T.orientation("landscape"),
-            UIViewController.self ~* "Privacy" ~> UITextView.self ~* T.orientation("landscape"),
-            UIViewController.self ~* "About" ~> UITextView.self ~* T.orientation("landscape")], {(v: UITextView) in
-                v.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2, 0.0)
-        })
-        
+                
         $(UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}, {(v: UIButton) in
-                v.setFontName(saucyTheme.textFont)
-                v.setFontColor(saucyTheme.lightColor)
-                v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
+            v.setFontName(saucyTheme.textFont)
+            v.setFontColor(saucyTheme.lightColor)
+            v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
+            v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
         
         $([CardController.self ~>> UIView.self,

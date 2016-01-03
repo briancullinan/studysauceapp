@@ -11,70 +11,50 @@ import UIKit
 
 extension UITextView {
     
-    override func setFontSize(size: CGFloat) {
+    func replaceAttribute(attr: String, _ value: AnyObject) -> NSAttributedString {
         let newAttr = NSMutableAttributedString(string: self.attributedText.string)
         let wholeRange = NSMakeRange(0, self.attributedText.length)
-        //if let font = self.valueForKey("font") as? UIFont {
-        //    newAttr.addAttribute(NSFontAttributeName, value: UIFont(name: font.familyName, size: size)!, range: wholeRange)
-        //}
+        newAttr.addAttribute(attr, value: value, range: wholeRange)
         self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
             var attrs = s
-            print(r)
-            if let oldFont = attrs[NSFontAttributeName] as? UIFont {
-                if oldFont.pointSize == self.font?.pointSize {
-                    attrs[NSFontAttributeName] = UIFont(name: oldFont.familyName, size: size)!
-                }
-            }
-            else {
-                attrs[NSFontAttributeName] = UIFont(name: self.font!.familyName, size: size)!
-            }
+            attrs[attr] = value
             newAttr.addAttributes(attrs, range: r)
+        }
+        return newAttr
+    }
+    
+    func replaceAttribute<T: AnyObject>(attr: String, _ value: (T?) -> T) -> NSAttributedString {
+        let newAttr = NSMutableAttributedString(string: self.attributedText.string)
+        let wholeRange = NSMakeRange(0, self.attributedText.length)
+        newAttr.addAttribute(attr, value: value(nil), range: wholeRange)
+        self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
+            var attrs = s
+            attrs[attr] = value(attrs[attr] as? T)
+            newAttr.addAttributes(attrs, range: r)
+        }
+        return newAttr
+    }
+
+    override func setFontSize(size: CGFloat) {
+        let newAttr = self.replaceAttribute(NSFontAttributeName) {
+            return UIFont(descriptor: ($0 ?? self.font!).fontDescriptor(), size: ($0 ?? self.font!).pointSize == self.font!.pointSize ? size : ($0 ?? self.font!).pointSize)
         }
         super.setFontSize(size)
         self.attributedText = newAttr
     }
 
     override func setFontName(name: String) {
-        let newAttr = NSMutableAttributedString(string: self.attributedText.string)
-        let wholeRange = NSMakeRange(0, self.attributedText.length)
-        //if let font = self.valueForKey("font") as? UIFont {
-        //    newAttr.addAttribute(NSFontAttributeName, value: UIFont(name: name, size: font.pointSize)!, range: wholeRange)
-        //}
-        self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
-            var attrs = s
-            print(r)
-            if let oldFont = attrs[NSFontAttributeName] as? UIFont {
-                if oldFont.familyName == self.font?.familyName {
-                    attrs[NSFontAttributeName] = UIFont(name: name, size: oldFont.pointSize)!
-                }
-            }
-            else {
-                attrs[NSFontAttributeName] = UIFont(name: name, size: self.font!.pointSize)!
-            }
-            newAttr.addAttributes(attrs, range: r)
+        let newFont = UIFont(name: name, size: self.font!.pointSize)!
+        let newAttr = self.replaceAttribute(NSFontAttributeName) {
+            return UIFont(descriptor: newFont.fontDescriptor().fontDescriptorWithSymbolicTraits(($0 ?? self.font!).fontDescriptor().symbolicTraits), size: ($0 ?? self.font!).pointSize)
         }
         super.setFontName(name)
         self.attributedText = newAttr
     }
     
     override func setFontColor(color: UIColor) {
-        let newAttr = NSMutableAttributedString(string: self.attributedText.string)
-        let wholeRange = NSMakeRange(0, self.attributedText.length)
-        //if let font = self.valueForKey("font") as? UIFont {
-        //    newAttr.addAttribute(NSFontAttributeName, value: UIFont(name: name, size: font.pointSize)!, range: wholeRange)
-        //}
-        self.attributedText.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
-            var attrs = s
-            print(r)
-            if let oldColor = attrs[NSForegroundColorAttributeName] as? UIColor {
-                if oldColor == self.textColor && oldColor != UIColor.clearColor() {
-                    attrs[NSForegroundColorAttributeName] = color
-                }
-            }
-            else {
-                attrs[NSForegroundColorAttributeName] = color
-            }
-            newAttr.addAttributes(attrs, range: r)
+        let newAttr = self.replaceAttribute(NSForegroundColorAttributeName) {
+            return $0 == self.textColor && $0 != UIColor.clearColor() ? color : $0 ?? color
         }
         super.setFontColor(color)
         self.attributedText = newAttr
