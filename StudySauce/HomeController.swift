@@ -100,6 +100,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func setTotal() {
         
+        if !(AppDelegate.visibleViewController() is HomeController) {
+            return
+        }
+        
         if self.cardCount != nil {
             AppDelegate.performContext {
                 if AppDelegate.getUser() != nil {
