@@ -133,7 +133,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             
             answerIds.insert(answer["id"] as! NSNumber, atIndex: 0)
             newAnswer!.id = answer["id"] as? NSNumber
-            //newAnswer!.content = answer["content"] as? String
+            newAnswer!.content = answer["content"] as? String
             //newAnswer!.response = answer["response"] as? String
             newAnswer!.value = answer["value"] as? String
             newAnswer!.card = card
