@@ -41,7 +41,7 @@ class AutoSizingTextView: UITextView {
                 context:nil).height
         } while size > saucyTheme.textSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
             || expectSize > maximumLabelWidth.width)
-        return floor(size)
+        return ceil(size)
     }
     
     func calcFontSize() -> Void {
