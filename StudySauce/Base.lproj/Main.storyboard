@@ -27,7 +27,7 @@
                                     <segue destination="gnI-XW-KF9" kind="embed" id="VGO-gR-E19"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to see answer ❯" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="aQq-VZ-k73">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to see answer ❯" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQq-VZ-k73">
                                 <rect key="frame" x="20" y="572" width="560" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -115,26 +115,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yF9-Gl-5iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1955" y="-2705"/>
-        </scene>
-        <!--MultipleChoice-->
-        <scene sceneID="NDv-SE-kAs">
-            <objects>
-                <viewController storyboardIdentifier="Multiple" title="MultipleChoice" useStoryboardIdentifierAsRestorationIdentifier="YES" id="enV-og-4wM" customClass="CardMultipleController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
-                    <containerView key="view" opaque="NO" contentMode="scaleToFill" id="eUs-XZ-2hZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <connections>
-                            <segue destination="gnI-XW-KF9" kind="embed" id="EWc-CM-6Df"/>
-                        </connections>
-                    </containerView>
-                    <navigationItem key="navigationItem" id="znY-c9-Aon"/>
-                    <connections>
-                        <segue destination="c3m-EN-MOK" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="eGk-xN-5zU"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lGY-Xx-rTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2747" y="-2705"/>
         </scene>
@@ -266,17 +246,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bottom text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-d0-3iN">
-                                <rect key="frame" x="20" y="472" width="560" height="120"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bottom text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eJr-d0-3iN">
+                                <rect key="frame" x="20" y="563" width="560" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ahg-L8-JPt">
-                                <rect key="frame" x="0.0" y="156" width="600" height="308"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ahg-L8-JPt">
+                                <rect key="frame" x="0.0" y="65" width="600" height="490"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92h-7Y-T0y">
-                                <rect key="frame" x="20" y="28" width="560" height="120"/>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title text" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92h-7Y-T0y">
+                                <rect key="frame" x="20" y="28" width="560" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -570,7 +550,7 @@
                                     <action selector="wrongClick:" destination="gJ9-Ua-grz" eventType="touchUpInside" id="hAT-Tm-bGl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you guess correctly?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Urm-Cc-xnt">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did you guess correctly?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urm-Cc-xnt">
                                 <rect key="frame" x="151" y="541" width="298" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -627,7 +607,7 @@
         <!--CardResponse-->
         <scene sceneID="n6t-C9-aLD">
             <objects>
-                <viewController title="CardResponse" id="c3m-EN-MOK" customClass="CardMultipleController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Multiple" title="CardResponse" id="c3m-EN-MOK" customClass="CardMultipleController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EDi-i3-xnQ"/>
                         <viewControllerLayoutGuide type="bottom" id="nca-fr-MYu"/>
@@ -637,7 +617,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwQ-i7-uLx">
-                                <rect key="frame" x="0.0" y="100" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="336" width="600" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -650,7 +630,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nxh-pq-PQd">
-                                <rect key="frame" x="0.0" y="210" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="404" width="600" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -663,7 +643,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvk-wA-8rf">
-                                <rect key="frame" x="0.0" y="320" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="472" width="600" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -676,7 +656,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndr-5k-eWw">
-                                <rect key="frame" x="0.0" y="430" width="600" height="90"/>
+                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
                                 <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -688,24 +668,34 @@
                                     <action selector="answer4Click:" destination="c3m-EN-MOK" eventType="touchUpInside" id="yly-YS-jHB"/>
                                 </connections>
                             </button>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKh-0j-bcn">
+                                <rect key="frame" x="0.0" y="20" width="600" height="308"/>
+                                <connections>
+                                    <segue destination="gnI-XW-KF9" kind="embed" id="caI-Fi-3gF"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="3dH-i8-bIm"/>
-                            <constraint firstItem="ndr-5k-eWw" firstAttribute="top" secondItem="tvk-wA-8rf" secondAttribute="bottom" constant="20" id="84S-DG-n0r"/>
+                            <constraint firstItem="ndr-5k-eWw" firstAttribute="top" secondItem="tvk-wA-8rf" secondAttribute="bottom" constant="8" symbolic="YES" id="84S-DG-n0r"/>
                             <constraint firstItem="ndr-5k-eWw" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="APO-Wo-RK4"/>
-                            <constraint firstItem="nxh-pq-PQd" firstAttribute="top" secondItem="nwQ-i7-uLx" secondAttribute="bottom" constant="20" id="GMo-Ej-QRM"/>
+                            <constraint firstItem="nca-fr-MYu" firstAttribute="top" secondItem="ndr-5k-eWw" secondAttribute="bottom" id="C3h-kd-qN1"/>
+                            <constraint firstItem="nxh-pq-PQd" firstAttribute="top" secondItem="nwQ-i7-uLx" secondAttribute="bottom" constant="8" symbolic="YES" id="GMo-Ej-QRM"/>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="IY6-h0-NGh"/>
-                            <constraint firstItem="nxh-pq-PQd" firstAttribute="bottom" secondItem="LWU-2f-3p2" secondAttribute="centerY" id="J1J-oj-lMd"/>
                             <constraint firstItem="tvk-wA-8rf" firstAttribute="height" secondItem="nwQ-i7-uLx" secondAttribute="height" id="MJG-yM-ZmC"/>
+                            <constraint firstItem="eKh-0j-bcn" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="N3Q-FY-SHg"/>
                             <constraint firstItem="ndr-5k-eWw" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="NbW-P8-Njg"/>
-                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="height" secondItem="LWU-2f-3p2" secondAttribute="height" multiplier="0.15" id="SN4-Ym-0fT"/>
+                            <constraint firstItem="eKh-0j-bcn" firstAttribute="top" secondItem="EDi-i3-xnQ" secondAttribute="bottom" id="Okg-Yc-P6O"/>
+                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="height" secondItem="LWU-2f-3p2" secondAttribute="height" multiplier="0.1" id="SN4-Ym-0fT"/>
                             <constraint firstItem="nxh-pq-PQd" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="STm-DI-jb3"/>
                             <constraint firstItem="nwQ-i7-uLx" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="Tle-14-JSG"/>
+                            <constraint firstItem="eKh-0j-bcn" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="V73-YT-G7v"/>
                             <constraint firstItem="tvk-wA-8rf" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="ZRR-5d-Lwe"/>
-                            <constraint firstItem="tvk-wA-8rf" firstAttribute="top" secondItem="nxh-pq-PQd" secondAttribute="bottom" constant="20" id="cT5-Jb-mDv"/>
+                            <constraint firstItem="tvk-wA-8rf" firstAttribute="top" secondItem="nxh-pq-PQd" secondAttribute="bottom" constant="8" symbolic="YES" id="cT5-Jb-mDv"/>
                             <constraint firstItem="tvk-wA-8rf" firstAttribute="centerX" secondItem="LWU-2f-3p2" secondAttribute="centerX" id="ej0-4c-vVh"/>
                             <constraint firstItem="nwQ-i7-uLx" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="jMi-b3-hiw"/>
+                            <constraint firstItem="nwQ-i7-uLx" firstAttribute="top" secondItem="eKh-0j-bcn" secondAttribute="bottom" constant="8" symbolic="YES" id="oIB-FU-K0p"/>
                             <constraint firstItem="ndr-5k-eWw" firstAttribute="width" secondItem="LWU-2f-3p2" secondAttribute="width" id="x7h-5B-FBu"/>
                         </constraints>
                     </view>
@@ -1232,7 +1222,8 @@ Cg
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-We wanted to express our gratitude to the dedicated staff of Archway Classical Academy - Scottsdale.  In particular, thank you to Mr. Kuhlman, Mrs. Armstrong, Mr. Hull, Mrs. Gonzalez, and the 1st and 4th grade teachers.  Thank you so much for your help in getting Study Sauce started!</string>
+We wanted to express our gratitude to the dedicated staff of Archway Classical Academy - Scottsdale.  In particular, thank you to Mr. Kuhlman, Mrs. Armstrong, Mr. Hull, Mrs. Gonzalez, and the 1st and 4th grade teachers.  Thank you so much for your help in getting Study Sauce started!  The day’s study cards are specifically calculated and chosen for you to go through just before you forget.  They are calculated using The Forgetting Curve which was discovered by Hermann Ebbinghaus in the late 1800s.  The material you get right will come back to you at a later date than the material you haven’t yet mastered.  This way, you are focusing on exactly what you need to learn.  Additionally, by going back through the material periodically, you are creating a deeper memory which will help you retain the information for the long term.
+</string>
                                         <attributes>
                                             <font key="NSFont" size="12" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -3315,10 +3306,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GGa-Jv-qkY"/>
-        <segue reference="mZN-Ns-J7P"/>
-        <segue reference="Edk-H5-39l"/>
+        <segue reference="hJi-Nu-qtH"/>
         <segue reference="VGO-gR-E19"/>
         <segue reference="h3u-I4-U7Q"/>
+        <segue reference="Edk-H5-39l"/>
+        <segue reference="mZN-Ns-J7P"/>
     </inferredMetricsTieBreakers>
 </document>
