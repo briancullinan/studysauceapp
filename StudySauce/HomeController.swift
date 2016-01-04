@@ -176,7 +176,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.setTotal()
                 }
                 }, downloadedHandler: {p in
-                    
                     self.getPacksFromLocalStore {
                         self.tableView!.reloadData()
                         self.setTotal()

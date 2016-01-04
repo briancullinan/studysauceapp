@@ -26,9 +26,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // load the card content, display and available answers
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
-    internal static func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
+    private static func getCards(forPack: Pack, _ user: User, _ completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        let user = AppDelegate.getUser()!
         let url = AppDelegate.studySauceCom("/packs/download/\(user.id!)?pack=\(forPack.id!)")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
@@ -282,7 +281,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 p.isDownloading = true
                 
-                PackSummaryController.getCards(p, completionHandler: {_,_ in
+                PackSummaryController.getCards(p, user) {_,_ in
                     // TODO: update downloading status in table row!
                     AppDelegate.performContext {
                         up.retries = ""
@@ -291,7 +290,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         done()
                         p.isDownloading = false
                     }
-                })
+                }
         }
         else {
             done()
