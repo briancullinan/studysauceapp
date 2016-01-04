@@ -22,18 +22,19 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     override init() {
         super.init()
-        
+        doMain {
         self.panGesture = UIPanGestureRecognizer()
-        panGesture!.delegate = self
-        panGesture!.cancelsTouchesInView = false
-        panGesture!.addTarget(self, action: "handleOnstagePan:")
+        self.panGesture!.delegate = self
+        self.panGesture!.cancelsTouchesInView = false
+        self.panGesture!.addTarget(self, action: "handleOnstagePan:")
         self.tap = UITapGestureRecognizer()
-        tap!.delegate = self
-        tap!.numberOfTapsRequired = 1
-        tap!.cancelsTouchesInView = false
-        tap!.addTarget(self, action: "handleOnstageTap:")
+        self.tap!.delegate = self
+        self.tap!.numberOfTapsRequired = 1
+        self.tap!.cancelsTouchesInView = false
+        self.tap!.addTarget(self, action: "handleOnstageTap:")
         AppDelegate.instance().window!.addGestureRecognizer(self.panGesture!)
         AppDelegate.instance().window!.addGestureRecognizer(self.tap!)
+        }
     }
     
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {

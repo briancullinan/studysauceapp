@@ -345,6 +345,10 @@ extension AppDelegate {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
+        $(CardSelfController.self ~> UILabel.self ~* {$0.tag == 5}, {
+            $0.setFontColor(saucyTheme.middle)
+        })
+        
         // true and false button font
         $([CardTrueFalseController.self ~> UIButton.self,
            CardTrueFalseController.self ~> UIButton.self ~> UILabel.self], {

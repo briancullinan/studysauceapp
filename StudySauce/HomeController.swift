@@ -20,7 +20,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var taskManager:NSTimer? = nil
     
     @IBOutlet weak var cardCount: UILabel? = nil
-    @IBOutlet weak var bigbutton: UIButton? = nil
+    @IBOutlet weak var bigButton: UIButton? = nil
     @IBOutlet weak var userButton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
@@ -221,6 +221,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return 1
         }
         return self.packs!.count
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let home = self.parentViewController as? HomeController {
+            home.monkeyClick(home.bigButton!)
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

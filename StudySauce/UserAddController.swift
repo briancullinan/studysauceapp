@@ -43,12 +43,6 @@ class UserAddController : UIViewController {
     @IBAction func addClick(sender: UIButton) {
         self.childFirst.resignFirstResponder()
         self.childLast.resignFirstResponder()
-        doMain {
-            self.addButton.enabled = false
-            self.addButton.alpha = 0.85
-            self.addButton.setFontColor(saucyTheme.fontColor)
-            self.addButton.setBackground(saucyTheme.lightColor)
-        }
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
         self.code = self.inviteCode.text
@@ -59,7 +53,12 @@ class UserAddController : UIViewController {
                 "childLast" : self.childLastName,
                 "_code" : self.code
             ]
-
+            doMain {
+                self.addButton.enabled = false
+                self.addButton.alpha = 0.85
+                self.addButton.setFontColor(saucyTheme.fontColor)
+                self.addButton.setBackground(saucyTheme.lightColor)
+            }
             self.showNoConnectionDialog({
                 postJson("/account/create", params: registrationInfo,
                     done: {_ in
