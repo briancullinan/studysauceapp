@@ -28,7 +28,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     internal static func getCards(forPack: Pack, completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        let url = AppDelegate.studySauceCom("/packs/download/\(AppDelegate.getUser()!.id!)?pack=\(forPack.id!)")
+        let user = AppDelegate.getUser()!
+        let url = AppDelegate.studySauceCom("/packs/download/\(user.id!)?pack=\(forPack.id!)")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if (error != nil) {
@@ -66,7 +67,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         self.processAnswers(newCard!, json: card["answers"] as! NSArray)
                         
                         // sync responses
-                        self.processResponses(newCard!, json: card["responses"] as! NSArray)
+                        self.processResponses(newCard!, user, card["responses"] as! NSArray)
                     }
                     
                     // remove cards that no longer exist
@@ -88,7 +89,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         task.resume()
     }
     
-    static private func processResponses(card: Card, json: NSArray) {
+    static private func processResponses(card: Card, _ user: User, _ json: NSArray) {
         var responses = card.getAllResponses()
         for response in json {
             var newResponse: Response?
@@ -108,7 +109,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             newResponse!.value = response["value"] as? String
             newResponse!.card = card
             newResponse!.created = NSDate.parse(response["created"] as? String)
-            newResponse!.user = AppDelegate.getUser()
+            newResponse!.user = user
         }
 
         AppDelegate.saveContext()
@@ -154,7 +155,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
-        getJson("/packs/list/\(AppDelegate.getUser()!.id!)", done: {json in
+        let user = AppDelegate.getUser()!
+        getJson("/packs/list/\(user.id!)", done: {json in
             AppDelegate.performContext {
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {
@@ -179,7 +181,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     AppDelegate.saveContext()
                     
                     if let userPacks = pack["user_packs"] as? NSArray where userPacks.count > 0 {
-                        self.downloadIfNeeded(newPack!, done: {
+                        self.downloadIfNeeded(newPack!, user) {
                             AppDelegate.performContext {
                                 let cards = newPack!.cards!.allObjects as! [Card]
                                 for p in userPacks {
@@ -189,17 +191,17 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                                         card = nil
                                     }
                                     if let responses = p["responses"] as? NSArray {
-                                        self.processResponses(card!, json: responses)
+                                        self.processResponses(card!, user, responses)
                                     }
                                 }
                             }
                             downloadedHandler(newPack!)
-                        })
+                        }
                     }
                     else if pack["downloaded"] as? NSNumber == 1 {
-                        self.downloadIfNeeded(newPack!, done: {
+                        self.downloadIfNeeded(newPack!, user) {
                             downloadedHandler(newPack!)
-                        })
+                        }
                     }
                 }
 
@@ -269,12 +271,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    internal static func downloadIfNeeded(p: Pack, done: () -> Void) {
+    internal static func downloadIfNeeded(p: Pack, _ user: User, _ done: () -> Void) {
         // only downloaded the pack if updates are needed
         if p.isDownloading {
             return
         }
-        let up = p.getUserPack(AppDelegate.getUser())
+        let up = p.getUserPack(user)
         if p.cards!.count == 0 || up.downloaded == nil
             || (p.modified != nil && p.modified! > up.downloaded!) {
                 
@@ -299,14 +301,15 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.pack = self.packs[indexPath.row]
-        PackSummaryController.downloadIfNeeded(self.pack!) { () -> Void in
+        let user = AppDelegate.getUser()!
+        PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
             doMain {
                 if self.pack!.cards!.count  == 0 {
                     // something went wrong
                     return
                 }
-                if self.pack!.getUserPack(AppDelegate.getUser()).getRetryCard() == nil {
-                    self.pack!.getUserPack(AppDelegate.getUser()).getRetries(true)
+                if self.pack!.getUserPack(user).getRetryCard() == nil {
+                    self.pack!.getUserPack(user).getRetries(true)
                 }
                 self.performSegueWithIdentifier("card", sender: self)
             }
