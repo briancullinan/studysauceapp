@@ -200,6 +200,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     private func getPacksFromLocalStore(done: () -> Void)
     {
         AppDelegate.performContext {
+            if AppDelegate.getUser() == nil {
+                return
+            }
             self.packs = AppDelegate.getUser()!.getPacks()
                 .filter({
                     $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
@@ -229,7 +232,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if AppDelegate.getUser()!.user_packs!.count == 0 {
+        if AppDelegate.getUser() == nil || AppDelegate.getUser()!.user_packs!.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
         }
