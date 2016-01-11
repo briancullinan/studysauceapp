@@ -67,7 +67,7 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.child = self.childSwitch.on
         self.pass = self.password.text
 
-        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" {
+        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" && self.isValidEmail(self.mail!) {
             self.registerUser()
         }
     }
@@ -90,7 +90,15 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             //self.addButton.hidden = true
         }
     }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        // println("validate calendar: \(testStr)")
+        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

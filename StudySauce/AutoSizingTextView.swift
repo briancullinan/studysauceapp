@@ -47,8 +47,7 @@ class AutoSizingTextView: UITextView {
     func calcFontSize() -> Void {
         
         // TODO: all of this when textbox changes
-        if !self.isCalculating && self.text != nil {
-            self.isCalculating = true
+        if self.text != nil {
             // if it goes over even on a small setting, turn scrollable back on.
             
             if !setManually && self.font != nil {
@@ -64,13 +63,21 @@ class AutoSizingTextView: UITextView {
             if self.contentInset.top != topCorrect {
                 self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
             }
-            self.isCalculating = false
         }
     }
     
     override func layoutSubviews() {
+        var calculate = false
+        if !self.isCalculating {
+            self.isCalculating = true
+            self.calcFontSize()
+            calculate = true
+        }
         super.layoutSubviews()
-        self.calcFontSize()
+        if calculate {
+            self.calcFontSize()
+            self.isCalculating = false
+        }
     }
     
 }

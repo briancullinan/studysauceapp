@@ -81,6 +81,9 @@
     <span class="kw">if</span> xcode.exists(<img src="Screen Shot 2015-11-29 at 2.17.59 PM.png" />):
         xcode.<span class="skw">click</span>(<img src="Screen Shot 2015-11-29 at 2.17.59 PM.png" />)
     <span class="skw">wait</span>(<span class="dig">10</span>)
+    App.focus(<span class="str">"Simulator"</span>)
+    <span class="skw">wait</span>(<span class="dig">1</span>)
+    <span class="kw">return</span> Region(App.focusedWindow())
 </pre>
 </body>
 </html>

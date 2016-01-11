@@ -70,7 +70,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             
             self.size.constant = global.height
             self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2)
-            self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2) - saucyTheme.padding
+            self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2)
         }
     }
     

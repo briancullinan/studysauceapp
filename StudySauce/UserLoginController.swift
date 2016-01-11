@@ -163,6 +163,7 @@ class UserLoginController : UIViewController {
     }
     
     func authenticate() {
+        var redirect = false
         doMain {
             self.loginButton.enabled = false
             self.loginButton.alpha = 0.85
@@ -178,15 +179,25 @@ class UserLoginController : UIViewController {
             , error: {_ in
                 doMain(self.done)
             }, redirect: {(path) in
-                doMain(self.done)
                 if path == "/login" {
-                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails"))
+                    redirect = true
+                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
+                        doMain(self.done)
+                    }
                 }
-                if path == "/home" {
-                    AppDelegate.goHome(self, true)
+                else if path == "/home" {
+                    redirect = true
+                    AppDelegate.goHome(self, true) {_ in
+                        doMain(self.done)
+                    }
+                }
+                else {
+                    doMain(self.done)
                 }
             }, done: {(json) in
-                doMain(self.done)
+                if !redirect {
+                    doMain(self.done)
+                }
                 if json["csrf_token"] as? String != nil {
                         UserLoginController.token = json["csrf_token"] as? String
                     }

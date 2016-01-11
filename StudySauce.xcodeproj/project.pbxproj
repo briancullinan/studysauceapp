@@ -41,6 +41,8 @@
 		64A1646C1BFBC22600345E55 /* File+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */; };
 		64A1646D1BFBC22600345E55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646B1BFBC22600345E55 /* File.swift */; };
 		64C167CE1C38A4FF00ECDFED /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167CD1C38A4FF00ECDFED /* UIDevice.swift */; };
+		64C167D01C3F7AA200ECDFED /* HomeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167CF1C3F7AA200ECDFED /* HomeTest.swift */; };
+		64C167D81C3F7ECD00ECDFED /* StudySauceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167D71C3F7ECD00ECDFED /* StudySauceUITests.swift */; };
 		64C221461BC5CE4700069B10 /* UserSettingsContainerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */; };
 		64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */; };
 		64C2F4A71C2090F100F7C854 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 64C2F4A41C2090F100F7C854 /* DACircularProgressView.m */; };
@@ -98,6 +100,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		64C167DA1C3F7ECD00ECDFED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 845052471BA4AA3B005377D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8450524E1BA4AA3B005377D9;
+			remoteInfo = StudySauce;
+		};
 		845052671BA4AA3C005377D9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 845052471BA4AA3B005377D9 /* Project object */;
@@ -143,6 +152,10 @@
 		64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "File+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64A1646B1BFBC22600345E55 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		64C167CD1C38A4FF00ECDFED /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
+		64C167CF1C3F7AA200ECDFED /* HomeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTest.swift; sourceTree = "<group>"; };
+		64C167D51C3F7ECD00ECDFED /* StudySauceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64C167D71C3F7ECD00ECDFED /* StudySauceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySauceUITests.swift; sourceTree = "<group>"; };
+		64C167D91C3F7ECD00ECDFED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
 		64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		64C2F4A31C2090F100F7C854 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
@@ -207,6 +220,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		64C167D21C3F7ECD00ECDFED /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8450524C1BA4AA3B005377D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -286,6 +306,15 @@
 				64C2F4AE1C24B84F00F7C854 /* FaceView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		64C167D61C3F7ECD00ECDFED /* StudySauceUITests */ = {
+			isa = PBXGroup;
+			children = (
+				64C167D71C3F7ECD00ECDFED /* StudySauceUITests.swift */,
+				64C167D91C3F7ECD00ECDFED /* Info.plist */,
+			);
+			path = StudySauceUITests;
 			sourceTree = "<group>";
 		};
 		64C2F4A21C2090F100F7C854 /* DACircularProgress */ = {
@@ -387,6 +416,7 @@
 			children = (
 				845052511BA4AA3B005377D9 /* StudySauce */,
 				845052691BA4AA3C005377D9 /* StudySauceTests */,
+				64C167D61C3F7ECD00ECDFED /* StudySauceUITests */,
 				845052501BA4AA3B005377D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -396,6 +426,7 @@
 			children = (
 				8450524F1BA4AA3B005377D9 /* StudySauce.app */,
 				845052661BA4AA3C005377D9 /* StudySauceTests.xctest */,
+				64C167D51C3F7ECD00ECDFED /* StudySauceUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -435,6 +466,7 @@
 			children = (
 				8450526C1BA4AA3C005377D9 /* StudySauceTests.swift */,
 				8450526A1BA4AA3C005377D9 /* Supporting Files */,
+				64C167CF1C3F7AA200ECDFED /* HomeTest.swift */,
 			);
 			path = StudySauceTests;
 			sourceTree = "<group>";
@@ -465,6 +497,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		64C167D41C3F7ECD00ECDFED /* StudySauceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64C167DC1C3F7ECD00ECDFED /* Build configuration list for PBXNativeTarget "StudySauceUITests" */;
+			buildPhases = (
+				64C167D11C3F7ECD00ECDFED /* Sources */,
+				64C167D21C3F7ECD00ECDFED /* Frameworks */,
+				64C167D31C3F7ECD00ECDFED /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64C167DB1C3F7ECD00ECDFED /* PBXTargetDependency */,
+			);
+			name = StudySauceUITests;
+			productName = StudySauceUITests;
+			productReference = 64C167D51C3F7ECD00ECDFED /* StudySauceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8450524E1BA4AA3B005377D9 /* StudySauce */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 845052701BA4AA3C005377D9 /* Build configuration list for PBXNativeTarget "StudySauce" */;
@@ -507,10 +557,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "The Study Institute";
 				TargetAttributes = {
+					64C167D41C3F7ECD00ECDFED = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 8450524E1BA4AA3B005377D9;
+					};
 					8450524E1BA4AA3B005377D9 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 3MV67NZ3PZ;
@@ -544,11 +598,19 @@
 			targets = (
 				8450524E1BA4AA3B005377D9 /* StudySauce */,
 				845052651BA4AA3C005377D9 /* StudySauceTests */,
+				64C167D41C3F7ECD00ECDFED /* StudySauceUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		64C167D31C3F7ECD00ECDFED /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8450524D1BA4AA3B005377D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -571,6 +633,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		64C167D11C3F7ECD00ECDFED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64C167D81C3F7ECD00ECDFED /* StudySauceUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8450524B1BA4AA3B005377D9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -664,6 +734,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64C167D01C3F7AA200ECDFED /* HomeTest.swift in Sources */,
 				8450526D1BA4AA3C005377D9 /* StudySauceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -671,6 +742,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		64C167DB1C3F7ECD00ECDFED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8450524E1BA4AA3B005377D9 /* StudySauce */;
+			targetProxy = 64C167DA1C3F7ECD00ECDFED /* PBXContainerItemProxy */;
+		};
 		845052681BA4AA3C005377D9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8450524E1BA4AA3B005377D9 /* StudySauce */;
@@ -698,6 +774,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		64C167DD1C3F7ECD00ECDFED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = StudySauceUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studysauce.StudySauceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = StudySauce;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		64C167DE1C3F7ECD00ECDFED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = StudySauceUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = studysauce.StudySauceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = StudySauce;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		8450526E1BA4AA3C005377D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -857,6 +960,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		64C167DC1C3F7ECD00ECDFED /* Build configuration list for PBXNativeTarget "StudySauceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64C167DD1C3F7ECD00ECDFED /* Debug */,
+				64C167DE1C3F7ECD00ECDFED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8450524A1BA4AA3B005377D9 /* Build configuration list for PBXProject "StudySauce" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

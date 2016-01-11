@@ -18,17 +18,26 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var normalImage:UIImage!
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
+    var checking = false
     
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigButton: UIButton? = nil
     @IBOutlet weak var userButton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
+        if self.checking {
+            return
+        }
+        self.checking = true
         AppDelegate.performContext {
             if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
                 doMain {
                     self.performSegueWithIdentifier("card", sender: self)
+                    self.checking = false
                 }
+            }
+            else {
+                self.checking = false
             }
         }
     }

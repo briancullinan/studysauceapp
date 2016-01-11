@@ -37,8 +37,10 @@ extension UITextView {
 
     override func setFontSize(size: CGFloat) {
         if !self.editable {
-            let newAttr = self.replaceAttribute(NSFontAttributeName) {
-                return UIFont(descriptor: ($0 ?? self.font!).fontDescriptor(), size: ($0 ?? self.font!).pointSize == self.font!.pointSize ? size : ($0 ?? self.font!).pointSize)
+            let newAttr = self.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
+                let currentFont = f ?? self.font!
+                let newSize = currentFont.pointSize == self.font!.pointSize ? size : currentFont.pointSize
+                return UIFont(descriptor: currentFont.fontDescriptor(), size: newSize)
             }
             super.setFontSize(size)
             self.attributedText = newAttr

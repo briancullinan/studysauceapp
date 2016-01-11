@@ -31,12 +31,12 @@ struct saucyTheme {
     static let buttonFont = "Avenir-Medium"
     
     static let textFont = "Avenir-Medium"
-    static let textSize = 14.0 * saucyTheme.multiplier()
+    static let textSize = ceil(14.0 * saucyTheme.multiplier())
     
     static let headingFont = "Avenir-Heavy"
-    static let headingSize = 15.0 * saucyTheme.multiplier()
+    static let headingSize = ceil(15.0 * saucyTheme.multiplier())
     static let subheadingFont = "Avenir-Heavy"
-    static let subheadingSize = 14 * saucyTheme.multiplier()
+    static let subheadingSize = ceil(14 * saucyTheme.multiplier())
     static let labelFont = "Avenir-Heavy"
     static let lineHeight = CGFloat(1.8)
     

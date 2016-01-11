@@ -12,6 +12,7 @@ import UIKit
 
 class UserSettingsController: UITableViewController {
     private var users: [User]? = nil
+    private var isChild = false
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -38,6 +39,9 @@ class UserSettingsController: UITableViewController {
             let currentCookie = (AppDelegate.getUser()?.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
             let users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser() && (
                 $0.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie}
+            if let _ = users.filter({$0.hasRole("ROLE_PARENT")}).first where !AppDelegate.getUser()!.hasRole("ROLE_PARENT") {
+                self.isChild = true
+            }
             doMain {
                 self.users = users
                 done()
@@ -153,6 +157,9 @@ class UserSettingsController: UITableViewController {
             }
             return 0
         }
+        else if self.isChild && section == 1 {
+            return 0
+        }
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
@@ -174,13 +181,19 @@ class UserSettingsController: UITableViewController {
         
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.childTable {
-            return 0
+            return 0.01
+        }
+        else if self.isChild && section == 1 {
+            return 0.01
         }
         return saucyTheme.subheadingSize * saucyTheme.lineHeight
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.childTable {
+            return nil
+        }
+        else if self.isChild && section == 1 {
             return nil
         }
         if self.privacyCell.hidden {
