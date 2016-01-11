@@ -161,7 +161,7 @@ extension AppDelegate {
             $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
         }
         
-        $(UIImageView.self ~* {$0.tag == 23}, {background in
+        $(UIImageView.self ~* 23, {background in
             background.hidden = true
             background.viewController()!.view.clipsToBounds = false
             if saucyBackground == nil {
@@ -225,7 +225,7 @@ extension AppDelegate {
         })
         
         $([DialogController.self ~> UILabel.self,
-           UIImageView.self ~* { $0.tag == 23 } ~+ UILabel.self], {
+           UIImageView.self ~* 23 ~+ UILabel.self], {
             $0.setFontColor(saucyTheme.lightColor)
         })
         
@@ -250,11 +250,11 @@ extension AppDelegate {
             $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
-        $(UIViewController.self ~>> UILabel.self ~* {$0.tag == 25}, {(v: UILabel) -> Void in
+        $(UIViewController.self ~>> UILabel.self ~* 25, {(v: UILabel) -> Void in
             v.setFontSize(saucyTheme.headingSize)
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
-            if (v ~+ (UIView.self ~* {$0.tag == 24})).count == 0 && !v.hidden {
+            if (v ~+ (UIView.self ~* 24)).count == 0 && !v.hidden {
                 AppDelegate.createHeading(v)
             }
             
@@ -280,7 +280,12 @@ extension AppDelegate {
         $(PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape"), {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
-
+        
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, ver: .Compact),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Unspecified, ver: .Compact)], {
+            $0.setFontSize(20 * saucyTheme.multiplier())
+        })
+        
         $([PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
@@ -299,7 +304,7 @@ extension AppDelegate {
         })
         
         // packs and settings buttons on home page
-        $([HomeController.self ~>> UIButton.self ~* {$0.tag == 1337}], {(v: UIButton) in
+        $([HomeController.self ~>> UIButton.self ~* 1337], {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
                 0,
                 saucyTheme.textSize * 1.5 / 2,
@@ -307,7 +312,7 @@ extension AppDelegate {
                 saucyTheme.textSize * 1.5 / 2)
         })
         
-        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* {$0.tag == 2}, {
+        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* 2, {
             $0.setBackground(saucyTheme.fontColor)
         })
         
@@ -321,7 +326,7 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.fontColor)
         })
 
-        $(HomeController.self ~> UIButton.self ~* {$0.tag == 1}, {
+        $(HomeController.self ~> UIButton.self ~* 1, {
             $0.setFontColor(saucyTheme.primary)
         })
 
@@ -338,21 +343,30 @@ extension AppDelegate {
         
         // card button sizes
         // check and x font
+        
+        $([CardSelfController.self ~> UIButton.self,
+            PackResultsController.self ~> UIButton.self ~* 2], {(v: UIButton) in
+                v.setFontSize(40 * saucyTheme.multiplier())
+                v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
+                v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
+        })
+
         $([CardSelfController.self ~> UIButton.self,
            CardSelfController.self ~> UIButton.self ~> UILabel.self,
-           PackResultsController.self ~> UIButton.self ~* {$0.tag == 2},
-           PackResultsController.self ~> UIButton.self ~* {$0.tag == 2} ~> UILabel.self], {
+           PackResultsController.self ~> UIButton.self ~* 2,
+           PackResultsController.self ~> UIButton.self ~* 2 ~> UILabel.self], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
-        $(CardSelfController.self ~> UILabel.self ~* {$0.tag == 5}, {
+        $(CardSelfController.self ~> UILabel.self ~* 5, {
             $0.setFontColor(saucyTheme.middle)
         })
         
         // true and false button font
-        $([CardTrueFalseController.self ~> UIButton.self,
-           CardTrueFalseController.self ~> UIButton.self ~> UILabel.self], {
+        $(CardTrueFalseController.self ~> UIButton.self, {
             $0.setFontSize(30 * saucyTheme.multiplier())
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
         })
         
         $([CardBlankController.self ~> UITextField.self,
@@ -420,7 +434,7 @@ extension AppDelegate {
             v.textContainerInset = UIEdgeInsets(saucyTheme.padding)
         })
                 
-        $(UIViewController.self ~> UIButton.self ~* {$0.tag == 1338}, {(v: UIButton) in
+        $(UIViewController.self ~> UIButton.self ~* 1338, {(v: UIButton) in
             v.setFontName(saucyTheme.textFont)
             v.setFontColor(saucyTheme.lightColor)
             v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
@@ -437,11 +451,15 @@ extension AppDelegate {
             $0.viewController()!.view.backgroundColor = saucyTheme.lightColor
         })
         
-        $(TutorialPageViewController.self ~>> UIButton.self ~* {$0.tag == 26}, {
+        $(CardController.self ~>> UILabel.self ~* 1, {
+            $0.setFontColor(saucyTheme.middle)
+        })
+        
+        $(TutorialPageViewController.self ~>> UIButton.self ~* 26, {
             $0.setFontColor(saucyTheme.lightColor)
         })
         
-        $(UIViewController.self ~>> UIButton.self ~* {$0.tag == 26}, {
+        $(UIViewController.self ~>> UIButton.self ~* 26, {
             $0.contentMode = .ScaleAspectFit
         })
         
@@ -470,7 +488,7 @@ extension AppDelegate {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
-        $(TutorialContentViewController.self ~> UILabel.self ~* {$0.tag == 1}, {
+        $(TutorialContentViewController.self ~> UILabel.self ~* 1, {
             $0.setFontColor(saucyTheme.primary)
             $0.setFontSize(30 * saucyTheme.multiplier())
         })

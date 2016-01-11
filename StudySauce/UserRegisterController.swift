@@ -157,19 +157,26 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             self.registerButton.setBackground(saucyTheme.lightColor)
         }
         self.showNoConnectionDialog({
+            var redirect = false
             postJson("/account/create", params: registrationInfo, error: {_ in
                 doMain(self.done)
                 }, done: {_ in
-                    doMain(self.done)
+                    if !redirect {
+                        doMain(self.done)
+                    }
                 }, redirect: {(path) in
-                    doMain (self.done)
                     // login was a success!
                     if path == "/home" {
-                        AppDelegate.goHome(self, true)
+                        redirect = true
+                        AppDelegate.goHome(self, true) {_ in
+                            doMain (self.done)
+                        }
                     }
                     if path == "/login" {
+                        redirect = true
                         self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
                             self.performSegueWithIdentifier("login", sender: self)
+                            doMain (self.done)
                         })
                     }
             })

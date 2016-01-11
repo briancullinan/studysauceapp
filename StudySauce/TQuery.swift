@@ -23,6 +23,14 @@ enum T<B: UIView> {
         }
     }
     
+    static func size(hor: UIUserInterfaceSizeClass, ver: UIUserInterfaceSizeClass) -> (v: B) -> Bool {
+        return {(_: B) -> Bool in
+            return (UIScreen.mainScreen().traitCollection.horizontalSizeClass == hor && ver == .Unspecified) ||
+            (hor == .Unspecified && UIScreen.mainScreen().traitCollection.verticalSizeClass == ver) ||
+            (UIScreen.mainScreen().traitCollection.horizontalSizeClass == hor && UIScreen.mainScreen().traitCollection.verticalSizeClass == ver)
+        }
+    }
+    
     static func orientation(d: String) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             if d.lowercaseString == "landscape" && (UIApplication.sharedApplication().statusBarOrientation == .LandscapeLeft ||

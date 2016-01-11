@@ -17,8 +17,8 @@ class AutoSizingTextView: UITextView {
     internal var setManually = false
     
     func getFontSize() -> CGFloat {
-        let maximumLabelWidth = CGSizeMake(self.frame.width - self.textContainerInset.left - self.textContainerInset.right, CGFloat.max)
-        let maximumLabelHeight = CGSizeMake(CGFloat.max, self.frame.height - self.textContainerInset.top - self.textContainerInset.bottom)
+        let maximumLabelWidth = CGSizeMake(self.frame.width - saucyTheme.padding * 2, CGFloat.max)
+        let maxHeight = self.frame.height - saucyTheme.padding * 2
         var expectSize: CGFloat
         var words = self.text.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         for w in words {
@@ -33,15 +33,15 @@ class AutoSizingTextView: UITextView {
         }
         var size = self.origSize!
         repeat {
-            size = size - 0.5
+            size = ceil(size - 1)
             let font = UIFont(name: self.font!.fontName, size: size)
             expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
                 options:[.UsesLineFragmentOrigin, .UsesFontLeading],
                 attributes:[NSFontAttributeName : font!],
                 context:nil).height
-        } while size > saucyTheme.textSize && (expectSize > maximumLabelHeight.height - font!.lineHeight
+        } while size > saucyTheme.textSize && (expectSize > maxHeight
             || expectSize > maximumLabelWidth.width)
-        return ceil(size)
+        return size
     }
     
     func calcFontSize() -> Void {
@@ -52,7 +52,7 @@ class AutoSizingTextView: UITextView {
             
             if !setManually && self.font != nil {
                 let size = self.getFontSize()
-                if size != self.font?.pointSize {
+                if size != self.font?.pointSize && size != self.font!.pointSize - 1 && size != self.font!.pointSize + 1 {
                     self.setFontSize(size)
                 }
             }
@@ -67,14 +67,9 @@ class AutoSizingTextView: UITextView {
     }
     
     override func layoutSubviews() {
-        var calculate = false
+        super.layoutSubviews()
         if !self.isCalculating {
             self.isCalculating = true
-            self.calcFontSize()
-            calculate = true
-        }
-        super.layoutSubviews()
-        if calculate {
             self.calcFontSize()
             self.isCalculating = false
         }

@@ -31,11 +31,17 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let url = AppDelegate.studySauceCom("/packs/download/\(user.id!)?pack=\(forPack.id!)")
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
+            if user != AppDelegate.getUser() {
+                return
+            }
             if (error != nil) {
                 return completionHandler([], error)
             }
             
             AppDelegate.performContext {
+                if user != AppDelegate.getUser() {
+                    return
+                }
                 do {
                     var ids = [NSNumber]()
                     
@@ -181,7 +187,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     if let userPacks = pack["user_packs"] as? NSArray where userPacks.count > 0 {
                         self.downloadIfNeeded(newPack!, user) {
+                            if user != AppDelegate.getUser() {
+                                return
+                            }
                             AppDelegate.performContext {
+                                if user != AppDelegate.getUser() {
+                                    return
+                                }
                                 let cards = newPack!.cards!.allObjects as! [Card]
                                 for p in userPacks {
                                     let id = p["card"] as? NSNumber
@@ -275,6 +287,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         if p.isDownloading {
             return
         }
+        AppDelegate.performContext {
         let up = p.getUserPack(user)
         if p.cards!.count == 0 || up.downloaded == nil
             || (p.modified != nil && p.modified! > up.downloaded!) {
@@ -284,6 +297,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 PackSummaryController.getCards(p, user) {_,_ in
                     // TODO: update downloading status in table row!
                     AppDelegate.performContext {
+                        if user != AppDelegate.getUser() {
+                            return
+                        }
                         up.retries = ""
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
@@ -294,6 +310,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
         else {
             done()
+        }
         }
     }
     
