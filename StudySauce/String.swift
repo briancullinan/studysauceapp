@@ -22,3 +22,31 @@ extension String {
         return try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
     }
 }
+
+extension NSAttributedString {
+    
+    func replaceAttribute(attr: String, _ value: AnyObject) -> NSAttributedString {
+        let newAttr = NSMutableAttributedString(string: self.string)
+        let wholeRange = NSMakeRange(0, self.length)
+        newAttr.addAttribute(attr, value: value, range: wholeRange)
+        self.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
+            var attrs = s
+            attrs[attr] = value
+            newAttr.addAttributes(attrs, range: r)
+        }
+        return newAttr
+    }
+    
+    func replaceAttribute<T: AnyObject>(attr: String, _ value: (T?) -> T) -> NSAttributedString {
+        let newAttr = NSMutableAttributedString(string: self.string)
+        let wholeRange = NSMakeRange(0, self.length)
+        newAttr.addAttribute(attr, value: value(nil), range: wholeRange)
+        self.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
+            var attrs = s
+            attrs[attr] = value(attrs[attr] as? T)
+            newAttr.addAttributes(attrs, range: r)
+        }
+        return newAttr
+    }
+
+}

@@ -158,7 +158,7 @@ extension AppDelegate {
             newPara.firstLineHeadIndent = 0.0
             newPara.headIndent = 10.5
             newPara.lineSpacing = saucyTheme.padding
-            $0.replaceAttribute(NSParagraphStyleAttributeName, newPara)
+            $0.attributedText.replaceAttribute(NSParagraphStyleAttributeName, newPara)
         }
         
         $(UIImageView.self ~* 23, {background in

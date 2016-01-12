@@ -19,7 +19,7 @@ class AutoSizingTextView: UITextView {
     func getFontSize() -> CGFloat {
         let maximumLabelWidth = CGSizeMake(self.frame.width - saucyTheme.padding * 2, CGFloat.max)
         let maxHeight = self.frame.height - saucyTheme.padding * 2
-        var expectSize: CGFloat
+        var expectSize: CGRect
         var words = self.text.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         for w in words {
             if w.isEmpty {
@@ -33,14 +33,14 @@ class AutoSizingTextView: UITextView {
         }
         var size = self.origSize!
         repeat {
-            size = ceil(size - 1)
-            let font = UIFont(name: self.font!.fontName, size: size)
-            expectSize = self.text.boundingRectWithSize(maximumLabelWidth,
+            size = floor(size - 1)
+            let font = UIFont(name: saucyTheme.textFont, size: size)
+            let text = self.attributedText.replaceAttribute(NSFontAttributeName, {(_: UIFont?) in return font!})
+            expectSize = text.boundingRectWithSize(maximumLabelWidth,
                 options:[.UsesLineFragmentOrigin, .UsesFontLeading],
-                attributes:[NSFontAttributeName : font!],
-                context:nil).height
-        } while size > saucyTheme.textSize && (expectSize > maxHeight
-            || expectSize > maximumLabelWidth.width)
+                context:nil)
+        } while size > saucyTheme.textSize && (expectSize.height > maxHeight
+            || expectSize.height > maximumLabelWidth.width)
         return size
     }
     
