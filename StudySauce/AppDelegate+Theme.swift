@@ -89,6 +89,25 @@ extension AppDelegate {
         }
     }
     
+    static func setAnalytics() {
+        let vc = AppDelegate.visibleViewController()
+        let tracker = GAI.sharedInstance().defaultTracker
+        let name: String
+        if vc.restorationIdentifier != nil {
+            name = vc.restorationIdentifier!
+        }
+        else {
+            name = String(vc.self)
+        }
+        
+        if name != tracker.get(kGAIScreenName) {
+            print(name)
+            tracker.set(kGAIScreenName, value: name)
+            let builder = GAIDictionaryBuilder.createScreenView()
+            tracker.send(builder.build() as [NSObject : AnyObject])
+        }
+    }
+    
     func rerenderView(v: UIView) {
         v.setAppearanceFunc("")
         for s in v.subviews {
@@ -138,6 +157,10 @@ extension AppDelegate {
         // set up font names
         $(UIButton.self, {
             $0.setFontName(saucyTheme.buttonFont)
+        })
+        
+        $(UIViewController.self ~>> UIView.self, {_ in
+            AppDelegate.setAnalytics()
         })
         
         // set up text colors
@@ -347,8 +370,8 @@ extension AppDelegate {
         $([CardSelfController.self ~> UIButton.self,
             PackResultsController.self ~> UIButton.self ~* 2], {(v: UIButton) in
                 v.setFontSize(40 * saucyTheme.multiplier())
-                v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
-                v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
+                v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2)
+                v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2)
         })
 
         $([CardSelfController.self ~> UIButton.self,
@@ -362,6 +385,11 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.middle)
         })
         
+        // true and false button font
+        $(CardTrueFalseController.self ~> UIButton.self ~> UILabel.self, {
+            $0.setFontSize(30 * saucyTheme.multiplier())
+        })
+
         // true and false button font
         $(CardTrueFalseController.self ~> UIButton.self, {
             $0.setFontSize(30 * saucyTheme.multiplier())

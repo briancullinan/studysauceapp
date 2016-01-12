@@ -217,6 +217,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         NSTimer.scheduledTimerWithTimeInterval(1,
             target: self, selector: "checkTimeout", userInfo: nil, repeats: true)
         
+        // Configure tracker from GoogleService-Info.plist.
+        var configureError:NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        // Optional: configure GAI options.
+        let gai = GAI.sharedInstance()
+        gai.trackUncaughtExceptions = true  // report uncaught exceptions
+        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
         return true
     }
     

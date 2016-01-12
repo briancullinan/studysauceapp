@@ -223,6 +223,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         next.view.transform = CGAffineTransformMakeTranslation(0, 0)
         next.view.bounds = UIScreen.mainScreen().bounds
         last.view.bounds = UIScreen.mainScreen().bounds
+        next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
+        last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
         if last.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
             last.orientation = UIApplication.sharedApplication().statusBarOrientation
             AppDelegate.instance().rerenderView(last.view)
@@ -231,8 +233,6 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             next.orientation = UIApplication.sharedApplication().statusBarOrientation
             AppDelegate.instance().rerenderView(next.view)
         }
-        next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
-        last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
 
         let origLast = last
         let origColor = origLast.view.backgroundColor
@@ -417,7 +417,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 }
                 self.reversed = false
                 self.transitioning = false
-
+                AppDelegate.setAnalytics()
         })
         
     }
