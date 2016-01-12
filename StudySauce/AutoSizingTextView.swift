@@ -56,6 +56,7 @@ class AutoSizingTextView: UITextView {
     override var font: UIFont? {
         didSet {
             self.origSize = font?.pointSize
+            self.calcFontSize()
         }
     }
     
