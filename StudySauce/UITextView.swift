@@ -15,8 +15,9 @@ extension UITextView {
         if !self.editable {
             let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
                 let currentFont = f ?? self.font!
-                let newSize = currentFont.pointSize == self.font!.pointSize ? size : currentFont.pointSize
-                return UIFont(descriptor: currentFont.fontDescriptor(), size: newSize)
+                let newSize = round(currentFont.pointSize) == round(self.font!.pointSize) ? size : currentFont.pointSize
+                print("\(newSize) - \(currentFont.pointSize) - \(self.font!.pointSize)")
+                return UIFont(descriptor: currentFont.fontDescriptor(), size: round(newSize))
             }
             super.setFontSize(size)
             self.attributedText = newAttr

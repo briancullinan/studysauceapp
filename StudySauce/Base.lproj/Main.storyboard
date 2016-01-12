@@ -63,11 +63,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="240"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
@@ -692,11 +692,9 @@
                         <outlet property="answer3" destination="tvk-wA-8rf" id="io9-sZ-GUI"/>
                         <outlet property="answer4" destination="ndr-5k-eWw" id="mx5-NT-h1O"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="I3T-Nz-Fid"/>
-                        <segue destination="mGc-pt-mmO" kind="unwind" identifier="last" unwindAction="returnToMultiple:" id="NQi-bc-UNl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zO-eF-hWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="mGc-pt-mmO" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3527" y="-2705"/>
         </scene>
@@ -3057,10 +3055,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <viewControllerLayoutGuide type="bottom" id="tMl-qi-rLZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Gzo-mc-S5O">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN" customClass="AutoSizingTextView" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="8" width="560" height="486"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3268,7 +3266,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <segue reference="M6g-6I-YI4"/>
         <segue reference="Edk-H5-39l"/>
         <segue reference="tJI-7X-Pui"/>
-        <segue reference="h3u-I4-U7Q"/>
-        <segue reference="Dzv-wk-aJj"/>
+        <segue reference="B8Y-rH-ahi"/>
+        <segue reference="9qz-n1-wHJ"/>
     </inferredMetricsTieBreakers>
 </document>

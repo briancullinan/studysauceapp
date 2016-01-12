@@ -41,38 +41,59 @@ class AutoSizingTextView: UITextView {
                 context:nil)
         } while size > saucyTheme.textSize && (expectSize.height > maxHeight
             || expectSize.height > maximumLabelWidth.width)
+        if size < saucyTheme.textSize {
+            return saucyTheme.textSize
+        }
         return size
+    }
+    
+    override func didChange(changeKind: NSKeyValueChange, valuesAtIndexes indexes: NSIndexSet, forKey key: String) {
+        super.didChange(changeKind, valuesAtIndexes: indexes, forKey: key)
+
+        self.calcFontSize()
+    }
+    
+    override var font: UIFont? {
+        didSet {
+            self.origSize = font?.pointSize
+        }
+    }
+    
+    override var attributedText: NSAttributedString! {
+        didSet {
+            self.calcFontSize()
+        }
     }
     
     func calcFontSize() -> Void {
         
         // TODO: all of this when textbox changes
-        if self.text != nil {
+        if self.text != nil && !self.isCalculating {
+            self.isCalculating = true
             // if it goes over even on a small setting, turn scrollable back on.
             
             if !setManually && self.font != nil {
                 let size = self.getFontSize()
-                if size != self.font?.pointSize && size != self.font!.pointSize - 1 && size != self.font!.pointSize + 1 {
+                print(size)
+                if size != self.font?.pointSize {
                     self.setFontSize(size)
                 }
             }
             
-            // center resized box in container?
+                // center resized box in container?
             var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
             topCorrect = floor(topCorrect < 0.0 ? 0.0 : topCorrect / 2)
             if self.contentInset.top != topCorrect {
                 self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
+                self.layoutIfNeeded()
             }
+            
+            self.isCalculating = false
         }
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if !self.isCalculating {
-            self.isCalculating = true
-            self.calcFontSize()
-            self.isCalculating = false
-        }
+        self.calcFontSize()
     }
-    
 }

@@ -19,7 +19,7 @@ extension UIView {
     
     func setFontSize(size: CGFloat) {
         if let font = self.valueForKey("font") as? UIFont {
-            self.setValue(UIFont(name: font.familyName, size: size), forKey: "font")
+            self.setValue(UIFont(name: font.familyName, size: round(size)), forKey: "font")
         }
     }
     
