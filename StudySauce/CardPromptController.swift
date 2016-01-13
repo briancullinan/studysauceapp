@@ -44,10 +44,10 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         let range = content.rangeOfString("P14y", options: [], range: wholeRange)
         
         if range.length > 0 {
-            let attr = self.content.attributedText.mutableCopy() as! NSMutableAttributedString
+            let attr = NSMutableAttributedString(attributedString: self.content.attributedText)
             attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
             attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
-            self.content.attributedText = attr
+            self.content.attributedText = NSAttributedString(attributedString: attr)
         }
     }
     

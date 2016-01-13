@@ -67,6 +67,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 else {
                     home?.viewDidAppear(true)
+                    if let subHome = home?.childViewControllers.filter({$0 is HomeController}).first as? HomeController {
+                        subHome.packs = nil
+                        subHome.tableView?.reloadData()
+                    }
                 }
             })
         }

@@ -79,6 +79,18 @@ class CardController: UIViewController {
         self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
     }
     
+    override func getAnalytics() -> String {
+        if self.card != nil {
+            let process = self.isRetention ? "BigButton" : "PackSummary"
+            let pack = self.pack.title!.matchesForRegexInText("\\s[a-z]|[A-Z]").map {
+                return $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())}.joinWithSeparator("").uppercaseStringWithLocale(nil)
+            let card = (self.view ~> UITextView.self).first!.text
+            let cardShort = card!.substringToIndex(card!.startIndex.advancedBy(min(card!.characters.count, 30)))
+            return "\(process)/\(self.pack!.id!)-\(pack)/\(self.card!.id!)-\(cardShort)"
+        }
+        return super.getAnalytics()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let vc = segue.destinationViewController as? PackResultsController {
             vc.pack = self.pack

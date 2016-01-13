@@ -16,6 +16,17 @@ private struct AssociatedKeys {
 
 extension UIViewController {
     
+    func getAnalytics() -> String {
+        let name: String
+        if self.restorationIdentifier != nil {
+            name = self.restorationIdentifier!
+        }
+        else {
+            name = String(self.self)
+        }
+        return name
+    }
+    
     var orientation: UIInterfaceOrientation? {
         get {
             let result = objc_getAssociatedObject(self, &AssociatedKeys.orientation) as? Int

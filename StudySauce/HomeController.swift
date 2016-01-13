@@ -176,9 +176,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             
             // Load packs from database
-            self.getPacksFromLocalStore {
-                self.tableView!.reloadData()
-            }
             PackSummaryController.getPacks({
                 self.getPacksFromLocalStore {
                     self.tableView!.reloadData()
@@ -241,12 +238,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if AppDelegate.getUser() == nil || AppDelegate.getUser()!.user_packs!.count == 0 {
+        if self.packs == nil {
+            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
+        }
+        else if AppDelegate.getUser() == nil || AppDelegate.getUser()!.user_packs!.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
-        }
-        else if self.packs == nil {
-            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
         }
         else if self.packs!.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)

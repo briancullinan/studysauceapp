@@ -21,6 +21,16 @@ extension String {
         guard let data = dataUsingEncoding(NSUTF8StringEncoding) else { return nil }
         return try? NSAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding], documentAttributes: nil)
     }
+    
+    func matchesForRegexInText(regex: String!) -> [String] {
+        
+        let regex = try? NSRegularExpression(pattern: regex,
+            options: [])
+        let nsString = self as NSString
+        let results = regex?.matchesInString(self,
+            options: [], range: NSMakeRange(0, nsString.length))
+        return results?.map {(r: NSTextCheckingResult) -> String in nsString.substringWithRange(r.range)} ?? []
+    }
 }
 
 extension NSAttributedString {
@@ -46,7 +56,7 @@ extension NSAttributedString {
             attrs[attr] = value(attrs[attr] as? T)
             newAttr.addAttributes(attrs, range: r)
         }
-        return newAttr
+        return NSAttributedString(attributedString: newAttr)
     }
 
 }

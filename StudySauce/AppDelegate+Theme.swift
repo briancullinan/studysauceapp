@@ -92,14 +92,7 @@ extension AppDelegate {
     static func setAnalytics() {
         let vc = AppDelegate.visibleViewController()
         let tracker = GAI.sharedInstance().defaultTracker
-        let name: String
-        if vc.restorationIdentifier != nil {
-            name = vc.restorationIdentifier!
-        }
-        else {
-            name = String(vc.self)
-        }
-        
+        let name = vc.getAnalytics()        
         if name != tracker.get(kGAIScreenName) {
             print(name)
             tracker.set(kGAIScreenName, value: name)

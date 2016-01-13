@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 
+private struct AssociatedKeys {
+    static var originalSize = "UITextView_OriginalFontSize"
+}
+
 extension UITextView {
-    
+        
     override func setFontSize(size: CGFloat) {
         if !self.editable {
             let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
                 let currentFont = f ?? self.font!
-                let newSize = round(currentFont.pointSize) == round(self.font!.pointSize) ? size : currentFont.pointSize
-                print("\(newSize) - \(currentFont.pointSize) - \(self.font!.pointSize)")
+                let newSize = f == nil || round(f!.pointSize) == round(self.font!.pointSize) ? size : currentFont.pointSize
                 return UIFont(descriptor: currentFont.fontDescriptor(), size: round(newSize))
             }
             super.setFontSize(size)
