@@ -17,9 +17,9 @@ extension UITextView {
         
     override func setFontSize(size: CGFloat) {
         if !self.editable {
-            let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
+            let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?, attrs, _) -> UIFont in
                 let currentFont = f ?? self.font!
-                let newSize = f == nil || round(f!.pointSize) == round(self.font!.pointSize) ? size : currentFont.pointSize
+                let newSize = attrs[NSForegroundColorAttributeName] as? UIColor != UIColor.clearColor() ? size : currentFont.pointSize
                 return UIFont(descriptor: currentFont.fontDescriptor(), size: round(newSize))
             }
             super.setFontSize(size)
@@ -33,7 +33,7 @@ extension UITextView {
     override func setFontName(name: String) {
         if !self.editable {
             let newFont = UIFont(name: name, size: self.font!.pointSize)!
-            let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) in
+            let newAttr = self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?, _, _) in
                 let currentFont = f ?? self.font!
                 let currentTraits = currentFont.fontDescriptor().symbolicTraits
                 var newTraits = newFont.fontDescriptor()
@@ -56,8 +56,8 @@ extension UITextView {
     
     override func setFontColor(color: UIColor) {
         if !self.editable {
-            let newAttr = self.attributedText.replaceAttribute(NSForegroundColorAttributeName) {
-                return $0 == self.textColor && $0 != UIColor.clearColor() ? color : $0 ?? color
+            let newAttr = self.attributedText.replaceAttribute(NSForegroundColorAttributeName) {(c: UIColor?, _, _) in
+                return c != UIColor.clearColor() ? color : c ?? color
             }
             super.setFontColor(color)
             self.attributedText = newAttr

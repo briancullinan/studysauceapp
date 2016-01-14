@@ -33,7 +33,7 @@ class File: NSManagedObject {
                 return
             }
             file.downloading = true
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), {
+            doBackground {
                 let data = NSData(contentsOfURL: NSURL(string: url)!)!
                 let fileName = fileManager.displayNameAtPath(url)
                 let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
@@ -47,7 +47,7 @@ class File: NSManagedObject {
                         done(file)
                     }
                 })
-            })
+            }
         })
         
     }

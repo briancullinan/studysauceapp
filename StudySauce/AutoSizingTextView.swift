@@ -12,6 +12,7 @@ import UIKit
 
 class AutoSizingTextView: UITextView {
     
+    var isSetting = false
     var origSize: CGFloat? = nil
     var currentSize: CGFloat? = nil
     var isCalculating = false
@@ -46,11 +47,10 @@ class AutoSizingTextView: UITextView {
         
     override var font: UIFont? {
         didSet {
-            if !self.isCalculating {
+            if !self.isSetting {
                 self.origSize = font?.pointSize
             }
             self.calcFontSize()
-            self.currentSize = font?.pointSize
         }
     }
     
@@ -73,51 +73,48 @@ class AutoSizingTextView: UITextView {
     }
     
     private func replaceAttr(size: CGFloat) -> NSAttributedString {
-        return self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
+        return self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?, attrs, _) -> UIFont in
             let currentFont = f ?? self.font!
-            let newSize = f == nil || round(f!.pointSize) == round(self.currentSize ?? self.origSize!) ? size : f!.pointSize
+            let newSize = attrs[NSForegroundColorAttributeName] as? UIColor != UIColor.clearColor() ? size : f!.pointSize
             return UIFont(descriptor: currentFont.fontDescriptor(), size: round(newSize))
         }
     }
     
-    override func setFontSize(size: CGFloat) {
-        if !self.editable {
-            let newAttr = self.replaceAttr(size)
-            if let font = self.valueForKey("font") as? UIFont {
-                self.setValue(UIFont(name: font.familyName, size: round(size)), forKey: "font")
-            }
-            self.attributedText = newAttr
-        }
-        else {
-            if let font = self.valueForKey("font") as? UIFont {
-                self.setValue(UIFont(name: font.familyName, size: round(size)), forKey: "font")
-            }
-        }
-    }
-    
     func calcFontSize() -> Void {
-        
         // TODO: all of this when textbox changes
         if self.text != nil && !self.isCalculating {
+            if self.window == nil {
+                return
+            }
+            
             self.isCalculating = true
-            // if it goes over even on a small setting, turn scrollable back on.
-            
-            if !setManually && self.font != nil {
-                let size = self.getFontSize()
-                if self.currentSize == nil || size != self.currentSize! {
-                    self.selectedTextRange = nil
-                    self.setFontSize(size)
+            doBackground {
+                // if it goes over even on a small setting, turn scrollable back on.
+                
+                if !self.setManually && self.font != nil {
+                    let size = self.getFontSize()
+                    if self.currentSize == nil || size != self.currentSize! {
+                        print(size)
+                        doMain {
+                            self.isSetting = true
+                            self.setFontSize(size)
+                            self.currentSize = size
+                            self.isSetting = false
+                        }
+                    }
                 }
+                
+                // center resized box in container?
+                var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
+                topCorrect = floor(topCorrect < 0.0 ? 0.0 : topCorrect / 2)
+                if self.contentInset.top != topCorrect {
+                    doMain {
+                        self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
+                    }
+                }
+                
+                self.isCalculating = false
             }
-            
-            // center resized box in container?
-            var topCorrect : CGFloat = (self.frame.height - self.contentSize.height);
-            topCorrect = floor(topCorrect < 0.0 ? 0.0 : topCorrect / 2)
-            if self.contentInset.top != topCorrect {
-                self.contentInset = UIEdgeInsets(top: topCorrect, left: 0, bottom: 0, right: 0)
-            }
-            
-            self.isCalculating = false
         }
         else {
             self.nextCalc?.invalidate()
@@ -125,7 +122,7 @@ class AutoSizingTextView: UITextView {
                 target: self, selector: "calcFontSize", userInfo: nil, repeats: false)
         }
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
         self.calcFontSize()

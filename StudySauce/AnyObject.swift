@@ -18,3 +18,7 @@ func <|<T: AnyObject>(obj: T, f: T -> () ) -> T {
 func doMain (block: () -> Void) {
     dispatch_async(dispatch_get_main_queue(), block)
 }
+
+func doBackground(block: () -> Void) {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), block)
+}

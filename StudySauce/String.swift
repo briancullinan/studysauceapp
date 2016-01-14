@@ -47,13 +47,13 @@ extension NSAttributedString {
         return newAttr
     }
     
-    func replaceAttribute<T: AnyObject>(attr: String, _ value: (T?) -> T) -> NSAttributedString {
+    func replaceAttribute<T: AnyObject>(attr: String, _ value: (T?, [String : AnyObject], NSRange) -> T) -> NSAttributedString {
         let newAttr = NSMutableAttributedString(string: self.string)
         let wholeRange = NSMakeRange(0, self.length)
-        newAttr.addAttribute(attr, value: value(nil), range: wholeRange)
+        newAttr.addAttribute(attr, value: value(nil, Dictionary<String,AnyObject>(), wholeRange), range: wholeRange)
         self.enumerateAttributesInRange(wholeRange, options: []) { (s, r, b) -> Void in
             var attrs = s
-            attrs[attr] = value(attrs[attr] as? T)
+            attrs[attr] = value(attrs[attr] as? T, attrs, r)
             newAttr.addAttributes(attrs, range: r)
         }
         return NSAttributedString(attributedString: newAttr)
