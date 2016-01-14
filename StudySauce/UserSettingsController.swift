@@ -157,8 +157,13 @@ class UserSettingsController: UITableViewController {
             }
             return 0
         }
-        else if self.isChild && section == 1 {
-            return 0
+        else if self.isChild {
+            if section == 1 {
+                return 0
+            }
+            if section == 0 {
+                return 2
+            }
         }
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
