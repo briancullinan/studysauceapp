@@ -181,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     //    self.user = user
                     //}
                     doMain {
-                        AppDelegate.goHome { self.afterHome($0) }
+                        AppDelegate.goHome {_ in self.afterHome() }
                     }
                 })
             }
@@ -190,13 +190,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             // TODO: work in offline mode
             if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                 self.user = user
-                AppDelegate.goHome { self.afterHome($0) }
+                AppDelegate.goHome {_ in self.afterHome() }
             }
             else {
                 AppDelegate.goHome {v in
                     v.showNoConnectionDialog { () -> Void in
                         UserLoginController.home { () -> Void in
-                            AppDelegate.goHome { self.afterHome($0) }
+                            AppDelegate.goHome {_ in self.afterHome() }
                         }
                     }
                 }
@@ -219,17 +219,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return true
     }
     
-    func afterHome(h: UIViewController) -> Void {
-        Harpy.sharedInstance().delegate = self
-        Harpy.sharedInstance().alertType = .None
-        Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
-        Harpy.sharedInstance().checkVersion()
-
-        if !self.needsUpdating && h.restorationIdentifier == "Home" {
-            self.didTimeout()
-        }
-    }
-    
     func checkTimeout () {
         if AppDelegate.lastTouch < NSDate().dateByAddingTimeInterval(-self.timeout) {
             self.didTimeout()
@@ -238,38 +227,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     func harpyDidDetectNewVersionWithoutAlert(message: String!) {
-        let vc = AppDelegate.visibleViewController()
         self.needsUpdating = true
-        vc.showDialog(NSLocalizedString("A new version is available.", comment: "Message text for new version dialog"), button: NSLocalizedString("Update", comment: "Update button on new version")) {
-            let iTunesURL = NSURL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
-            UIApplication.sharedApplication().openURL(iTunesURL)
+        let completed = {
+            AppDelegate.visibleViewController().showDialog(NSLocalizedString("A new version is now available.", comment: "Message text for new version dialog"), button: NSLocalizedString("Update", comment: "Update button on new version"), click: {
+                let iTunesURL = NSURL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
+                UIApplication.sharedApplication().openURL(iTunesURL)
+                return false
+            })
+        }
+        if AppDelegate.visibleViewController() is UserSwitchController {
+            AppDelegate.visibleViewController().dismissViewControllerAnimated(false, completion: {
+                completed()
+            })
+        }
+        else {
+            completed()
+        }
+    }
+    
+    func afterHome() {
+        Harpy.sharedInstance().delegate = self
+        Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
+        Harpy.sharedInstance().alertType = .None
+        Harpy.sharedInstance().checkVersion()
+
+        if AppDelegate.visibleViewController().restorationIdentifier == "Home" {
+            self.didTimeout()
         }
     }
     
     func didTimeout() {
-        if self.window == nil || self.user == nil {
-            return
-        }
         
-        AppDelegate.performContext({
-            if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 0 {
-                doMain {
-                    if !(AppDelegate.visibleViewController() is UserSwitchController) {
-                        if let home = AppDelegate.visibleViewController() as? HomeController {
-                            home.userClick(home.userButton!)
-                        }
-                        else {
-                            AppDelegate.goHome {home in
-                                let h = home as! HomeController
-                                doMain {
-                                    h.userClick(h.userButton!)
+        if !self.needsUpdating {
+            
+            if self.window == nil || self.user == nil {
+                return
+            }
+            
+            AppDelegate.performContext({
+                if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 0 {
+                    doMain {
+                        if !(AppDelegate.visibleViewController() is UserSwitchController) {
+                            if let home = AppDelegate.visibleViewController() as? HomeController {
+                                home.userClick(home.userButton!)
+                            }
+                            else {
+                                AppDelegate.goHome {home in
+                                    let h = home as! HomeController
+                                    doMain {
+                                        h.userClick(h.userButton!)
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-        })
+            })
+        }
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
