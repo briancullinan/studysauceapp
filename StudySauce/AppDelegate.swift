@@ -181,11 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     //    self.user = user
                     //}
                     doMain {
-                        AppDelegate.goHome {h in
-                            if h.restorationIdentifier == "Home" {
-                                self.didTimeout()
-                            }
-                        }
+                        AppDelegate.goHome { self.afterHome($0) }
                     }
                 })
             }
@@ -194,21 +190,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             // TODO: work in offline mode
             if let user = AppDelegate.list(User.self).filter({$0.email == email}).first {
                 self.user = user
-                AppDelegate.goHome{h in
-                    if h.restorationIdentifier == "Home" {
-                        self.didTimeout()
-                    }
-                }
+                AppDelegate.goHome { self.afterHome($0) }
             }
             else {
                 AppDelegate.goHome {v in
                     v.showNoConnectionDialog { () -> Void in
                         UserLoginController.home { () -> Void in
-                            AppDelegate.goHome{h in
-                                if h.restorationIdentifier == "Home" {
-                                    self.didTimeout()
-                                }
-                            }
+                            AppDelegate.goHome { self.afterHome($0) }
                         }
                     }
                 }
@@ -231,6 +219,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return true
     }
     
+    func afterHome(h: UIViewController) -> Void {
+        Harpy.sharedInstance().delegate = self
+        Harpy.sharedInstance().alertType = .None
+        Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
+        Harpy.sharedInstance().checkVersion()
+
+        if !self.needsUpdating && h.restorationIdentifier == "Home" {
+            self.didTimeout()
+        }
+    }
+    
     func checkTimeout () {
         if AppDelegate.lastTouch < NSDate().dateByAddingTimeInterval(-self.timeout) {
             self.didTimeout()
@@ -240,18 +239,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     func harpyDidDetectNewVersionWithoutAlert(message: String!) {
         let vc = AppDelegate.visibleViewController()
-        vc.showDialog(message, button: NSLocalizedString("Update", comment: "Update button on new version")) {
+        self.needsUpdating = true
+        vc.showDialog(NSLocalizedString("A new version is available.", comment: "Message text for new version dialog"), button: NSLocalizedString("Update", comment: "Update button on new version")) {
             let iTunesURL = NSURL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
             UIApplication.sharedApplication().openURL(iTunesURL)
         }
     }
     
     func didTimeout() {
-        Harpy.sharedInstance().delegate = self
-        Harpy.sharedInstance().alertType = .None
-        Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
-        Harpy.sharedInstance().checkVersion()
-
         if self.window == nil || self.user == nil {
             return
         }
