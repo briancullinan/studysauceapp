@@ -11,8 +11,9 @@ import CoreData
 import SystemConfiguration
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate {
 
+    var needsUpdating = false
     var timeout = 60.0 * 60.0
     internal var device: String? = nil
     var window: UIWindow?
@@ -167,7 +168,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         IQKeyboardManager.sharedManager().enable = true
         self.setupTheme()
-        
+        Harpy.sharedInstance().appID = "1065647027"
+
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
         let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -225,7 +227,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // Optional: configure GAI options.
         let gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
-        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+        //gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
         return true
     }
     
@@ -236,10 +238,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    func harpyDidDetectNewVersionWithoutAlert(message: String!) {
+        let vc = AppDelegate.visibleViewController()
+        vc.showDialog(message, button: NSLocalizedString("Update", comment: "Update button on new version")) {
+            let iTunesURL = NSURL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
+            UIApplication.sharedApplication().openURL(iTunesURL)
+        }
+    }
+    
     func didTimeout() {
+        Harpy.sharedInstance().delegate = self
+        Harpy.sharedInstance().alertType = .None
+        Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
+        Harpy.sharedInstance().checkVersion()
+
         if self.window == nil || self.user == nil {
             return
         }
+        
         AppDelegate.performContext({
             if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 0 {
                 doMain {

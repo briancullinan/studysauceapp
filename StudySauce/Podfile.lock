@@ -17,10 +17,12 @@ PODS:
   - GoogleSymbolUtilities (1.0.3)
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
+  - Harpy (3.4.5)
 
 DEPENDENCIES:
   - Google
   - Google/Analytics
+  - Harpy
 
 SPEC CHECKSUMS:
   Google: 97618e118111b998cce1d8dd1bd98b82301d72db
@@ -29,5 +31,6 @@ SPEC CHECKSUMS:
   GoogleNetworkingUtilities: 292992ab31b7b4ba32809a0e8b40e324cdfb2c0c
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
+  Harpy: 2891878e970d5b485ab92ba58ff0dd77af4c5647
 
 COCOAPODS: 0.39.0

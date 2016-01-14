@@ -23,6 +23,8 @@
 		644C4A601BB20AFE00E4D52A /* PackSummaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */; };
 		644C4A621BB3516F00E4D52A /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A611BB3516F00E4D52A /* CardController.swift */; };
 		644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 644C4A651BB3536E00E4D52A /* PackResultsController.swift */; };
+		6450FB491C473802009D12D4 /* libHarpy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6450FB481C473802009D12D4 /* libHarpy.a */; };
+		6450FB4B1C473805009D12D4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6450FB4A1C473805009D12D4 /* libPods.a */; };
 		64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDB1BC64B4D00F9C6EB /* String.swift */; };
 		64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDD1BC64C6100F9C6EB /* DialogController.swift */; };
 		6469661F1BF2F1990081FC3F /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6469661E1BF2F1990081FC3F /* CollectionType.swift */; };
@@ -137,6 +139,8 @@
 		644C4A5F1BB20AFE00E4D52A /* PackSummaryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackSummaryCell.swift; sourceTree = "<group>"; };
 		644C4A611BB3516F00E4D52A /* CardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
 		644C4A651BB3536E00E4D52A /* PackResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackResultsController.swift; sourceTree = "<group>"; };
+		6450FB481C473802009D12D4 /* libHarpy.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libHarpy.a; path = "StudySauce/Pods/../build/Debug-iphoneos/libHarpy.a"; sourceTree = "<group>"; };
+		6450FB4A1C473805009D12D4 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "StudySauce/Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		64570BDB1BC64B4D00F9C6EB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		64570BDD1BC64C6100F9C6EB /* DialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
 		6469661E1BF2F1990081FC3F /* CollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6450FB4B1C473805009D12D4 /* libPods.a in Frameworks */,
+				6450FB491C473802009D12D4 /* libHarpy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +260,8 @@
 		1DCB0FA70823FA024F25C707 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6450FB4A1C473805009D12D4 /* libPods.a */,
+				6450FB481C473802009D12D4 /* libHarpy.a */,
 				EB2FBD5F9C2E4BAC991118A6 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -601,7 +609,7 @@
 						DevelopmentTeam = 3MV67NZ3PZ;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.SafariKeychain = {
 								enabled = 1;
@@ -979,6 +987,10 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StudySauce/build/Debug-iphoneos",
+				);
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.companyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -998,6 +1010,10 @@
 				INFOPLIST_FILE = StudySauce/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/StudySauce/build/Debug-iphoneos",
+				);
 				OTHER_SWIFT_FLAGS = "-DRELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.studysauce.companyapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

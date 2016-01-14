@@ -94,7 +94,6 @@ extension AppDelegate {
         let tracker = GAI.sharedInstance().defaultTracker
         let name = vc.getAnalytics()        
         if name != tracker.get(kGAIScreenName) {
-            print(name)
             tracker.set(kGAIScreenName, value: name)
             let builder = GAIDictionaryBuilder.createScreenView()
             tracker.send(builder.build() as [NSObject : AnyObject])

@@ -15,6 +15,7 @@ class AutoSizingTextView: UITextView {
     var origSize: CGFloat? = nil
     var currentSize: CGFloat? = nil
     var isCalculating = false
+    var nextCalc: NSTimer? = nil
     internal var setManually = false
     
     func getFontSize() -> CGFloat {
@@ -40,9 +41,6 @@ class AutoSizingTextView: UITextView {
         if size < saucyTheme.textSize {
             return saucyTheme.textSize
         }
-        print(expectSize)
-        print(self.textContainerInset)
-        print(self.frame)
         return size
     }
         
@@ -78,7 +76,6 @@ class AutoSizingTextView: UITextView {
         return self.attributedText.replaceAttribute(NSFontAttributeName) {(f: UIFont?) -> UIFont in
             let currentFont = f ?? self.font!
             let newSize = f == nil || round(f!.pointSize) == round(self.currentSize ?? self.origSize!) ? size : f!.pointSize
-            print("\(newSize) - \(currentFont.pointSize) - \(self.currentSize ?? self.origSize!)")
             return UIFont(descriptor: currentFont.fontDescriptor(), size: round(newSize))
         }
     }
@@ -107,7 +104,6 @@ class AutoSizingTextView: UITextView {
             
             if !setManually && self.font != nil {
                 let size = self.getFontSize()
-                print(size)
                 if self.currentSize == nil || size != self.currentSize! {
                     self.selectedTextRange = nil
                     self.setFontSize(size)
@@ -122,6 +118,11 @@ class AutoSizingTextView: UITextView {
             }
             
             self.isCalculating = false
+        }
+        else {
+            self.nextCalc?.invalidate()
+            self.nextCalc = NSTimer.scheduledTimerWithTimeInterval(0.1,
+                target: self, selector: "calcFontSize", userInfo: nil, repeats: false)
         }
     }
     

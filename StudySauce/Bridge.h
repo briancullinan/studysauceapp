@@ -12,5 +12,6 @@
 #import "DACircularProgressView.h"
 #import "DALabeledCircularProgressView.h"
 #import <Google/Analytics.h>
+#import <Harpy.h>
 
 #endif /* Bridge_h */

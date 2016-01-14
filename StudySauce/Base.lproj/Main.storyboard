@@ -2750,10 +2750,11 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <constraints>
                             <constraint firstItem="KzM-kw-zvO" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="4U9-H6-2Zg"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="centerX" secondItem="9qG-T7-Cnf" secondAttribute="centerX" id="Ou3-eV-LJd"/>
+                            <constraint firstItem="KzM-kw-zvO" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Tlo-NJ-9vd" secondAttribute="bottom" constant="8" symbolic="YES" id="TFk-Hd-FWd"/>
                             <constraint firstAttribute="leadingMargin" secondItem="KzM-kw-zvO" secondAttribute="leading" id="XYy-VF-h1P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KzM-kw-zvO" secondAttribute="trailing" id="ieZ-w2-YZs"/>
                             <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="KzM-kw-zvO" secondAttribute="bottom" constant="40" id="uwL-Lp-Q8R"/>
-                            <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.5" id="wNF-56-jbV"/>
+                            <constraint firstItem="eBW-g2-1yd" firstAttribute="top" secondItem="cow-oO-G8W" secondAttribute="top" multiplier="0.5" priority="748" id="wNF-56-jbV"/>
                         </constraints>
                     </view>
                     <connections>
