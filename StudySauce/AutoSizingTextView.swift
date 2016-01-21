@@ -81,14 +81,14 @@ class AutoSizingTextView: UITextView {
     }
     
     func calcFontSize() -> Void {
-        // TODO: all of this when textbox changes
-        if self.text != nil && !self.isCalculating {
-            if self.window == nil {
-                return
-            }
-            
-            self.isCalculating = true
-            doBackground {
+        doBackground {
+            // TODO: all of this when textbox changes
+            if self.text != nil && !self.isCalculating {
+                if self.window == nil {
+                    return
+                }
+                
+                self.isCalculating = true
                 // if it goes over even on a small setting, turn scrollable back on.
                 
                 if !self.setManually && self.font != nil {
@@ -115,11 +115,11 @@ class AutoSizingTextView: UITextView {
                 
                 self.isCalculating = false
             }
-        }
-        else {
-            self.nextCalc?.invalidate()
-            self.nextCalc = NSTimer.scheduledTimerWithTimeInterval(0.1,
-                target: self, selector: "calcFontSize", userInfo: nil, repeats: false)
+            else {
+                self.nextCalc?.invalidate()
+                self.nextCalc = NSTimer.scheduledTimerWithTimeInterval(0.1,
+                    target: self, selector: "calcFontSize", userInfo: nil, repeats: false)
+            }
         }
     }
 

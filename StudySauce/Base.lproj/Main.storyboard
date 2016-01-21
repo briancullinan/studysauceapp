@@ -201,7 +201,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKo-CJ-YXS">
                                 <rect key="frame" x="0.0" y="50" width="600" height="497"/>
                             </containerView>
-                            <button opaque="NO" tag="26" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-bW-5eZ">
+                            <button hidden="YES" opaque="NO" tag="26" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVb-bW-5eZ">
                                 <rect key="frame" x="20" y="20" width="30" height="30"/>
                                 <state key="normal" title="Skip"/>
                                 <connections>
@@ -1206,7 +1206,7 @@ Study Sauce is based on three core findings of study research.
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-We wanted to express our gratitude to the dedicated staff of Archway Classical Academy - Scottsdale.  In particular, thank you to Mr. Kuhlman, Mrs. Armstrong, Mr. Hull, Mrs. Gonzalez, and the 1st and 4th grade teachers.  Thank you so much for your help in getting Study Sauce started!</string>
+We wanted to express our gratitude to the dedicated staff of Archway Classical Academy - Scottsdale.  In particular, thank you to Mr. Kuhlman, Mrs. Armstrong, Mrs. Gonzalez, Mrs. Taff, Ms. Rolenz, Miss. Cohen, Mrs. Miller, and Mrs. Dufresne.</string>
                                         <attributes>
                                             <font key="NSFont" size="12" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -2039,7 +2039,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wa-In-5pv">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="755" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0wa-In-5pv">
                                                     <rect key="frame" x="406" y="5" width="68" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="68" id="uqd-eo-OXg"/>
@@ -3266,9 +3266,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="aNX-LU-Mfo"/>
+        <segue reference="GGa-Jv-qkY"/>
+        <segue reference="Edk-H5-39l"/>
         <segue reference="h3u-I4-U7Q"/>
         <segue reference="B8Y-rH-ahi"/>
-        <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
