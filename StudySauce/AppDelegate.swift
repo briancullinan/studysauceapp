@@ -13,6 +13,7 @@ import SystemConfiguration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate {
 
+    var isRotating = false
     var needsUpdating = false
     var timeout = 60.0 * 60.0
     internal var device: String? = nil

@@ -80,10 +80,14 @@ extension AppDelegate {
     {
         if AppDelegate.instance().window != nil {
             doMain {
+                if !self.isRotating {
+                    self.isRotating = true
                 let vc = AppDelegate.visibleViewController()
                 if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
                     vc.orientation = UIApplication.sharedApplication().statusBarOrientation
                     self.rerenderView(vc.view)
+                }
+                    self.isRotating = false
                 }
             }
         }
@@ -105,7 +109,7 @@ extension AppDelegate {
     func rerenderView(v: UIView) {
         v.setAppearanceFunc("")
         for s in v.subviews {
-            rerenderView(s)
+            self.rerenderView(s)
         }
     }
     
