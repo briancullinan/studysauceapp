@@ -90,13 +90,15 @@ extension AppDelegate {
     }
     
     static func setAnalytics() {
-        let vc = AppDelegate.visibleViewController()
-        let tracker = GAI.sharedInstance().defaultTracker
-        let name = vc.getAnalytics()        
-        if name != tracker.get(kGAIScreenName) {
-            tracker.set(kGAIScreenName, value: name)
-            let builder = GAIDictionaryBuilder.createScreenView()
-            tracker.send(builder.build() as [NSObject : AnyObject])
+        if AppDelegate.instance().window != nil {
+            let vc = AppDelegate.visibleViewController()
+            let tracker = GAI.sharedInstance().defaultTracker
+            let name = vc.getAnalytics()
+            if name != tracker.get(kGAIScreenName) {
+                tracker.set(kGAIScreenName, value: name)
+                let builder = GAIDictionaryBuilder.createScreenView()
+                tracker.send(builder.build() as [NSObject : AnyObject])
+            }
         }
     }
     
