@@ -134,7 +134,6 @@ extension AppDelegate {
     }
     
     func setupTheme() {
-
         /*
         Key:
         ~>  Any descendent
@@ -147,8 +146,20 @@ extension AppDelegate {
         */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         
+        $([CardController.self ~>> UIView.self,
+            PackSummaryController.self ~>> UIView.self,
+            UserSettingsController.self ~>> UIView.self,
+            UIViewController.self ~* "Privacy" ~>> UIView.self,
+            UIViewController.self ~* "About" ~>> UIView.self,
+            ContactUsController.self ~>> UIView.self], {
+                
+                $0.viewController()!.view.backgroundColor = saucyTheme.lightColor
+        })
+        
+        return
+            
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIApplicationDidBecomeActiveNotification, object: nil)
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
         
 

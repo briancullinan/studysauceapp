@@ -261,13 +261,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     self.tableView.reloadData()
                 }
             }
-            }, downloadedHandler: {(newPack: Pack) -> Void in
-            doMain {
-                // calls every time to check if this pack was clicked on while downloaded
-                //if self.pack != nil && self.pack! == newPack {
-                //    self.tableView(self.tableView, didSelectRowAtIndexPath: NSIndexPath(forRow: self.packs.indexOf(self.pack!)!, inSection: 0))
-                //}
-            }
         })
     }
     
