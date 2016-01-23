@@ -41,7 +41,7 @@ struct saucyTheme {
     static let lineHeight = CGFloat(1.8)
     
     static func multiplier () -> CGFloat {
-        let result = min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width) / 300
+        let result = min(768.0, min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width)) / 300.0
         return result
     }
 }
