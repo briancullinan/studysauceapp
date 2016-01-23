@@ -18,6 +18,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     var url: String? = nil
     var playing: Bool = false
     var timer: NSTimer? = nil
+    var shouldPlay = false
 
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
@@ -44,6 +45,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         textView.contentInset.top = topCorrect
     }
+    
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         
@@ -68,14 +70,17 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         }
     }
     
+    
+    var showButtons: NSDate? = nil
+    var showButtonsTimer: NSTimer? = nil
     func updateListenPosition() {
-        if self.listenButton.hidden == false {
+        if self.url != nil && self.showButtons != nil && NSDate() > self.showButtons! {
+            self.showButtonsTimer?.invalidate()
             //self.content.attributedText = self.getAttributedText(self.content.text)
             let text = self.content.attributedText.string as NSString
             let wholeRange = NSMakeRange(0, self.content.attributedText.length)
             let range = text.rangeOfString("P14y", options: [], range: wholeRange)
             
-            self.content.layoutManager.ensureLayoutForTextContainer(self.content.textContainer)
             let start = self.content.positionFromPosition(self.content.beginningOfDocument, offset: range.location)!
             // text position of the end of the range
             let end = self.content.positionFromPosition(start, offset: range.length)!
@@ -85,9 +90,13 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let position = self.content.firstRectForRange(tRange!)
             let global = self.view.convertRect(position, fromView: self.content)
             
-            self.size.constant = global.height
-            self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2)
-            self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2)
+            doMain {
+                self.size.constant = global.height
+                self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2)
+                self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2)
+                self.listenButton.hidden = false
+                self.playButton.hidden = false
+            }
         }
     }
     
@@ -117,11 +126,13 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
             content!.replaceRange(range, with: "P14y")
-            self.listenButton.hidden = false
-            self.playButton.hidden = false
+            self.downloadAudio(self.url!)
         }
         self.content.text = content
         self.setAttributedText()
+        self.showButtons = NSDate().dateByAddingTimeInterval(1)
+        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1,
+            target: self, selector: "updateListenPosition", userInfo: nil, repeats: true)
     }
     
     func downloadAudio(url: String) {
@@ -133,17 +144,29 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         File.save(url, done: {(f:File) in
             let fileName = f.filename!
             let url = NSURL(fileURLWithPath: fileName)
-            
-            try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try! AVAudioSession.sharedInstance().setActive(true)
-            
-            if self.player == nil {
-                self.player = try? AVAudioPlayer(contentsOfURL: url)
-                self.player?.delegate = self
-                self.player?.prepareToPlay()
+            // check what type of media file we need to display
+            if (fileName.hasSuffix(".m4a") || fileName.hasSuffix(".mp3")) {
+                try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try! AVAudioSession.sharedInstance().setActive(true)
+                self.view.bringSubviewToFront(self.listenButton)
+                
+                if self.player == nil {
+                    self.player = try? AVAudioPlayer(contentsOfURL: url)
+                    self.player?.delegate = self
+                    self.player?.prepareToPlay()
+                }
+                if self.shouldPlay {
+                    self.player!.play()
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                }
+                else {
+                    self.playing = false
+                }
             }
-            self.player!.play()
-            self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+            else if(fileName.hasSuffix(".jpg") || fileName.hasSuffix(".jpeg") || fileName.hasSuffix(".gif") || fileName.hasSuffix(".png")) {
+                self.listenButton.setBackgroundImage(UIImage(contentsOfFile: fileName), forState: .Normal)
+                self.playButton.hidden = true
+            }
         })
     }
     
@@ -162,6 +185,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBAction func listenClick(sender: UIButton) {
         
         if (self.url != nil) {
+            self.shouldPlay = true
             self.downloadAudio(self.url!)
         }
     }
