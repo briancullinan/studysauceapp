@@ -292,16 +292,13 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.primary)
         })
         
-        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.orientation("landscape"),
-            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape")], {
-                $0.setFontSize(30 * saucyTheme.multiplier())
-        })
-        
         $(PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape"), {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
-        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, ver: .Compact),
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.orientation("landscape"),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape"),
+            PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, ver: .Compact),
             PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Unspecified, ver: .Compact)], {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
