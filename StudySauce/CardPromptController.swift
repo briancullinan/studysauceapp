@@ -27,6 +27,23 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.content.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.content.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    /// Force the text in a UITextView to always center itself.
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        let textView = object as! UITextView
+        var topCorrect = (textView.bounds.size.height - textView.contentSize.height * textView.zoomScale) / 2
+        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
+        textView.contentInset.top = topCorrect
+    }
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
         

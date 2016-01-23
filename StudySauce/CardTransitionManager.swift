@@ -453,6 +453,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             self.flashView!.text = "✘"
             self.flashView!.backgroundColor = UIColor(0xFF0D00)
         }
+        var topCorrect = (self.flashView!.bounds.size.height - self.flashView!.contentSize.height * self.flashView!.zoomScale) / 2
+        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
+        self.flashView!.contentInset.top = topCorrect
     }
     
     // return how many seconds the transiton animation will take

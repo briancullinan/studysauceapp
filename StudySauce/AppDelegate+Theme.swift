@@ -442,11 +442,6 @@ extension AppDelegate {
                 $0.superview?.sendSubviewToBack($0)
         })
         
-        $([CardPromptController.self ~> UITextView.self ~* T.device("ipad"),
-            CardResponseController.self ~> UITextView.self ~* T.device("ipad")], {
-                $0.setFontSize(40.0 * saucyTheme.multiplier())
-        })
-        
         $(CardPromptController.self ~> UIButton.self ~* {$0.tag == 1}, {
             let image = $0.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
             $0.setBackgroundImage(image, forState: .Normal)
