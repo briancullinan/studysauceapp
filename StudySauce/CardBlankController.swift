@@ -26,9 +26,9 @@ class CardBlankController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if self.inputText != nil {
-            inputText!.becomeFirstResponder()
-        }
+        //if self.inputText != nil {
+        //    inputText!.becomeFirstResponder()
+        //}
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -43,6 +43,7 @@ class CardBlankController: UIViewController {
             self.card = pvc.card
             if let vc = segue.destinationViewController as? CardPromptController {
                 vc.card = self.card
+                vc.parent = self
             }
             if let vc = segue.destinationViewController as? CardResponseController {
                 vc.card = self.card
@@ -51,8 +52,11 @@ class CardBlankController: UIViewController {
     }
     
     @IBAction func beginEdit(sender: UITextField) {
+        self.inputText!.alpha = 1
         UIView.setAnimationsEnabled(false)
     }
+    
+    //@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
@@ -69,6 +73,11 @@ class CardBlankController: UIViewController {
     
     func didShowKeyboard(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
+        //let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        
+        //UIView.animateWithDuration(0.1, animations: { () -> Void in
+        //    self.bottomConstraint.constant = keyboardFrame.size.height + 20
+        //})
     }
     
     func saveResponse(value: String) {

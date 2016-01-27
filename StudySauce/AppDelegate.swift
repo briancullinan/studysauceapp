@@ -168,6 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = saucyTheme.textSize + saucyTheme.padding * 3;
         self.setupTheme()
         Harpy.sharedInstance().appID = "1065647027"
 

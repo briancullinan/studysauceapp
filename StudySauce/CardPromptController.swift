@@ -19,6 +19,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     var playing: Bool = false
     var timer: NSTimer? = nil
     var shouldPlay = false
+    var isAudio = false
+    var isImage = false
+    weak var parent: UIViewController? = nil
 
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
@@ -44,6 +47,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         var topCorrect = (textView.bounds.size.height - textView.contentSize.height * textView.zoomScale) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         textView.contentInset.top = topCorrect
+        self.updateListenPosition()
     }
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -65,7 +69,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         if range.length > 0 {
             let attr = NSMutableAttributedString(attributedString: self.content.attributedText)
             attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
-            attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
+            //attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
             self.content.attributedText = NSAttributedString(attributedString: attr)
         }
     }
@@ -91,11 +95,22 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let global = self.view.convertRect(position, fromView: self.content)
             
             doMain {
-                self.size.constant = global.height
-                self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2)
-                self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2)
+                if self.isAudio {
+                    self.size.constant = global.height
+                }
+                else if self.isImage {
+                    self.size.constant = self.view.frame.width
+                }
+                var top = global.origin.y + ((global.height - self.size.constant) / 2)
+                if top < 0 {
+                    top = 0
+                }
+                self.top.constant = top
+                self.left.constant = global.origin.x + ((global.width - self.listenButton.frame.width) / 2)
                 self.listenButton.hidden = false
-                self.playButton.hidden = false
+                if self.isAudio {
+                    self.playButton.hidden = false
+                }
             }
         }
     }
@@ -126,12 +141,29 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
             content!.replaceRange(range, with: "P14y")
+            if (self.url!.hasSuffix(".m4a") || self.url!.hasSuffix(".mp3")) {
+                self.isAudio = true
+                self.isImage = false
+            }
+            else if self.url!.hasSuffix(".jpg") || self.url!.hasSuffix(".jpeg") || self.url!.hasSuffix(".gif") || self.url!.hasSuffix(".png") {
+                self.isImage = true
+                self.isAudio = false
+            }
             self.downloadAudio(self.url!)
         }
         self.content.text = content
+        // TODO: get this working!
+        if let pvc = self.parent as? CardBlankController {
+            let wordCount = try? NSRegularExpression(pattern: "^(\\b\\w+\\b[\\s\\r\\n!\"#$%&'()*+, \\-./:;<=>?@ [\\\\]^_`{|}~]*){1,15}$", options: [.CaseInsensitive])
+            let wordCountMatch = wordCount?.firstMatchInString(content!, options: [], range: NSMakeRange(0, content!.characters.count))
+            if wordCountMatch?.rangeAtIndex(0) != nil {
+                pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                self.content.text = "something\nP14y\naround"
+            }
+        }
         self.setAttributedText()
-        self.showButtons = NSDate().dateByAddingTimeInterval(1)
-        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1,
+        self.showButtons = NSDate().dateByAddingTimeInterval(0.5)
+        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
             target: self, selector: "updateListenPosition", userInfo: nil, repeats: true)
     }
     
@@ -145,7 +177,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let fileName = f.filename!
             let url = NSURL(fileURLWithPath: fileName)
             // check what type of media file we need to display
-            if (fileName.hasSuffix(".m4a") || fileName.hasSuffix(".mp3")) {
+            if self.isAudio {
                 try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 try! AVAudioSession.sharedInstance().setActive(true)
                 self.view.bringSubviewToFront(self.listenButton)
@@ -163,9 +195,10 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     self.playing = false
                 }
             }
-            else if(fileName.hasSuffix(".jpg") || fileName.hasSuffix(".jpeg") || fileName.hasSuffix(".gif") || fileName.hasSuffix(".png")) {
-                self.listenButton.setBackgroundImage(UIImage(contentsOfFile: fileName), forState: .Normal)
+            else if self.isImage {
                 self.playButton.hidden = true
+                self.listenButton.setBackgroundImage(UIImage(contentsOfFile: fileName), forState: .Normal)
+                self.view.sendSubviewToBack(self.listenButton)
             }
         })
     }
