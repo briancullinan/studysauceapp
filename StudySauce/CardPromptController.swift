@@ -43,82 +43,51 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     
     /// Force the text in a UITextView to always center itself.
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        let textView = object as! UITextView
-        var topCorrect = (textView.bounds.size.height - textView.contentSize.height * textView.zoomScale) / 2
-        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
-        textView.contentInset.top = topCorrect
-        self.updateListenPosition()
-    }
-    
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        
-        doMain(self.updateListenPosition)
+        CardPromptController.alignPlay(self.content)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.updateListenPosition()
+        CardPromptController.alignPlay(self.content)
     }
-    
-    func setAttributedText() {
-        // align listen button to substring
-        let content = self.content!.attributedText.string as NSString
-        let wholeRange = NSMakeRange(0, content.length)
-        let range = content.rangeOfString("P14y", options: [], range: wholeRange)
-        
-        if range.length > 0 {
-            let attr = NSMutableAttributedString(attributedString: self.content.attributedText)
-            attr.addAttribute(NSFontAttributeName, value: UIFont(name: self.content!.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
-            //attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
-            self.content.attributedText = NSAttributedString(attributedString: attr)
-        }
-    }
-    
     
     var showButtons: NSDate? = nil
     var showButtonsTimer: NSTimer? = nil
-    func updateListenPosition() {
-        if self.url != nil && self.showButtons != nil && NSDate() > self.showButtons! {
-            self.showButtonsTimer?.invalidate()
-            //self.content.attributedText = self.getAttributedText(self.content.text)
-            let text = self.content.attributedText.string as NSString
-            let wholeRange = NSMakeRange(0, self.content.attributedText.length)
-            let range = text.rangeOfString("P14y", options: [], range: wholeRange)
-            
-            let start = self.content.positionFromPosition(self.content.beginningOfDocument, offset: range.location)!
+    
+    internal static func alignPlay(v: UITextView) {
+        let content = v.attributedText.string as NSString
+        let wholeRange = NSMakeRange(0, content.length)
+        let range = content.rangeOfString("P14y", options: [], range: wholeRange)
+        
+        var topCorrect = (v.bounds.size.height - v.contentSize.height * v.zoomScale) / 2 - saucyTheme.padding * 2
+        topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
+        v.contentInset.top = topCorrect
+
+        if range.length > 0 {
+            let start = v.positionFromPosition(v.beginningOfDocument, offset: range.location)!
             // text position of the end of the range
-            let end = self.content.positionFromPosition(start, offset: range.length)!
+            let end = v.positionFromPosition(start, offset: range.length)!
             
             // text range of the range
-            let tRange = self.content.textRangeFromPosition(start, toPosition: end)
-            let position = self.content.firstRectForRange(tRange!)
-            let global = self.view.convertRect(position, fromView: self.content)
-            
-            doMain {
-                if self.isAudio {
-                    self.size.constant = global.height
+            let tRange = v.textRangeFromPosition(start, toPosition: end)
+            let position = v.firstRectForRange(tRange!)
+            if let vc = v.viewController() as? CardPromptController where vc.showButtons != nil && NSDate() > vc.showButtons! {
+                let global = vc.view.convertRect(position, fromView: v)
+                if vc.isAudio {
+                    vc.size.constant = global.height
                 }
-                else if self.isImage {
-                    self.size.constant = self.view.frame.width
+                else if vc.isImage {
+                    vc.size.constant = vc.view.frame.width
                 }
-                var top = global.origin.y + ((global.height - self.size.constant) / 2)
-                if top < 0 {
-                    top = 0
-                }
-                self.top.constant = top
-                self.left.constant = global.origin.x + ((global.width - self.listenButton.frame.width) / 2)
-                self.listenButton.hidden = false
-                if self.isAudio {
-                    self.playButton.hidden = false
+                let top = global.origin.y + ((global.height - vc.size.constant) / 2)
+                vc.top.constant = top
+                vc.left.constant = global.origin.x + ((global.width - vc.size.constant) / 2)
+                vc.listenButton.hidden = false
+                if vc.isAudio {
+                    vc.playButton.hidden = false
                 }
             }
+            
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.updateListenPosition()
     }
     
     override func viewDidLoad() {
@@ -158,13 +127,17 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let wordCountMatch = wordCount?.firstMatchInString(content!, options: [], range: NSMakeRange(0, content!.characters.count))
             if wordCountMatch?.rangeAtIndex(0) != nil {
                 pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                self.content.text = "something\nP14y\naround"
+                self.content.text = "P14y"
             }
         }
-        self.setAttributedText()
+        self.listenButton.hidden = true
         self.showButtons = NSDate().dateByAddingTimeInterval(0.5)
         self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
-            target: self, selector: "updateListenPosition", userInfo: nil, repeats: true)
+            target: self, selector: "updatePlay", userInfo: nil, repeats: false)
+    }
+    
+    func updatePlay() {
+        CardPromptController.alignPlay(self.content)
     }
     
     func downloadAudio(url: String) {

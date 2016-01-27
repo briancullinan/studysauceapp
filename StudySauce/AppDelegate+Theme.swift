@@ -79,14 +79,29 @@ extension AppDelegate {
     func rotated()
     {
         if AppDelegate.instance().window != nil {
-            doMain {
-                if !self.isRotating {
-                    self.isRotating = true
-                let vc = AppDelegate.visibleViewController()
-                if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
-                    vc.orientation = UIApplication.sharedApplication().statusBarOrientation
-                    self.rerenderView(vc.view)
+            if !self.isRotating {
+                self.isRotating = true
+                doMain {
+                    let vc = AppDelegate.visibleViewController()
+                    if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
+                        vc.orientation = UIApplication.sharedApplication().statusBarOrientation
+                        AppDelegate.rerenderView(vc.view)
+                    }
+                    self.isRotating = false
                 }
+            }
+        }
+    }
+    
+    func keyboard()
+    {
+        if AppDelegate.instance().window != nil {
+            if !self.isRotating {
+                self.isRotating = true
+                doMain {
+                    let vc = AppDelegate.visibleViewController()
+                        vc.orientation = UIApplication.sharedApplication().statusBarOrientation
+                    AppDelegate.rerenderView(vc.view)
                     self.isRotating = false
                 }
             }
@@ -106,7 +121,7 @@ extension AppDelegate {
         }
     }
     
-    func rerenderView(v: UIView) {
+    static func rerenderView(v: UIView) {
         v.setAppearanceFunc("")
         for s in v.subviews {
             self.rerenderView(s)
@@ -149,6 +164,10 @@ extension AppDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIApplicationDidBecomeActiveNotification, object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidShowNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidHideNotification, object: nil)
         
 
         // set up font names
@@ -440,23 +459,37 @@ extension AppDelegate {
         })
         
         $([CardPromptController.self ~> UITextView.self,
-            CardResponseController.self ~> UITextView.self], {
-                $0.setFontSize(30.0 * saucyTheme.multiplier())
-                $0.superview?.sendSubviewToBack($0)
+            CardResponseController.self ~> UITextView.self,
+            UIViewController.self ~* "Privacy" ~> UITextView.self,
+            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
+                v.textContainerInset = UIEdgeInsets(saucyTheme.padding)
+        })
+
+        $([CardPromptController.self ~> UITextView.self,
+            CardResponseController.self ~> UITextView.self], {(v: UITextView) in
+                v.setFontSize(30.0 * saucyTheme.multiplier())
+                v.superview?.sendSubviewToBack(v)
+                
+                // align listen button to substring
+                let content = v.attributedText.string as NSString
+                let wholeRange = NSMakeRange(0, content.length)
+                let range = content.rangeOfString("P14y", options: [], range: wholeRange)
+                
+                if range.length > 0 {
+                    let attr = NSMutableAttributedString(attributedString: v.attributedText)
+                    attr.addAttribute(NSFontAttributeName, value: UIFont(name: v.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
+                    attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
+                    v.attributedText = NSAttributedString(attributedString: attr)
+                }
+                
+                CardPromptController.alignPlay(v)
         })
         
         $(CardPromptController.self ~> UIButton.self ~* {$0.tag == 1}, {
             let image = $0.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
             $0.setBackgroundImage(image, forState: .Normal)
         })
-
-        $([CardPromptController.self ~> UITextView.self,
-            CardResponseController.self ~> UITextView.self,
-            UIViewController.self ~* "Privacy" ~> UITextView.self,
-            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-            v.textContainerInset = UIEdgeInsets(saucyTheme.padding)
-        })
-                
+        
         $(UIViewController.self ~> UIButton.self ~* 1338, {(v: UIButton) in
             v.setFontName(saucyTheme.textFont)
             v.setFontColor(saucyTheme.lightColor)

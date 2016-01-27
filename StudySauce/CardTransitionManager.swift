@@ -227,11 +227,11 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
         if last.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
             last.orientation = UIApplication.sharedApplication().statusBarOrientation
-            AppDelegate.instance().rerenderView(last.view)
+            AppDelegate.rerenderView(last.view)
         }
         if next.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
             next.orientation = UIApplication.sharedApplication().statusBarOrientation
-            AppDelegate.instance().rerenderView(next.view)
+            AppDelegate.rerenderView(next.view)
         }
 
         let origLast = last
