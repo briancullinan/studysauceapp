@@ -471,7 +471,7 @@ extension AppDelegate {
                 
                 if range.length > 0 {
                     let attr = NSMutableAttributedString(attributedString: v.attributedText)
-                    attr.addAttribute(NSFontAttributeName, value: UIFont(name: v.font!.fontName, size: 50.0 * saucyTheme.multiplier())!, range: range)
+                    attr.addAttribute(NSFontAttributeName, value: UIFont(name: v.font!.fontName, size: 100.0 * saucyTheme.multiplier())!, range: range)
                     attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
                     v.attributedText = NSAttributedString(attributedString: attr)
                 }
