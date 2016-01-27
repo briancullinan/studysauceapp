@@ -432,13 +432,7 @@ extension AppDelegate {
         
         $(UITextField.self ~>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
-                $0.setFontColor(saucyTheme.lightColor)
-            }
-        })
-        
-        $(CardBlankController.self ~>> UITextField.self ~>> UILabel.self, {
-            if $0.text == ($0.superview as? UITextField)?.placeholder {
-                $0.setFontColor(UIColor.blackColor())
+                $0.setFontColor(saucyTheme.middle)
             }
         })
         

@@ -52,7 +52,6 @@ class CardBlankController: UIViewController {
     }
     
     @IBAction func beginEdit(sender: UITextField) {
-        self.inputText!.alpha = 1
         UIView.setAnimationsEnabled(false)
     }
     

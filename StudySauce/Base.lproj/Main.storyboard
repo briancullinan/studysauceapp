@@ -66,6 +66,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="503"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="503"/>
+                            </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="188" y="193" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -93,12 +96,16 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="tcT-70-9cF" secondAttribute="bottom" constant="210" id="2Ev-kS-ATd"/>
+                            <constraint firstItem="PQl-ru-sU5" firstAttribute="height" secondItem="bLY-bu-chj" secondAttribute="height" id="4wt-GF-Gg8"/>
                             <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="tcT-70-9cF" secondAttribute="centerX" id="C8v-wg-Iyr"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="centerY" secondItem="bLY-bu-chj" secondAttribute="centerY" id="G8u-9O-fvy"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="193" id="Gt1-Vr-1aS"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="width" secondItem="bLY-bu-chj" secondAttribute="width" id="Mvp-yx-hfo"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="height" secondItem="bLY-bu-chj" secondAttribute="height" id="OpX-od-5hI"/>
+                            <constraint firstItem="PQl-ru-sU5" firstAttribute="width" secondItem="bLY-bu-chj" secondAttribute="width" id="QA5-fH-mCU"/>
                             <constraint firstItem="tcT-70-9cF" firstAttribute="left" secondItem="bLY-bu-chj" secondAttribute="left" constant="188" id="QYo-bR-fnE"/>
+                            <constraint firstItem="PQl-ru-sU5" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="Vqp-jc-HyM"/>
+                            <constraint firstItem="PQl-ru-sU5" firstAttribute="centerY" secondItem="bLY-bu-chj" secondAttribute="centerY" id="ZOL-xz-t3t"/>
                             <constraint firstItem="Rib-6W-6bv" firstAttribute="height" secondItem="tcT-70-9cF" secondAttribute="height" id="but-3c-5rE"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="cIB-FI-GAh"/>
                             <constraint firstItem="Rib-6W-6bv" firstAttribute="width" secondItem="tcT-70-9cF" secondAttribute="width" id="ngZ-M2-AeB"/>
@@ -106,17 +113,18 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottom" destination="2Ev-kS-ATd" id="rs4-BH-ta8"/>
                         <outlet property="content" destination="LBl-mY-aFi" id="CXM-as-wmF"/>
+                        <outlet property="image" destination="PQl-ru-sU5" id="13j-99-5i7"/>
                         <outlet property="left" destination="QYo-bR-fnE" id="0Mm-fj-1yU"/>
                         <outlet property="listenButton" destination="tcT-70-9cF" id="zMb-js-fio"/>
                         <outlet property="playButton" destination="Rib-6W-6bv" id="a6M-1J-cbO"/>
                         <outlet property="size" destination="6bm-vP-DFC" id="oUf-gH-LhB"/>
+                        <outlet property="top" destination="Gt1-Vr-1aS" id="gDO-CA-faq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yF9-Gl-5iB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2747" y="-2705"/>
+            <point key="canvasLocation" x="2747" y="-2705.5"/>
         </scene>
         <!--Card-->
         <scene sceneID="fIU-p4-l4e">
@@ -2990,7 +2998,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <segue destination="gnI-XW-KF9" kind="embed" id="B8Y-rH-ahi"/>
                                 </connections>
                             </containerView>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="531" width="560" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>

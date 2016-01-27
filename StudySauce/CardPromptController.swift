@@ -26,8 +26,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
     @IBOutlet weak var size: NSLayoutConstraint!
-    @IBOutlet weak var bottom: NSLayoutConstraint!
     
+    @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
@@ -73,18 +73,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             let position = v.firstRectForRange(tRange!)
             if let vc = v.viewController() as? CardPromptController where vc.showButtons != nil && NSDate() > vc.showButtons! {
                 let global = vc.view.convertRect(position, fromView: v)
-                if vc.isAudio {
-                    vc.size.constant = global.height
-                }
-                else if vc.isImage {
-                    vc.size.constant = vc.view.frame.width
-                }
-                let imageSize = vc.listenButton.backgroundImageForState(.Normal)!.size
-                let aspect = imageSize.height / imageSize.width
-                vc.bottom.constant = vc.view.bounds.height - global.origin.y - global.height + ((global.height - vc.size.constant * aspect) / 2)
+                vc.size.constant = global.height
+                vc.top.constant = global.origin.y + ((global.height - vc.size.constant) / 2)
                 vc.left.constant = global.origin.x + ((global.width - vc.size.constant) / 2)
-                vc.listenButton.hidden = false
                 if vc.isAudio {
+                    vc.listenButton.hidden = false
                     vc.playButton.hidden = false
                 }
             }
@@ -121,18 +114,21 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 self.isAudio = false
             }
             self.downloadAudio(self.url!)
-        }
-        self.content.text = content
-        // TODO: get this working!
-        if let pvc = self.parent as? CardBlankController {
-            let wordCount = try? NSRegularExpression(pattern: "^(\\b\\w+\\b[\\s\\r\\n!\"#$%&'()*+, \\-./:;<=>?@ [\\\\]^_`{|}~]*){1,15}$", options: [.CaseInsensitive])
-            let wordCountMatch = wordCount?.firstMatchInString(content!, options: [], range: NSMakeRange(0, content!.characters.count))
-            if wordCountMatch?.rangeAtIndex(0) != nil {
-                pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
-                self.content.text = "P14y"
+            
+            // use remaining text as fill in the blank placeholder
+            if let pvc = self.parent as? CardBlankController {
+                let wordCount = try? NSRegularExpression(pattern: "^(\\b\\w+\\b[\\s\\r\\n!\"#$%&'()*+, \\-./:;<=>?@ [\\\\]^_`{|}~]*){1,15}$", options: [.CaseInsensitive])
+                let wordCountMatch = wordCount?.firstMatchInString(content!, options: [], range: NSMakeRange(0, content!.characters.count))
+                if wordCountMatch?.rangeAtIndex(0) != nil {
+                    pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    content = "P14y"
+                }
             }
         }
+        self.content.text = content
+        self.playButton.hidden = true
         self.listenButton.hidden = true
+        self.image.hidden = true
         self.showButtons = NSDate().dateByAddingTimeInterval(0.5)
         self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
             target: self, selector: "updatePlay", userInfo: nil, repeats: false)
@@ -147,7 +143,6 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             return
         }
         self.playing = true
-        self.listenButton.alpha = 1
         File.save(url, done: {(f:File) in
             let fileName = f.filename!
             let url = NSURL(fileURLWithPath: fileName)
@@ -155,6 +150,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             if self.isAudio {
                 try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 try! AVAudioSession.sharedInstance().setActive(true)
+                self.listenButton.alpha = 1
                 self.view.bringSubviewToFront(self.listenButton)
                 
                 if self.player == nil {
@@ -171,9 +167,11 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 }
             }
             else if self.isImage {
+                self.listenButton.hidden = true
                 self.playButton.hidden = true
-                self.listenButton.setBackgroundImage(UIImage(contentsOfFile: fileName), forState: .Normal)
-                self.view.sendSubviewToBack(self.listenButton)
+                self.image.hidden = false
+                self.image.image = UIImage(contentsOfFile: fileName)
+                self.view.sendSubviewToBack(self.image)
             }
         })
     }
