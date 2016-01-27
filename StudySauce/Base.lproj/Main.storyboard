@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -66,6 +66,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="503"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
+                                <rect key="frame" x="188" y="193" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
+                                <rect key="frame" x="188" y="193" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="6bm-vP-DFC"/>
+                                    <constraint firstAttribute="width" secondItem="tcT-70-9cF" secondAttribute="height" multiplier="1:1" id="Id9-xS-6xf"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="audio"/>
+                                <connections>
+                                    <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
+                                </connections>
+                            </button>
                             <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="503"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -74,50 +90,28 @@
                                     <outlet property="delegate" destination="gnI-XW-KF9" id="xqb-wD-pYr"/>
                                 </connections>
                             </textView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
-                                <rect key="frame" x="208" y="200" width="100" height="93"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcT-70-9cF">
-                                <rect key="frame" x="208" y="200" width="100" height="93"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" priority="999" constant="100" id="6bm-vP-DFC"/>
-                                    <constraint firstAttribute="width" secondItem="tcT-70-9cF" secondAttribute="height" multiplier="1:1" id="Id9-xS-6xf"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="audio"/>
-                                <connections>
-                                    <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="centerY" secondItem="Rib-6W-6bv" secondAttribute="centerY" id="3Wi-A4-Neu"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="height" secondItem="Rib-6W-6bv" secondAttribute="height" id="8lS-aQ-gkT"/>
+                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" secondItem="tcT-70-9cF" secondAttribute="bottom" constant="210" id="2Ev-kS-ATd"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="tcT-70-9cF" secondAttribute="centerX" id="C8v-wg-Iyr"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="centerY" secondItem="bLY-bu-chj" secondAttribute="centerY" id="G8u-9O-fvy"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="width" secondItem="bLY-bu-chj" secondAttribute="width" id="Mvp-yx-hfo"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="height" secondItem="bLY-bu-chj" secondAttribute="height" id="OpX-od-5hI"/>
-                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerX" secondItem="tcT-70-9cF" secondAttribute="centerX" id="WCz-RM-FuS"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="leading" secondItem="bLY-bu-chj" secondAttribute="leading" constant="208" id="XKA-5F-bwG"/>
+                            <constraint firstItem="tcT-70-9cF" firstAttribute="left" secondItem="bLY-bu-chj" secondAttribute="left" constant="188" id="QYo-bR-fnE"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="height" secondItem="tcT-70-9cF" secondAttribute="height" id="but-3c-5rE"/>
                             <constraint firstItem="LBl-mY-aFi" firstAttribute="centerX" secondItem="bLY-bu-chj" secondAttribute="centerX" id="cIB-FI-GAh"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="width" secondItem="Rib-6W-6bv" secondAttribute="width" id="lDP-LH-MMa"/>
-                            <constraint firstItem="tcT-70-9cF" firstAttribute="top" secondItem="SeP-W6-ErR" secondAttribute="bottom" constant="200" id="pEZ-hA-1bM"/>
-                            <constraint firstItem="3hO-ob-mU8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tcT-70-9cF" secondAttribute="bottom" constant="8" symbolic="YES" id="trQ-3k-zp4"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="width" secondItem="tcT-70-9cF" secondAttribute="width" id="ngZ-M2-AeB"/>
+                            <constraint firstItem="Rib-6W-6bv" firstAttribute="centerY" secondItem="tcT-70-9cF" secondAttribute="centerY" id="qMI-OQ-Ay7"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="trQ-3k-zp4"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
+                        <outlet property="bottom" destination="2Ev-kS-ATd" id="rs4-BH-ta8"/>
                         <outlet property="content" destination="LBl-mY-aFi" id="CXM-as-wmF"/>
-                        <outlet property="left" destination="XKA-5F-bwG" id="uGF-wp-KLI"/>
+                        <outlet property="left" destination="QYo-bR-fnE" id="0Mm-fj-1yU"/>
                         <outlet property="listenButton" destination="tcT-70-9cF" id="zMb-js-fio"/>
                         <outlet property="playButton" destination="Rib-6W-6bv" id="a6M-1J-cbO"/>
                         <outlet property="size" destination="6bm-vP-DFC" id="oUf-gH-LhB"/>
-                        <outlet property="top" destination="pEZ-hA-1bM" id="8jS-HQ-X15"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yF9-Gl-5iB" userLabel="First Responder" sceneMemberID="firstResponder"/>

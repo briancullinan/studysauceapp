@@ -26,6 +26,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
     @IBOutlet weak var size: NSLayoutConstraint!
+    @IBOutlet weak var bottom: NSLayoutConstraint!
     
     @IBOutlet weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
@@ -78,8 +79,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 else if vc.isImage {
                     vc.size.constant = vc.view.frame.width
                 }
-                let top = global.origin.y + ((global.height - vc.size.constant) / 2)
-                vc.top.constant = top
+                let imageSize = vc.listenButton.backgroundImageForState(.Normal)!.size
+                let aspect = imageSize.height / imageSize.width
+                vc.bottom.constant = vc.view.bounds.height - global.origin.y - global.height + ((global.height - vc.size.constant * aspect) / 2)
                 vc.left.constant = global.origin.x + ((global.width - vc.size.constant) / 2)
                 vc.listenButton.hidden = false
                 if vc.isAudio {
