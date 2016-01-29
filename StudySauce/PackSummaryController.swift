@@ -72,7 +72,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         self.processAnswers(newCard!, json: card["answers"] as! NSArray)
                         
                         // sync responses
-                        self.processResponses(newCard!, user, card["responses"] as! NSArray)
+                        self.processResponses(user, card["responses"] as! NSArray)
                     }
                     
                     // remove cards that no longer exist
@@ -94,8 +94,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         task.resume()
     }
     
-    static private func processResponses(card: Card, _ user: User, _ json: NSArray) {
-        var responses = card.getAllResponses()
+    static internal func processResponses(user: User, _ json: NSArray) {
+        var responses = user.responses?.allObjects as? [Response] ?? []
         for response in json {
             var newResponse: Response?
             for r in responses {
@@ -108,9 +108,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 responses.insert(newResponse!, atIndex: 0)
                 newResponse!.id = response["id"] as? NSNumber
             }
-            
+            let card = AppDelegate.list(Card.self).filter({$0.id == response["card"] as? NSNumber}).first
+            if card == nil {
+                continue
+            }
             newResponse!.correct = response["correct"] as? NSNumber == 1
-            newResponse!.answer = card.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
+            newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
             newResponse!.value = response["value"] as? String
             newResponse!.card = card
             newResponse!.created = NSDate.parse(response["created"] as? String)
@@ -171,6 +174,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             newPack = p
                         }
                     }
+                    if pack["deleted"] as? Bool == true {
+                        continue
+                    }
                     if newPack == nil {
                         newPack = AppDelegate.insert(Pack.self)
                     }
@@ -185,33 +191,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     newPack!.count = pack["count"] as? NSNumber
                     AppDelegate.saveContext()
                     
-                    if let userPacks = pack["user_packs"] as? NSArray where userPacks.count > 0 {
-                        self.downloadIfNeeded(newPack!, user) {
-                            if user != AppDelegate.getUser() {
-                                return
-                            }
-                            AppDelegate.performContext {
-                                if user != AppDelegate.getUser() {
-                                    return
-                                }
-                                let cards = newPack!.cards!.allObjects as! [Card]
-                                for p in userPacks {
-                                    let id = p["card"] as? NSNumber
-                                    var card = cards.filter({$0.id == id}).first
-                                    if card == nil {
-                                        card = nil
-                                    }
-                                    if let responses = p["responses"] as? NSArray {
-                                        self.processResponses(card!, user, responses)
-                                    }
+                    if let userPacks = pack["users"] as? NSArray where userPacks.count > 0 {
+                        for up in userPacks {
+                            if up["id"] as? NSNumber == user.id {
+                                self.downloadIfNeeded(newPack!, user) {
+                                    downloadedHandler(newPack!)
                                 }
                             }
-                            downloadedHandler(newPack!)
-                        }
-                    }
-                    else if pack["downloaded"] as? NSNumber == 1 {
-                        self.downloadIfNeeded(newPack!, user) {
-                            downloadedHandler(newPack!)
                         }
                     }
                 }
@@ -233,34 +219,29 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
 
-    private func getPacksFromLocalStore() -> [Pack]
+    private func getPacksFromLocalStore() -> Void
     {
-        var packs = [Pack]()
-        for p in AppDelegate.list(Pack.self) {
-            packs.insert(p, atIndex: 0)
+        AppDelegate.performContext {
+            var packs = [Pack]()
+            for p in AppDelegate.list(Pack.self) {
+                let userPacks = p.user_packs?.allObjects as? [UserPack] ?? []
+                if userPacks.filter({$0.user?.id == AppDelegate.getUser()?.id}).count > 0 {
+                    packs.insert(p, atIndex: 0)
+                }
+            }
+            self.packs = packs
+            doMain {
+                self.tableView.reloadData()
+            }
         }
-        return packs
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load packs from database
-        AppDelegate.performContext {
-            self.packs = self.getPacksFromLocalStore()
-            doMain {
-                self.tableView.reloadData()
-            }
-        }
-        
         // refresh data from server
         PackSummaryController.getPacks({ () -> Void in
-            AppDelegate.performContext {
-                self.packs = self.getPacksFromLocalStore()
-                doMain {
-                    self.tableView.reloadData()
-                }
-            }
+            self.getPacksFromLocalStore()
         })
     }
     
@@ -309,6 +290,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.packs.count == 0 {
+            return
+        }
         self.pack = self.packs[indexPath.row]
         let user = AppDelegate.getUser()!
         PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in

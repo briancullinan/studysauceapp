@@ -113,39 +113,6 @@ class CardController: UIViewController {
             }
         }
     }
-    
-    // TODO: control which card comes next using local store
-    
-    // TODO: Store response in the database
-    
-    internal static func syncResponses() {
-        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
-        var index = 0
-        var data = Dictionary<String, AnyObject?>()
-        for response in responses {
-            let correct = response.correct != nil && response.correct == 1
-            let answer = response.answer != nil ? response.answer!.id! : 0
-            let created = response.created!.toRFC()
-            let cardId = response.card!.id!
-            data["responses[\(index)][card]"] = cardId
-            data["responses[\(index)][correct]"] = correct
-            data["responses[\(index)][answer]"] = answer
-            data["responses[\(index)][created]"] = created
-            index++
-        }
-        postJson("/packs/responses/\(AppDelegate.getUser()!.id!)", params: data, done: {json -> Void in
-            if let ids = json as? NSArray {
-                AppDelegate.performContext({
-                    var index = 0
-                    for r in ids {
-                        responses[index].id = r as? NSNumber
-                        index++
-                    }
-                    AppDelegate.saveContext()
-                })
-            }
-        })
-    }
 }
 
 

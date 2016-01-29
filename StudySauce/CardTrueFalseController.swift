@@ -54,7 +54,7 @@ class CardTrueFalseController: UIViewController {
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse
                 doMain {
-                    CardController.syncResponses()
+                    HomeController.syncResponses()
                     self.performSegueWithIdentifier("correct", sender: self)
                 }
             }

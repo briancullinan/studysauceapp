@@ -171,8 +171,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.setTotal()
             
             if self.taskManager == nil {
-                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "viewDidLoad", userInfo: nil, repeats: true)
-                NSRunLoop.mainRunLoop().addTimer(self.taskManager!, forMode: NSRunLoopCommonModes)
+                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "homeSync", userInfo: nil, repeats: true)
             }
             
             // Load packs from database
@@ -188,6 +187,54 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
             })
         }
+    }
+    
+    func homeSync() {
+        HomeController.syncResponses {
+            self.getPacksFromLocalStore {
+                self.tableView!.reloadData()
+                self.setTotal()
+            }
+        }
+    }
+    
+    internal static func syncResponses(done: () -> Void = {}) {
+        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
+        var index = 0
+        var data = Dictionary<String, AnyObject?>()
+        for response in responses {
+            let correct = response.correct != nil && response.correct == 1
+            let answer = response.answer != nil ? response.answer!.id! : 0
+            let created = response.created!.toRFC()
+            let cardId = response.card!.id!
+            data["responses[\(index)][card]"] = cardId
+            data["responses[\(index)][correct]"] = correct
+            data["responses[\(index)][answer]"] = answer
+            data["responses[\(index)][created]"] = created
+            index++
+        }
+        if responses.count == 0 {
+            data["since"] = (AppDelegate.getUser()!.responses!.allObjects.last as? Response)?.created?.toRFC()
+        }
+        let user = AppDelegate.getUser()!
+        postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
+            if let ids = json as? NSArray {
+                AppDelegate.performContext({
+                    if responses.count > 0 {
+                        var index = 0
+                        for r in ids {
+                            responses[index].id = r as? NSNumber
+                            index++
+                        }
+                        AppDelegate.saveContext()
+                    }
+                    else {
+                        PackSummaryController.processResponses(user, ids)
+                    }
+                    done()
+                })
+            }
+        })
     }
     
     override func viewWillDisappear(animated: Bool) {
