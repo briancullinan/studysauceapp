@@ -11,7 +11,7 @@ import CoreData
 
 class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var packs = [Pack]()
+    var packs: [Pack]? = nil
     var pack: Pack? = nil
     @IBOutlet weak var tableView: UITableView!
     
@@ -32,6 +32,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let ses = NSURLSession.sharedSession()
         let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
             if user != AppDelegate.getUser() {
+                forPack.isDownloading = false
                 return
             }
             if (error != nil) {
@@ -40,6 +41,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             
             AppDelegate.performContext {
                 if user != AppDelegate.getUser() {
+                    forPack.isDownloading = false
                     return
                 }
                 do {
@@ -240,7 +242,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         super.viewDidLoad()
         
         // refresh data from server
-        PackSummaryController.getPacks({ () -> Void in
+        PackSummaryController.getPacks({
+            self.getPacksFromLocalStore()
+            }, downloadedHandler: { (p: Pack) -> Void in
             self.getPacksFromLocalStore()
         })
     }
@@ -271,6 +275,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 PackSummaryController.getCards(p, user) {_,_ in
                     // TODO: update downloading status in table row!
                     AppDelegate.performContext {
+                        p.isDownloading = false
                         if user != AppDelegate.getUser() {
                             return
                         }
@@ -278,7 +283,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         up.downloaded = NSDate()
                         AppDelegate.saveContext()
                         done()
-                        p.isDownloading = false
                     }
                 }
         }
@@ -290,10 +294,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.packs.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 {
             return
         }
-        self.pack = self.packs[indexPath.row]
+        self.pack = self.packs![indexPath.row]
         let user = AppDelegate.getUser()!
         PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
             doMain {
@@ -314,22 +318,25 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.packs.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 {
             return 1
         }
-        return self.packs.count
+        return self.packs!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs.count == 0 {
+        if self.packs == nil {
+            return tableView.dequeueReusableCellWithIdentifier("Loading")!
+        }
+        if self.packs!.count == 0 {
             return tableView.dequeueReusableCellWithIdentifier("NoPacks")!
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
-        let object = self.packs[indexPath.row]
+        let object = self.packs![indexPath.row]
         cell.updateTableView = {
             // list all packs with the same icon
-            let indexes = self.packs.filter({$0.logo != nil}).map({NSIndexPath(forRow: self.packs.indexOf($0)!, inSection: 0)})
+            let indexes = self.packs!.filter({$0.logo != nil}).map({NSIndexPath(forRow: self.packs!.indexOf($0)!, inSection: 0)})
             tableView.reloadRowsAtIndexPaths(indexes, withRowAnimation: UITableViewRowAnimation.Fade)
         }
         cell.configure(object)

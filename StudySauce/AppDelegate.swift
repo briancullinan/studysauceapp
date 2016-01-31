@@ -71,6 +71,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return AppDelegate.managedObjectContext!.insert(a)
     }
     
+    static func get<A: NSManagedObject>(a: A.Type, _ id: NSNumber) -> A? {
+        let fetchRequest = NSFetchRequest(entityName: "\(a)")
+        let predicate = NSPredicate(format: "id == \(id)")
+        fetchRequest.predicate = predicate
+        let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
+        return result as? A
+    }
+    
     static func deleteObject(obj: NSManagedObject) {
         AppDelegate.managedObjectContext?.deleteObject(obj)
     }

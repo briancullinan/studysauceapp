@@ -84,7 +84,7 @@ class PackResultsController: UIViewController {
         // add up results differently when loading from a retention pack
         var correct = 0
         var wrong = 0
-        let cards = self.isRetention ? AppDelegate.getUser()!.getRetention() : self.pack.cards?.allObjects as! [Card]
+        let cards = self.isRetention ? AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!} : self.pack.cards?.allObjects as! [Card]
         for c in cards {
             if let last = c.getResponse(AppDelegate.getUser()) {
                 if last.correct == 1 {

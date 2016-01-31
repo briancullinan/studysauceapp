@@ -392,8 +392,32 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Loading" id="SWh-K9-tyx">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SWh-K9-tyx" id="m39-d2-NSy">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJ3-gQ-XKQ">
+                                                    <rect key="frame" x="0.0" y="12" width="600" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="hJ3-gQ-XKQ" firstAttribute="centerX" secondItem="m39-d2-NSy" secondAttribute="centerX" id="QwU-df-de6"/>
+                                                <constraint firstItem="hJ3-gQ-XKQ" firstAttribute="centerY" secondItem="m39-d2-NSy" secondAttribute="centerY" id="tpA-Kv-xjn"/>
+                                                <constraint firstItem="hJ3-gQ-XKQ" firstAttribute="width" secondItem="m39-d2-NSy" secondAttribute="width" id="xrd-2V-kbN"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="69" id="LAx-Bu-P3t" customClass="PackSummaryCell" customModule="StudySauce" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="69"/>
+                                        <rect key="frame" x="0.0" y="72" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalHuggingPriority="750" tableViewCell="LAx-Bu-P3t" id="Cop-dO-w2C">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
@@ -462,7 +486,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoPacks" id="EQF-7n-nMN">
-                                        <rect key="frame" x="0.0" y="97" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="141" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EQF-7n-nMN" id="AP0-Qc-bB0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -478,8 +502,8 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="f1u-IQ-d1o" firstAttribute="centerY" secondItem="AP0-Qc-bB0" secondAttribute="centerY" id="AGd-EU-Q4Q"/>
                                                 <constraint firstItem="f1u-IQ-d1o" firstAttribute="centerX" secondItem="AP0-Qc-bB0" secondAttribute="centerX" id="mbP-TQ-NWx"/>
-                                                <constraint firstItem="f1u-IQ-d1o" firstAttribute="top" secondItem="AP0-Qc-bB0" secondAttribute="topMargin" id="pY1-jJ-eZx"/>
                                                 <constraint firstItem="f1u-IQ-d1o" firstAttribute="width" secondItem="AP0-Qc-bB0" secondAttribute="width" id="uLP-qM-qua"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2083,7 +2107,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing due today!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OJ-I0-1jS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Nothing due today!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OJ-I0-1jS">
                                                     <rect key="frame" x="0.0" y="8" width="482" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2094,7 +2118,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="2OJ-I0-1jS" firstAttribute="width" secondItem="Y00-zY-Yjl" secondAttribute="width" id="2j1-0R-Lpf"/>
-                                                <constraint firstItem="2OJ-I0-1jS" firstAttribute="top" secondItem="Y00-zY-Yjl" secondAttribute="topMargin" id="ZnP-iB-0Fb"/>
+                                                <constraint firstItem="2OJ-I0-1jS" firstAttribute="centerY" secondItem="Y00-zY-Yjl" secondAttribute="centerY" id="ce8-dY-nBM"/>
                                                 <constraint firstItem="2OJ-I0-1jS" firstAttribute="centerX" secondItem="Y00-zY-Yjl" secondAttribute="centerX" id="uEr-rs-jfW"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2107,7 +2131,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no study packs.  Please switch users." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rU-ec-f51">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You have no study packs.  Please switch users." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rU-ec-f51">
                                                     <rect key="frame" x="0.0" y="8" width="482" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2117,7 +2141,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="3rU-ec-f51" firstAttribute="top" secondItem="R8L-ad-iGu" secondAttribute="topMargin" id="SVc-Pa-0k7"/>
+                                                <constraint firstItem="3rU-ec-f51" firstAttribute="centerY" secondItem="R8L-ad-iGu" secondAttribute="centerY" id="FSp-QZ-tZX"/>
                                                 <constraint firstItem="3rU-ec-f51" firstAttribute="width" secondItem="R8L-ad-iGu" secondAttribute="width" id="dMq-nW-wgQ"/>
                                                 <constraint firstItem="3rU-ec-f51" firstAttribute="centerX" secondItem="R8L-ad-iGu" secondAttribute="centerX" id="i1b-hx-wPs"/>
                                             </constraints>
@@ -2131,7 +2155,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egl-fq-8LJ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egl-fq-8LJ">
                                                     <rect key="frame" x="0.0" y="8" width="482" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2143,7 +2167,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <constraints>
                                                 <constraint firstItem="egl-fq-8LJ" firstAttribute="width" secondItem="3FG-dN-wLB" secondAttribute="width" id="2Tf-Dk-5Sa"/>
                                                 <constraint firstItem="egl-fq-8LJ" firstAttribute="centerX" secondItem="3FG-dN-wLB" secondAttribute="centerX" id="Ebk-2K-SaP"/>
-                                                <constraint firstItem="egl-fq-8LJ" firstAttribute="top" secondItem="3FG-dN-wLB" secondAttribute="topMargin" id="dtj-Ks-wXL"/>
+                                                <constraint firstItem="egl-fq-8LJ" firstAttribute="centerY" secondItem="3FG-dN-wLB" secondAttribute="centerY" id="Xgb-U7-W3N"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3051,10 +3075,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <viewControllerLayoutGuide type="bottom" id="tMl-qi-rLZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Gzo-mc-S5O">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
                                 <rect key="frame" x="20" y="8" width="560" height="486"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3260,9 +3284,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="mZN-Ns-J7P"/>
+        <segue reference="aNX-LU-Mfo"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="9qz-n1-wHJ"/>
         <segue reference="B8Y-rH-ahi"/>
-        <segue reference="ucz-Xl-O7T"/>
+        <segue reference="h3u-I4-U7Q"/>
     </inferredMetricsTieBreakers>
 </document>
