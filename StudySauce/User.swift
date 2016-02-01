@@ -93,10 +93,10 @@ class User: NSManagedObject {
         
         for c in cards {
             if let card = AppDelegate.get(Card.self, c) {
-            let response = card.getResponse(self)
-            if response == nil || response!.created! < self.retention_to! {
-                return card
-            }
+                let response = card.getResponse(self)
+                if response == nil || response!.created! < self.retention_to! {
+                    return card
+                }
             }
         }
         

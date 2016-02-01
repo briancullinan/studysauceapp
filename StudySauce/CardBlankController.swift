@@ -26,9 +26,12 @@ class CardBlankController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //if self.inputText != nil {
-        //    inputText!.becomeFirstResponder()
-        //}
+        
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+            if !vc.isImage &&  self.inputText != nil {
+                inputText!.becomeFirstResponder()
+            }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -73,10 +76,19 @@ class CardBlankController: UIViewController {
     func didShowKeyboard(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
         //let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        
+        if let _ = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+            NSTimer.scheduledTimerWithTimeInterval(0.1,
+                target: self, selector: "updatePlay", userInfo: nil, repeats: false)
+        }
         //UIView.animateWithDuration(0.1, animations: { () -> Void in
         //    self.bottomConstraint.constant = keyboardFrame.size.height + 20
         //})
+    }
+    
+    func updatePlay() {
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+            CardPromptController.alignPlay(vc.content)
+        }
     }
     
     func saveResponse(value: String) {

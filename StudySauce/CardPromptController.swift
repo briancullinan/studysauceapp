@@ -18,7 +18,6 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     var url: String? = nil
     var playing: Bool = false
     var timer: NSTimer? = nil
-    var shouldPlay = false
     var isAudio = false
     var isImage = false
     weak var parent: UIViewController? = nil
@@ -28,7 +27,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBOutlet weak var size: NSLayoutConstraint!
     
     @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var content: UITextView!
+    @IBOutlet internal weak var content: UITextView!
     @IBOutlet weak var listenButton: UIButton!
     @IBOutlet weak var playButton: DALabeledCircularProgressView!
     
@@ -158,13 +157,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     self.player?.delegate = self
                     self.player?.prepareToPlay()
                 }
-                if self.shouldPlay {
-                    self.player!.play()
-                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
-                }
-                else {
-                    self.playing = false
-                }
+                self.player!.play()
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
             }
             else if self.isImage {
                 self.listenButton.hidden = true
@@ -191,7 +185,6 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBAction func listenClick(sender: UIButton) {
         
         if (self.url != nil) {
-            self.shouldPlay = true
             self.downloadAudio(self.url!)
         }
     }
