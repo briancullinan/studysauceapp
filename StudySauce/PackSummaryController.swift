@@ -242,7 +242,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.getPacksFromLocalStore()
         // refresh data from server
         PackSummaryController.getPacks({
             self.getPacksFromLocalStore()

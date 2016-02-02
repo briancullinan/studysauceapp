@@ -126,7 +126,10 @@ class PackResultsController: UIViewController {
         else {
             self.packTitle.text = self.pack.title
             if score == 100 {
-                self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all the questions correctly.\r\n\r\nStart again?", comment: "Pack summary all correct")
+                self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all the questions correctly.", comment: "Pack summary all correct")
+                self.goHome.hidden = false
+                self.crossButton.hidden = true
+                self.checkButton.hidden = true
             }
             else {
                 self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Pack summary with wrong answers")
