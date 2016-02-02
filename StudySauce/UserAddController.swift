@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UserAddController : UIViewController {
+class UserAddController : UIViewController, UITextFieldDelegate {
     internal var childFirstName: String?
     internal var childLastName: String?
     internal var code: String?
@@ -27,6 +27,19 @@ class UserAddController : UIViewController {
         })
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.inviteCode!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.inviteCode!.delegate = self
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.addClick(self.addButton)
+        }
+        return true
+    }
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

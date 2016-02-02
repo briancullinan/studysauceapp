@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-class UserResetController: UIViewController {
+class UserResetController: UIViewController, UITextFieldDelegate {
     
     var mail: String? = nil
     var password: String? = nil
@@ -23,9 +23,18 @@ class UserResetController: UIViewController {
         if token != nil {
             inputText.secureTextEntry = true
             inputText.placeholder = NSLocalizedString("New password", comment: "Placeholder for reset password after the token has been retrieved from email.")
-        }
+            self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("resetClick:"))
+            self.inputText!.delegate = self
+       }
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.resetClick(self.resetButton)
+        }
+        return true
+    }
+
     func done() {
         self.resetButton.enabled = true
         self.resetButton.alpha = 1
