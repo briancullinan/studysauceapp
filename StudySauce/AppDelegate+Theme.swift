@@ -436,6 +436,12 @@ extension AppDelegate {
             }
         })
         
+        $(UIImageView.self ~* 23 ~+ UITextField.self ~>> UILabel.self, {
+            if $0.text == ($0.superview as? UITextField)?.placeholder {
+                $0.setFontColor(saucyTheme.lightColor)
+            }
+        })
+
         $([CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()

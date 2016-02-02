@@ -22,7 +22,7 @@ extension CollectionType where Generator.Element == NSHTTPCookie {
     }
 }
 
-class UserLoginController : UIViewController {
+class UserLoginController : UIViewController, UITextFieldDelegate {
     
     internal static var token: String?
     internal var email: String?
@@ -31,6 +31,7 @@ class UserLoginController : UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    
     @IBAction func loginClick(sender: UIButton) {
         self.email = username.text
         self.pass = password.text
@@ -52,6 +53,17 @@ class UserLoginController : UIViewController {
         self.showNoConnectionDialog({
             UserLoginController.login()
         })
+        self.password!.addDoneOnKeyboardWithTarget(self, action: Selector("loginClick:"))
+        self.password!.delegate = self
+        self.username!.addDoneOnKeyboardWithTarget(self, action: Selector("loginClick:"))
+        self.username!.delegate = self
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.loginClick(self.loginButton)
+        }
+        return true
     }
     
     internal static func logout(done: () -> Void = {}) {
@@ -69,6 +81,10 @@ class UserLoginController : UIViewController {
             ids.append(user.id!)
             user.first = json["first"] as? String
             user.last = json["last"] as? String
+            let properties = json["properties"] as? Dictionary<String,AnyObject?> ?? Dictionary<String,AnyObject?>()
+            for p in properties.keys {
+                user.setProperty(p, properties[p]!)
+            }
             user.setProperty("session", cookies)
             user.created = NSDate.parse(json["created"] as? String)
             user.roles = json["roles"] as? String
@@ -81,6 +97,10 @@ class UserLoginController : UIViewController {
                 child.id = c["id"] as? NSNumber
                 ids.append(child.id!)
                 child.first = c["first"] as? String
+                let properties = c["properties"] as? Dictionary<String,AnyObject?> ?? Dictionary<String,AnyObject?>()
+                for p in properties.keys {
+                    child.setProperty(p, properties[p]!)
+                }
                 child.last = c["last"] as? String
                 child.setProperty("session", cookies)
                 child.created = NSDate.parse(c["created"] as? String)

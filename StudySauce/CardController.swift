@@ -25,6 +25,7 @@ class CardController: UIViewController {
         }
     }
     internal var isRetention = false
+    internal var selectedPack: Pack? = nil
 
     @IBAction func backClick(sender: UIButton) {
         if self.isRetention {
@@ -40,17 +41,30 @@ class CardController: UIViewController {
         
         if self.card == nil {
             if self.isRetention {
-                self.card = AppDelegate.getUser()!.getRetentionCard()
+                if self.selectedPack != nil {
+                    self.card = self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionCard()
+                }
+                else {
+                    self.card = AppDelegate.getUser()!.getRetentionCard()
+                }
             }
             else {
                 self.card = self.pack.getUserPack(AppDelegate.getUser()).getRetryCard()
             }
         }
         if self.isRetention {
-            self.pack = self.card!.pack
-            let index = AppDelegate.getUser()!.getRetentionIndex(self.card!)
-            let count = AppDelegate.getUser()!.getRetentionCount()
-            self.countLabel.text = "\(index+1) of \(count)"
+            if self.selectedPack != nil {
+                self.pack = self.selectedPack
+                let index = self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionIndex(self.card!)
+                let count = self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionCount()
+                self.countLabel.text = "\(index+1) of \(count)"
+            }
+            else {
+                self.pack = self.card!.pack
+                let index = AppDelegate.getUser()!.getRetentionIndex(self.card!)
+                let count = AppDelegate.getUser()!.getRetentionCount()
+                self.countLabel.text = "\(index+1) of \(count)"
+            }
         }
         else {
             let index = self.pack.getUserPack(AppDelegate.getUser()).getRetryIndex(self.card!)
@@ -95,10 +109,12 @@ class CardController: UIViewController {
         if let vc = segue.destinationViewController as? PackResultsController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
+            vc.selectedPack = self.selectedPack
         }
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
+            vc.selectedPack = self.selectedPack
             if vc.subview != nil {
                 vc.card = self.card
                 vc.intermediateResponse = self.intermediateResponse
@@ -107,6 +123,7 @@ class CardController: UIViewController {
         if let vc = segue.destinationViewController.parentViewController as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
+            vc.selectedPack = self.selectedPack
             if vc.subview != nil {
                 vc.card = self.card
                 vc.intermediateResponse = self.intermediateResponse

@@ -19,6 +19,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var selectedImage:UIImage!
     var taskManager:NSTimer? = nil
     var checking = false
+    var selectedPack: Pack? = nil
     
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigButton: UIButton? = nil
@@ -32,6 +33,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         AppDelegate.performContext {
             if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
                 doMain {
+                    self.selectedPack = nil
                     self.performSegueWithIdentifier("card", sender: self)
                     self.checking = false
                 }
@@ -86,6 +88,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let vc = segue.destinationViewController as? CardController {
             vc.isRetention = true
+            vc.selectedPack = self.selectedPack
         }
     }
     
@@ -279,8 +282,26 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.packs == nil || self.packs!.count == 0 {
+            return
+        }
         if let home = self.parentViewController as? HomeController {
-            home.monkeyClick(home.bigButton!)
+            if home.checking {
+                return
+            }
+            home.checking = true
+            AppDelegate.performContext {
+                if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
+                    doMain {
+                        home.selectedPack = self.packs![indexPath.row]
+                        home.performSegueWithIdentifier("card", sender: self)
+                        home.checking = false
+                    }
+                }
+                else {
+                    home.checking = false
+                }
+            }
         }
     }
     

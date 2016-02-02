@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 import UIKit
 
-class CardBlankController: UIViewController {
+class CardBlankController: UIViewController, UITextFieldDelegate {
     
     weak var card: Card? = nil
-    //var handler: IQKeyboardReturnKeyHandler? = nil
+    
     @IBOutlet weak var inputText: UITextField? = nil
     
     @IBAction func returnToBlank(segue: UIStoryboardSegue) {
@@ -58,16 +58,29 @@ class CardBlankController: UIViewController {
         UIView.setAnimationsEnabled(false)
     }
     
-    //@IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
             if inputText != nil {
+                let keyboard = self.card?.pack?.getProperty("keyboard") as? String
+                if keyboard == "number" {
+                    self.inputText!.keyboardType = UIKeyboardType.NumberPad
+                }
+                if keyboard == "phone" {
+                    self.inputText!.keyboardType = UIKeyboardType.PhonePad
+                }
+                if keyboard == "decimal" {
+                    self.inputText!.keyboardType = UIKeyboardType.DecimalPad
+                }
+                if keyboard == "ascii" {
+                    self.inputText!.keyboardType = UIKeyboardType.ASCIICapable
+                }
+                if keyboard == "alphabet" {
+                    self.inputText!.keyboardType = UIKeyboardType.Alphabet
+                }
                 //Adding done button for textField1
-                self.inputText?.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
-
+                self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
+                self.inputText!.delegate = self
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
-                //self.handler = IQKeyboardReturnKeyHandler(controller: self)
             }
             self.card = vc.card
         }
@@ -83,6 +96,13 @@ class CardBlankController: UIViewController {
         //UIView.animateWithDuration(0.1, animations: { () -> Void in
         //    self.bottomConstraint.constant = keyboardFrame.size.height + 20
         //})
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.correctClick((self.view ~> UIButton.self).first!)
+        }
+        return true
     }
     
     func updatePlay() {

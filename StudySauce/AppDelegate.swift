@@ -117,7 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 if user == nil {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Landing")
                 }
-                else if user!.getProperty("seen_tutorial") as? Bool != true
+                else if user!.getProperty("seen_tutorial") as? Bool != true && !(NSUserDefaults.standardUserDefaults().valueForKey("seen_tutorial") as? String ?? "").componentsSeparatedByString(",").filter({$0 != ""}).map({Int($0)}).filter({$0 != nil}).map({$0!}).contains(Int(user!.id!))
                 {
                     user!.setProperty("seen_tutorial", true)
                     AppDelegate.saveContext()

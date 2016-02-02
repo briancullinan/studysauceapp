@@ -191,6 +191,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     newPack!.created = NSDate.parse(pack["created"] as? String)
                     newPack!.modified = NSDate.parse(pack["modified"] as? String)
                     newPack!.count = pack["count"] as? NSNumber
+                    let properties = pack["properties"] as? NSDictionary
+                    newPack!.setProperty("keyboard", properties?["keyboard"])
                     AppDelegate.saveContext()
                     
                     if let userPacks = pack["users"] as? NSArray where userPacks.count > 0 {

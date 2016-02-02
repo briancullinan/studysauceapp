@@ -13,12 +13,24 @@ import UIKit
 import MessageUI
 import QuartzCore
 
-class ContactUsController: UIViewController {
+class ContactUsController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]!
         self.message.text = "\n\nMy System Information:\nApp Version: \(version)\nModel: \(UIDevice.currentDevice().modelName)\nVersion: \(UIDevice.currentDevice().systemVersion)\n"
+        self.name!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        self.name!.delegate = self
+        self.email!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        self.email!.delegate = self
+        self.message!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.sendEmail(self.sendButton)
+        }
+        return true
     }
     
     override func didReceiveMemoryWarning() {

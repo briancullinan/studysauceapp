@@ -78,7 +78,7 @@ class User: NSManagedObject {
     }
     
     func getRetentionRemaining() -> Int {
-        return self.getRetention(true).filter({
+        return self.generateRetention().filter({
             let response = AppDelegate.get(Card.self, $0)?.getResponse(self)
             if response == nil || response!.created! < self.retention_to! {
                 return true
@@ -103,24 +103,23 @@ class User: NSManagedObject {
         return nil
     }
     
-    func getRetention(refresh: Bool = false) -> [NSNumber] {
-        if refresh {
-            var results: [NSNumber] = []
-            // TODO: change this line when userpack order matters
-            for up in self.user_packs?.allObjects as! [UserPack] {
-                results.appendContentsOf(up.getRetention().map{$0.id!})
-            }
-            results.shuffleInPlace()
-            self.retention = results.map { c -> String in
-                return "\(c)"
-                }.joinWithSeparator(",")
-            self.retention_to = NSDate()
-            // TODO: shouldn't really do database edits in the model
-            AppDelegate.saveContext()
-            return results
+    func getRetention() -> [NSNumber] {
+        return self.retention!.componentsSeparatedByString(",").filter({$0 != ""}).map({Int($0)!})
+    }
+    
+    func generateRetention() -> [NSNumber] {
+        var results: [NSNumber] = []
+        // TODO: change this line when userpack order matters
+        for up in self.user_packs?.allObjects as! [UserPack] {
+            results.appendContentsOf(up.generateRetention().map{$0.id!})
         }
-        else {
-            return self.retention!.componentsSeparatedByString(",").map {Int($0)!}
-        }
+        results.shuffleInPlace()
+        self.retention = results.map { c -> String in
+            return "\(c)"
+            }.joinWithSeparator(",")
+        self.retention_to = NSDate()
+        // TODO: shouldn't really do database edits in the model
+        AppDelegate.saveContext()
+        return results
     }
 }

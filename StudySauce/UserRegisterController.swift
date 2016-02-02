@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UserRegisterController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class UserRegisterController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     internal var registrationCode: String?
     internal var first: String?
@@ -126,8 +126,21 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             self.children.hidden = true
             //self.addButton.hidden = true
         }
+        self.lastName!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        self.lastName!.delegate = self
+        self.firstName!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        self.firstName!.delegate = self
+        self.email!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        self.email!.delegate = self
     }
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.registerClick(self.registerButton)
+        }
+        return true
+    }
+
     func done() {
         self.registerButton.enabled = true
         self.registerButton.alpha = 1

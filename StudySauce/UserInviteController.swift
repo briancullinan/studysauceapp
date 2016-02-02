@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UserInviteController : UIViewController {
+class UserInviteController : UIViewController, UITextFieldDelegate {
     
     internal var first: String?
     internal var last: String?
@@ -41,6 +41,20 @@ class UserInviteController : UIViewController {
         })
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.registrationCode!.addDoneOnKeyboardWithTarget(self, action: Selector("submitCode:"))
+        self.registrationCode!.delegate = self
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.submitCode(self.inviteButton)
+        }
+        return true
+    }
+
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }

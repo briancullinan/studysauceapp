@@ -21,6 +21,7 @@ class PackResultsController: UIViewController {
     @IBOutlet weak var checkButton: UIButton!
     
     internal var isRetention = false
+    internal var selectedPack: Pack? = nil
     
     @IBAction func backClick(sender: UIButton) {
         self.doReset()
@@ -50,7 +51,7 @@ class PackResultsController: UIViewController {
     func doReset() {
         if self.isRetention {
             // force homescreen to update with new retention cards
-            AppDelegate.getUser()!.getRetention(true)
+            AppDelegate.getUser()!.generateRetention()
         }
         else {
             // next time card is loaded retries will be repopulated
@@ -75,6 +76,7 @@ class PackResultsController: UIViewController {
         if let vc = segue.destinationViewController as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
+            vc.selectedPack = self.selectedPack
         }
     }
     
@@ -84,8 +86,8 @@ class PackResultsController: UIViewController {
         // add up results differently when loading from a retention pack
         var correct = 0
         var wrong = 0
-        let cards = self.isRetention ? AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!} : self.pack.cards?.allObjects as! [Card]
-        for c in cards {
+        let cards = self.isRetention ? (self.selectedPack != nil ? self.selectedPack?.getUserPack(AppDelegate.getUser()).getRetention() : AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!}) : self.pack.cards?.allObjects
+        for c in cards! {
             if let last = c.getResponse(AppDelegate.getUser()) {
                 if last.correct == 1 {
                     correct++
@@ -105,7 +107,12 @@ class PackResultsController: UIViewController {
         
         // set up buttons and text
         if self.isRetention {
-            self.packTitle.text = "Today's cards"
+            if self.selectedPack != nil {
+                self.packTitle.text = self.selectedPack!.title
+            }
+            else {
+                self.packTitle.text = "Today's cards"
+            }
             if score == 100 {
                 self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all of today's questions correctly.", comment: "Big button all correct")
                 self.goHome.hidden = false

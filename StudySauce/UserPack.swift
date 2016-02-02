@@ -52,12 +52,29 @@ class UserPack: NSManagedObject {
         return self.getRetries().count
     }
     
+    func getRetentionIndex(card: Card) -> Int {
+        return self.getRetention().indexOf(card)!
+    }
+    
     func getRetentionCount() -> Int {
         // TODO: speed this up by checkin string for ids?
         return self.getRetention().count
     }
     
-    func getRetention() -> [Card] {
+    func getRetentionCard() -> Card? {
+        let cards = self.getRetention()
+        
+        for card in cards {
+            let response = card.getResponse(self.user)
+            if response == nil || response!.created! < self.user!.retention_to! {
+                return card
+            }
+        }
+        
+        return nil
+    }
+
+    func generateRetention() -> [Card] {
         let intervals = [1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
         var result: [Card] = []
         // if a card hasn't been answered, return the next card
@@ -98,5 +115,10 @@ class UserPack: NSManagedObject {
             }
         }
         return result
+    }
+    
+    func getRetention() -> [Card] {
+        let retention = self.user!.getRetention()
+        return (self.pack!.cards?.allObjects as! [Card]).filter({return retention.contains($0.id!)})
     }
 }
