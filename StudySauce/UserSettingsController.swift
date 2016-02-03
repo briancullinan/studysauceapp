@@ -129,12 +129,12 @@ class UserSettingsController: UITableViewController {
             if cacheResetCount > 10 {
                 cacheResetCount = 0
                 AppDelegate.performContext {
+                    AppDelegate.resetLocalStore(true)
+                    AppDelegate.instance().user = nil
                     UserLoginController.logout({
                         NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "seen_tutorial")
                         NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "user")
                         NSUserDefaults.standardUserDefaults().synchronize()
-                        AppDelegate.resetLocalStore(true)
-                        AppDelegate.instance().user = nil
                         AppDelegate.goHome(self, true)
                     })
                 }

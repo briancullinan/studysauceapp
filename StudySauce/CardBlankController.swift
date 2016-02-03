@@ -28,7 +28,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         super.viewDidAppear(animated)
         
         if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-            if !vc.isImage &&  self.inputText != nil {
+            if !vc.isImage && self.inputText != nil {
                 self.inputText!.becomeFirstResponder()
             }
         }
@@ -58,7 +58,6 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         UIView.setAnimationsEnabled(false)
     }
     
-    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     @IBOutlet weak var bottomHalf: NSLayoutConstraint!
     
     override func viewDidLoad() {
@@ -86,7 +85,6 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
             }
             self.card = vc.card
-            self.bottomHalf.constant = self.view.bounds.height * 1/2
             self.view.setNeedsLayout()
         }
     }
@@ -94,9 +92,14 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     func didShowKeyboard(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        self.bottomHalf.constant = keyboardFrame.size.height - 20
         self.view.setNeedsLayout()
-        if let _ = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+        if let cvc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+            if cvc.isImage {
+                self.bottomHalf.constant = 0
+            }
+            else {
+                self.bottomHalf.constant = keyboardFrame.size.height - 20
+            }
             NSTimer.scheduledTimerWithTimeInterval(0.1,
                 target: self, selector: "updatePlay", userInfo: nil, repeats: false)
         }

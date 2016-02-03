@@ -54,20 +54,20 @@ class CardController: UIViewController {
         }
         if self.isRetention {
             if self.selectedPack != nil {
-                self.pack = self.selectedPack
+                self.pack = self.selectedPack!
                 let index = self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionIndex(self.card!)
                 let count = self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionCount()
                 self.countLabel.text = "\(index+1) of \(count)"
             }
             else {
-                self.pack = self.card!.pack
+                self.pack = self.card!.pack!
                 let index = AppDelegate.getUser()!.getRetentionIndex(self.card!)
                 let count = AppDelegate.getUser()!.getRetentionCount()
                 self.countLabel.text = "\(index+1) of \(count)"
             }
         }
         else {
-            self.pack = self.card!.pack
+            self.pack = self.card!.pack!
             let index = self.pack.getUserPack(AppDelegate.getUser()).getRetryIndex(self.card!)
             let count = self.pack.getUserPack(AppDelegate.getUser()).getRetryCount()
             self.countLabel.text = "\(index+1) of \(count)"

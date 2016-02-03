@@ -3059,18 +3059,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fy8-Cm-4pg">
-                                <rect key="frame" x="233" y="364" width="135" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Get answer">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="correctClick:" destination="GSF-sY-ir3" eventType="touchUpInside" id="Q8d-IG-0YW"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="339" width="560" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3086,6 +3074,18 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <segue destination="gnI-XW-KF9" kind="embed" id="B8Y-rH-ahi"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fy8-Cm-4pg">
+                                <rect key="frame" x="233" y="364" width="135" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+                                <state key="normal" title="Get answer">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="correctClick:" destination="GSF-sY-ir3" eventType="touchUpInside" id="Q8d-IG-0YW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -3097,19 +3097,12 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="Fy8-Cm-4pg" firstAttribute="centerX" secondItem="dOA-sd-DiZ" secondAttribute="centerX" id="en1-hC-dou"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NkX-xa-Rjn" secondAttribute="trailing" id="qy6-BQ-cfm"/>
                             <constraint firstItem="dfB-8a-8h8" firstAttribute="top" secondItem="Ewj-Tk-Wnr" secondAttribute="bottom" id="rui-tq-3QM"/>
-                            <constraint firstItem="VXm-rk-bAZ" firstAttribute="top" secondItem="Fy8-Cm-4pg" secondAttribute="bottom" constant="8" symbolic="YES" id="s9E-BK-E0d"/>
                             <constraint firstItem="Fy8-Cm-4pg" firstAttribute="top" secondItem="NkX-xa-Rjn" secondAttribute="bottom" constant="8" symbolic="YES" id="x9J-91-lCK"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="s9E-BK-E0d"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="WZU-L0-OyD"/>
                     <connections>
                         <outlet property="bottomHalf" destination="RMh-5o-zN5" id="faN-r1-FYs"/>
-                        <outlet property="bottomSpace" destination="s9E-BK-E0d" id="P0n-2O-wff"/>
                         <outlet property="inputText" destination="NkX-xa-Rjn" id="k4B-xr-9HA"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9qz-n1-wHJ"/>
                     </connections>
@@ -3335,10 +3328,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="B8Y-rH-ahi"/>
-        <segue reference="9qz-n1-wHJ"/>
-        <segue reference="GGa-Jv-qkY"/>
-        <segue reference="mZN-Ns-J7P"/>
         <segue reference="GQz-t5-qGU"/>
+        <segue reference="mZN-Ns-J7P"/>
+        <segue reference="ucz-Xl-O7T"/>
+        <segue reference="9qz-n1-wHJ"/>
+        <segue reference="B8Y-rH-ahi"/>
     </inferredMetricsTieBreakers>
 </document>
