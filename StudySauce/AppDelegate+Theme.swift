@@ -170,6 +170,12 @@ extension AppDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidHideNotification, object: nil)
         
 
+        if let window = AppDelegate.instance().window {
+            window.backgroundColor = UIColor.clearColor()
+            window.opaque = false
+            window.makeKeyAndVisible();
+        }
+        
         // set up font names
         $(UIButton.self, {
             $0.setFontName(saucyTheme.buttonFont)

@@ -140,11 +140,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                         home.transitioningDelegate = CardSegue.transitionManager
                         
                         if !self.instance().window!.rootViewController!.isTypeOf(home) {
-                            self.instance().window!.rootViewController!.dismissViewControllerAnimated(false, completion: {
+                            if self.instance().window!.rootViewController!.presentedViewController == nil {
                                 self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
                                     done(v: home)
                                 })
-                            })
+                            }
+                            else {
+                                self.instance().window!.rootViewController!.dismissViewControllerAnimated(false, completion: {
+                                    self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
+                                        done(v: home)
+                                    })
+                                })
+                            }
                         }
                         else {
                             self.instance().window!.rootViewController!.dismissViewControllerAnimated(true, completion: {

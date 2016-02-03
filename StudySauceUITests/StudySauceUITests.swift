@@ -31,8 +31,11 @@ class StudySauceUITests: XCTestCase {
     func testReturnToHome() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCUIApplication().childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).elementBoundByIndex(1).childrenMatchingType(.Other).elementBoundByIndex(0).childrenMatchingType(.Image).elementBoundByIndex(2).tap()
+        let app = XCUIApplication()
         
+        expectationForPredicate(NSPredicate(format: "exists == 1 && isHittable == 1"), evaluatedWithObject: app.buttons["Log in"], handler: nil)
+        waitForExpectationsWithTimeout(5, handler: nil)
+        app.buttons["Log in"].tap()
     }
     
 }
