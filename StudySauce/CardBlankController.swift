@@ -95,12 +95,10 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     func keyboardWillChange(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        if let cvc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-            self.bottomHalf.constant = keyboardFrame.size.height - 20
-            NSTimer.scheduledTimerWithTimeInterval(0.1,
-                target: self, selector: "updatePlay", userInfo: nil, repeats: false)
-            self.view.setNeedsLayout()
-        }
+        self.bottomHalf.constant = keyboardFrame.size.height - 20
+        NSTimer.scheduledTimerWithTimeInterval(0.1,
+            target: self, selector: "updatePlay", userInfo: nil, repeats: false)
+        self.view.setNeedsLayout()
     }
 
     func didShowKeyboard(notification: NSNotification) {

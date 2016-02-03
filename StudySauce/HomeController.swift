@@ -110,26 +110,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return self.view.subviews.count > 1
     }
     
-    func setTotal() {
-        
-        if !(AppDelegate.visibleViewController() is HomeController) {
-            return
-        }
-        
-        if self.cardCount != nil {
-            AppDelegate.performContext {
-                if AppDelegate.getUser() != nil {
-                    let count = AppDelegate.getUser()!.getRetentionRemaining()
-                    let s = count == 1 ? "" : "s"
-                    doMain {
-                        self.cardCount!.text = "\(count) card\(s)"
-                    }
-                }
-            }
-        }
-
-    }
-    
     @IBAction func userClick(sender: UIButton) {
         /*
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
@@ -171,33 +151,24 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if self.tableView != nil {
             
-            self.setTotal()
-            
             if self.taskManager == nil {
                 self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "homeSync", userInfo: nil, repeats: true)
             }
             
+            self.getPacksFromLocalStore()
+            
             // Load packs from database
             PackSummaryController.getPacks({
-                self.getPacksFromLocalStore {
-                    self.tableView!.reloadData()
-                    self.setTotal()
-                }
+                self.getPacksFromLocalStore()
                 }, downloadedHandler: {p in
-                    self.getPacksFromLocalStore {
-                        self.tableView!.reloadData()
-                        self.setTotal()
-                    }
+                    self.getPacksFromLocalStore()
             })
         }
     }
     
     func homeSync() {
         HomeController.syncResponses {
-            self.getPacksFromLocalStore {
-                self.tableView!.reloadData()
-                self.setTotal()
-            }
+            self.getPacksFromLocalStore()
         }
     }
     
@@ -253,17 +224,33 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    private func getPacksFromLocalStore(done: () -> Void)
+    private func getPacksFromLocalStore()
     {
+        
+        if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
+            return
+        }
+        
         AppDelegate.performContext {
-            if AppDelegate.getUser() == nil {
+            if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
                 return
             }
+            
+            var total = "0 cards"
+            if self.cardCount != nil {
+                let count = AppDelegate.getUser()!.getRetentionRemaining()
+                let s = count == 1 ? "" : "s"
+                total = "\(count) card\(s)"
+            }
+
             self.packs = AppDelegate.getUser()!.getPacks()
                 .filter({
                     $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
                 })
-            doMain(done)
+            doMain {
+                self.cardCount!.text = total
+                self.tableView!.reloadData()
+            }
         }
     }
 
