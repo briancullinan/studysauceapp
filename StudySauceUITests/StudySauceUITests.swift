@@ -33,8 +33,23 @@ class StudySauceUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let app = XCUIApplication()
         
-        expectationForPredicate(NSPredicate(format: "exists == 1 && isHittable == 1"), evaluatedWithObject: app.buttons["Log in"], handler: nil)
-        waitForExpectationsWithTimeout(5, handler: nil)
+        let login = app.buttons["Log in"]
+        waitForExpectationsWithTimeout(2, handler: nil)
+        if login.exists && login.hittable {
+            self.testLogin()
+        }
+        let logout = app.buttons["Logout"]
+        if logout.exists && logout.hittable {
+            app.tables.element.cells.elementBoundByIndex(2)
+        }
+    }
+    
+    func testLogin() {
+        let app = XCUIApplication()
+        let login = app.buttons["Log in"]
+        
+        expectationForPredicate(NSPredicate(format: "exists && hittable"), evaluatedWithObject: login, handler: nil)
+        waitForExpectationsWithTimeout(2, handler: nil)
         app.buttons["Log in"].tap()
     }
     

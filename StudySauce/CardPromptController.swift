@@ -126,7 +126,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     pvc.bottomHalf.constant = 0
                 }
                 else {
-                    pvc.bottomHalf.constant = pvc.view.bounds.height * 1/3
+                    pvc.bottomHalf.constant = pvc.view.bounds.height * 1/2
                 }
                 pvc.view.layoutIfNeeded()
             }
