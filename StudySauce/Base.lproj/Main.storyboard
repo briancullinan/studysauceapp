@@ -2307,7 +2307,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="VuU-ca-cmN" secondAttribute="height" multiplier="1:1" id="wcL-cl-W6V"/>
                                 </constraints>
-                                <state key="normal" image="bigbuttonshuffle"/>
+                                <state key="normal" image="buttonshuffle"/>
                                 <connections>
                                     <action selector="monkeyClick:" destination="Sib-XO-0qJ" eventType="touchUpInside" id="wBA-cG-BGf"/>
                                 </connections>
@@ -3326,7 +3326,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="StudySauceBackArrow" width="500" height="300"/>
         <image name="add" width="62" height="72"/>
         <image name="audio" width="116" height="93"/>
-        <image name="bigbuttonshuffle" width="360" height="360"/>
+        <image name="buttonshuffle" width="360" height="360"/>
         <image name="gray Study packs icon with clear center" width="101" height="100"/>
         <image name="gray settings icon with clear center" width="101" height="100"/>
         <image name="logout" width="71" height="64"/>

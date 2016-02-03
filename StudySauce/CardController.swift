@@ -67,6 +67,7 @@ class CardController: UIViewController {
             }
         }
         else {
+            self.pack = self.card!.pack
             let index = self.pack.getUserPack(AppDelegate.getUser()).getRetryIndex(self.card!)
             let count = self.pack.getUserPack(AppDelegate.getUser()).getRetryCount()
             self.countLabel.text = "\(index+1) of \(count)"
