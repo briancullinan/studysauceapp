@@ -22,6 +22,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        IQKeyboardManager.sharedManager().enable = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -38,6 +39,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         UIView.setAnimationsEnabled(false)
         self.inputText!.resignFirstResponder()
         UIView.setAnimationsEnabled(true)
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -83,26 +85,26 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
                 self.inputText!.delegate = self
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
             }
             self.card = vc.card
             self.view.setNeedsLayout()
         }
     }
     
-    func didShowKeyboard(notification: NSNotification) {
+    func keyboardWillChange(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        self.view.setNeedsLayout()
         if let cvc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-            if cvc.isImage {
-                self.bottomHalf.constant = 0
-            }
-            else {
-                self.bottomHalf.constant = keyboardFrame.size.height - 20
-            }
+            self.bottomHalf.constant = keyboardFrame.size.height - 20
             NSTimer.scheduledTimerWithTimeInterval(0.1,
                 target: self, selector: "updatePlay", userInfo: nil, repeats: false)
+            self.view.setNeedsLayout()
         }
+    }
+
+    func didShowKeyboard(notification: NSNotification) {
+        UIView.setAnimationsEnabled(true)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
