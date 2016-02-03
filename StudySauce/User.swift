@@ -92,7 +92,7 @@ class User: NSManagedObject {
         let cards = self.getRetention()
         
         for c in cards {
-            if let card = AppDelegate.get(Card.self, c) {
+            if let card = AppDelegate.get(Card.self, c) where card.pack != nil {
                 let response = card.getResponse(self)
                 if response == nil || response!.created! < self.retention_to! {
                     return card
