@@ -122,12 +122,12 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     content = "P14y"
                 }
-                //if self.isImage {
+                if self.isImage {
                     pvc.bottomHalf.constant = 0
-                //}
-                //else {
-                //    pvc.bottomHalf.constant = pvc.view.bounds.height * 1/2
-                //}
+                }
+                else {
+                    pvc.bottomHalf.constant = pvc.view.bounds.height * 1/2
+                }
                 pvc.view.layoutIfNeeded()
             }
         }
