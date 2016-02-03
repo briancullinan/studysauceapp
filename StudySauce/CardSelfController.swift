@@ -14,6 +14,7 @@ class CardSelfController: UIViewController {
     
     
     @IBOutlet weak var correctButton: UIButton? = nil
+    @IBOutlet weak var wrongButton: UIButton? = nil
     weak var card: Card? = nil
     
     @IBAction func returnToPrompt(segue: UIStoryboardSegue) {
@@ -38,6 +39,8 @@ class CardSelfController: UIViewController {
     }
     
     func submitResponse(correct: Bool) {
+        self.correctButton?.enabled = false
+        self.wrongButton?.enabled = false
         if let vc = self.parentViewController as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)

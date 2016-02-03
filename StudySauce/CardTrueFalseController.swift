@@ -13,6 +13,8 @@ import UIKit
 class CardTrueFalseController: UIViewController {
     
     weak var card: Card? = nil
+    @IBOutlet weak var trueButton: UIButton!
+    @IBOutlet weak var falseButton: UIButton!
   
     override func viewDidLoad() {
         if let vc = self.parentViewController as? CardController {
@@ -34,6 +36,8 @@ class CardTrueFalseController: UIViewController {
     }
     
     func saveResponse(value: String) {
+        self.trueButton.enabled = false
+        self.falseButton.enabled = false
         if let vc = self.parentViewController as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)

@@ -118,7 +118,9 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBOutlet weak var correctButton: UIButton!
     func saveResponse(value: String) {
+        self.correctButton.enabled = false
         if let vc = self.parentViewController as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)

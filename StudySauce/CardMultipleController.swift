@@ -59,6 +59,10 @@ class CardMultipleController: UIViewController {
     }
     
     func saveResponse(value: String) {
+        self.answer1?.enabled = false
+        self.answer2?.enabled = false
+        self.answer3?.enabled = false
+        self.answer4?.enabled = false
         if let vc = self.parentViewController as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)

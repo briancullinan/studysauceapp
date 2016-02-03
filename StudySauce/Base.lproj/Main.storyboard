@@ -667,6 +667,7 @@
                     </view>
                     <connections>
                         <outlet property="correctButton" destination="QyN-eE-dnk" id="HHb-QL-j17"/>
+                        <outlet property="wrongButton" destination="Syo-QG-qXe" id="oIP-2B-fMs"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="hJi-Nu-qtH"/>
                         <segue destination="4xf-wJ-8QS" kind="unwind" identifier="last" unwindAction="returnToPrompt:" id="g9q-Ti-MzE"/>
                     </connections>
@@ -1397,17 +1398,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efU-5t-l7n">
-                                <rect key="frame" x="505" y="510" width="75" height="50"/>
-                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="85"/>
-                                <state key="normal" title="✔︎">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="retryClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="y1U-W8-1OC"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8oo-Mq-sfP">
                                 <rect key="frame" x="20" y="510" width="75" height="50"/>
                                 <color key="backgroundColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1444,6 +1434,17 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efU-5t-l7n">
+                                <rect key="frame" x="505" y="510" width="75" height="50"/>
+                                <color key="backgroundColor" red="0.027450980390000001" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="85"/>
+                                <state key="normal" title="✔︎">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="retryClick:" destination="ArM-tF-FuE" eventType="touchUpInside" id="y1U-W8-1OC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.9137254901960784" green="0.9137254901960784" blue="0.9137254901960784" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -2307,7 +2308,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="VuU-ca-cmN" secondAttribute="height" multiplier="1:1" id="wcL-cl-W6V"/>
                                 </constraints>
-                                <state key="normal" image="buttonshuffle"/>
+                                <state key="normal" image="buttonshufflebottom"/>
                                 <connections>
                                     <action selector="monkeyClick:" destination="Sib-XO-0qJ" eventType="touchUpInside" id="wBA-cG-BGf"/>
                                 </connections>
@@ -3040,6 +3041,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     </view>
                     <navigationItem key="navigationItem" id="QGt-bv-bFW"/>
                     <connections>
+                        <outlet property="falseButton" destination="rSg-TN-Foe" id="RhE-HX-9pN"/>
+                        <outlet property="trueButton" destination="Gtg-gQ-K4n" id="dFm-52-yV1"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="DnL-J9-off"/>
                     </connections>
                 </viewController>
@@ -3103,6 +3106,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     <navigationItem key="navigationItem" id="WZU-L0-OyD"/>
                     <connections>
                         <outlet property="bottomHalf" destination="RMh-5o-zN5" id="faN-r1-FYs"/>
+                        <outlet property="correctButton" destination="Fy8-Cm-4pg" id="nTY-Yx-lU1"/>
                         <outlet property="inputText" destination="NkX-xa-Rjn" id="k4B-xr-9HA"/>
                         <segue destination="Eqc-ZA-AZS" kind="custom" identifier="correct" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="9qz-n1-wHJ"/>
                     </connections>
@@ -3319,7 +3323,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="StudySauceBackArrow" width="500" height="300"/>
         <image name="add" width="62" height="72"/>
         <image name="audio" width="116" height="93"/>
-        <image name="buttonshuffle" width="360" height="360"/>
+        <image name="buttonshufflebottom" width="360" height="360"/>
         <image name="gray Study packs icon with clear center" width="101" height="100"/>
         <image name="gray settings icon with clear center" width="101" height="100"/>
         <image name="logout" width="71" height="64"/>
@@ -3330,7 +3334,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     <inferredMetricsTieBreakers>
         <segue reference="GQz-t5-qGU"/>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="ucz-Xl-O7T"/>
+        <segue reference="M6g-6I-YI4"/>
         <segue reference="9qz-n1-wHJ"/>
         <segue reference="B8Y-rH-ahi"/>
     </inferredMetricsTieBreakers>
