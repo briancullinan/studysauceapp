@@ -79,13 +79,19 @@ class User: NSManagedObject {
     
     func getRetentionRemaining() -> Int {
         return self.generateRetention().filter({
-            let response = AppDelegate.get(Card.self, $0)?.getResponse(self)
+            if let card = AppDelegate.get(Card.self, $0) where card.pack != nil {
+            let response = card.getResponse(self)
             if response == nil || response!.created! < self.retention_to! {
                 return true
             }
             else {
                 return false
-            }}).count
+            }
+            }
+                else {
+                    return false
+            }
+            }).count
     }
     
     func getRetentionCard() -> Card? {
