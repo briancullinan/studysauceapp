@@ -58,21 +58,22 @@ class CardSegue : UIStoryboardSegue {
             }
             if current.card != (last as? CardController)?.card {
                 let root = current.presentingViewController!
-                root.view.addSubview(last.view)
+                let snapShotView = last.view.snapshotViewAfterScreenUpdates(false)
+                AppDelegate.instance().window!.addSubview(snapShotView)
+                AppDelegate.instance().window!.bringSubviewToFront(snapShotView)
                 root.dismissViewControllerAnimated(false, completion: {
-                    root.presentViewController(last, animated: false, completion: {
-                        self.doTransition(last, next: next)
-                    })
+                    root.presentViewController(last, animated: false) {
+                        snapShotView.removeFromSuperview()
+                        next.transitioningDelegate = CardSegue.transitionManager
+                        last.transitioningDelegate = CardSegue.transitionManager
+                        last.presentViewController(next, animated: true, completion: nil)
+                    }
                 })
                 return
             }
         }
         
         // only do transition at this point, no swiping available unless it is set up beforehand
-        self.doTransition(last, next: next)
-    }
-    
-    func doTransition(last: UIViewController, next: UIViewController) {
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
         last.presentViewController(next, animated: true, completion: nil)
