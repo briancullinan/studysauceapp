@@ -48,9 +48,31 @@ class CardSegue : UIStoryboardSegue {
                 }
             }
             parent.prepareForSegue(UIStoryboardSegue(identifier: nil, source: last, destination: next), sender: self)
+            
+            // only ever show (X) number of cards on the stack at a time
+            var count = 0
+            var current = parent
+            while current.presentingViewController is CardController {
+                count++
+                current = current.presentingViewController as! CardController
+            }
+            if current.card != (last as? CardController)?.card {
+                let root = current.presentingViewController!
+                root.view.addSubview(last.view)
+                root.dismissViewControllerAnimated(false, completion: {
+                    root.presentViewController(last, animated: false, completion: {
+                        self.doTransition(last, next: next)
+                    })
+                })
+                return
+            }
         }
         
         // only do transition at this point, no swiping available unless it is set up beforehand
+        self.doTransition(last, next: next)
+    }
+    
+    func doTransition(last: UIViewController, next: UIViewController) {
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
         last.presentViewController(next, animated: true, completion: nil)

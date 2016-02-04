@@ -387,6 +387,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             }, completion: { finished in
                 self.flashView = nil
+                next.view.transform = CGAffineTransformIdentity
+                last.view.transform = CGAffineTransformIdentity
                 origLast.view.backgroundColor = origColor
                 if !alwaysHidden && nextTitle != nil {
                     nextTitle!.hidden = false

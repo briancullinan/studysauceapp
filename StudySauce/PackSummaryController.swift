@@ -16,7 +16,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func returnToPacks(segue: UIStoryboardSegue) {
-        self.viewDidLoad()
+        doMain(self.viewDidLoad)
     }
     
     override func viewDidAppear(animated: Bool) {

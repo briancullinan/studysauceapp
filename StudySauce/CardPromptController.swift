@@ -135,8 +135,8 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         self.playButton.hidden = true
         self.listenButton.hidden = true
         self.image.hidden = true
-        self.showButtons = NSDate().dateByAddingTimeInterval(0.5)
-        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(0.5,
+        self.showButtons = NSDate().dateByAddingTimeInterval(1)
+        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1,
             target: self, selector: "updatePlay", userInfo: nil, repeats: false)
     }
     
