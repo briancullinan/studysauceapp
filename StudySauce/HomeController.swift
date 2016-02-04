@@ -128,6 +128,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.performSegueWithIdentifier("switch", sender: self)
     }
     
+    var packsLoaded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       /*
@@ -159,8 +161,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             // Load packs from database
             PackSummaryController.getPacks({
+                self.packsLoaded = true
                 self.getPacksFromLocalStore()
                 }, downloadedHandler: {p in
+                    self.packsLoaded = true
                     self.getPacksFromLocalStore()
             })
         }
@@ -187,23 +191,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][created]"] = created
             index++
         }
-        if responses.count == 0 {
-            data["since"] = (AppDelegate.getUser()!.responses!.allObjects.last as? Response)?.created?.toRFC()
-        }
+        data["since"] = (AppDelegate.getUser()!.responses!.allObjects.filter({$0.id != nil}).last as? Response)?.created?.toRFC()
         let user = AppDelegate.getUser()!
         postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
-            if let ids = json as? NSArray {
+            if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
-                    if responses.count > 0 {
-                        var index = 0
-                        for r in ids {
-                            responses[index].id = r as? NSNumber
-                            index++
-                        }
-                        AppDelegate.saveContext()
+                    var index = 0
+                    for r in ids["ids"] as? NSArray ?? [] {
+                        responses[index].id = r as? NSNumber
+                        index++
                     }
-                    else {
-                        PackSummaryController.processResponses(user, ids)
+                    AppDelegate.saveContext()
+                    if let responses = ids["responses"] as? NSArray {
+                        PackSummaryController.processResponses(user, responses)
                     }
                     done()
                 })
@@ -273,30 +273,17 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         if let home = self.parentViewController as? HomeController {
-            if home.checking {
-                return
-            }
-            home.checking = true
-            AppDelegate.performContext {
-                if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
-                    doMain {
-                        home.selectedPack = self.packs![indexPath.row]
-                        home.performSegueWithIdentifier("card", sender: self)
-                        home.checking = false
-                    }
-                }
-                else {
-                    home.checking = false
-                }
-            }
+            home.selectedPack = self.packs![indexPath.row]
+            home.performSegueWithIdentifier("card", sender: self)
+            home.checking = false
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs == nil {
+        if self.packs == nil || (!self.packsLoaded && self.packs!.count == 0) {
             return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
         }
-        else if AppDelegate.getUser() == nil || AppDelegate.getUser()!.user_packs!.count == 0 {
+        else if AppDelegate.getUser() == nil || AppDelegate.getUser()!.getPacks().count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
         }

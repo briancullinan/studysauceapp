@@ -78,27 +78,14 @@ class User: NSManagedObject {
     }
     
     func getRetentionRemaining() -> Int {
-        return self.generateRetention().filter({
-            if let card = AppDelegate.get(Card.self, $0) where card.pack != nil {
-            let response = card.getResponse(self)
-            if response == nil || response!.created! < self.retention_to! {
-                return true
-            }
-            else {
-                return false
-            }
-            }
-                else {
-                    return false
-            }
-            }).count
+        return self.generateRetention().count
     }
     
     func getRetentionCard() -> Card? {
         let cards = self.getRetention()
         
         for c in cards {
-            if let card = AppDelegate.get(Card.self, c) where card.pack != nil {
+            if let card = AppDelegate.get(Card.self, c) {
                 let response = card.getResponse(self)
                 if response == nil || response!.created! < self.retention_to! {
                     return card

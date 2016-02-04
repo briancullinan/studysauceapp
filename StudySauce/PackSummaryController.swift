@@ -144,7 +144,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             answerIds.insert(answer["id"] as! NSNumber, atIndex: 0)
             newAnswer!.id = answer["id"] as? NSNumber
             newAnswer!.content = answer["content"] as? String
-            //newAnswer!.response = answer["response"] as? String
             newAnswer!.value = answer["value"] as? String
             newAnswer!.card = card
             newAnswer!.correct = answer["correct"] as? NSNumber
@@ -240,14 +239,18 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
+    var packsLoaded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getPacksFromLocalStore()
         // refresh data from server
         PackSummaryController.getPacks({
+            self.packsLoaded = true
             self.getPacksFromLocalStore()
             }, downloadedHandler: { (p: Pack) -> Void in
-            self.getPacksFromLocalStore()
+                self.packsLoaded = true
+                self.getPacksFromLocalStore()
         })
     }
     
@@ -327,7 +330,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs == nil {
+        if self.packs == nil || (!self.packsLoaded && self.packs!.count == 0) {
             return tableView.dequeueReusableCellWithIdentifier("Loading")!
         }
         if self.packs!.count == 0 {

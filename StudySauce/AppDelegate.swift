@@ -75,6 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let fetchRequest = NSFetchRequest(entityName: "\(a)")
         let predicate = NSPredicate(format: "id == \(id)")
         fetchRequest.predicate = predicate
+        fetchRequest.includesSubentities = true
+        fetchRequest.returnsObjectsAsFaults = false
         let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
         return result as? A
     }
