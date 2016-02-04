@@ -110,7 +110,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 responses.insert(newResponse!, atIndex: 0)
                 newResponse!.id = response["id"] as? NSNumber
             }
-            let card = AppDelegate.list(Card.self).filter({$0.id == response["card"] as? NSNumber}).first
+            let cardId = response["card"] as? NSNumber
+            if cardId == nil {
+                continue
+            }
+            let card = AppDelegate.get(Card.self, cardId!)
             if card == nil {
                 continue
             }

@@ -191,7 +191,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][created]"] = created
             index++
         }
-        data["since"] = (AppDelegate.getUser()!.responses!.allObjects.filter({$0.id != nil}).last as? Response)?.created?.toRFC()
+        let responseDates = (AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]).filter({$0.id != nil})
+        if responseDates.count > 0 {
+            data["since"] = responseDates.last!.created!.toRFC()
+        }
         let user = AppDelegate.getUser()!
         postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
             if let ids = json as? NSDictionary {
