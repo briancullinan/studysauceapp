@@ -143,7 +143,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
-        if AppDelegate.getUser() == nil {
+        if AppDelegate.getUser() == nil || CardSegue.transitionManager.transitioning {
             return
         }
         

@@ -23,16 +23,17 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.sharedManager().enable = false
-        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-            if !vc.isImage && self.inputText != nil {
-                self.inputText!.becomeFirstResponder()
-            }
-        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
+        doMain {
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
+            if !vc.isImage && self.inputText != nil && !CardSegue.transitionManager.transitioning {
+                self.inputText!.becomeFirstResponder()
+            }
+        }
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

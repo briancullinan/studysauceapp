@@ -57,6 +57,7 @@ class CardSegue : UIStoryboardSegue {
                 current = current.presentingViewController as! CardController
             }
             if current.card != (last as? CardController)?.card {
+                CardSegue.transitionManager.transitioning = true
                 let root = current.presentingViewController!
                 let snapShotView = last.view.snapshotViewAfterScreenUpdates(false)
                 AppDelegate.instance().window!.addSubview(snapShotView)

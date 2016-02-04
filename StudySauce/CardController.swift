@@ -38,12 +38,14 @@ class CardController: UIViewController {
     
     
     // allow swipe left to exit
+    /*
     internal func lastClick() {
         if self.subview?.respondsToSelector("lastClick") != true && self.subview?.canPerformSegueWithIdentifier("last") != true {
             CardSegue.transitionManager.transitioning = true
             self.backClick((self.view ~> (UIButton.self ~* 26)).first!)
         }
     }
+    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
