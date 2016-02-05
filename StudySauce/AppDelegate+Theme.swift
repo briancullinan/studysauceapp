@@ -280,7 +280,7 @@ extension AppDelegate {
         })
         
         $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
-            $0.setFontSize(30 * saucyTheme.multiplier())
+            $0.setFontSize(25 * saucyTheme.multiplier())
         })
         
         $(UserSwitchController.self ~> UITableView.self, {

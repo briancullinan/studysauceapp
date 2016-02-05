@@ -80,7 +80,7 @@ class UserPack: NSManagedObject {
         // if a card hasn't been answered, return the next card
         let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as? [Card] ?? [Card]()
         for c in cards {
-            let responses = c.getResponses(user)
+            let responses = c.getResponses(self.user)
             var last: Response? = nil
             var i = 0
             var correctAfter = false

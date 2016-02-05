@@ -203,12 +203,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
-                    var index = 0
-                    for r in ids["ids"] as? NSArray ?? [] {
-                        responses[index].id = r as? NSNumber
-                        index++
-                    }
-                    AppDelegate.saveContext()
+                    //var index = 0
+                    //for r in ids["ids"] as? NSArray ?? [] {
+                    //    responses[index].id = r as? NSNumber
+                    //    index++
+                    //}
+                    //AppDelegate.saveContext()
                     if let responses = ids["responses"] as? NSArray {
                         PackSummaryController.processResponses(user, responses)
                     }

@@ -97,17 +97,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     static internal func processResponses(user: User, _ json: NSArray) {
-        var responses = user.responses?.allObjects as? [Response] ?? []
         for response in json {
-            var newResponse: Response?
-            for r in responses {
-                if r.id == response["id"] as? NSNumber {
-                    newResponse = r
-                }
-            }
+            var newResponse = response["id"] as? NSNumber != nil ? AppDelegate.get(Response.self, response["id"] as! NSNumber) : nil
             if newResponse == nil {
                 newResponse = AppDelegate.insert(Response.self)
-                responses.insert(newResponse!, atIndex: 0)
                 newResponse!.id = response["id"] as? NSNumber
             }
             let cardId = response["card"] as? NSNumber
