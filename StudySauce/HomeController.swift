@@ -94,6 +94,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if CardSegue.transitionManager.transitioning {
+            return
+        }
         self.viewDidLoad()
         self.childViewControllers.each{$0.viewDidAppear(animated)}
         
@@ -143,7 +147,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
-        if AppDelegate.getUser() == nil || CardSegue.transitionManager.transitioning {
+        if AppDelegate.getUser() == nil {
             return
         }
         
