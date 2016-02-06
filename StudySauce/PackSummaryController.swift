@@ -98,14 +98,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 newResponse = AppDelegate.insert(Response.self)
                 newResponse!.id = response["id"] as? NSNumber
             }
-            let cardId = response["card"] as? NSNumber
-            if cardId == nil {
-                continue
-            }
-            let card = AppDelegate.get(Card.self, cardId!)
-            if card == nil {
-                continue
-            }
+            let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
             newResponse!.correct = response["correct"] as? NSNumber == 1
             newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
             newResponse!.value = response["value"] as? String

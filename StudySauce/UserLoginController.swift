@@ -73,55 +73,25 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
     
     internal static func processUsers(json: NSDictionary) -> Void {
-        var ids = [NSNumber]()
         if let email = json["email"] as? String {
             let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
             let user = UserLoginController.getUserByEmail(email)
             user.id = json["id"] as? NSNumber
-            ids.append(user.id!)
             user.first = json["first"] as? String
             user.last = json["last"] as? String
             let properties = json["properties"] as? NSDictionary
+            user.setProperty("session", cookies)
             for p in properties?.allKeys ?? [] {
                 user.setProperty("\(p)", properties?.valueForKey("\(p)"))
             }
-            user.setProperty("session", cookies)
             user.created = NSDate.parse(json["created"] as? String)
             user.roles = json["roles"] as? String
             for c in json["children"] as? [NSDictionary] ?? [] {
-                let childEmail = c["email"] as? String
-                if childEmail == nil {
-                    continue
-                }
-                let child = UserLoginController.getUserByEmail(childEmail!)
-                child.id = c["id"] as? NSNumber
-                ids.append(child.id!)
-                child.first = c["first"] as? String
-                let properties = c["properties"] as? NSDictionary
-                for p in properties?.allKeys ?? [] {
-                    child.setProperty("\(p)", properties?.valueForKey("\(p)"))
-                }
-                child.last = c["last"] as? String
-                child.setProperty("session", cookies)
-                child.created = NSDate.parse(c["created"] as? String)
-                child.roles = c["roles"] as? String
+                self.processUsers(c)
             }
         }
         
         AppDelegate.saveContext()
-        
-        // remove users that no longer exist
-        for u in AppDelegate.list(User.self) {
-            if ids.indexOf(u.id!) == nil {
-                for up in u.user_packs?.allObjects as! [UserPack] {
-                    AppDelegate.deleteObject(up)
-                }
-                for r in u.responses?.allObjects as! [Response] {
-                    AppDelegate.deleteObject(r)
-                }
-                AppDelegate.deleteObject(u)
-            }
-        }
     }
     
     internal static func home(done: () -> Void = {}) {
@@ -130,18 +100,20 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             if let json = $0 as? NSDictionary {
                 
                 let allFinished = {
-                    if let email = json["email"] as? String {
+                    AppDelegate.performContext {
+                        if let email = json["email"] as? String {
+                            
+                            if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last where AppDelegate.instance().user == nil {
+                                AppDelegate.instance().user = child
+                            }
+                            else {
+                                AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
+                            }
+                            
+                        }
                         
-                        if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last where AppDelegate.instance().user == nil {
-                            AppDelegate.instance().user = child
-                        }
-                        else {
-                            AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
-                        }
-
+                        doMain(done)
                     }
-                    
-                    doMain(done)
                 }
                 
                 
@@ -158,7 +130,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                             return
                         }
                     }
-                    allFinished()
+                    doMain(allFinished)
                 })
             }
         })
@@ -188,7 +160,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                             for u in usersDict {
                                 UserLoginController.processUsers(u)
                             }
-                            allFinished()
+                            doMain(allFinished)
                         }
                         return true
                     }

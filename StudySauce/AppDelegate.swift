@@ -425,6 +425,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
+            try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-wal")
+            try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-shm")
             let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
             let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
