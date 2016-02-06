@@ -50,12 +50,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     // load packs from server
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                     for card in json as! NSArray {
-                        var newCard: Card?
-                        for p in cards {
-                            if p.id == card["id"] as? NSNumber {
-                                newCard = p
-                            }
-                        }
+                        var newCard = card["id"] as? NSNumber != nil ? AppDelegate.get(Card.self, card["id"] as! NSNumber) : nil
                         if newCard == nil {
                             newCard = AppDelegate.insert(Card.self)
                             cards.insert(newCard!, atIndex: 0)
@@ -114,7 +109,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             newResponse!.correct = response["correct"] as? NSNumber == 1
             newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
             newResponse!.value = response["value"] as? String
-            newResponse!.card = card
+            newResponse!.card = card!
             newResponse!.created = NSDate.parse(response["created"] as? String)
             newResponse!.user = user
         }

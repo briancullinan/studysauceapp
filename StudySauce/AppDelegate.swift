@@ -73,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static func get<A: NSManagedObject>(a: A.Type, _ id: NSNumber) -> A? {
         let fetchRequest = NSFetchRequest(entityName: "\(a)")
-        let predicate = NSPredicate(format: "id == \(id)")
+        let predicate = NSPredicate(format: "id=\(id)")
         fetchRequest.predicate = predicate
         fetchRequest.includesSubentities = true
         fetchRequest.returnsObjectsAsFaults = false

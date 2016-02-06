@@ -197,21 +197,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         let responseDates = (AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]).filter({$0.id != nil})
         if responseDates.count > 0 {
-            data["since"] = responseDates.last!.created!.toRFC()
+            data["since"] = responseDates.last!.id!
         }
         let user = AppDelegate.getUser()!
         postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
-                    //var index = 0
-                    //for r in ids["ids"] as? NSArray ?? [] {
-                    //    responses[index].id = r as? NSNumber
-                    //    index++
-                    //}
-                    //AppDelegate.saveContext()
                     if let responses = ids["responses"] as? NSArray {
                         PackSummaryController.processResponses(user, responses)
                     }
+                    for r in responses {
+                        AppDelegate.deleteObject(r)
+                    }
+                    AppDelegate.saveContext()
                     done()
                 })
             }
