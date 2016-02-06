@@ -40,52 +40,48 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             }
             
             AppDelegate.performContext {
+                var ids = [NSNumber]()
+                
+                // load packs from server
+                let json = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
+                for card in json as! NSArray {
+                    var newCard = card["id"] as? NSNumber != nil ? AppDelegate.get(Card.self, card["id"] as! NSNumber) : nil
+                    if newCard == nil {
+                        newCard = AppDelegate.insert(Card.self)
+                        cards.insert(newCard!, atIndex: 0)
+                    }
+                    
+                    ids.insert(card["id"] as! NSNumber, atIndex: 0)
+                    newCard!.id = card["id"] as? NSNumber
+                    newCard!.content = card["content"] as? String
+                    newCard!.response = card["response"] as? String
+                    newCard!.response_type = card["response_type"] as? String
+                    newCard!.pack = forPack
+                    newCard!.created = NSDate.parse(card["created"] as? String)
+                    newCard!.modified = NSDate.parse(card["modified"] as? String)
+                    AppDelegate.saveContext()
+                    
+                    self.processAnswers(newCard!, json: card["answers"] as! NSArray)
+                    
+                    // sync responses
+                    self.processResponses(user, card["responses"] as! NSArray)
+                }
+                
+                // remove cards that no longer exist
+                for p in cards {
+                    if ids.indexOf(p.id!) == nil {
+                        AppDelegate.deleteObject(p)
+                        cards.removeAtIndex(cards.indexOf(p)!)
+                    }
+                }
+                
                 if user != AppDelegate.getUser() {
                     forPack.isDownloading = false
                     return
                 }
-                do {
-                    var ids = [NSNumber]()
-                    
-                    // load packs from server
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
-                    for card in json as! NSArray {
-                        var newCard = card["id"] as? NSNumber != nil ? AppDelegate.get(Card.self, card["id"] as! NSNumber) : nil
-                        if newCard == nil {
-                            newCard = AppDelegate.insert(Card.self)
-                            cards.insert(newCard!, atIndex: 0)
-                        }
-                        
-                        ids.insert(card["id"] as! NSNumber, atIndex: 0)
-                        newCard!.id = card["id"] as? NSNumber
-                        newCard!.content = card["content"] as? String
-                        newCard!.response = card["response"] as? String
-                        newCard!.response_type = card["response_type"] as? String
-                        newCard!.pack = forPack
-                        newCard!.created = NSDate.parse(card["created"] as? String)
-                        newCard!.modified = NSDate.parse(card["modified"] as? String)
-                        AppDelegate.saveContext()
-                        
-                        self.processAnswers(newCard!, json: card["answers"] as! NSArray)
-                        
-                        // sync responses
-                        self.processResponses(user, card["responses"] as! NSArray)
-                    }
-                    
-                    // remove cards that no longer exist
-                    for p in cards {
-                        if ids.indexOf(p.id!) == nil {
-                            AppDelegate.deleteObject(p)
-                            cards.removeAtIndex(cards.indexOf(p)!)
-                        }
-                    }
-                    
-                    AppDelegate.saveContext()
-                    completionHandler(cards, nil)
-                }
-                catch let error as NSError {
-                    completionHandler([], error)
-                }
+                
+                AppDelegate.saveContext()
+                completionHandler(cards, nil)
             }
         })
         task.resume()
@@ -99,6 +95,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 newResponse!.id = response["id"] as? NSNumber
             }
             let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
+            if card == nil {
+                print("Card not found")
+            }
             newResponse!.correct = response["correct"] as? NSNumber == 1
             newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
             newResponse!.value = response["value"] as? String
@@ -154,12 +153,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             AppDelegate.performContext {
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {
-                    var newPack: Pack?
-                    for p in AppDelegate.list(Pack.self) {
-                        if p.id == pack["id"] as? NSNumber {
-                            newPack = p
-                        }
-                    }
+                    var newPack = pack["id"] as? NSNumber != nil ? AppDelegate.get(Pack.self, pack["id"] as! NSNumber) : nil
                     if pack["deleted"] as? Bool == true {
                         continue
                     }

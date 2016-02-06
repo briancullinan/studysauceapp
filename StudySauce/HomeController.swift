@@ -250,6 +250,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             self.packs = AppDelegate.getUser()!.getPacks()
                 .filter({
+                    $0.isDownloading == false &&
                     $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
                 })
             doMain {
