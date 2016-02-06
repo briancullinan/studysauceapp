@@ -72,7 +72,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         })
     }
     
-    private static func processUsers(json: NSDictionary) -> Void {
+    internal static func processUsers(json: NSDictionary) -> Void {
         var ids = [NSNumber]()
         if let email = json["email"] as? String {
             let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
@@ -81,9 +81,9 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             ids.append(user.id!)
             user.first = json["first"] as? String
             user.last = json["last"] as? String
-            let properties = json["properties"] as? Dictionary<String,AnyObject?> ?? Dictionary<String,AnyObject?>()
-            for p in properties.keys {
-                user.setProperty(p, properties[p]!)
+            let properties = json["properties"] as? NSDictionary
+            for p in properties?.allKeys ?? [] {
+                user.setProperty("\(p)", properties?.valueForKey("\(p)"))
             }
             user.setProperty("session", cookies)
             user.created = NSDate.parse(json["created"] as? String)
@@ -97,9 +97,9 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 child.id = c["id"] as? NSNumber
                 ids.append(child.id!)
                 child.first = c["first"] as? String
-                let properties = c["properties"] as? Dictionary<String,AnyObject?> ?? Dictionary<String,AnyObject?>()
-                for p in properties.keys {
-                    child.setProperty(p, properties[p]!)
+                let properties = c["properties"] as? NSDictionary
+                for p in properties?.allKeys ?? [] {
+                    child.setProperty("\(p)", properties?.valueForKey("\(p)"))
                 }
                 child.last = c["last"] as? String
                 child.setProperty("session", cookies)
@@ -108,8 +108,9 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             }
         }
         
+        AppDelegate.saveContext()
         
-        // remove packs that no longer exist
+        // remove users that no longer exist
         for u in AppDelegate.list(User.self) {
             if ids.indexOf(u.id!) == nil {
                 for up in u.user_packs?.allObjects as! [UserPack] {
@@ -121,31 +122,80 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 AppDelegate.deleteObject(u)
             }
         }
-
     }
     
     internal static func home(done: () -> Void = {}) {
+        
         getJson("/home", done: {
             if let json = $0 as? NSDictionary {
-                AppDelegate.performContext({
-                    if json["csrf_token"] as? String != nil {
-                        self.token = json["csrf_token"] as? String
-                    }
+                
+                let allFinished = {
                     if let email = json["email"] as? String {
-                        // cookie value
-                        UserLoginController.processUsers(json)
+                        
                         if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last where AppDelegate.instance().user == nil {
                             AppDelegate.instance().user = child
                         }
                         else {
                             AppDelegate.instance().user = UserLoginController.getUserByEmail(email)
                         }
-                        AppDelegate.saveContext()
+
                     }
+                    
                     doMain(done)
+                }
+                
+                
+                AppDelegate.performContext({
+                    if json["csrf_token"] as? String != nil {
+                        self.token = json["csrf_token"] as? String
+                    }
+                    if let _ = json["email"] as? String {
+                        // cookie value
+                        UserLoginController.processUsers(json)
+                        
+                        // check if any users have marked reset database
+                        if self.checkForReset(allFinished) {
+                            return
+                        }
+                    }
+                    allFinished()
                 })
             }
         })
+    }
+    
+    private static func checkForReset(allFinished: () -> Void) -> Bool {
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        let users = AppDelegate.list(User.self)
+        for u in users {
+            if let resetTime = NSDate.parse(u.getProperty("reset_db") as? String) {
+                if let fileTime = try? NSFileManager.defaultManager().attributesOfItemAtPath(url.path!)[NSFileCreationDate] as? NSDate {
+                    if resetTime > fileTime! {
+                        let usersDict: [NSDictionary] = users.map({
+                            return [
+                                "id": $0.id!,
+                                "email" : $0.email!,
+                                "first" : $0.first!,
+                                "last" : $0.last!,
+                                "properties" : $0.getAllProperties()!,
+                                "roles" : $0.roles!
+                            ]
+                        })
+                        
+                        AppDelegate.resetLocalStore()
+                        
+                        AppDelegate.performContext {
+                            for u in usersDict {
+                                UserLoginController.processUsers(u)
+                            }
+                            allFinished()
+                        }
+                        return true
+                    }
+                }
+            }
+        }
+        return false
     }
     
     internal static func login(done: () -> Void = {}) {

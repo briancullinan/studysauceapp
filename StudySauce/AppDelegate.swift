@@ -409,17 +409,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
         catch _ as NSError {
-            return self.resetLocalStore()
+            return self.resetLocalStore(false)
         }
         return coordinator
     }
     
     internal static func resetLocalStore() -> NSPersistentStoreCoordinator? {
-        return self.resetLocalStore(false)
+        return self.resetLocalStore(true)
     }
     
-    internal static func resetLocalStore(manual: Bool) -> NSPersistentStoreCoordinator?
+    private static func resetLocalStore(manual: Bool) -> NSPersistentStoreCoordinator?
     {
+        // try to save users and cookies
+                
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
@@ -430,6 +432,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             if manual {
                 self.managedObjectContext = managedObjectContext
             }
+            
             return coordinator
         }
         catch let error as NSError {

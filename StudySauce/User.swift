@@ -28,6 +28,15 @@ class User: NSManagedObject {
         return self.roles?.componentsSeparatedByString(",").contains(role) == true
     }
     
+    func getAllProperties() -> NSDictionary? {
+        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
+            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
+                return json as? NSDictionary
+            }
+        }
+        return nil
+    }
+    
     func getProperty(prop: String) -> AnyObject? {
         if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
             if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
