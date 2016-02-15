@@ -31,6 +31,10 @@ class UserAddController : UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.inviteCode!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
         self.inviteCode!.delegate = self
+        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.childFirst!.delegate = self
+        self.childLast!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.childLast!.delegate = self
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -46,10 +50,10 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     
     func done() {
         doMain {
-        self.addButton.enabled = true
-        self.addButton.alpha = 1
-        self.addButton.setFontColor(saucyTheme.lightColor)
-        self.addButton.setBackground(saucyTheme.secondary)
+            self.addButton.enabled = true
+            self.addButton.alpha = 1
+            self.addButton.setFontColor(saucyTheme.lightColor)
+            self.addButton.setBackground(saucyTheme.secondary)
         }
     }
 

@@ -228,8 +228,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             self.packsLoaded = true
             self.getPacksFromLocalStore()
             }, downloadedHandler: { (p: Pack) -> Void in
-                self.packsLoaded = true
-                self.getPacksFromLocalStore()
+                if p == self.pack {
+                    self.transitionToCard()
+                }
+                else {
+                    self.packsLoaded = true
+                    self.getPacksFromLocalStore()
+                }
         })
     }
     
@@ -250,29 +255,32 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         AppDelegate.performContext {
-        let up = p.getUserPack(user)
-        if p.cards!.count == 0 || up.downloaded == nil
-            || (p.modified != nil && p.modified! > up.downloaded!) {
-                
-                p.isDownloading = true
-                
-                PackSummaryController.getCards(p, user) {_,_ in
-                    // TODO: update downloading status in table row!
-                    AppDelegate.performContext {
-                        p.isDownloading = false
-                        if user != AppDelegate.getUser() {
-                            return
+            if user != AppDelegate.getUser() {
+                return
+            }
+            let up = p.getUserPack(user)
+            if p.cards!.count == 0 || up.downloaded == nil
+                || (p.modified != nil && p.modified! > up.downloaded!) {
+                    
+                    p.isDownloading = true
+                    
+                    PackSummaryController.getCards(p, user) {_,_ in
+                        // TODO: update downloading status in table row!
+                        AppDelegate.performContext {
+                            p.isDownloading = false
+                            if user != AppDelegate.getUser() {
+                                return
+                            }
+                            up.retries = ""
+                            up.downloaded = NSDate()
+                            AppDelegate.saveContext()
+                            done()
                         }
-                        up.retries = ""
-                        up.downloaded = NSDate()
-                        AppDelegate.saveContext()
-                        done()
                     }
-                }
-        }
-        else {
-            done()
-        }
+            }
+            else {
+                done()
+            }
         }
     }
     
@@ -284,16 +292,22 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         self.pack = self.packs![indexPath.row]
         let user = AppDelegate.getUser()!
         PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
-            doMain {
-                if self.pack!.cards!.count  == 0 {
-                    // something went wrong
-                    return
-                }
-                if self.pack!.getUserPack(user).getRetryCard() == nil {
-                    self.pack!.getUserPack(user).getRetries(true)
-                }
-                self.performSegueWithIdentifier("card", sender: self)
+            self.transitionToCard()
+        }
+    }
+    
+    private func transitionToCard() {
+        let user = AppDelegate.getUser()!
+        doMain {
+            if self.pack!.cards!.count  == 0 {
+                // something went wrong
+                return
             }
+            if self.pack!.getUserPack(user).getRetryCard() == nil {
+                self.pack!.getUserPack(user).getRetries(true)
+            }
+            self.performSegueWithIdentifier("card", sender: self)
+            self.pack = nil
         }
     }
     

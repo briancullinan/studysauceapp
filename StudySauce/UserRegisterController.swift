@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UserRegisterController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class UserRegisterController : UIViewController, UITextFieldDelegate {
     
     internal var registrationCode: String?
     internal var first: String?
@@ -19,12 +19,6 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     internal var token: String?
     internal var pass: String?
     internal var props: NSDictionary?
-    internal var childrenCount = 1 {
-        didSet {
-            self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
-            self.children.reloadData()
-        }
-    }
     
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var firstName: UITextField!
@@ -32,29 +26,16 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var childSwitch: UISwitch!
     @IBOutlet weak var password: UITextField!
-    @IBOutlet weak var childHeight: NSLayoutConstraint!
-    @IBOutlet weak var children: UITableView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var childButton: UIButton!
+    @IBOutlet weak var childFirst: TextField!
+    @IBOutlet weak var childLast: TextField!
+    
     
     @IBAction func addChild(sender: UIButton) {
-        self.childrenCount++
+        //self.childrenCount++
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return saucyTheme.textSize + saucyTheme.padding * 2
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.childrenCount
-    }
-
     @IBAction func registerClick(sender: UIButton) {
         self.firstName.resignFirstResponder()
         self.lastName.resignFirstResponder()
@@ -81,12 +62,14 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         
         if childSwitch.on
         {
-            self.children.hidden = false
+            self.childFirst.hidden = false
+            self.childLast.hidden = false
             //self.addButton.hidden = false
         }
         else
         {
-            self.children.hidden = true
+            self.childFirst.hidden = true
+            self.childLast.hidden = true
             //self.addButton.hidden = true
         }
     }
@@ -105,17 +88,18 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
         self.lastName.text = self.last
         self.firstName.text = self.first
         self.email.text = self.mail
-        self.childHeight.constant = CGFloat(self.childrenCount) * (saucyTheme.textSize + saucyTheme.padding * 2)
         self.childSwitch.on = true
         self.childSwitch.hidden = false
         self.childButton.hidden = false
         //self.addButton.hidden = false
-        self.children.hidden = false
+        self.childFirst.hidden = false
+        self.childLast.hidden = false
         if self.props?["child_required"] as? Bool == true {
             self.childSwitch.on = true
             self.childSwitch.hidden = true
             self.childButton.hidden = true
-            self.children.hidden = false
+            self.childFirst.hidden = false
+            self.childLast.hidden = false
             //self.addButton.hidden = false
         }
         if self.props?["child_disabled"] as? Bool == true {
@@ -123,7 +107,8 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             self.childSwitch.on = false
             self.childSwitch.hidden = true
             self.childButton.hidden = true
-            self.children.hidden = true
+            self.childFirst.hidden = true
+            self.childLast.hidden = true
             //self.addButton.hidden = true
         }
         self.lastName!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
@@ -158,10 +143,8 @@ class UserRegisterController : UIViewController, UITableViewDelegate, UITableVie
             "csrf_token" : self.token
         ]
         if self.child == true {
-            (self.view ~> UITableViewCell.self).each {
-                registrationInfo["childFirst"] = ($0 ~> (UITextField.self ~* 1)).first!.text
-                registrationInfo["childLast"] = ($0 ~> (UITextField.self ~* 2)).first!.text
-            }
+            registrationInfo["childFirst"] = self.childFirst.text
+            registrationInfo["childLast"] = self.childLast.text
         }
         doMain {
             self.registerButton.enabled = false

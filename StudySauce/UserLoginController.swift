@@ -68,6 +68,8 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     
     internal static func logout(done: () -> Void = {}) {
         getJson("/logout", done: {json in
+            AppDelegate.instance().user = nil
+            AppDelegate.resetLocalStore()
             done()
         })
     }
