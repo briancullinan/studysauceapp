@@ -298,6 +298,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     private func transitionToCard() {
         let user = AppDelegate.getUser()!
+        if self.pack == nil || CardSegue.transitionManager.transitioning {
+            return
+        }
         doMain {
             if self.pack!.cards!.count  == 0 {
                 // something went wrong
