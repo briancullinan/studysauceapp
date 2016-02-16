@@ -49,7 +49,7 @@ class Pack: NSManagedObject {
         if up == nil {
             up = AppDelegate.insert(UserPack.self)
             up!.pack = self
-            up!.user = AppDelegate.getUser()
+            up!.user = user
             AppDelegate.saveContext()
         }
         return up!
