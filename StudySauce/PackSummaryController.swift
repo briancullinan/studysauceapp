@@ -36,6 +36,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 return
             }
             if (error != nil) {
+                forPack.isDownloading = false
                 return completionHandler([], error)
             }
             
@@ -170,7 +171,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     newPack!.modified = NSDate.parse(pack["modified"] as? String)
                     newPack!.count = pack["count"] as? NSNumber
                     let properties = pack["properties"] as? NSDictionary
-                    newPack!.setProperty("keyboard", properties?["keyboard"])
+                    for p in properties?.allKeys ?? [] {
+                        newPack!.setProperty("\(p)", properties?.valueForKey("\(p)"))
+                    }
                     AppDelegate.saveContext()
                     
                     if let userPacks = pack["users"] as? NSArray where userPacks.count > 0 {

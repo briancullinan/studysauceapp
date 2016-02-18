@@ -15,8 +15,9 @@ class File: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
     var downloading = false
     
-    static func save(url: String, done: (_: File) -> Void = {(_: File) in}) {
+    static func save(var url: String, done: (_: File) -> Void = {(_: File) in}) {
         let fileManager = NSFileManager.defaultManager()
+        url = url.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         AppDelegate.performContext({
             let file = AppDelegate.list(File.self).filter({$0.url! == url}).first ?? AppDelegate.insert(File.self) <| {
                 $0.url = url

@@ -189,6 +189,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         self.setupTheme()
         Harpy.sharedInstance().appID = "1065647027"
 
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
+        
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
         let userDefaults = NSUserDefaults.standardUserDefaults()

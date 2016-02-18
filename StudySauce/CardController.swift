@@ -15,7 +15,7 @@ class CardController: UIViewController {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var packTitle: UILabel!
     @IBOutlet weak var embeddedView: UIView!
-    internal var intermediateResponse: Response? = nil
+    internal var intermediateResponse: Bool? = nil
     internal var pack: Pack!
     internal var card: Card? = nil
     internal var subview: UIViewController? = nil {

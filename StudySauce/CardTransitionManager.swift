@@ -285,7 +285,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             next.view.transform = CGAffineTransformMakeTranslation(0, 0)
             last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
             moveNext = 0.0
-            self.setupCorrectFlash(vc.intermediateResponse!.correct == 1, container: container!)
+            self.setupCorrectFlash(vc.intermediateResponse!, container: container!)
         }
         
         // move titles around

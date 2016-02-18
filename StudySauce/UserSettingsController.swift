@@ -132,9 +132,9 @@ class UserSettingsController: UITableViewController {
                     AppDelegate.resetLocalStore()
                     AppDelegate.instance().user = nil
                     UserLoginController.logout({
-                        NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "seen_tutorial")
-                        NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "user")
-                        NSUserDefaults.standardUserDefaults().synchronize()
+                        //NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "seen_tutorial")
+                        //NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "user")
+                        //NSUserDefaults.standardUserDefaults().synchronize()
                         AppDelegate.goHome(self, true)
                     })
                 }

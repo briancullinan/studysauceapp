@@ -477,13 +477,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Mrs. Smith" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-8t-yWW">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HB-8t-yWW">
                                                     <rect key="frame" x="514" y="26" width="78" height="19"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="Great_Hearts_logo" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-O5-iPD">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-O5-iPD">
                                                     <rect key="frame" x="486" y="8" width="106" height="53"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" secondItem="v1A-O5-iPD" secondAttribute="width" multiplier="1:2" id="sjz-8w-CzJ"/>
@@ -3305,7 +3305,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         </scene>
     </scenes>
     <resources>
-        <image name="Great_Hearts_logo" width="220" height="55"/>
         <image name="StudySauce Sketch" width="1728" height="1602"/>
         <image name="StudySauceBackArrow" width="500" height="300"/>
         <image name="add" width="62" height="72"/>
@@ -3321,8 +3320,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     <inferredMetricsTieBreakers>
         <segue reference="Edk-H5-39l"/>
         <segue reference="mZN-Ns-J7P"/>
+        <segue reference="aNX-LU-Mfo"/>
         <segue reference="caI-Fi-3gF"/>
         <segue reference="h3u-I4-U7Q"/>
-        <segue reference="M6g-6I-YI4"/>
     </inferredMetricsTieBreakers>
 </document>

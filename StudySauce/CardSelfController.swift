@@ -49,7 +49,7 @@ class CardSelfController: UIViewController {
                 newResponse.created = NSDate()
                 newResponse.user = AppDelegate.getUser()
                 AppDelegate.saveContext()
-                vc.intermediateResponse = newResponse
+                vc.intermediateResponse = newResponse.correct == 1
                 doMain {
                     HomeController.syncResponses()
                     self.performSegueWithIdentifier("card", sender: self)

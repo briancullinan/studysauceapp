@@ -55,12 +55,12 @@ extension AppDelegate {
     static func createHeading(label: UILabel) {
         let s = label.superview!
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
-            $0.backgroundColor = saucyTheme.fontColor
             $0.tag = 24
         }
-        v.backgroundColor = saucyTheme.fontColor
         s.insertSubview(v, belowSubview: label)
         s.sendSubviewToBack(v)
+       
+        // do constraint stuff
         v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         v.translatesAutoresizingMaskIntoConstraints = false
         s.addConstraint(NSLayoutConstraint(
@@ -74,6 +74,38 @@ extension AppDelegate {
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
         s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.BottomMargin, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        
+        // do customization stuff
+        v.backgroundColor = saucyTheme.fontColor
+        if let card = (v.viewController() as? CardController) {
+            if let pack = card.pack {
+                if let background = pack.getProperty("background-color") as? Int {
+                    v.backgroundColor = UIColor(background)
+                }
+                if let image = pack.getProperty("background-image") as? String {
+                    File.save(image, done: {(f:File) in
+                        doMain {
+                            let fileManager = NSFileManager.defaultManager()
+                            if let data = fileManager.contentsAtPath(f.filename!) {
+                                let saucyImage = UIImageView(image: UIImage(data: data))
+                                card.view.addSubview(saucyImage)
+                                card.view.sendSubviewToBack(saucyImage)
+                                saucyImage.frame = card.embeddedView.bounds
+                                saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+                                saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+                                saucyImage.translatesAutoresizingMaskIntoConstraints = false
+                                
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+                            }
+                        }
+                    })
+                }
+            }
+        }
+
     }
     
     func rotated()
