@@ -17,6 +17,7 @@ class CardTrueFalseController: UIViewController {
     @IBOutlet weak var falseButton: UIButton!
   
     override func viewDidLoad() {
+        super.viewDidLoad()
         if let vc = self.parentViewController as? CardController {
             self.card = vc.card
         }

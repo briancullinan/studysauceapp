@@ -19,7 +19,7 @@ class File: NSManagedObject {
         let fileManager = NSFileManager.defaultManager()
         url = url.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         AppDelegate.performContext({
-            let file = AppDelegate.list(File.self).filter({$0.url! == url}).first ?? AppDelegate.insert(File.self) <| {
+            let file = AppDelegate.list(File.self).filter({$0.url == url}).first ?? AppDelegate.insert(File.self) <| {
                 $0.url = url
             }
             AppDelegate.saveContext()
@@ -35,10 +35,22 @@ class File: NSManagedObject {
             }
             file.downloading = true
             doBackground {
-                let data = NSData(contentsOfURL: NSURL(string: url)!)!
+                let data = NSData(contentsOfURL: NSURL(string: url)!)
                 let fileName = fileManager.displayNameAtPath(url)
                 let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
-                fileManager.createFileAtPath(tempFile.path!, contents: data, attributes: nil)
+                if data == nil {
+                    AppDelegate.performContext({
+                        file.filename = "notfound"
+                        AppDelegate.saveContext()
+                        file.downloading = false
+                        // show image
+                        doMain {
+                            done(file)
+                        }
+                    })
+                    return
+                }
+                fileManager.createFileAtPath(tempFile.path!, contents: data!, attributes: nil)
                 AppDelegate.performContext({
                     file.filename = tempFile.path
                     AppDelegate.saveContext()

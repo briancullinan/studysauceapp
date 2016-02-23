@@ -20,6 +20,10 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         
     }
     
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.sharedManager().enable = false
@@ -63,24 +67,73 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var bottomHalf: NSLayoutConstraint!
     
+    var _basic: BasicKeyboardController? = nil
+    var _basicNumbers: BasicKeyboardController? = nil
+    
+    var basicKeyboard : UIView {
+        if _basic == nil {
+            _basic = self.storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
+            let size = CGRectMake(0, -height, self.view.bounds.width, height)
+            _basic!.view!.frame = size
+            _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _basic!.view!
+    }
+    
+    var basicNumbersKeyboard : UIView {
+        if _basicNumbers == nil {
+            _basicNumbers = self.storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
+            let size = CGRectMake(0, -height, self.view.bounds.width, height)
+            _basicNumbers!.view!.frame = size
+            _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _basicNumbers!.view!
+    }
+    
+
+    
+    override var inputView: UIView? {
+        get {
+            return self.basicKeyboard
+        }
+    }
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         if let vc = self.parentViewController as? CardController {
             if inputText != nil {
                 let keyboard = self.card?.pack?.getProperty("keyboard") as? String
-                if keyboard == "number" {
-                    self.inputText!.keyboardType = UIKeyboardType.NumberPad
+                if keyboard == "default" {
+                    self.inputText!.keyboardType = UIKeyboardType.Default
                 }
-                if keyboard == "phone" {
-                    self.inputText!.keyboardType = UIKeyboardType.PhonePad
-                }
-                if keyboard == "decimal" {
+                else if keyboard == "decimal" {
                     self.inputText!.keyboardType = UIKeyboardType.DecimalPad
                 }
-                if keyboard == "ascii" {
+                else if keyboard == "ascii" {
                     self.inputText!.keyboardType = UIKeyboardType.ASCIICapable
                 }
-                if keyboard == "alphabet" {
+                else if keyboard == "alphabet" {
                     self.inputText!.keyboardType = UIKeyboardType.Alphabet
+                }
+                else {
+                    // use basic keyboard
+                    let inputAssistantItem = self.inputText!.inputAssistantItem
+                    inputAssistantItem.leadingBarButtonGroups = []
+                    inputAssistantItem.trailingBarButtonGroups = []
+                    if keyboard == "number" || keyboard == "phone" {
+                        self.inputText?.inputViewController?.view.addSubview(self.basicNumbersKeyboard)
+                        self.inputText!.inputView = self.basicNumbersKeyboard
+                    }
+                    else {
+                        self.inputText?.inputViewController?.view.addSubview(self.basicKeyboard)
+                        self.inputText!.inputView = self.basicKeyboard
+                    }
+                    self.inputText!.inputAccessoryView = nil
                 }
                 //Adding done button for textField1
                 self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))

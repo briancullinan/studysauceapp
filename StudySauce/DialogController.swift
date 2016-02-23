@@ -31,6 +31,7 @@ class DialogController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         primaryButton.setTitle(self.button, forState: .Normal)
         messageLabel.text = self.message
     }

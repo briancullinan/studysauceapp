@@ -43,6 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        <#code#>
+    }
+    
     static var lastTouch = NSDate()
     
     static func visibleViewController() -> UIViewController {
@@ -190,11 +194,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         Harpy.sharedInstance().appID = "1065647027"
 
         UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
-        
+
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
         let userDefaults = NSUserDefaults.standardUserDefaults()
-        let email = userDefaults.valueForKey("user") as? String        
+        userDefaults.synchronize() // don't forget this!!!!
+        let email = userDefaults.valueForKey("user") as? String
         if AppDelegate.isConnectedToNetwork() {
             UserLoginController.home { () -> Void in
                 AppDelegate.performContext({
@@ -256,13 +261,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 return false
             })
         }
-        if AppDelegate.visibleViewController() is UserSwitchController {
-            AppDelegate.visibleViewController().dismissViewControllerAnimated(false, completion: {
+        doMain {
+            if AppDelegate.visibleViewController() is UserSwitchController {
+                AppDelegate.visibleViewController().dismissViewControllerAnimated(false, completion: {
+                    completed()
+                })
+            }
+            else {
                 completed()
-            })
-        }
-        else {
-            completed()
+            }
         }
     }
     

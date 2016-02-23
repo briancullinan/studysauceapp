@@ -37,6 +37,7 @@ class CardMultipleController: UIViewController {
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
         if let pvc = self.parentViewController as? CardController {
             self.card = pvc.card
             if self.answer1 != nil && self.card?.answers?.count > 0 {

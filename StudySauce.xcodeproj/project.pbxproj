@@ -42,6 +42,9 @@
 		649B09451BE12DA000A3F9A4 /* CardBlankController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649B09441BE12DA000A3F9A4 /* CardBlankController.swift */; };
 		64A1646C1BFBC22600345E55 /* File+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */; };
 		64A1646D1BFBC22600345E55 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A1646B1BFBC22600345E55 /* File.swift */; };
+		64A8A8731C777423005AE14B /* BasicKeyboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A8A8721C777423005AE14B /* BasicKeyboardController.swift */; };
+		64A8A8771C77CF0B005AE14B /* BasicKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64A8A8761C77CF0B005AE14B /* BasicKeyboard.xib */; };
+		64A8A8791C7B7D11005AE14B /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A8A8781C7B7D11005AE14B /* NotificationManager.swift */; };
 		64C167CE1C38A4FF00ECDFED /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167CD1C38A4FF00ECDFED /* UIDevice.swift */; };
 		64C167D01C3F7AA200ECDFED /* HomeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167CF1C3F7AA200ECDFED /* HomeTest.swift */; };
 		64C167D81C3F7ECD00ECDFED /* StudySauceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C167D71C3F7ECD00ECDFED /* StudySauceUITests.swift */; };
@@ -158,6 +161,9 @@
 		649B09441BE12DA000A3F9A4 /* CardBlankController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardBlankController.swift; sourceTree = "<group>"; };
 		64A1646A1BFBC22600345E55 /* File+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "File+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		64A1646B1BFBC22600345E55 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		64A8A8721C777423005AE14B /* BasicKeyboardController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicKeyboardController.swift; sourceTree = "<group>"; };
+		64A8A8761C77CF0B005AE14B /* BasicKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BasicKeyboard.xib; sourceTree = "<group>"; };
+		64A8A8781C7B7D11005AE14B /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		64C167CD1C38A4FF00ECDFED /* UIDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		64C167CF1C3F7AA200ECDFED /* HomeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTest.swift; sourceTree = "<group>"; };
 		64C167D51C3F7ECD00ECDFED /* StudySauceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +298,7 @@
 		6401F4A01BB5DF26004E0163 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				64A8A8721C777423005AE14B /* BasicKeyboardController.swift */,
 				845052561BA4AA3B005377D9 /* PackSummaryController.swift */,
 				644C4A651BB3536E00E4D52A /* PackResultsController.swift */,
 				644C4A611BB3516F00E4D52A /* CardController.swift */,
@@ -367,6 +374,7 @@
 				64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */,
 				64306E0E1BFE62AD0069BF1F /* JSON.swift */,
 				64C167CD1C38A4FF00ECDFED /* UIDevice.swift */,
+				64A8A8781C7B7D11005AE14B /* NotificationManager.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -484,6 +492,7 @@
 				845052531BA4AA3B005377D9 /* Info.plist */,
 				64C2F4A91C2094C400F7C854 /* Bridge.h */,
 				64C167DF1C456D4000ECDFED /* Podfile */,
+				64A8A8761C77CF0B005AE14B /* BasicKeyboard.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -659,6 +668,7 @@
 				64ED1DD61BEC173700A9E2A2 /* Info.plist in Resources */,
 				642354161BBDFDD800B068DB /* Main.storyboard in Resources */,
 				845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */,
+				64A8A8771C77CF0B005AE14B /* BasicKeyboard.xib in Resources */,
 				8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */,
 				64C167E21C45730200ECDFED /* GoogleService-Info.plist in Resources */,
 			);
@@ -738,6 +748,7 @@
 				64ED1DCD1BEC173700A9E2A2 /* IQKeyboardManagerConstants.swift in Sources */,
 				649B093F1BE08BE600A3F9A4 /* CardMultipleController.swift in Sources */,
 				64D219E81BBB0CCB005F9094 /* Response+CoreDataProperties.swift in Sources */,
+				64A8A8731C777423005AE14B /* BasicKeyboardController.swift in Sources */,
 				64766A9F1BF3DD040010FD8C /* TQuery.swift in Sources */,
 				64C167CE1C38A4FF00ECDFED /* UIDevice.swift in Sources */,
 				64EF7D241BE88E730025E094 /* NSObject.swift in Sources */,
@@ -751,6 +762,7 @@
 				64306E0F1BFE62AD0069BF1F /* JSON.swift in Sources */,
 				644C4A661BB3536E00E4D52A /* PackResultsController.swift in Sources */,
 				64C2F4AD1C24655700F7C854 /* UserSwitchController.swift in Sources */,
+				64A8A8791C7B7D11005AE14B /* NotificationManager.swift in Sources */,
 				649B09431BE0970E00A3F9A4 /* CardTrueFalseController.swift in Sources */,
 				64D219EA1BBB2BCE005F9094 /* NSDate.swift in Sources */,
 				64ED1DD31BEC173700A9E2A2 /* IQTitleBarButtonItem.swift in Sources */,

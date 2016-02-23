@@ -17,4 +17,5 @@ class TextField: UITextField {
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
         return CGRectInset(bounds, saucyTheme.padding, saucyTheme.padding)
     }
+    
 }

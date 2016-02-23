@@ -22,6 +22,7 @@ class CardSelfController: UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         
     }
     

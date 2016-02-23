@@ -95,10 +95,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        if CardSegue.transitionManager.transitioning {
-            return
-        }
-        self.viewDidLoad()
         self.childViewControllers.each{$0.viewDidAppear(animated)}
         
         if let blur = (self.view ~> UIVisualEffectView.self).first {
@@ -107,6 +103,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }, completion: {_ in
                     blur.removeFromSuperview()
             })
+        }
+        
+        doMain {
+            if CardSegue.transitionManager.transitioning || !(AppDelegate.visibleViewController() is HomeController) {
+                return
+            }
+            
+            self.viewDidLoad()
         }
     }
     

@@ -23,7 +23,7 @@ enum T<B: UIView> {
         }
     }
     
-    static func size(hor: UIUserInterfaceSizeClass, ver: UIUserInterfaceSizeClass) -> (v: B) -> Bool {
+    static func size(hor: UIUserInterfaceSizeClass, _ ver: UIUserInterfaceSizeClass) -> (v: B) -> Bool {
         return {(_: B) -> Bool in
             return (UIScreen.mainScreen().traitCollection.horizontalSizeClass == hor && ver == .Unspecified) ||
             (hor == .Unspecified && UIScreen.mainScreen().traitCollection.verticalSizeClass == ver) ||

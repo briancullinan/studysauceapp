@@ -48,17 +48,12 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selected = true
-        let i = indexPath.row - 1
+        let i = indexPath.row
         
-        if indexPath.row == 0 {
-            self.logout()
+        if indexPath.row == self.users!.count {
             return
         }
-        if indexPath.row == self.users!.count + 1 {
-            self.addChild()
-            return
-        }
-        if self.users != nil && self.users!.count > 0 && i >= 0 && i < self.users!.count {
+        if self.users != nil && self.users!.count > 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
             let home = self.presentingViewController! as? HomeController
             self.dismissViewControllerAnimated(true, completion: {
@@ -77,16 +72,13 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.users == nil {
+        if self.users == nil || self.users!.count == 0 {
             return 1
         }
-        else if self.users!.count == 0 {
-            return 2
-        }
-        return self.users!.count + 2
+        return self.users!.count + 1
     }
     
-    func logout() {
+    @IBAction func logout(sender: UIButton) {
         let home = self.presentingViewController!
         UserLoginController.logout({
             self.dismissViewControllerAnimated(true, completion: {
@@ -95,11 +87,11 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
-    func addChild() {
+    @IBAction func addChild(sender: UIButton) {
         let home = self.presentingViewController!
         self.dismissViewControllerAnimated(true, completion: {
             home.performSegueWithIdentifier("addChild", sender: self)
-        })        
+        })
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -108,15 +100,17 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         if self.users == nil {
             cell = tableView.dequeueReusableCellWithIdentifier("loading", forIndexPath: indexPath)
         }
-        else if self.users!.count == 0 || indexPath.row == self.users!.count + 1 {
+        else if self.users!.count == 0 || indexPath.row == self.users!.count {
             cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
         }
-        else if indexPath.row == 0 {
-            cell = tableView.dequeueReusableCellWithIdentifier("logout", forIndexPath: indexPath)
-        }
         else {
-            cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-            let i = indexPath.row - 1
+            let i = indexPath.row
+            if self.users![i].hasRole("ROLE_PARENT") {
+                cell = tableView.dequeueReusableCellWithIdentifier("Parent", forIndexPath: indexPath)
+            }
+            else {
+                cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+            }
             (cell ~> (UILabel.self ~* {$0.text != "✔︎"})).first!.text = "\(self.users![i].first!) \(self.users![i].last!)"
             (cell ~> (UILabel.self ~* {$0.text == "✔︎"})).first!.hidden = self.users![i] != AppDelegate.getUser()
         }

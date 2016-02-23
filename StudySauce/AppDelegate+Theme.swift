@@ -180,6 +180,19 @@ extension AppDelegate {
         return blurEffectView
     }
     
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        
+        super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        
+    }
+    
+    func buttonTapped(button: UIButton) {
+        doMain {
+            AppDelegate.rerenderView(button)
+        }
+    }
+    
     func setupTheme() {
         /*
         Key:
@@ -201,7 +214,7 @@ extension AppDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidHideNotification, object: nil)
         
-
+        
         if let window = AppDelegate.instance().window {
             window.backgroundColor = UIColor.clearColor()
             window.opaque = false
@@ -211,6 +224,9 @@ extension AppDelegate {
         // set up font names
         $(UIButton.self, {
             $0.setFontName(saucyTheme.buttonFont)
+            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchDown)
+            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpInside)
+            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpOutside)
         })
         
         $(UIViewController.self ~>> UIView.self, {_ in
@@ -354,10 +370,16 @@ extension AppDelegate {
         })
         
         $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.orientation("landscape"),
-            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape"),
-            PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, ver: .Compact),
-            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Unspecified, ver: .Compact)], {
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape")], {
+                $0.setFontSize(20 * saucyTheme.multiplier())
+        })
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, .Compact),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Unspecified, .Compact)], {
             $0.setFontSize(20 * saucyTheme.multiplier())
+        })
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Compact, .Unspecified),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Compact, .Unspecified)], {
+                $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
         $([PackSummaryController.self ~> UITableView.self,
@@ -386,8 +408,13 @@ extension AppDelegate {
                 saucyTheme.textSize * 1.5 / 2)
         })
         
+        // borders
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* 2, {
             $0.setBackground(saucyTheme.fontColor)
+        })
+        
+        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UIView.self ~* 2, {
+            $0.setBackground(saucyTheme.middle)
         })
         
         $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
@@ -490,7 +517,9 @@ extension AppDelegate {
         })
         
         $([UIViewController.self ~* "Privacy" ~> UITextView.self,
-            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
+            UIViewController.self ~* "About" ~> UITextView.self,
+            CardPromptController.self ~> UITextView.self,
+            CardResponseController.self ~> UITextView.self], {(v: UITextView) in
                 doMain {
                     v.scrollRangeToVisible(NSMakeRange(0, 0))
                 }
@@ -599,7 +628,37 @@ extension AppDelegate {
             $0.backgroundColor = saucyTheme.fontColor
 
         })
+        
+        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UILabel.self, {
+            $0.alpha = 0.75
+            $0.setFontSize(saucyTheme.textSize * 0.75)
+        })
+        
+        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UIImageView.self, {
+            $0.alpha = 0.75
+        })
+        
+        // keyboard styling
+        $(BasicKeyboardController.self ~>> UIView.self, {
+            $0.viewController()?.view.backgroundColor = saucyTheme.middle
+        })
+        $(BasicKeyboardController.self ~> UIButton.self, {
+            $0.setFontName(saucyTheme.textFont)
+            $0.setFontColor(saucyTheme.fontColor)
+            $0.setTitleColor(saucyTheme.lightColor, forState: UIControlState.Highlighted)
+            $0.layer.cornerRadius = saucyTheme.padding * 0.5
+            $0.backgroundColor = saucyTheme.lightColor
+            $0.tintColor = UIColor.whiteColor()
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding, saucyTheme.padding)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding, -saucyTheme.padding)
+        })
+        $(BasicKeyboardController.self ~> UIButton.self ~* {
+            $0.highlighted
+            }, {
+            $0.backgroundColor = saucyTheme.secondary
+        })
 
+        
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

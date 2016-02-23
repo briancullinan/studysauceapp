@@ -33,6 +33,7 @@ class CardResponseController : UIViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         let correct = self.card.getCorrect()
         if correct == nil || correct!.value == nil {
             self.response!.text = "\(self.card.response!)"

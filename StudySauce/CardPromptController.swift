@@ -171,7 +171,12 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 self.listenButton.hidden = true
                 self.playButton.hidden = true
                 self.image.hidden = false
-                self.image.image = UIImage(contentsOfFile: fileName)
+                if fileName == "notfound" {
+                    self.image.image = UIImage(named: "notfound")
+                }
+                else {
+                    self.image.image = UIImage(contentsOfFile: fileName)
+                }
                 self.view.sendSubviewToBack(self.image)
             }
         })

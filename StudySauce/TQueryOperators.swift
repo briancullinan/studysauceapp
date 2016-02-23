@@ -13,6 +13,9 @@ import UIKit
 
 infix operator ~> {associativity left precedence 255}
 
+// TODO: address a view controller directly, instead of UIViewController.view
+// TODO: descendents to allow addressed of views within view controllers of UIView.subviews contains > UIViewController.view
+
 func ~> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
     return TQueryable<A>(a) ~> b
 }
@@ -90,7 +93,7 @@ func ~* <B: UIViewController>(b: B.Type, id: String) -> TMatching<B> {
 }
 
 func ~* <B: UIView>(b: TQueryable<B>, id: String) -> TMatching<B> {
-    return TMatching<B>(b, {$0.restorationIdentifier == id})
+    return TMatching<B>(b, {$0.restorationIdentifier == id || ($0 as? UITableViewCell)?.reuseIdentifier == id})
 }
 
 func ~* <B: UIViewController>(b: TQueryable<B>, id: String) -> TMatching<B> {
