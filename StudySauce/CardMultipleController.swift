@@ -82,9 +82,9 @@ class CardMultipleController: UIViewController {
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    HomeController.syncResponses()
                     self.performSegueWithIdentifier("correct", sender: self)
                 }
+                HomeController.syncResponses(self.card!.pack!)
             }
         }
     }

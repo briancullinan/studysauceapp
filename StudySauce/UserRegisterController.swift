@@ -152,14 +152,10 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             self.registerButton.setFontColor(saucyTheme.fontColor)
             self.registerButton.setBackground(saucyTheme.lightColor)
         }
-        self.showNoConnectionDialog({
+        self.showNoConnectionDialog {
             var redirect = false
-            postJson("/account/create", params: registrationInfo, error: {_ in
+            postJson("/account/create", registrationInfo, error: {_ in
                 doMain(self.done)
-                }, done: {_ in
-                    if !redirect {
-                        doMain(self.done)
-                    }
                 }, redirect: {(path) in
                     // login was a success!
                     if path == "/home" {
@@ -170,13 +166,17 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     }
                     if path == "/login" {
                         redirect = true
-                        self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), button: NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account"), done: {
+                        self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account")) {
                             self.performSegueWithIdentifier("login", sender: self)
                             doMain (self.done)
-                        })
+                        }
                     }
-            })
-        })
+                }) {_ in
+                    if !redirect {
+                        doMain(self.done)
+                    }
+            }
+        }
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

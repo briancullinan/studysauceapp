@@ -26,7 +26,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func codeButton(sender: UIButton) {
-        self.showDialog(NSLocalizedString("Ask you sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), button: NSLocalizedString("Ok", comment: "Ok button for no code message"))
+        self.showDialog(NSLocalizedString("Ask you sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
     }
     
     @IBAction func submitCode(sender: UIButton) {
@@ -84,17 +84,17 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
             self.inviteButton.setFontColor(saucyTheme.fontColor)
             self.inviteButton.setBackground(saucyTheme.lightColor)
         }
-        postJson("/register", params: ["_code": self.regCode], error: {(code) in
+        postJson("/register", ["_code": self.regCode], error: {(code) in
             doMain(self.done)
             if code == 404 {
-                self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), button: NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
+                self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
             }
             }, redirect: {(path) in
                 doMain(self.done)
                 if path == "/home" {
                     AppDelegate.goHome(self, true)
                 }
-            }, done: {(json) in
+            }) {(json) in
                 doMain(self.done)
                 self.first = json["first"] as? String
                 self.last = json["last"] as? String
@@ -103,7 +103,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
                 self.props = json["properties"] as? NSDictionary
                 
                 self.performSegueWithIdentifier("register", sender: self)
-        })
+        }
     }
     
 }

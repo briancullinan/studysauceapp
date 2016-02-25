@@ -50,6 +50,7 @@ class Pack: NSManagedObject {
             up = AppDelegate.insert(UserPack.self)
             up!.pack = self
             up!.user = user
+            up!.created = NSDate()
             AppDelegate.saveContext()
         }
         return up!

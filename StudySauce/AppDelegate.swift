@@ -43,8 +43,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        if let home = AppDelegate.visibleViewController() as? HomeController {
+            doMain(home.homeSync)
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        <#code#>
+        let token = "\(deviceToken)"
+        getJson("/account/update", ["device" : token.stringByReplacingOccurrencesOfString("<", withString: "")
+            .stringByReplacingOccurrencesOfString(">", withString: "")
+            .stringByReplacingOccurrencesOfString(" ", withString: "")])
     }
     
     static var lastTouch = NSDate()
@@ -131,6 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 }
                 else {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
+                    UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
                 }
                 doMain {
                     if self.instance().window == nil {
@@ -193,7 +207,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         self.setupTheme()
         Harpy.sharedInstance().appID = "1065647027"
 
-        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
 
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout
@@ -255,7 +268,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     func harpyDidDetectNewVersionWithoutAlert(message: String!) {
         self.needsUpdating = true
         let completed = {
-            AppDelegate.visibleViewController().showDialog(NSLocalizedString("A new version is now available.", comment: "Message text for new version dialog"), button: NSLocalizedString("Update", comment: "Update button on new version"), click: {
+            AppDelegate.visibleViewController().showDialog(NSLocalizedString("A new version is now available.", comment: "Message text for new version dialog"), NSLocalizedString("Update", comment: "Update button on new version"), click: {
                 let iTunesURL = NSURL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
                 UIApplication.sharedApplication().openURL(iTunesURL)
                 return false
@@ -348,7 +361,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             self.window?.rootViewController!.presentViewController(reg, animated: true, completion: {})
         }
         else if query["_code"] != nil {
-            postJson("/register", params: ["_code": query["_code"]!], redirect: {(path) in
+            postJson("/register", ["_code": query["_code"]!], redirect: {(path) in
                     if path == "/home" {
                         UserLoginController.home({
                             let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")

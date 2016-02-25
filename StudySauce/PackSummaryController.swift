@@ -16,10 +16,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func returnToPacks(segue: UIStoryboardSegue) {
-        doMain(self.viewDidLoad)
+
     }
     
     override func viewDidAppear(animated: Bool) {
+        self.pack = nil
         self.viewDidLoad()
     }
     
@@ -28,23 +29,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     private static func getCards(forPack: Pack, _ user: User, _ completionHandler: ([Card], NSError!) -> Void) -> Void {
         var cards = forPack.cards?.allObjects as! [Card]
-        let url = AppDelegate.studySauceCom("/packs/download/\(user.id!)?pack=\(forPack.id!)")
-        let ses = NSURLSession.sharedSession()
-        let task = ses.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-            if user != AppDelegate.getUser() {
-                forPack.isDownloading = false
-                return
-            }
-            if (error != nil) {
-                forPack.isDownloading = false
-                return completionHandler([], error)
-            }
-            
+        
+        getJson("/packs/download/\(user.id!)", ["pack" : forPack.id!]) {(json: AnyObject) in
             AppDelegate.performContext {
                 var ids = [NSNumber]()
                 
-                // load packs from server
-                let json = try? NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers)
                 for card in json as! NSArray {
                     var newCard = card["id"] as? NSNumber != nil ? AppDelegate.get(Card.self, card["id"] as! NSNumber) : nil
                     if newCard == nil {
@@ -76,16 +65,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     }
                 }
                 
-                if user != AppDelegate.getUser() {
-                    forPack.isDownloading = false
-                    return
-                }
-                
                 AppDelegate.saveContext()
                 completionHandler(cards, nil)
             }
-        })
-        task.resume()
+        }
+        
     }
     
     static internal func processResponses(user: User, _ json: NSArray) {
@@ -150,7 +134,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     internal static func getPacks(completionHandler: () -> Void, downloadedHandler: (Pack) -> Void = {(p: Pack) -> Void in return}) -> Void {
         let user = AppDelegate.getUser()!
-        getJson("/packs/list/\(user.id!)", done: {json in
+        getJson("/packs/list/\(user.id!)") {json in
             AppDelegate.performContext {
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {
@@ -179,6 +163,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     if let userPacks = pack["users"] as? NSArray where userPacks.count > 0 {
                         for up in userPacks {
                             if up["id"] as? NSNumber == user.id {
+                                let userPack = newPack?.getUserPack(user)
+                                userPack!.created = NSDate.parse(up["created"] as? String)
+                                AppDelegate.saveContext()
                                 self.downloadIfNeeded(newPack!, user) {
                                     downloadedHandler(newPack!)
                                 }
@@ -200,8 +187,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 AppDelegate.saveContext()
                 completionHandler()
             }
-        })
-        
+        }
     }
 
     private func getPacksFromLocalStore() -> Void
@@ -271,12 +257,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         // TODO: update downloading status in table row!
                         AppDelegate.performContext {
                             p.isDownloading = false
-                            if user != AppDelegate.getUser() {
-                                return
-                            }
                             up.retries = ""
                             up.downloaded = NSDate()
                             AppDelegate.saveContext()
+                            if user != AppDelegate.getUser() {
+                                return
+                            }
                             done()
                         }
                     }
@@ -300,11 +286,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     private func transitionToCard() {
-        let user = AppDelegate.getUser()!
-        if self.pack == nil || CardSegue.transitionManager.transitioning {
+        if self.pack == nil || CardSegue.transitionManager.transitioning ||
+            !(AppDelegate.visibleViewController() is PackSummaryController) {
             return
         }
-        doMain {
+        AppDelegate.performContext {
+            let user = AppDelegate.getUser()!
             if self.pack!.cards!.count  == 0 {
                 // something went wrong
                 return
@@ -312,8 +299,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             if self.pack!.getUserPack(user).getRetryCard() == nil {
                 self.pack!.getUserPack(user).getRetries(true)
             }
-            self.performSegueWithIdentifier("card", sender: self)
-            self.pack = nil
+            doMain {
+                if self.pack == nil || CardSegue.transitionManager.transitioning ||
+                    !(AppDelegate.visibleViewController() is PackSummaryController) {
+                    return
+                }
+                self.performSegueWithIdentifier("card", sender: self)
+            }
         }
     }
     

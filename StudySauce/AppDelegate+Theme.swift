@@ -180,13 +180,6 @@ extension AppDelegate {
         return blurEffectView
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        
-        super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
-        
-    }
-    
     func buttonTapped(button: UIButton) {
         doMain {
             AppDelegate.rerenderView(button)
@@ -430,7 +423,11 @@ extension AppDelegate {
         $(HomeController.self ~> UIButton.self ~* 1, {
             $0.setFontColor(saucyTheme.primary)
         })
-
+        
+        $(HomeController.self ~> PackRetentionCell.self ~> UILabel.self ~* 10, {
+            $0.setFontColor(UIColor.redColor())
+        })
+        
         // settings header
         $(UserSettingsController.self ~> UITableViewHeaderFooterView.self, {
             $0.setBackground(saucyTheme.fontColor)
@@ -557,11 +554,15 @@ extension AppDelegate {
             $0.setBackgroundImage(image, forState: .Normal)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338, {(v: UIButton) in
-            v.setFontName(saucyTheme.textFont)
-            v.setFontColor(saucyTheme.lightColor)
-            v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
-            v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
+        $(UIViewController.self ~> UIButton.self ~* 1338, {
+            $0.setFontName(saucyTheme.textFont)
+            $0.setFontColor(saucyTheme.lightColor)
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
+        })
+        
+        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {$0.highlighted}, {
+            $0.backgroundColor = saucyTheme.secondary
         })
         
         $([CardController.self ~>> UIView.self,

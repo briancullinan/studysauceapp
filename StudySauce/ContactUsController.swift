@@ -61,18 +61,18 @@ class ContactUsController: UIViewController, UITextFieldDelegate {
         self.sendButton.setFontColor(saucyTheme.fontColor)
         self.sendButton.setBackground(saucyTheme.lightColor)
         self.showNoConnectionDialog({
-            postJson("/contact/send", params: [
+            postJson("/contact/send", [
                 "name": self.name.text,
                 "email": self.email.text,
                 "message": self.message.text
                 ], error: {_ in
                     doMain(self.done)
-                }, done: {(json) in
-                    self.showDialog(NSLocalizedString("Thank you!  Someone will be in touch shortly", comment: "Message after user submits a contact us message"), button: NSLocalizedString("Done", comment: "Button to dismiss the contact us process after submit"), done: {
+                }) {(json) in
+                    self.showDialog(NSLocalizedString("Thank you!  Someone will be in touch shortly", comment: "Message after user submits a contact us message"), NSLocalizedString("Done", comment: "Button to dismiss the contact us process after submit")) {
                         self.performSegueWithIdentifier("last", sender: self)
                         doMain(self.done)
-                    })
-            })
+                    }
+            }
         })
     }
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {

@@ -52,9 +52,9 @@ class CardSelfController: UIViewController {
                 AppDelegate.saveContext()
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    HomeController.syncResponses()
                     self.performSegueWithIdentifier("card", sender: self)
                 }
+                HomeController.syncResponses(self.card!.pack!)
             }
         }
     }

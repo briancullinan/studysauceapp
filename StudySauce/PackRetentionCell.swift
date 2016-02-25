@@ -15,6 +15,7 @@ public class PackRetentionCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var newLabel: UILabel!
     
     weak var pack: Pack? = nil
     
@@ -29,8 +30,17 @@ public class PackRetentionCell: UITableViewCell {
         if modified == nil {
             modified = pack.created
         }
-        let count = pack.getUserPack(AppDelegate.getUser()).getRetentionCount()
+        let up = pack.getUserPack(AppDelegate.getUser())
+        let count = up.getRetentionCount()
         self.countLabel.text = "\(count)";
         self.titleLabel.text = title
+        // TODO: check number of responses in pack
+        if up.downloaded == nil || up.created == nil || up.created!.dateByAddingTimeInterval(60*2) > NSDate() {
+            newLabel.hidden = false
+        }
+        else {
+            newLabel.hidden = true
+            newLabel.text = ""
+        }
     }
 }

@@ -8,10 +8,11 @@
 
 import Foundation
 
-func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}) {
+func getJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}, _ done: (json: AnyObject) -> Void = {(json) in}) {
     var postData = ""
     for (k, v) in params {
-        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
+        let val = "\(v!)".stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(val)"
     }
     let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom("\(url)?\(postData)"))
     request.HTTPMethod = "GET"
@@ -48,13 +49,14 @@ func getJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary()
     task.resume()
 }
 
-func postJson (url: String, params: Dictionary<String, AnyObject?> = Dictionary(), done: (json: AnyObject) -> Void = {(json) in}, error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}){
+func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}, _ done: (json: AnyObject) -> Void = {(json) in}){
     var postData = ""
     for (k, v) in params {
         if v == nil {
             continue
         }
-        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(v!)"
+        let val = "\(v!)".stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        postData = postData + (postData == "" ? "" : "&") + "\(k)=\(val)"
     }
     let data = postData.dataUsingEncoding(NSUTF8StringEncoding)
     let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom(url))

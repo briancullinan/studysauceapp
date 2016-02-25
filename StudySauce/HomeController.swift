@@ -167,24 +167,24 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.getPacksFromLocalStore()
             
-            // Load packs from database
-            PackSummaryController.getPacks({
-                self.packsLoaded = true
-                self.getPacksFromLocalStore()
-                }, downloadedHandler: {p in
-                    self.packsLoaded = true
-                    self.getPacksFromLocalStore()
-            })
+            doMain(self.homeSync)
         }
     }
     
     func homeSync() {
-        HomeController.syncResponses {
+        // Load packs from database
+        PackSummaryController.getPacks({
+            self.packsLoaded = true
             self.getPacksFromLocalStore()
-        }
+            }, downloadedHandler: {p in
+                HomeController.syncResponses (p) {
+                    self.packsLoaded = true
+                    self.getPacksFromLocalStore()
+                }
+        })
     }
     
-    internal static func syncResponses(done: () -> Void = {}) {
+    internal static func syncResponses(pack: Pack, _ done: () -> Void = {}) {
         let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
         var index = 0
         var data = Dictionary<String, AnyObject?>()
@@ -199,12 +199,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][created]"] = created
             index++
         }
-        let responseDates = (AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]).filter({$0.id != nil})
+        let maxIds = AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]
+        let responseDates = maxIds.filter {(r: Response) in r.id != nil && r.card != nil && r.card!.pack != nil && r.card!.pack! == pack}
         if responseDates.count > 0 {
             data["since"] = responseDates.last!.id!
         }
+        data["pack"] = pack.id!
         let user = AppDelegate.getUser()!
-        postJson("/packs/responses/\(user.id!)", params: data, done: {json -> Void in
+        postJson("/packs/responses/\(user.id!)", data) {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
                     if let responses = ids["responses"] as? NSArray {
@@ -217,7 +219,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     done()
                 })
             }
-        })
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {

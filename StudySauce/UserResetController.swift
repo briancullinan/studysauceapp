@@ -53,7 +53,7 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         if self.token != nil {
             self.password = self.inputText.text
             self.showNoConnectionDialog({
-                postJson("/reset", params: ["email": self.mail, "token": self.token, "newPass": self.password], redirect: {(path) in
+                postJson("/reset", ["email": self.mail, "token": self.token, "newPass": self.password], redirect: {(path) in
                     if path == "/home" {
                         AppDelegate.goHome(self)
                     }
@@ -62,16 +62,16 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         }
         else {
             self.mail = self.inputText.text
-            self.showNoConnectionDialog({
-                postJson("/reset", params: ["email": self.mail], done: {(json) in
-                    self.showDialog(NSLocalizedString("Your password has been reset.  Please check your email.", comment: "Password reset confirmation message"), button: NSLocalizedString("Go home", comment: "Return to the landing page after password is reset"), done: {
+            self.showNoConnectionDialog {
+                postJson("/reset", ["email": self.mail]) {(json) in
+                    self.showDialog(NSLocalizedString("Your password has been reset.  Please check your email.", comment: "Password reset confirmation message"), NSLocalizedString("Go home", comment: "Return to the landing page after password is reset")) {
                         doMain(self.done)
                             // password resets don't change users until code is entered so don't bother refetching
                             AppDelegate.goHome(self)
                         
-                    })
-                })
-            })
+                    }
+                }
+            }
         }
     }
     

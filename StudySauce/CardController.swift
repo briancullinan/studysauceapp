@@ -60,6 +60,9 @@ class CardController: UIViewController {
                 }
             }
             else {
+                if self.pack == nil {
+                    print("Pack is nil error")
+                }
                 self.card = self.pack.getUserPack(AppDelegate.getUser()).getRetryCard()
             }
         }

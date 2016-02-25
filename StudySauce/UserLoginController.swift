@@ -67,11 +67,11 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
     
     internal static func logout(done: () -> Void = {}) {
-        getJson("/logout", done: {json in
+        getJson("/logout") {json in
             AppDelegate.instance().user = nil
             AppDelegate.resetLocalStore()
             done()
-        })
+        }
     }
     
     internal static func processUsers(json: NSDictionary) -> Void {
@@ -98,7 +98,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     
     internal static func home(done: () -> Void = {}) {
         
-        getJson("/home", done: {
+        getJson("/home") {
             if let json = $0 as? NSDictionary {
                 
                 let allFinished = {
@@ -135,7 +135,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                     doMain(allFinished)
                 })
             }
-        })
+        }
     }
     
     private static func checkForReset(allFinished: () -> Void) -> Bool {
@@ -173,7 +173,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
     
     internal static func login(done: () -> Void = {}) {
-        getJson("/login", done: {
+        getJson("/login") {
             if let json = $0 as? NSDictionary {
                 // TODO: create user entity in database
                 if json["csrf_token"] as? String != nil {
@@ -181,7 +181,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 }
                 doMain(done)
             }
-        })
+        }
     }
     
     static func getUserByEmail(email: String) -> User {
@@ -214,8 +214,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             self.loginButton.setFontColor(saucyTheme.fontColor)
             self.loginButton.setBackground(saucyTheme.lightColor)
         }
-        postJson("/authenticate",
-            params: [
+        postJson("/authenticate", [
                 "email"        : self.email,
                 "pass"         : self.pass,
                 "_remember_me" : "on",
@@ -225,7 +224,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             }, redirect: {(path) in
                 if path == "/login" {
                     redirect = true
-                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), button: NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
+                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
                         doMain(self.done)
                     }
                 }
@@ -238,13 +237,13 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 else {
                     doMain(self.done)
                 }
-            }, done: {(json) in
+            }) {(json) in
                 if !redirect {
                     doMain(self.done)
                 }
                 if json["csrf_token"] as? String != nil {
                         UserLoginController.token = json["csrf_token"] as? String
                     }
-            })
+            }
     }
 }

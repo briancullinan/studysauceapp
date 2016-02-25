@@ -76,14 +76,12 @@ class UserAddController : UIViewController, UITextFieldDelegate {
                 self.addButton.setFontColor(saucyTheme.fontColor)
                 self.addButton.setBackground(saucyTheme.lightColor)
             }
-            self.showNoConnectionDialog({
-                postJson("/account/create", params: registrationInfo,
-                    done: {_ in
-                        self.done()
-                    }, error: {code in
+            self.showNoConnectionDialog {
+                postJson("/account/create", registrationInfo,
+                    error: {code in
                     self.done()
                     if code == 404 {
-                        self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), button: NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
+                        self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
                     }
                     }, redirect: {(path) in
                         self.done()
@@ -103,9 +101,10 @@ class UserAddController : UIViewController, UITextFieldDelegate {
                             }
                         }
                     }
-                })
-            })
+                    }) {_ in
+                        self.done()
+                }
+            }
         }
     }
-    
 }

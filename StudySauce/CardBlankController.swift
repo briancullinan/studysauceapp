@@ -13,6 +13,15 @@ import UIKit
 class CardBlankController: UIViewController, UITextFieldDelegate {
     
     weak var card: Card? = nil
+    @IBOutlet weak var leftMargin: NSLayoutConstraint!
+    @IBOutlet weak var verticalSpace: NSLayoutConstraint!
+    @IBOutlet weak var rightMargin: NSLayoutConstraint!
+    
+    @IBOutlet weak var horizontalSpace: NSLayoutConstraint!
+    @IBOutlet weak var alignCenter: NSLayoutConstraint!
+    @IBOutlet weak var equalWidths: NSLayoutConstraint!
+    
+    @IBOutlet weak var bottomHalf: NSLayoutConstraint!
     
     @IBOutlet weak var inputText: UITextField? = nil
     
@@ -65,8 +74,6 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         UIView.setAnimationsEnabled(false)
     }
     
-    @IBOutlet weak var bottomHalf: NSLayoutConstraint!
-    
     var _basic: BasicKeyboardController? = nil
     var _basicNumbers: BasicKeyboardController? = nil
     
@@ -76,7 +83,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
             let size = CGRectMake(0, -height, self.view.bounds.width, height)
             _basic!.view!.frame = size
-            _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
+            _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
         
         return _basic!.view!
@@ -139,9 +146,11 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
                 self.inputText!.delegate = self
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "didHideKeyboard:", name: UIKeyboardDidHideNotification, object: nil)
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
             }
             self.card = vc.card
+            self.bottomHalf.constant = saucyTheme.textSize * 2 + saucyTheme.padding * 2
             self.view.setNeedsLayout()
         }
     }
@@ -149,14 +158,42 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     func keyboardWillChange(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-        self.bottomHalf.constant = keyboardFrame.size.height - 20
+        if UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
+            self.bottomHalf.constant = keyboardFrame.size.height
+        }
+        else {
+            self.bottomHalf.constant = keyboardFrame.size.height + saucyTheme.textSize * 2 + saucyTheme.padding * 2
+        }
         NSTimer.scheduledTimerWithTimeInterval(0.1,
             target: self, selector: "updatePlay", userInfo: nil, repeats: false)
         self.view.setNeedsLayout()
     }
 
+    func didHideKeyboard(notification: NSNotification) {
+        self.horizontalSpace.active = false
+        self.alignCenter.active = false
+        self.equalWidths.active = false
+        
+        self.rightMargin.active = true
+        self.verticalSpace.active = true
+        self.leftMargin.active = true
+
+        self.bottomHalf.constant = saucyTheme.textSize * 2 + saucyTheme.padding * 2
+        self.view.setNeedsLayout()
+    }
+    
     func didShowKeyboard(notification: NSNotification) {
         UIView.setAnimationsEnabled(true)
+        if UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
+            self.rightMargin.active = false
+            self.verticalSpace.active = false
+            self.leftMargin.active = false
+            
+            self.horizontalSpace.active = true
+            self.alignCenter.active = true
+            self.equalWidths.active = true
+            self.view.setNeedsLayout()
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -192,9 +229,9 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    HomeController.syncResponses()
                     self.performSegueWithIdentifier("correct", sender: self)
                 }
+                HomeController.syncResponses(self.card!.pack!)
             }
         }
     }

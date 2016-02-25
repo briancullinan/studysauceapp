@@ -55,7 +55,7 @@ extension UIViewController {
     
     
         
-    func showDialog(message: String?, button: String?, click: (() -> Bool)? = nil, done: (() -> Void)? = nil) -> DialogController {
+    func showDialog(message: String?, _ button: String?, click: (() -> Bool)? = nil, _ done: (() -> Void)? = nil) -> DialogController {
         let dialog = self.storyboard!.instantiateViewControllerWithIdentifier("Dialog") as! DialogController
         dialog.message = message
         dialog.button = button
@@ -80,13 +80,13 @@ extension UIViewController {
         }
         else {
             var timer: NSTimer? = nil
-            let dialog = self.showDialog(NSLocalizedString("No internet connection", comment: "Message when internet connection is needed but not available"), button: NSLocalizedString("Try again", comment: "Dismiss no internet connection and try again"), click: {
+            let dialog = self.showDialog(NSLocalizedString("No internet connection", comment: "Message when internet connection is needed but not available"), NSLocalizedString("Try again", comment: "Dismiss no internet connection and try again"), click: {
                 let result = AppDelegate.isConnectedToNetwork()
                 if result {
                     timer?.invalidate()
                 }
                 return result
-            }, done: done)
+            }, done)
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: dialog, selector: Selector("done"), userInfo: nil, repeats: true)
         }
     }
