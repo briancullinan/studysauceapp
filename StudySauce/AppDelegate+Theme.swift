@@ -648,14 +648,15 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setTitleColor(saucyTheme.lightColor, forState: UIControlState.Highlighted)
             $0.layer.cornerRadius = saucyTheme.padding * 0.5
+            $0.layer.borderColor = saucyTheme.middle.CGColor
+            $0.layer.borderWidth = 2
             $0.backgroundColor = saucyTheme.lightColor
             $0.tintColor = UIColor.whiteColor()
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding, saucyTheme.padding)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding, -saucyTheme.padding)
         })
-        $(BasicKeyboardController.self ~> UIButton.self ~* {
-            $0.highlighted
-            }, {
+        $([BasicKeyboardController.self ~> UIButton.self ~* 5,
+            BasicKeyboardController.self ~> UIButton.self ~* {$0.highlighted}], {
             $0.backgroundColor = saucyTheme.secondary
         })
 
