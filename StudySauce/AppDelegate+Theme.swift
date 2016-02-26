@@ -426,6 +426,8 @@ extension AppDelegate {
         
         $(HomeController.self ~> PackRetentionCell.self ~> UILabel.self ~* 10, {
             $0.setFontColor(UIColor.redColor())
+            $0.setFontSize(saucyTheme.textSize * 0.75)
+            $0.setFontName(saucyTheme.subheadingFont)
         })
         
         // settings header

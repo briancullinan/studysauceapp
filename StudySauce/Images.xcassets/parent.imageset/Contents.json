@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "parent_icon.png",
+      "filename" : "parent_icon.fw-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "parent_icon.fw.png",
       "scale" : "2x"
     },
     {

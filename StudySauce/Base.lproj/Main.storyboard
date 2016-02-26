@@ -2102,7 +2102,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="482" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMc-Ks-tu4">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dMc-Ks-tu4">
                                                     <rect key="frame" x="52" y="5" width="346" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2120,7 +2120,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                         <rect key="frame" x="246" y="6" width="68" height="20"/>
                                                     </variation>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" text="New! " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIM-jd-ifp">
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="251" horizontalCompressionResistancePriority="760" misplaced="YES" text="New " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIM-jd-ifp">
                                                     <rect key="frame" x="8" y="5" width="44" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="1" green="0.050980392159999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3609,7 +3609,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="5o6-PV-aJh">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="5o6-PV-aJh">
                                                     <rect key="frame" x="8" y="8" width="53" height="53"/>
                                                 </imageView>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" text="✔︎" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-Id-Ea6">
@@ -3694,13 +3694,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="VQT-Xx-Qg7">
-                                                    <rect key="frame" x="8" y="8" width="14" height="28"/>
+                                                    <rect key="frame" x="92" y="8" width="14" height="28"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="rQ4-eK-3Fz">
-                                                    <rect key="frame" x="578" y="8" width="14" height="28"/>
+                                                    <rect key="frame" x="485" y="8" width="14" height="28"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="Logout" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fta-Ha-ydL">
-                                                    <rect key="frame" x="309" y="8" width="261" height="28"/>
+                                                    <rect key="frame" x="423" y="8" width="54" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3713,7 +3713,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="Add child" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeO-r1-pux">
-                                                    <rect key="frame" x="30" y="8" width="262" height="28"/>
+                                                    <rect key="frame" x="114" y="8" width="72" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3732,14 +3732,14 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rQ4-eK-3Fz" firstAttribute="leading" secondItem="Fta-Ha-ydL" secondAttribute="trailing" constant="8" symbolic="YES" id="1Fi-nz-37l"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="rQ4-eK-3Fz" secondAttribute="bottom" id="1TE-Sg-LHv"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Fta-Ha-ydL" secondAttribute="bottom" id="3rS-Lo-jwN"/>
-                                                <constraint firstAttribute="leadingMargin" secondItem="VQT-Xx-Qg7" secondAttribute="leading" id="7a4-R2-H9x"/>
                                                 <constraint firstItem="My9-jh-tEk" firstAttribute="leading" secondItem="hUy-Xk-mic" secondAttribute="trailing" constant="8" symbolic="YES" id="94P-m9-Z0z"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="My9-jh-tEk" secondAttribute="bottom" id="9O5-HS-lvo"/>
                                                 <constraint firstItem="JeO-r1-pux" firstAttribute="leading" secondItem="VQT-Xx-Qg7" secondAttribute="trailing" constant="8" symbolic="YES" id="9v7-Y2-BYY"/>
                                                 <constraint firstItem="My9-jh-tEk" firstAttribute="top" secondItem="3lS-pR-1JV" secondAttribute="topMargin" id="ARS-aU-ph0"/>
+                                                <constraint firstItem="JeO-r1-pux" firstAttribute="centerX" secondItem="hUy-Xk-mic" secondAttribute="centerX" id="BlW-JV-Tes"/>
+                                                <constraint firstItem="rQ4-eK-3Fz" firstAttribute="leading" secondItem="Fta-Ha-ydL" secondAttribute="trailing" constant="8" symbolic="YES" id="E4w-gZ-m9v"/>
                                                 <constraint firstAttribute="topMargin" secondItem="Fta-Ha-ydL" secondAttribute="top" id="HVm-q1-tbr"/>
                                                 <constraint firstItem="rQ4-eK-3Fz" firstAttribute="width" secondItem="rQ4-eK-3Fz" secondAttribute="height" multiplier="1:2" id="Kcw-Zy-SXc"/>
                                                 <constraint firstItem="JeO-r1-pux" firstAttribute="top" secondItem="3lS-pR-1JV" secondAttribute="topMargin" id="LTf-Pb-KUk"/>
@@ -3748,15 +3748,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <constraint firstAttribute="topMargin" secondItem="rQ4-eK-3Fz" secondAttribute="top" id="REg-qa-wnE"/>
                                                 <constraint firstItem="yvh-TP-Ahp" firstAttribute="top" secondItem="3lS-pR-1JV" secondAttribute="topMargin" id="WXe-tL-FaA"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yvh-TP-Ahp" secondAttribute="bottom" id="Yld-1z-3mq"/>
-                                                <constraint firstItem="Fta-Ha-ydL" firstAttribute="leading" secondItem="My9-jh-tEk" secondAttribute="trailing" constant="8" symbolic="YES" id="agy-Xk-kVM"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yvh-TP-Ahp" secondAttribute="trailing" id="bh9-GB-laK"/>
-                                                <constraint firstItem="Fta-Ha-ydL" firstAttribute="width" secondItem="JeO-r1-pux" secondAttribute="width" priority="750" id="hWe-VH-7Xl"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="rQ4-eK-3Fz" secondAttribute="trailing" id="kQB-cc-Z9c"/>
+                                                <constraint firstItem="yvh-TP-Ahp" firstAttribute="width" secondItem="hUy-Xk-mic" secondAttribute="width" id="dZX-sQ-QhQ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hUy-Xk-mic" secondAttribute="bottom" id="kcV-Vi-VKu"/>
+                                                <constraint firstItem="Fta-Ha-ydL" firstAttribute="centerX" secondItem="yvh-TP-Ahp" secondAttribute="centerX" id="lGH-V8-B96"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="JeO-r1-pux" secondAttribute="bottom" id="oVK-LX-8QN"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="VQT-Xx-Qg7" secondAttribute="bottom" id="of1-yd-YAt"/>
                                                 <constraint firstItem="VQT-Xx-Qg7" firstAttribute="width" secondItem="VQT-Xx-Qg7" secondAttribute="height" multiplier="1:2" id="pJ8-MG-QSr"/>
-                                                <constraint firstItem="My9-jh-tEk" firstAttribute="leading" secondItem="JeO-r1-pux" secondAttribute="trailing" constant="8" symbolic="YES" id="xwz-XZ-bZ1"/>
                                                 <constraint firstItem="hUy-Xk-mic" firstAttribute="leading" secondItem="3lS-pR-1JV" secondAttribute="leadingMargin" id="yHS-O9-jzZ"/>
                                                 <constraint firstItem="VQT-Xx-Qg7" firstAttribute="top" secondItem="3lS-pR-1JV" secondAttribute="topMargin" id="zRI-lJ-CDB"/>
                                             </constraints>
@@ -4041,7 +4039,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="gray settings icon with clear center" width="101" height="100"/>
         <image name="logout" width="71" height="64"/>
         <image name="neural darkened" width="1300" height="1028"/>
-        <image name="parent" width="40" height="34"/>
+        <image name="parent" width="75" height="62"/>
         <image name="person" width="62" height="72"/>
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
