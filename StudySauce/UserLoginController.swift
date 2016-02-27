@@ -35,9 +35,17 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     @IBAction func loginClick(sender: UIButton) {
         self.email = username.text
         self.pass = password.text
-        self.authenticate()
         self.username.resignFirstResponder()
         self.password.resignFirstResponder()
+        
+        if self.isValidEmail(self.email!) {
+            self.authenticate()
+        }
+        else {
+            self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
+                self.username.becomeFirstResponder()
+            }
+        }
     }
     
     @IBAction func returnToLogin(segue: UIStoryboardSegue) {

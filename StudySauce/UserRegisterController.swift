@@ -48,8 +48,15 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.child = self.childSwitch.on
         self.pass = self.password.text
 
-        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" && self.isValidEmail(self.mail!) {
-            self.registerUser()
+        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" {
+            if self.isValidEmail(self.mail!) {
+                self.registerUser()
+            }
+            else {
+                self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone registers with invalid email."), NSLocalizedString("Ok", comment: "Button for when users registers with invalid e-mail address")) {
+                    self.email.becomeFirstResponder()
+                }
+            }
         }
     }
     
@@ -74,13 +81,6 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    func isValidEmail(testStr:String) -> Bool {
-        // println("validate calendar: \(testStr)")
-        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(testStr)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,5 +182,16 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         self.view.endEditing(true)
+    }
+}
+
+extension UIViewController {
+    
+    func isValidEmail(testStr:String) -> Bool {
+        // println("validate calendar: \(testStr)")
+        let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
     }
 }
