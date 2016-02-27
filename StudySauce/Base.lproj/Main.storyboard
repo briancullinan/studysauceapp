@@ -3696,13 +3696,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add" translatesAutoresizingMaskIntoConstraints="NO" id="VQT-Xx-Qg7">
-                                                    <rect key="frame" x="92" y="8" width="14" height="28"/>
+                                                    <rect key="frame" x="107" y="8" width="14" height="28"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logout" translatesAutoresizingMaskIntoConstraints="NO" id="rQ4-eK-3Fz">
-                                                    <rect key="frame" x="485" y="8" width="14" height="28"/>
+                                                    <rect key="frame" x="463" y="8" width="14" height="28"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="Logout" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fta-Ha-ydL">
-                                                    <rect key="frame" x="423" y="8" width="54" height="28"/>
+                                                    <rect key="frame" x="401" y="8" width="54" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3715,7 +3715,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="755" text="Add child" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeO-r1-pux">
-                                                    <rect key="frame" x="114" y="8" width="72" height="28"/>
+                                                    <rect key="frame" x="129" y="8" width="72" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3740,7 +3740,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <constraint firstAttribute="bottomMargin" secondItem="My9-jh-tEk" secondAttribute="bottom" id="9O5-HS-lvo"/>
                                                 <constraint firstItem="JeO-r1-pux" firstAttribute="leading" secondItem="VQT-Xx-Qg7" secondAttribute="trailing" constant="8" symbolic="YES" id="9v7-Y2-BYY"/>
                                                 <constraint firstItem="My9-jh-tEk" firstAttribute="top" secondItem="3lS-pR-1JV" secondAttribute="topMargin" id="ARS-aU-ph0"/>
-                                                <constraint firstItem="JeO-r1-pux" firstAttribute="centerX" secondItem="hUy-Xk-mic" secondAttribute="centerX" id="BlW-JV-Tes"/>
+                                                <constraint firstItem="JeO-r1-pux" firstAttribute="centerX" secondItem="hUy-Xk-mic" secondAttribute="centerX" multiplier="1.1" id="BlW-JV-Tes"/>
                                                 <constraint firstItem="rQ4-eK-3Fz" firstAttribute="leading" secondItem="Fta-Ha-ydL" secondAttribute="trailing" constant="8" symbolic="YES" id="E4w-gZ-m9v"/>
                                                 <constraint firstAttribute="topMargin" secondItem="Fta-Ha-ydL" secondAttribute="top" id="HVm-q1-tbr"/>
                                                 <constraint firstItem="rQ4-eK-3Fz" firstAttribute="width" secondItem="rQ4-eK-3Fz" secondAttribute="height" multiplier="1:2" id="Kcw-Zy-SXc"/>
@@ -3753,7 +3753,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <constraint firstAttribute="trailingMargin" secondItem="yvh-TP-Ahp" secondAttribute="trailing" id="bh9-GB-laK"/>
                                                 <constraint firstItem="yvh-TP-Ahp" firstAttribute="width" secondItem="hUy-Xk-mic" secondAttribute="width" id="dZX-sQ-QhQ"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hUy-Xk-mic" secondAttribute="bottom" id="kcV-Vi-VKu"/>
-                                                <constraint firstItem="Fta-Ha-ydL" firstAttribute="centerX" secondItem="yvh-TP-Ahp" secondAttribute="centerX" id="lGH-V8-B96"/>
+                                                <constraint firstItem="Fta-Ha-ydL" firstAttribute="centerX" secondItem="yvh-TP-Ahp" secondAttribute="centerX" multiplier="0.95" id="lGH-V8-B96"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="JeO-r1-pux" secondAttribute="bottom" id="oVK-LX-8QN"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="VQT-Xx-Qg7" secondAttribute="bottom" id="of1-yd-YAt"/>
                                                 <constraint firstItem="VQT-Xx-Qg7" firstAttribute="width" secondItem="VQT-Xx-Qg7" secondAttribute="height" multiplier="1:2" id="pJ8-MG-QSr"/>
