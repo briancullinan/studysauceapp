@@ -28,6 +28,7 @@ class CardController: UIViewController {
     internal var selectedPack: Pack? = nil
 
     @IBAction func backClick(sender: UIButton) {
+        CardSegue.transitionManager.transitioning = true
         if self.isRetention {
             self.performSegueWithIdentifier("home", sender: self)
         }

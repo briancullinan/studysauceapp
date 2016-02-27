@@ -116,12 +116,14 @@ class User: NSManagedObject {
             results.appendContentsOf(up.generateRetention().map{$0.id!})
         }
         if results.count == 0 {
-            return []
+            self.retention = ""
         }
-        results.shuffleInPlace()
-        self.retention = results.map { c -> String in
-            return "\(c)"
-            }.joinWithSeparator(",")
+        else {
+            results.shuffleInPlace()
+            self.retention = results.map { c -> String in
+                return "\(c)"
+                }.joinWithSeparator(",")
+        }
         self.retention_to = NSDate()
         // TODO: shouldn't really do database edits in the model
         AppDelegate.saveContext()

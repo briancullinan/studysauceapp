@@ -10,6 +10,8 @@ import UIKit
 
 class BasicKeyboardController: UIInputViewController {
 
+    var lowercase = false
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
     
@@ -19,7 +21,15 @@ class BasicKeyboardController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        doMain {
+            (self.view ~> UIButton.self).each {
+                if $0.tag == 0 {
+                    let title = $0.titleForState(.Normal)
+                    $0.setTitle(title?.lowercaseString, forState: .Normal)
+                }
+            }
+            self.lowercase = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,15 +52,35 @@ class BasicKeyboardController: UIInputViewController {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         
         if let title = sender.titleForState(.Normal) {
-            switch title {
-            case "DELETE" :
+            switch sender.tag {
+            case 6 :
                 proxy.deleteBackward()
-            case "DONE" :
+            case 5 :
                 proxy.insertText("\n")
-            case "SPACE" :
+            case 2 :
+                // toggle case for all keys
+                if self.lowercase {
+                    (self.view ~> UIButton.self).each {
+                        if $0.tag == 0 {
+                            let title = $0.titleForState(.Normal)
+                            $0.setTitle(title?.uppercaseString, forState: .Normal)
+                        }
+                    }
+                    self.lowercase = false
+                }
+                else {
+                    (self.view ~> UIButton.self).each {
+                        if $0.tag == 0 {
+                            let title = $0.titleForState(.Normal)
+                            $0.setTitle(title?.lowercaseString, forState: .Normal)
+                        }
+                    }
+                    self.lowercase = true
+                }
+            case 3 :
                 proxy.insertText(" ")
-            case "CHG" :
-                self.advanceToNextInputMode()
+            //case "CHG" :
+            //    self.advanceToNextInputMode()
             default :
                 proxy.insertText(title)
             }
