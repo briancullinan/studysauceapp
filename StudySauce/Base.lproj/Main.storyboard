@@ -85,7 +85,7 @@
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
-                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
+                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                                 <accessibility key="accessibilityConfiguration" identifier="prompt"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -3197,7 +3197,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             </view>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="240" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEB-fl-UVG">
                                 <rect key="frame" x="151" y="225" width="297" height="75"/>
-                                <state key="normal" title="SPACE"/>
+                                <state key="normal" title="Space"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="dcp-PU-7Lf" eventType="touchUpInside" id="wWF-Ug-e4h"/>
                                 </connections>
@@ -3207,7 +3207,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="dHS-y5-ruz" secondAttribute="height" multiplier="2:1" priority="751" id="rys-sI-OdA"/>
                                 </constraints>
-                                <state key="normal" title="DONE"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="dcp-PU-7Lf" eventType="touchUpInside" id="qCP-Ep-XsD"/>
                                 </connections>
@@ -3482,18 +3482,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fy8-Cm-4pg">
-                                <rect key="frame" x="233" y="433" width="135" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="21"/>
-                                <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                                <state key="normal" title="Get answer">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="correctClick:" destination="GSF-sY-ir3" eventType="touchUpInside" id="Q8d-IG-0YW"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="408" width="560" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -3513,7 +3501,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="dfB-8a-8h8" secondAttribute="trailing" id="27W-xP-Dg5"/>
-                            <constraint firstItem="Fy8-Cm-4pg" firstAttribute="centerX" secondItem="NkX-xa-Rjn" secondAttribute="centerX" id="3l3-uX-xJs"/>
                             <constraint firstItem="NkX-xa-Rjn" firstAttribute="top" secondItem="dfB-8a-8h8" secondAttribute="bottom" constant="8" symbolic="YES" id="B1j-RY-BIm"/>
                             <constraint firstAttribute="leadingMargin" secondItem="NkX-xa-Rjn" secondAttribute="leading" id="B4n-pn-PqN"/>
                             <constraint firstItem="NkX-xa-Rjn" firstAttribute="leading" secondItem="dfB-8a-8h8" secondAttribute="trailing" constant="8" symbolic="YES" id="DlI-kH-avd"/>
@@ -3523,7 +3510,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="dfB-8a-8h8" firstAttribute="leading" secondItem="dOA-sd-DiZ" secondAttribute="leading" id="gVT-Vm-hoa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="NkX-xa-Rjn" secondAttribute="trailing" id="qy6-BQ-cfm"/>
                             <constraint firstItem="dfB-8a-8h8" firstAttribute="top" secondItem="Ewj-Tk-Wnr" secondAttribute="bottom" id="rui-tq-3QM"/>
-                            <constraint firstItem="Fy8-Cm-4pg" firstAttribute="top" secondItem="NkX-xa-Rjn" secondAttribute="bottom" constant="8" symbolic="YES" id="x9J-91-lCK"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -3537,7 +3523,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     <connections>
                         <outlet property="alignCenter" destination="Qnh-b7-kpn" id="SOa-UH-idN"/>
                         <outlet property="bottomHalf" destination="gKr-sO-4QX" id="hCV-6d-iER"/>
-                        <outlet property="correctButton" destination="Fy8-Cm-4pg" id="nTY-Yx-lU1"/>
                         <outlet property="equalWidths" destination="WgH-m2-cVC" id="5wE-cv-3PO"/>
                         <outlet property="horizontalSpace" destination="DlI-kH-avd" id="OvN-jo-zhr"/>
                         <outlet property="inputText" destination="NkX-xa-Rjn" id="k4B-xr-9HA"/>
@@ -3582,7 +3567,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="listenClick:" destination="Eqc-ZA-AZS" eventType="touchUpInside" id="9l9-KQ-ap0"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
                                 <rect key="frame" x="20" y="313" width="560" height="279"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -3606,7 +3591,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <constraint firstAttribute="height" constant="1" id="hT9-1I-uk1"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
                                 <rect key="frame" x="20" y="57" width="560" height="210"/>
                                 <accessibility key="accessibilityConfiguration" identifier="response"/>
                                 <constraints>
@@ -3991,14 +3976,14 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             </view>
                             <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gz-Pu-dun">
                                 <rect key="frame" x="400" y="450" width="200" height="150"/>
-                                <state key="normal" title="DONE"/>
+                                <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="LIz-ma-ZIU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7K-us-bEH">
                                 <rect key="frame" x="0.0" y="450" width="200" height="150"/>
-                                <state key="normal" title="DELETE"/>
+                                <state key="normal" title="Delete"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="OJc-8U-Xz6"/>
                                 </connections>

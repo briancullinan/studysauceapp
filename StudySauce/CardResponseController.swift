@@ -18,11 +18,11 @@ class CardResponseController : CardPromptController {
     override func alignPlay(v: UITextView) {
         super.alignPlay(v)
         
-        var topCorrect = (self.response.bounds.size.height - self.response.contentSize.height * self.response.zoomScale) / 2 - saucyTheme.padding * 2
+        var topCorrect = (self.response.bounds.size.height - self.response.contentSize.height * self.response.zoomScale) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         self.response.contentInset.top = topCorrect
         
-        self.responseHeight.constant = min(self.response.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height / 2)
+        self.responseHeight.constant = min(self.response.contentSize.height, self.view.bounds.height / 2)
 
     }
 

@@ -61,7 +61,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         let wholeRange = NSMakeRange(0, content.length)
         let range = content.rangeOfString("P14y", options: [], range: wholeRange)
         
-        var topCorrect = (v.bounds.size.height - v.contentSize.height * v.zoomScale) / 2 - saucyTheme.padding * 2
+        var topCorrect = (v.bounds.size.height - v.contentSize.height * v.zoomScale) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         v.contentInset.top = topCorrect
 

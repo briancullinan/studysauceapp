@@ -117,6 +117,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.firstName!.delegate = self
         self.email!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
         self.email!.delegate = self
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

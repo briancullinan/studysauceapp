@@ -267,21 +267,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.packs == nil || self.packs!.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 || self.packs!.filter({!$0.isDownloading}).count == 0  {
             return saucyTheme.textSize * saucyTheme.lineHeight * 2
         }
         return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.packs == nil || self.packs!.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 || self.packs!.filter({!$0.isDownloading}).count == 0  {
             return 1
         }
         return self.packs!.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.packs == nil || self.packs!.count == 0 {
+        if self.packs == nil || self.packs!.count == 0 || self.packs!.filter({!$0.isDownloading}).count == 0  {
             return
         }
         if let home = self.parentViewController as? HomeController {

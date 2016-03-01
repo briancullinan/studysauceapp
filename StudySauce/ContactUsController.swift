@@ -24,6 +24,7 @@ class ContactUsController: UIViewController, UITextFieldDelegate {
         self.email!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
         self.email!.delegate = self
         self.message!.addDoneOnKeyboardWithTarget(self, action: Selector("registerClick:"))
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

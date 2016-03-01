@@ -35,6 +35,7 @@ class UserAddController : UIViewController, UITextFieldDelegate {
         self.childFirst!.delegate = self
         self.childLast!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
         self.childLast!.delegate = self
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

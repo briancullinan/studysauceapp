@@ -65,6 +65,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         self.password!.delegate = self
         self.username!.addDoneOnKeyboardWithTarget(self, action: Selector("loginClick:"))
         self.username!.delegate = self
+        IQKeyboardManager.sharedManager().enable = true
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
