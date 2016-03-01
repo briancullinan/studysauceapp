@@ -205,7 +205,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     func updatePlay() {
         if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-            CardPromptController.alignPlay(vc.content)
+            vc.alignPlay(vc.content)
         }
     }
     

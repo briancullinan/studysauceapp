@@ -236,6 +236,11 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
         })
         
+        $([UIViewController.self ~> UIButton.self,
+            UIViewController.self ~> UIButton.self ~> UILabel.self], {
+                $0.setFontColor(saucyTheme.lightColor)
+        })
+        
         $(UIViewController.self ~* "About" ~>> UITextView.self) {
             let newPara = NSMutableParagraphStyle()
             newPara.defaultTabInterval = 10.5
@@ -420,7 +425,7 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
             $0.setFontName(saucyTheme.subheadingFont)
         })
-        
+
         $(HomeController.self ~> UITableView.self ~> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
@@ -429,6 +434,10 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.primary)
         })
         
+        $(HomeController.self ~> UIButton.self ~* "signup", {
+            $0.backgroundColor = saucyTheme.primary
+        })
+
         $(HomeController.self ~> PackRetentionCell.self ~> UILabel.self ~* 10, {
             $0.setFontColor(UIColor.redColor())
             $0.setFontSize(saucyTheme.textSize * 0.75)
@@ -533,7 +542,7 @@ extension AppDelegate {
             CardResponseController.self ~> UITextView.self,
             UIViewController.self ~* "Privacy" ~> UITextView.self,
             UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
-                v.textContainerInset = UIEdgeInsets(saucyTheme.padding)
+                v.textContainerInset = UIEdgeInsets(saucyTheme.padding, 0.0)
         })
 
         $([CardPromptController.self ~> UITextView.self,
@@ -553,7 +562,7 @@ extension AppDelegate {
                     v.attributedText = NSAttributedString(attributedString: attr)
                 }
                 
-                CardPromptController.alignPlay(v)
+                (v.viewController() as? CardPromptController)?.alignPlay(v)
         })
         
         $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
@@ -568,7 +577,6 @@ extension AppDelegate {
         
         $(UIViewController.self ~> UIButton.self ~* 1338, {
             $0.setFontName(saucyTheme.textFont)
-            $0.setFontColor(saucyTheme.lightColor)
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
@@ -589,10 +597,6 @@ extension AppDelegate {
         
         $(CardController.self ~>> UILabel.self ~* 1, {
             $0.setFontColor(saucyTheme.middle)
-        })
-        
-        $(TutorialPageViewController.self ~>> UIButton.self ~* 26, {
-            $0.setFontColor(saucyTheme.lightColor)
         })
         
         $(UIViewController.self ~>> UIButton.self ~* 26, {
@@ -678,7 +682,7 @@ extension AppDelegate {
             $0.backgroundColor = saucyTheme.secondary
             $0.setFontColor(saucyTheme.lightColor)
         })
-
+        
         
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()

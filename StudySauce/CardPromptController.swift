@@ -46,17 +46,17 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     
     /// Force the text in a UITextView to always center itself.
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        CardPromptController.alignPlay(self.content)
+        self.alignPlay(self.content)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        CardPromptController.alignPlay(self.content)
+        self.alignPlay(self.content)
     }
     
     var showButtons: NSDate? = nil
     var showButtonsTimer: NSTimer? = nil
     
-    internal static func alignPlay(v: UITextView) {
+    internal func alignPlay(v: UITextView) {
         let content = v.attributedText.string as NSString
         let wholeRange = NSMakeRange(0, content.length)
         let range = content.rangeOfString("P14y", options: [], range: wholeRange)
@@ -156,7 +156,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     }
     
     func updatePlay() {
-        CardPromptController.alignPlay(self.content)
+        self.alignPlay(self.content)
         if self.url != nil {
             if AppDelegate.visibleViewController() == self.parentViewController?.parentViewController && !CardSegue.transitionManager.transitioning {
                 self.shouldPlay = self.autoPlay

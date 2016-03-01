@@ -15,16 +15,15 @@ class CardResponseController : CardPromptController {
     
     @IBOutlet weak var responseHeight: NSLayoutConstraint!
     
-    /// Force the text in a UITextView to always center itself.
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+    override func alignPlay(v: UITextView) {
+        super.alignPlay(v)
         
         var topCorrect = (self.response.bounds.size.height - self.response.contentSize.height * self.response.zoomScale) / 2 - saucyTheme.padding * 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         self.response.contentInset.top = topCorrect
-
+        
         self.responseHeight.constant = min(self.response.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height / 2)
+
     }
 
     override func viewDidLoad() {
