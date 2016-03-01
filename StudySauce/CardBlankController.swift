@@ -32,7 +32,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     }
     
     override func canBecomeFirstResponder() -> Bool {
-        let result = !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() is CardController
+        let result = !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() == self.parentViewController
         return result
     }
     
@@ -43,7 +43,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         doMain {
-            if !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() is CardController {
+            if !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() == self.parentViewController {
                 IQKeyboardManager.sharedManager().enable = false
                 if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
                     if !vc.isImage && self.inputText != nil {
@@ -55,10 +55,12 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        UIView.setAnimationsEnabled(false)
-        self.inputText!.resignFirstResponder()
-        UIView.setAnimationsEnabled(true)
-        IQKeyboardManager.sharedManager().enable = true
+        if !CardSegue.transitionManager.transitioning {
+            UIView.setAnimationsEnabled(false)
+            self.inputText!.resignFirstResponder()
+            IQKeyboardManager.sharedManager().enable = true
+            UIView.setAnimationsEnabled(true)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -133,13 +135,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         
         return _basicNumbers!.view!
     }
-    
-    override var inputView: UIView? {
-        get {
-            return self.basicKeyboard
-        }
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         

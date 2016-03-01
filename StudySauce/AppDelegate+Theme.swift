@@ -216,7 +216,6 @@ extension AppDelegate {
         
         // set up font names
         $(UIButton.self, {
-            $0.setFontName(saucyTheme.buttonFont)
             $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchDown)
             $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpInside)
             $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpOutside)
@@ -227,7 +226,8 @@ extension AppDelegate {
         })
         
         // set up text colors
-        $([UILabel.self,
+        $([UIButton.self,
+           UILabel.self,
            UITextView.self,
            UITextField.self], {
             // TODO: chaining would be nicer syntax here
@@ -406,6 +406,11 @@ extension AppDelegate {
             $0.setBackground(saucyTheme.fontColor)
         })
         
+        // borders
+        $(CardResponseController.self ~> UIView.self ~* 18, {
+            $0.setBackground(saucyTheme.middle)
+        })
+        
         $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UIView.self ~* 2, {
             $0.setBackground(saucyTheme.middle)
         })
@@ -551,9 +556,14 @@ extension AppDelegate {
                 CardPromptController.alignPlay(v)
         })
         
-        $(CardPromptController.self ~> UIButton.self ~* {$0.tag == 1}, {
-            let image = $0.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
-            $0.setBackgroundImage(image, forState: .Normal)
+        $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
+            CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
+            let image = v.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
+            v.setBackgroundImage(image, forState: .Normal)
+        })
+        
+        $(CardResponseController.self ~> UILabel.self, {
+            $0.setFontSize(saucyTheme.headingSize)
         })
         
         $(UIViewController.self ~> UIButton.self ~* 1338, {
@@ -647,19 +657,26 @@ extension AppDelegate {
         })
         $(BasicKeyboardController.self ~> UIButton.self, {
             $0.setFontName(saucyTheme.textFont)
+            $0.setFontSize(saucyTheme.textSize * 1.5)
             $0.setFontColor(saucyTheme.fontColor)
-            $0.setTitleColor(saucyTheme.lightColor, forState: UIControlState.Highlighted)
-            $0.layer.cornerRadius = saucyTheme.padding * 0.5
+            //$0.setTitleColor(saucyTheme.lightColor, forState: UIControlState.Highlighted)
+            $0.layer.cornerRadius = 0
             $0.layer.borderColor = saucyTheme.middle.CGColor
-            $0.layer.borderWidth = 2
+            $0.layer.borderWidth = 1
             $0.backgroundColor = saucyTheme.lightColor
             $0.tintColor = UIColor.whiteColor()
-            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding, saucyTheme.padding)
-            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding, -saucyTheme.padding)
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
+        })
+        $(BasicKeyboardController.self ~> UIButton.self ~> UILabel.self, {
+            $0.setFontName(saucyTheme.textFont)
+            $0.setFontSize(saucyTheme.textSize * 1.5)
+            $0.setFontColor(saucyTheme.fontColor)
         })
         $([BasicKeyboardController.self ~> UIButton.self ~* 5,
             BasicKeyboardController.self ~> UIButton.self ~* {$0.highlighted}], {
             $0.backgroundColor = saucyTheme.secondary
+            $0.setFontColor(saucyTheme.lightColor)
         })
 
         

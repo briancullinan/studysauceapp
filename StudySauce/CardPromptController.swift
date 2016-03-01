@@ -13,7 +13,7 @@ import AVFoundation
 import QuartzCore
 
 class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollViewDelegate {
-    weak var card: Card? = nil
+    internal weak var card: Card? = nil
     var player: AVAudioPlayer? = nil
     var url: String? = nil
     var playing: Bool = false
@@ -21,15 +21,18 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     var isAudio = false
     var isImage = false
     weak var parent: UIViewController? = nil
+    
+    var autoPlay = true
+    var shouldPlay = false
 
     @IBOutlet weak var top: NSLayoutConstraint!
     @IBOutlet weak var left: NSLayoutConstraint!
     @IBOutlet weak var size: NSLayoutConstraint!
     
     @IBOutlet weak var image: UIImageView!
-    @IBOutlet internal weak var content: UITextView!
-    @IBOutlet weak var listenButton: UIButton!
-    @IBOutlet weak var playButton: DALabeledCircularProgressView!
+    @IBOutlet internal weak var prompt: UITextView? = nil
+    @IBOutlet internal weak var listenButton: UIButton!
+    @IBOutlet internal weak var playButton: DALabeledCircularProgressView!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -86,24 +89,35 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var content = self.card!.content
+
+        if self.prompt != nil {
+            self.prompt!.text = self.card!.content!
+            
+            self.setupContent(self.prompt!)
+        }
+    }
+    
+    weak var content: UITextView!
+    
+    internal func setupContent(view: UITextView) {
+        self.content = view
+        var content = view.text
         
         // replace new line characters with real lines
         let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
-        content = lines?.stringByReplacingMatchesInString(content!, options: [], range: NSMakeRange(0, content!.characters.count), withTemplate: "\n")
-
+        content = lines!.stringByReplacingMatchesInString(content, options: [], range: NSMakeRange(0, content.characters.count), withTemplate: "\n")
+        
         
         // find the hyperlink and replace it with a listen button
         let ex = try? NSRegularExpression(pattern: "https://.*", options: NSRegularExpressionOptions.CaseInsensitive)
-        let match = ex?.firstMatchInString(content!, options: [], range:NSMakeRange(0, content!.characters.count))
+        let match = ex?.firstMatchInString(content, options: [], range:NSMakeRange(0, content.characters.count))
         let matched = match?.rangeAtIndex(0)
         if matched != nil {
             let range = Range(
                 start: self.card!.content!.startIndex.advancedBy(matched!.location),
                 end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
             self.url = self.card!.content!.substringWithRange(range)
-            content!.replaceRange(range, with: "P14y")
+            content.replaceRange(range, with: "P14y")
             if (self.url!.hasSuffix(".m4a") || self.url!.hasSuffix(".mp3")) {
                 self.isAudio = true
                 self.isImage = false
@@ -117,9 +131,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             // use remaining text as fill in the blank placeholder
             if let pvc = self.parent as? CardBlankController {
                 let wordCount = try? NSRegularExpression(pattern: "^(\\b\\w+\\b[\\s\\r\\n!\"#$%&'()*+, \\-./:;<=>?@ [\\\\]^_`{|}~]*){1,15}$", options: [.CaseInsensitive])
-                let wordCountMatch = wordCount?.firstMatchInString(content!, options: [], range: NSMakeRange(0, content!.characters.count))
+                let wordCountMatch = wordCount?.firstMatchInString(content, options: [], range: NSMakeRange(0, content.characters.count))
                 if wordCountMatch?.rangeAtIndex(0) != nil {
-                    pvc.inputText?.placeholder = content!.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                    pvc.inputText?.placeholder = content.stringByReplacingOccurrencesOfString("P14y", withString: "").stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                     content = "P14y"
                 }
                 if self.isImage {
@@ -131,17 +145,28 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 pvc.view.layoutIfNeeded()
             }
         }
-        self.content.text = content
         self.playButton.hidden = true
         self.listenButton.hidden = true
         self.image.hidden = true
         self.showButtons = NSDate().dateByAddingTimeInterval(1)
         self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1,
-            target: self, selector: "updatePlay", userInfo: nil, repeats: false)
+            target: self, selector: "updatePlay", userInfo: nil, repeats: true)
+        self.content.text = content
+        self.autoPlay = !(self is CardResponseController)
     }
     
     func updatePlay() {
         CardPromptController.alignPlay(self.content)
+        if self.url != nil {
+            if AppDelegate.visibleViewController() == self.parentViewController?.parentViewController && !CardSegue.transitionManager.transitioning {
+                self.shouldPlay = self.autoPlay
+                self.downloadAudio(self.url!)
+                self.showButtonsTimer?.invalidate()
+            }
+        }
+        else {
+            self.showButtonsTimer?.invalidate()
+        }
     }
     
     func downloadAudio(url: String) {
@@ -149,6 +174,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             return
         }
         self.playing = true
+        // temporarily turn off playing while downloading
         File.save(url, done: {(f:File) in
             let fileName = f.filename!
             let url = NSURL(fileURLWithPath: fileName)
@@ -164,8 +190,16 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     self.player?.delegate = self
                     self.player?.prepareToPlay()
                 }
-                self.player!.play()
-                self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                
+                if self.shouldPlay && !CardSegue.transitionManager.transitioning &&
+                    (AppDelegate.visibleViewController() == self.parentViewController?.parentViewController || AppDelegate.visibleViewController() == self.parentViewController) {
+                    self.player!.play()
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                    self.shouldPlay = false
+                }
+                else {
+                    self.playing = false
+                }
             }
             else if self.isImage {
                 self.listenButton.hidden = true
@@ -197,6 +231,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBAction func listenClick(sender: UIButton) {
         
         if (self.url != nil) {
+            self.shouldPlay = true
             self.downloadAudio(self.url!)
         }
     }

@@ -66,8 +66,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="1228"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="188" y="193" width="100" height="100"/>
@@ -85,8 +85,8 @@
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
-                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="1228"/>
+                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                                 <accessibility key="accessibilityConfiguration" identifier="prompt"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -114,11 +114,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="content" destination="LBl-mY-aFi" id="CXM-as-wmF"/>
                         <outlet property="image" destination="PQl-ru-sU5" id="13j-99-5i7"/>
                         <outlet property="left" destination="QYo-bR-fnE" id="0Mm-fj-1yU"/>
                         <outlet property="listenButton" destination="tcT-70-9cF" id="zMb-js-fio"/>
                         <outlet property="playButton" destination="Rib-6W-6bv" id="a6M-1J-cbO"/>
+                        <outlet property="prompt" destination="LBl-mY-aFi" id="O3G-Zl-F8x"/>
                         <outlet property="size" destination="6bm-vP-DFC" id="oUf-gH-LhB"/>
                         <outlet property="top" destination="Gt1-Vr-1aS" id="gDO-CA-faq"/>
                     </connections>
@@ -3563,23 +3563,100 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
-                                <rect key="frame" x="20" y="8" width="560" height="486"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-PQ-i9A">
+                                <rect key="frame" x="0.0" y="313" width="600" height="287"/>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-Ka-VbU" customClass="DALabeledCircularProgressView">
+                                <rect key="frame" x="230" y="250" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-Ch-UZX">
+                                <rect key="frame" x="230" y="250" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="5WH-xR-Jvu"/>
+                                    <constraint firstAttribute="width" constant="100" id="asC-uu-KYj"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="audio"/>
+                                <connections>
+                                    <action selector="listenClick:" destination="Eqc-ZA-AZS" eventType="touchUpInside" id="9l9-KQ-ap0"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
+                                <rect key="frame" x="20" y="313" width="560" height="279"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKC-jN-vg8">
+                                <rect key="frame" x="20" y="28" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view tag="18" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-oc-2Uk">
+                                <rect key="frame" x="20" y="275" width="560" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="hT9-1I-uk1"/>
+                                </constraints>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
+                                <rect key="frame" x="20" y="57" width="560" height="210"/>
                                 <accessibility key="accessibilityConfiguration" identifier="response"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="210" id="kbP-X2-IQv"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hH8-8T-dfd">
+                                <rect key="frame" x="20" y="284" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="QcF-PQ-i9A" firstAttribute="width" secondItem="Gzo-mc-S5O" secondAttribute="width" id="2qn-b5-7Tb"/>
+                            <constraint firstItem="RKC-jN-vg8" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="8" symbolic="YES" id="5X9-re-ZoS"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="Egi-Dm-LEJ"/>
-                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" constant="8" symbolic="YES" id="mtm-u2-Ubz"/>
+                            <constraint firstItem="QcF-PQ-i9A" firstAttribute="centerX" secondItem="Gzo-mc-S5O" secondAttribute="centerX" id="EmU-SS-GLW"/>
+                            <constraint firstItem="zI7-Ch-UZX" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="230" id="Ivc-UE-gQg"/>
+                            <constraint firstItem="Ld4-Jn-kFn" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="Jdc-7h-c9A"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="trailing" id="KaA-rf-hMS"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ld4-Jn-kFn" secondAttribute="trailing" id="Mrg-ss-ZBM"/>
+                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" constant="8" symbolic="YES" id="Qdd-HN-WdF"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="leading" id="TtM-Ys-6j2"/>
+                            <constraint firstItem="zI7-Ch-UZX" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leading" constant="230" id="VFr-mp-fAx"/>
+                            <constraint firstItem="nPx-Ka-VbU" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="width" id="WMO-OZ-lcB"/>
+                            <constraint firstItem="3Iq-oc-2Uk" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" constant="8" symbolic="YES" id="ZR4-S5-Exi"/>
+                            <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerX" secondItem="zI7-Ch-UZX" secondAttribute="centerX" id="adz-aC-v6O"/>
+                            <constraint firstItem="RKC-jN-vg8" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="cwt-GD-gCO"/>
+                            <constraint firstItem="hH8-8T-dfd" firstAttribute="top" secondItem="3Iq-oc-2Uk" secondAttribute="bottom" constant="8" symbolic="YES" id="dCT-Lt-pFl"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="hH8-8T-dfd" secondAttribute="leading" id="dfh-Lu-lLK"/>
+                            <constraint firstItem="Ld4-Jn-kFn" firstAttribute="top" secondItem="hH8-8T-dfd" secondAttribute="bottom" constant="8" symbolic="YES" id="eJ9-mO-qNn"/>
+                            <constraint firstItem="QcF-PQ-i9A" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="top" id="elV-ER-dh5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RKC-jN-vg8" secondAttribute="trailing" id="fwA-c6-7X4"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hH8-8T-dfd" secondAttribute="trailing" id="hRx-0y-j2L"/>
+                            <constraint firstItem="JRJ-bT-INN" firstAttribute="top" secondItem="RKC-jN-vg8" secondAttribute="bottom" constant="8" symbolic="YES" id="iyZ-Pw-9dm"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="trailing" secondItem="Gzo-mc-S5O" secondAttribute="trailingMargin" id="qhb-zs-7PH"/>
-                            <constraint firstItem="JRJ-bT-INN" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="8" symbolic="YES" id="ypW-BO-soX"/>
+                            <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerY" secondItem="zI7-Ch-UZX" secondAttribute="centerY" id="tVV-i2-NSL"/>
+                            <constraint firstItem="zI7-Ch-UZX" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="uye-UF-zAz"/>
+                            <constraint firstItem="nPx-Ka-VbU" firstAttribute="height" secondItem="zI7-Ch-UZX" secondAttribute="height" id="veQ-mK-Zfw"/>
+                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="QcF-PQ-i9A" secondAttribute="bottom" id="xXI-Ih-VKQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="image" destination="QcF-PQ-i9A" id="icQ-lO-Y3g"/>
+                        <outlet property="left" destination="VFr-mp-fAx" id="rJL-wI-QhG"/>
+                        <outlet property="listenButton" destination="zI7-Ch-UZX" id="OLo-Fn-AqQ"/>
+                        <outlet property="playButton" destination="nPx-Ka-VbU" id="oX3-xe-z8I"/>
+                        <outlet property="prompt" destination="Ld4-Jn-kFn" id="wpG-ia-JIm"/>
                         <outlet property="response" destination="JRJ-bT-INN" id="WfS-JA-YId"/>
+                        <outlet property="responseHeight" destination="kbP-X2-IQv" id="fD6-g1-4h7"/>
+                        <outlet property="size" destination="asC-uu-KYj" id="fYC-SS-D0G"/>
+                        <outlet property="top" destination="Ivc-UE-gQg" id="c8Q-qc-5Jq"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="next" customClass="CardSegue" customModule="StudySauce" id="ucz-Xl-O7T"/>
                     </connections>
                 </viewController>
@@ -3612,16 +3689,16 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="5o6-PV-aJh">
-                                                    <rect key="frame" x="8" y="8" width="53" height="53"/>
+                                                    <rect key="frame" x="8" y="8" width="27" height="53"/>
                                                 </imageView>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" text="✔︎" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-Id-Ea6">
-                                                    <rect key="frame" x="578" y="8" width="14" height="53"/>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="✔︎" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-Id-Ea6">
+                                                    <rect key="frame" x="577" y="8" width="15" height="53"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" misplaced="YES" text="First" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpS-mk-G5u">
-                                                    <rect key="frame" x="69" y="8" width="501" height="53"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="First" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpS-mk-G5u">
+                                                    <rect key="frame" x="43" y="8" width="526" height="53"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -3640,7 +3717,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <constraint firstItem="DDc-Id-Ea6" firstAttribute="top" secondItem="1FC-ZP-pV1" secondAttribute="topMargin" id="iI0-Va-ynJ"/>
                                                 <constraint firstItem="DDc-Id-Ea6" firstAttribute="leading" secondItem="UpS-mk-G5u" secondAttribute="trailing" constant="8" symbolic="YES" id="vCE-3h-YUV"/>
                                                 <constraint firstItem="5o6-PV-aJh" firstAttribute="top" secondItem="1FC-ZP-pV1" secondAttribute="topMargin" id="wd3-aT-bGv"/>
-                                                <constraint firstItem="5o6-PV-aJh" firstAttribute="width" secondItem="5o6-PV-aJh" secondAttribute="height" multiplier="1:1" id="zFG-32-HAE"/>
+                                                <constraint firstItem="5o6-PV-aJh" firstAttribute="width" secondItem="5o6-PV-aJh" secondAttribute="height" multiplier="1:2" id="zFG-32-HAE"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3825,127 +3902,127 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="T9r-A1-Jqn">
-                                <rect key="frame" x="20" y="0.0" width="60" height="144"/>
+                                <rect key="frame" x="20" y="0.0" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b4P-pW-Mcp">
-                                <rect key="frame" x="80" y="0.0" width="141" height="144"/>
+                                <rect key="frame" x="80" y="0.0" width="147" height="150"/>
                                 <state key="normal" title="1"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="3mE-LX-HQI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqD-Vl-2Uj">
-                                <rect key="frame" x="229" y="0.0" width="142" height="144"/>
+                                <rect key="frame" x="227" y="0.0" width="146" height="150"/>
                                 <state key="normal" title="2"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="HYM-Jh-Ift"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GWP-K4-cnt">
-                                <rect key="frame" x="379" y="0.0" width="141" height="144"/>
+                                <rect key="frame" x="373" y="0.0" width="147" height="150"/>
                                 <state key="normal" title="3"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="Du8-lb-i8N"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="a2q-VD-mV0">
-                                <rect key="frame" x="520" y="0.0" width="60" height="144"/>
+                                <rect key="frame" x="520" y="0.0" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="mod-rH-VXX">
-                                <rect key="frame" x="20" y="152" width="60" height="144"/>
+                                <rect key="frame" x="20" y="150" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQv-kZ-sg7">
-                                <rect key="frame" x="80" y="152" width="141" height="144"/>
+                                <rect key="frame" x="80" y="150" width="147" height="150"/>
                                 <state key="normal" title="4"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="yoH-7r-zbl"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="baw-fW-feC">
-                                <rect key="frame" x="229" y="152" width="142" height="144"/>
+                                <rect key="frame" x="227" y="150" width="146" height="150"/>
                                 <state key="normal" title="5"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="dFb-NY-jYb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYA-dL-Eit">
-                                <rect key="frame" x="379" y="152" width="141" height="144"/>
+                                <rect key="frame" x="373" y="150" width="147" height="150"/>
                                 <state key="normal" title="6"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="ykQ-lh-sAO"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="LDz-lZ-dJU">
-                                <rect key="frame" x="520" y="152" width="60" height="144"/>
+                                <rect key="frame" x="520" y="150" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="dg3-EO-ldY">
-                                <rect key="frame" x="20" y="304" width="60" height="144"/>
+                                <rect key="frame" x="20" y="300" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="95b-iz-Fct">
-                                <rect key="frame" x="80" y="304" width="141" height="144"/>
+                                <rect key="frame" x="80" y="300" width="147" height="150"/>
                                 <state key="normal" title="7"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="5sc-4G-vZG"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iyo-6B-vi1">
-                                <rect key="frame" x="379" y="304" width="141" height="144"/>
+                                <rect key="frame" x="373" y="300" width="147" height="150"/>
                                 <state key="normal" title="9"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="EeJ-hF-RsP"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="0LY-Wc-dq7">
-                                <rect key="frame" x="520" y="456" width="60" height="144"/>
+                                <rect key="frame" x="520" y="450" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="QiP-xW-bSG">
-                                <rect key="frame" x="20" y="456" width="60" height="144"/>
+                                <rect key="frame" x="20" y="450" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="240" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xL6-OB-MUw">
-                                <rect key="frame" x="229" y="456" width="142" height="144"/>
+                                <rect key="frame" x="227" y="450" width="146" height="150"/>
                                 <state key="normal" title="0"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="fR2-D5-iFY"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="q1D-K3-QlI">
-                                <rect key="frame" x="520" y="456" width="60" height="144"/>
+                                <rect key="frame" x="520" y="450" width="60" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gz-Pu-dun">
-                                <rect key="frame" x="379" y="456" width="141" height="144"/>
+                            <button opaque="NO" tag="5" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gz-Pu-dun">
+                                <rect key="frame" x="373" y="450" width="147" height="150"/>
                                 <state key="normal" title="DONE"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="LIz-ma-ZIU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7K-us-bEH">
-                                <rect key="frame" x="80" y="456" width="141" height="144"/>
-                                <state key="normal" title="DELETE"/>
-                                <connections>
-                                    <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="OJc-8U-Xz6"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x0u-R8-SNq">
-                                <rect key="frame" x="229" y="304" width="142" height="144"/>
+                                <rect key="frame" x="227" y="300" width="146" height="150"/>
                                 <state key="normal" title="8"/>
                                 <connections>
                                     <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="H85-zz-fM1"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="6" contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7K-us-bEH">
+                                <rect key="frame" x="80" y="450" width="147" height="150"/>
+                                <state key="normal" title="DELETE"/>
+                                <connections>
+                                    <action selector="didTapButton:forEvent:" destination="V06-DO-S6J" eventType="touchUpInside" id="OJc-8U-Xz6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iyo-6B-vi1" firstAttribute="leading" secondItem="x0u-R8-SNq" secondAttribute="trailing" constant="8" symbolic="YES" id="1Mf-cW-v1T"/>
+                            <constraint firstItem="iyo-6B-vi1" firstAttribute="leading" secondItem="x0u-R8-SNq" secondAttribute="trailing" id="1Mf-cW-v1T"/>
                             <constraint firstItem="GWP-K4-cnt" firstAttribute="bottom" secondItem="jqD-Vl-2Uj" secondAttribute="bottom" id="1en-td-HID"/>
-                            <constraint firstItem="xL6-OB-MUw" firstAttribute="leading" secondItem="Z7K-us-bEH" secondAttribute="trailing" constant="8" symbolic="YES" id="27W-r9-DbW"/>
+                            <constraint firstItem="xL6-OB-MUw" firstAttribute="leading" secondItem="Z7K-us-bEH" secondAttribute="trailing" id="27W-r9-DbW"/>
                             <constraint firstItem="LDz-lZ-dJU" firstAttribute="width" secondItem="mod-rH-VXX" secondAttribute="width" id="29W-fy-5tn"/>
                             <constraint firstItem="iyo-6B-vi1" firstAttribute="width" secondItem="x0u-R8-SNq" secondAttribute="width" id="2ok-fi-ddt"/>
                             <constraint firstItem="a2q-VD-mV0" firstAttribute="width" secondItem="T9r-A1-Jqn" secondAttribute="width" id="392-Dp-fdj"/>
@@ -3955,11 +4032,11 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="a2q-VD-mV0" firstAttribute="bottom" secondItem="GWP-K4-cnt" secondAttribute="bottom" id="7Q1-k4-h0N"/>
                             <constraint firstItem="QiP-xW-bSG" firstAttribute="leading" secondItem="Ohy-3i-MiK" secondAttribute="leadingMargin" id="8zG-rk-P5q"/>
                             <constraint firstAttribute="bottom" secondItem="xL6-OB-MUw" secondAttribute="bottom" id="9F7-ap-Ros"/>
-                            <constraint firstItem="4Gz-Pu-dun" firstAttribute="leading" secondItem="xL6-OB-MUw" secondAttribute="trailing" constant="8" symbolic="YES" id="AFB-pW-g57"/>
+                            <constraint firstItem="4Gz-Pu-dun" firstAttribute="leading" secondItem="xL6-OB-MUw" secondAttribute="trailing" id="AFB-pW-g57"/>
                             <constraint firstItem="4Gz-Pu-dun" firstAttribute="top" secondItem="xL6-OB-MUw" secondAttribute="top" id="BCf-w6-udh"/>
                             <constraint firstItem="T9r-A1-Jqn" firstAttribute="bottom" secondItem="b4P-pW-Mcp" secondAttribute="bottom" id="CiT-Qh-ScF"/>
                             <constraint firstItem="0LY-Wc-dq7" firstAttribute="leading" secondItem="iyo-6B-vi1" secondAttribute="trailing" id="D4X-lt-qT8"/>
-                            <constraint firstItem="95b-iz-Fct" firstAttribute="top" secondItem="zQv-kZ-sg7" secondAttribute="bottom" constant="8" symbolic="YES" id="Dcc-NB-wa8"/>
+                            <constraint firstItem="95b-iz-Fct" firstAttribute="top" secondItem="zQv-kZ-sg7" secondAttribute="bottom" id="Dcc-NB-wa8"/>
                             <constraint firstItem="baw-fW-feC" firstAttribute="bottom" secondItem="zQv-kZ-sg7" secondAttribute="bottom" id="G4r-JH-7r3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="a2q-VD-mV0" secondAttribute="trailing" id="HzW-de-mJO"/>
                             <constraint firstItem="dg3-EO-ldY" firstAttribute="top" secondItem="95b-iz-Fct" secondAttribute="top" id="I2z-UN-qr2"/>
@@ -3967,17 +4044,17 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="b4P-pW-Mcp" firstAttribute="width" secondItem="jqD-Vl-2Uj" secondAttribute="width" id="JlY-NJ-uDU"/>
                             <constraint firstItem="zQv-kZ-sg7" firstAttribute="width" secondItem="baw-fW-feC" secondAttribute="width" id="KAZ-F4-kKE"/>
                             <constraint firstItem="LDz-lZ-dJU" firstAttribute="bottom" secondItem="ZYA-dL-Eit" secondAttribute="bottom" id="KHM-F5-l8K"/>
-                            <constraint firstItem="x0u-R8-SNq" firstAttribute="leading" secondItem="95b-iz-Fct" secondAttribute="trailing" constant="8" symbolic="YES" id="Kbb-ET-IW6"/>
+                            <constraint firstItem="x0u-R8-SNq" firstAttribute="leading" secondItem="95b-iz-Fct" secondAttribute="trailing" id="Kbb-ET-IW6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="0LY-Wc-dq7" secondAttribute="trailing" id="N0H-T9-jjN"/>
                             <constraint firstItem="Z7K-us-bEH" firstAttribute="width" secondItem="xL6-OB-MUw" secondAttribute="width" id="N9J-IJ-paF"/>
                             <constraint firstItem="jqD-Vl-2Uj" firstAttribute="width" secondItem="GWP-K4-cnt" secondAttribute="width" id="Nof-W2-Fze"/>
-                            <constraint firstItem="xL6-OB-MUw" firstAttribute="top" secondItem="95b-iz-Fct" secondAttribute="bottom" constant="8" symbolic="YES" id="OhL-XK-j1K"/>
-                            <constraint firstItem="jqD-Vl-2Uj" firstAttribute="leading" secondItem="b4P-pW-Mcp" secondAttribute="trailing" constant="8" symbolic="YES" id="PCU-jq-Qvx"/>
+                            <constraint firstItem="xL6-OB-MUw" firstAttribute="top" secondItem="95b-iz-Fct" secondAttribute="bottom" id="OhL-XK-j1K"/>
+                            <constraint firstItem="jqD-Vl-2Uj" firstAttribute="leading" secondItem="b4P-pW-Mcp" secondAttribute="trailing" id="PCU-jq-Qvx"/>
                             <constraint firstItem="0LY-Wc-dq7" firstAttribute="bottom" secondItem="4Gz-Pu-dun" secondAttribute="bottom" id="POU-uO-Zh3"/>
-                            <constraint firstItem="baw-fW-feC" firstAttribute="leading" secondItem="zQv-kZ-sg7" secondAttribute="trailing" constant="8" symbolic="YES" id="RB7-yn-OAD"/>
+                            <constraint firstItem="baw-fW-feC" firstAttribute="leading" secondItem="zQv-kZ-sg7" secondAttribute="trailing" id="RB7-yn-OAD"/>
                             <constraint firstItem="jqD-Vl-2Uj" firstAttribute="top" secondItem="b4P-pW-Mcp" secondAttribute="top" id="Rht-4O-S8d"/>
                             <constraint firstItem="dg3-EO-ldY" firstAttribute="width" secondItem="mod-rH-VXX" secondAttribute="width" id="Rzp-nc-qLw"/>
-                            <constraint firstItem="GWP-K4-cnt" firstAttribute="leading" secondItem="jqD-Vl-2Uj" secondAttribute="trailing" constant="8" symbolic="YES" id="SHc-8i-gAV"/>
+                            <constraint firstItem="GWP-K4-cnt" firstAttribute="leading" secondItem="jqD-Vl-2Uj" secondAttribute="trailing" id="SHc-8i-gAV"/>
                             <constraint firstItem="ZYA-dL-Eit" firstAttribute="top" secondItem="baw-fW-feC" secondAttribute="top" id="TRV-Rj-rFi"/>
                             <constraint firstItem="Z7K-us-bEH" firstAttribute="bottom" secondItem="xL6-OB-MUw" secondAttribute="bottom" id="Uyx-Ug-No4"/>
                             <constraint firstItem="QiP-xW-bSG" firstAttribute="height" secondItem="dg3-EO-ldY" secondAttribute="height" id="VlG-ye-cEY"/>
@@ -3986,8 +4063,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="ZYA-dL-Eit" firstAttribute="trailing" secondItem="LDz-lZ-dJU" secondAttribute="leading" id="XJA-26-JjP"/>
                             <constraint firstItem="q1D-K3-QlI" firstAttribute="leading" secondItem="4Gz-Pu-dun" secondAttribute="trailing" id="Xc8-qY-fnW"/>
                             <constraint firstItem="GWP-K4-cnt" firstAttribute="top" secondItem="jqD-Vl-2Uj" secondAttribute="top" id="YSI-J6-YU7"/>
-                            <constraint firstItem="ZYA-dL-Eit" firstAttribute="leading" secondItem="baw-fW-feC" secondAttribute="trailing" constant="8" symbolic="YES" id="ZgK-KI-hGc"/>
-                            <constraint firstItem="zQv-kZ-sg7" firstAttribute="top" secondItem="b4P-pW-Mcp" secondAttribute="bottom" constant="8" symbolic="YES" id="aZi-zh-iR7"/>
+                            <constraint firstItem="ZYA-dL-Eit" firstAttribute="leading" secondItem="baw-fW-feC" secondAttribute="trailing" id="ZgK-KI-hGc"/>
+                            <constraint firstItem="zQv-kZ-sg7" firstAttribute="top" secondItem="b4P-pW-Mcp" secondAttribute="bottom" id="aZi-zh-iR7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LDz-lZ-dJU" secondAttribute="trailing" id="acj-LA-Z8f"/>
                             <constraint firstItem="95b-iz-Fct" firstAttribute="width" secondItem="x0u-R8-SNq" secondAttribute="width" id="bOb-Su-UKA"/>
                             <constraint firstItem="mod-rH-VXX" firstAttribute="leading" secondItem="Ohy-3i-MiK" secondAttribute="leadingMargin" id="bTj-JO-GM8"/>
@@ -4001,7 +4078,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="Z7K-us-bEH" firstAttribute="leading" secondItem="QiP-xW-bSG" secondAttribute="trailing" id="emt-su-8KD"/>
                             <constraint firstItem="T9r-A1-Jqn" firstAttribute="top" secondItem="b4P-pW-Mcp" secondAttribute="top" id="fA3-df-bbC"/>
                             <constraint firstItem="zQv-kZ-sg7" firstAttribute="leading" secondItem="mod-rH-VXX" secondAttribute="trailing" id="fWT-BK-ZEo"/>
-                            <constraint firstItem="T9r-A1-Jqn" firstAttribute="width" secondItem="Ohy-3i-MiK" secondAttribute="width" multiplier="0.1" id="hDF-Bx-y56"/>
+                            <constraint firstItem="T9r-A1-Jqn" firstAttribute="width" secondItem="Ohy-3i-MiK" secondAttribute="width" multiplier="0.1" priority="755" id="hDF-Bx-y56"/>
                             <constraint firstItem="dg3-EO-ldY" firstAttribute="width" secondItem="0LY-Wc-dq7" secondAttribute="width" id="i4T-Nk-fxU"/>
                             <constraint firstItem="iyo-6B-vi1" firstAttribute="bottom" secondItem="x0u-R8-SNq" secondAttribute="bottom" id="i6L-lK-eOG"/>
                             <constraint firstItem="a2q-VD-mV0" firstAttribute="top" secondItem="GWP-K4-cnt" secondAttribute="top" id="j4u-4s-L4K"/>
@@ -4046,10 +4123,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Edk-H5-39l"/>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="B8Y-rH-ahi"/>
+        <segue reference="ucz-Xl-O7T"/>
         <segue reference="9qz-n1-wHJ"/>
-        <segue reference="M6g-6I-YI4"/>
+        <segue reference="B8Y-rH-ahi"/>
+        <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
