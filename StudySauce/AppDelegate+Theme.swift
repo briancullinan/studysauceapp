@@ -565,6 +565,16 @@ extension AppDelegate {
                 (v.viewController() as? CardPromptController)?.alignPlay(v)
         })
         
+        $(CardResponseController.self ~> UITextView.self ~* 450347, {
+            $0.setFontSize(saucyTheme.textSize)
+            $0.backgroundColor = UIColor.whiteColor()
+            $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
+        })
+        
+        //$(CardResponseController.self ~> UILabel.self ~* 55, {
+        //    $0.setFontName(saucyTheme.subheadingFont)
+        //})
+        
         $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
             CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
             let image = v.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))

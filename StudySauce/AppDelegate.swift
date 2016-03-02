@@ -110,6 +110,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         return AppDelegate.managedObjectContext!.list(t)
     }
     
+    static var domain: String {
+        #if DEBUG
+            return "staging.studysauce.com"
+        #else
+            return "cerebro.studysauce.com"
+        #endif
+    }
+    
     static func studySauceCom(var path_and_query: String) -> NSURL! {
         #if DEBUG
             if path_and_query.containsString("?") {
@@ -118,10 +126,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             else {
                 path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
             }
-            return NSURL(string: "https://staging.studysauce.com\(path_and_query)")!
-        #else
-            return NSURL(string: "https://cerebro.studysauce.com\(path_and_query)")!
         #endif
+        return NSURL(string: "https://\(self.domain)\(path_and_query)")!
     }
     
     static func goHome (fromView: UIViewController? = nil, _ refetch: Bool = false, _ done: (v: UIViewController) -> Void = {_ in}) {

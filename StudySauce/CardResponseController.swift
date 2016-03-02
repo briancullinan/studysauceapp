@@ -13,7 +13,7 @@ class CardResponseController : CardPromptController {
     
     @IBOutlet weak var response: UITextView!
     
-    @IBOutlet weak var responseHeight: NSLayoutConstraint!
+    @IBOutlet weak var promptHeight: NSLayoutConstraint!
     
     override func alignPlay(v: UITextView) {
         super.alignPlay(v)
@@ -22,7 +22,7 @@ class CardResponseController : CardPromptController {
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         self.response.contentInset.top = topCorrect
         
-        self.responseHeight.constant = min(self.response.contentSize.height, self.view.bounds.height / 2)
+        self.promptHeight.constant = min(self.prompt!.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height * 0.3)
 
     }
 

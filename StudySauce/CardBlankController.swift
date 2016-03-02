@@ -14,6 +14,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     weak var card: Card? = nil
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
+    var answered = false
     
     @IBOutlet weak var leftMargin: NSLayoutConstraint!
     @IBOutlet weak var verticalSpace: NSLayoutConstraint!
@@ -32,7 +33,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     }
     
     override func canBecomeFirstResponder() -> Bool {
-        let result = !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() == self.parentViewController
+        let result = !answered && !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() == self.parentViewController
         return result
     }
     
@@ -48,13 +49,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    override func viewWillDisappear(animated: Bool) {
-        UIView.setAnimationsEnabled(false)
-        self.inputText!.resignFirstResponder()
-        UIView.setAnimationsEnabled(true)
-    }
-    
+        
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
         if let pvc = self.parentViewController as? CardController {
@@ -68,37 +63,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    @IBAction func beginEdit(sender: UITextField) {
-        UIView.setAnimationsEnabled(false)
-        let keyboard = self.card?.pack?.getProperty("keyboard") as? String
-        if keyboard == "default" {
-            self.inputText!.keyboardType = UIKeyboardType.Default
-        }
-        else if keyboard == "decimal" {
-            self.inputText!.keyboardType = UIKeyboardType.DecimalPad
-        }
-        else if keyboard == "ascii" {
-            self.inputText!.keyboardType = UIKeyboardType.ASCIICapable
-        }
-        else if keyboard == "alphabet" {
-            self.inputText!.keyboardType = UIKeyboardType.Alphabet
-        }
-        else {
-            // use basic keyboard
-            let inputAssistantItem = self.inputText!.inputAssistantItem
-            inputAssistantItem.leadingBarButtonGroups = []
-            inputAssistantItem.trailingBarButtonGroups = []
-            if keyboard == "number" || keyboard == "phone" {
-                self.inputText!.inputView = self.basicNumbersKeyboard
-            }
-            else {
-                self.inputText!.inputView = self.basicKeyboard
-            }
-            self.inputText!.inputAccessoryView = UIView()
-        }
-    }
-    
+        
     var _basic: BasicKeyboardController? = nil
     var _basicNumbers: BasicKeyboardController? = nil
     
@@ -106,7 +71,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         if _basic == nil {
             _basic = self.storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
-            let size = CGRectMake(0, -height, self.view.bounds.width, height)
+            let size = CGRectMake(0, 0, self.view.bounds.width, height)
             _basic!.view!.frame = size
             _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -118,7 +83,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         if _basicNumbers == nil {
             _basicNumbers = self.storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
-            let size = CGRectMake(0, -height, self.view.bounds.width, height)
+            let size = CGRectMake(0, 0, self.view.bounds.width, height)
             _basicNumbers!.view!.frame = size
             _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -130,7 +95,11 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         if let vc = self.parentViewController as? CardController {
+            self.card = vc.card
+            
             if inputText != nil {
+                IQKeyboardManager.sharedManager().enable = false
+                IQKeyboardManager.sharedManager().enableAutoToolbar = false
                 //Adding done button for textField
                 returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
                 self.inputText!.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
@@ -138,11 +107,37 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didShowKeyboard:", name: UIKeyboardDidShowNotification, object: nil)
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "didHideKeyboard:", name: UIKeyboardDidHideNotification, object: nil)
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+                
+                let keyboard = self.card?.pack?.getProperty("keyboard") as? String
+                if keyboard == "default" {
+                    self.inputText!.keyboardType = UIKeyboardType.Default
+                }
+                else if keyboard == "decimal" {
+                    self.inputText!.keyboardType = UIKeyboardType.DecimalPad
+                }
+                else if keyboard == "ascii" {
+                    self.inputText!.keyboardType = UIKeyboardType.ASCIICapable
+                }
+                else if keyboard == "alphabet" {
+                    self.inputText!.keyboardType = UIKeyboardType.Alphabet
+                }
+                else {
+                    // use basic keyboard
+                    let inputAssistantItem = self.inputText!.inputAssistantItem
+                    inputAssistantItem.leadingBarButtonGroups = []
+                    inputAssistantItem.trailingBarButtonGroups = []
+                    if keyboard == "number" || keyboard == "phone" {
+                        self.inputText!.inputView = self.basicNumbersKeyboard
+                    }
+                    else {
+                        self.inputText!.inputView = self.basicKeyboard
+                    }
+                    self.inputText!.inputAccessoryView = UIView()
+                    self.inputText?.reloadInputViews()
+                }
             }
-            self.card = vc.card
             self.bottomHalf.constant = 20 * saucyTheme.multiplier() + saucyTheme.padding * 4
             self.view.setNeedsLayout()
-            IQKeyboardManager.sharedManager().enable = false
         }
     }
     
@@ -188,9 +183,9 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        doMain {
-            self.correctClick((self.view ~> UIButton.self).first!)
-        }
+        self.answered = true
+        // TODO: check for correctness and continue
+        self.saveResponse(self.inputText!.text!)
         return true
     }
     
@@ -228,13 +223,5 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         self.inputText?.becomeFirstResponder()
-    }
-
-    @IBAction func correctClick(sender: UIButton) {
-        UIView.setAnimationsEnabled(false)
-        self.inputText!.resignFirstResponder()
-        UIView.setAnimationsEnabled(true)
-        // TODO: check for correctness and continue
-        self.saveResponse(self.inputText!.text!)
     }
 }
