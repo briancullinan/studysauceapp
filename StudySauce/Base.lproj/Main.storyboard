@@ -3549,7 +3549,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-PQ-i9A">
-                                <rect key="frame" x="0.0" y="313" width="600" height="287"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="324"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-Ka-VbU" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="230" y="250" width="100" height="100"/>
@@ -3567,32 +3567,21 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="listenClick:" destination="Eqc-ZA-AZS" eventType="touchUpInside" id="9l9-KQ-ap0"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
-                                <rect key="frame" x="20" y="313" width="560" height="279"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Answer:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKC-jN-vg8">
-                                <rect key="frame" x="20" y="28" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Question:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hH8-8T-dfd">
-                                <rect key="frame" x="20" y="284" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" text="Correct answer:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKC-jN-vg8">
+                                <rect key="frame" x="20" y="361" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view tag="18" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-oc-2Uk">
-                                <rect key="frame" x="20" y="275" width="560" height="1"/>
+                                <rect key="frame" x="20" y="352" width="560" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hT9-1I-uk1"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
-                                <rect key="frame" x="20" y="57" width="560" height="210"/>
+                                <rect key="frame" x="20" y="390" width="560" height="210"/>
                                 <accessibility key="accessibilityConfiguration" identifier="response"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="210" id="kbP-X2-IQv"/>
@@ -3600,36 +3589,38 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
+                                <rect key="frame" x="20" y="20" width="560" height="324"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="width" secondItem="Gzo-mc-S5O" secondAttribute="width" id="2qn-b5-7Tb"/>
-                            <constraint firstItem="RKC-jN-vg8" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="8" symbolic="YES" id="5X9-re-ZoS"/>
+                            <constraint firstItem="JRJ-bT-INN" firstAttribute="top" secondItem="RKC-jN-vg8" secondAttribute="bottom" constant="8" symbolic="YES" id="BgQ-3m-NMb"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="Egi-Dm-LEJ"/>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="centerX" secondItem="Gzo-mc-S5O" secondAttribute="centerX" id="EmU-SS-GLW"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="230" id="Ivc-UE-gQg"/>
                             <constraint firstItem="Ld4-Jn-kFn" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="Jdc-7h-c9A"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="trailing" id="KaA-rf-hMS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ld4-Jn-kFn" secondAttribute="trailing" id="Mrg-ss-ZBM"/>
-                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" constant="8" symbolic="YES" id="Qdd-HN-WdF"/>
+                            <constraint firstItem="RKC-jN-vg8" firstAttribute="top" secondItem="3Iq-oc-2Uk" secondAttribute="bottom" constant="8" symbolic="YES" id="Q5r-1d-W95"/>
                             <constraint firstAttribute="leadingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="leading" id="TtM-Ys-6j2"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leading" constant="230" id="VFr-mp-fAx"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="width" id="WMO-OZ-lcB"/>
-                            <constraint firstItem="3Iq-oc-2Uk" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" constant="8" symbolic="YES" id="ZR4-S5-Exi"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerX" secondItem="zI7-Ch-UZX" secondAttribute="centerX" id="adz-aC-v6O"/>
                             <constraint firstItem="RKC-jN-vg8" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="cwt-GD-gCO"/>
-                            <constraint firstItem="hH8-8T-dfd" firstAttribute="top" secondItem="3Iq-oc-2Uk" secondAttribute="bottom" constant="8" symbolic="YES" id="dCT-Lt-pFl"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="hH8-8T-dfd" secondAttribute="leading" id="dfh-Lu-lLK"/>
-                            <constraint firstItem="Ld4-Jn-kFn" firstAttribute="top" secondItem="hH8-8T-dfd" secondAttribute="bottom" constant="8" symbolic="YES" id="eJ9-mO-qNn"/>
+                            <constraint firstItem="Ld4-Jn-kFn" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" id="d6i-mT-29g"/>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="top" id="elV-ER-dh5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RKC-jN-vg8" secondAttribute="trailing" id="fwA-c6-7X4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hH8-8T-dfd" secondAttribute="trailing" id="hRx-0y-j2L"/>
-                            <constraint firstItem="JRJ-bT-INN" firstAttribute="top" secondItem="RKC-jN-vg8" secondAttribute="bottom" constant="8" symbolic="YES" id="iyZ-Pw-9dm"/>
+                            <constraint firstItem="3Iq-oc-2Uk" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" constant="8" symbolic="YES" id="g01-dn-E4K"/>
+                            <constraint firstItem="QcF-PQ-i9A" firstAttribute="bottom" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" id="h7U-7i-Le1"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="trailing" secondItem="Gzo-mc-S5O" secondAttribute="trailingMargin" id="qhb-zs-7PH"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerY" secondItem="zI7-Ch-UZX" secondAttribute="centerY" id="tVV-i2-NSL"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="uye-UF-zAz"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="height" secondItem="zI7-Ch-UZX" secondAttribute="height" id="veQ-mK-Zfw"/>
-                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="QcF-PQ-i9A" secondAttribute="bottom" id="xXI-Ih-VKQ"/>
+                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" id="zFz-R5-dV4"/>
                         </constraints>
                     </view>
                     <connections>
