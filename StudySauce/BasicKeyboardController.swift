@@ -47,7 +47,10 @@ class BasicKeyboardController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     
     }
-    
+        
+    @IBOutlet weak var symbols1: UIView!
+    @IBOutlet weak var alphabet: UIView!
+    @IBOutlet weak var symbols2: UIView!
     @IBAction func didTapButton(sender: UIButton, forEvent event: UIEvent) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         
@@ -55,6 +58,18 @@ class BasicKeyboardController: UIInputViewController {
             switch sender.tag {
             case 6 :
                 proxy.deleteBackward()
+            case 7 :
+                symbols1.hidden = false
+                alphabet.hidden = true
+                symbols2.hidden = true
+            case 8 :
+                symbols1.hidden = true
+                alphabet.hidden = false
+                symbols2.hidden = true
+            case 9 :
+                symbols1.hidden = true
+                alphabet.hidden = true
+                symbols2.hidden = false
             case 5 :
                 proxy.insertText("\n")
             case 2 :
