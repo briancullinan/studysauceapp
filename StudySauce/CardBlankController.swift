@@ -39,19 +39,55 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
         doMain {
             if !CardSegue.transitionManager.transitioning && AppDelegate.visibleViewController() == self.parentViewController {
-                if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController {
-                    if !vc.isImage && self.inputText != nil {
-                        self.inputText!.becomeFirstResponder()
-                    }
+                if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage && self.inputText != nil {
+                    self.inputText!.becomeFirstResponder()
                 }
             }
         }
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
+        doMain {
+            if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage && self.inputText != nil {
+                let keyboardHeight = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+                if UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
+                    self.rightMargin.active = false
+                    self.verticalSpace.active = false
+                    self.leftMargin.active = false
+                    
+                    self.horizontalSpace.active = true
+                    self.alignCenter.active = true
+                    self.equalWidths.active = true
+                    self.bottomHalf.constant = keyboardHeight - saucyTheme.padding * 3
+                }
+                else {
+                    self.bottomHalf.constant = keyboardHeight + 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
+                }
+            }
+            else {
+                self.bottomHalf.constant = 20 * saucyTheme.multiplier() + saucyTheme.padding * 4
+            }
+            
+            self.view.setNeedsLayout()
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIView.setAnimationsEnabled(false)
+        self.inputText!.resignFirstResponder()
+        UIView.setAnimationsEnabled(true)
+    }
+   
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         super.prepareForSegue(segue, sender: sender)
+        
         if let pvc = self.parentViewController as? CardController {
             self.card = pvc.card
             if let vc = segue.destinationViewController as? CardPromptController {
@@ -70,7 +106,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     var basicKeyboard : UIView {
         if _basic == nil {
             _basic = self.storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
-            let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, self.view.bounds.width, height)
             _basic!.view!.frame = size
             _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
@@ -82,7 +118,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     var basicNumbersKeyboard : UIView {
         if _basicNumbers == nil {
             _basicNumbers = self.storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
-            let height = 4 * saucyTheme.textSize + 4 * saucyTheme.padding
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, self.view.bounds.width, height)
             _basicNumbers!.view!.frame = size
             _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +126,11 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         
         return _basicNumbers!.view!
     }
-        
+    
+    @IBAction func beginEdit(sender: UITextField) {
+        UIView.setAnimationsEnabled(false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -136,13 +176,11 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                     self.inputText?.reloadInputViews()
                 }
             }
-            self.bottomHalf.constant = 20 * saucyTheme.multiplier() + saucyTheme.padding * 4
-            self.view.setNeedsLayout()
         }
     }
     
     func keyboardWillChange(notification: NSNotification) {
-        UIView.setAnimationsEnabled(true)
+        
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
         if UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
             self.bottomHalf.constant = keyboardFrame.size.height - saucyTheme.padding * 3
@@ -150,9 +188,11 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         else {
             self.bottomHalf.constant = keyboardFrame.size.height + 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
         }
+        
         NSTimer.scheduledTimerWithTimeInterval(0.1,
             target: self, selector: "updatePlay", userInfo: nil, repeats: false)
         self.view.setNeedsLayout()
+        UIView.setAnimationsEnabled(true)
     }
 
     func didHideKeyboard(notification: NSNotification) {
