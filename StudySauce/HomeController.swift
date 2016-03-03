@@ -292,12 +292,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs == nil || !self.packsLoaded || self.packs!.filter({!$0.isDownloading}).count == 0 {
-            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
-        }
-        else if AppDelegate.getUser() == nil || AppDelegate.getUser()!.getPacks().count == 0 {
+        if self.packs != nil && self.packsLoaded && AppDelegate.getUser() != nil && AppDelegate.getUser()!.getPacks().count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
+        }
+        else if self.packs == nil || !self.packsLoaded || self.packs!.filter({!$0.isDownloading}).count == 0 {
+            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
         }
         else if self.packs!.count == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)

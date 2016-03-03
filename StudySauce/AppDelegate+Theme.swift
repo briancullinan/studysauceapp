@@ -567,10 +567,10 @@ extension AppDelegate {
         })
         
         $(CardResponseController.self ~> UITextView.self ~* 450347, {
-            $0.setFontSize(saucyTheme.textSize)
+            $0.setFontSize(saucyTheme.textSize * 1.4)
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
-        
+
         $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
             CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
             let image = v.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
