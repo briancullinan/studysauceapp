@@ -153,6 +153,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             target: self, selector: "updatePlay", userInfo: nil, repeats: true)
         self.content.text = content
         self.autoPlay = !(self is CardResponseController)
+        if let banner = (self.view ~> (UIView.self ~* 34173)).first {
+            self.view.sendSubviewToBack(banner)
+        }
     }
     
     func updatePlay() {

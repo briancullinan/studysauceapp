@@ -473,7 +473,8 @@ extension AppDelegate {
         })
         
         $([CardSelfController.self ~> UILabel.self ~* 5,
-            CardResponseController.self ~> UILabel.self ~* 5], {
+            CardResponseController.self ~> UILabel.self ~* 5,
+            CardResponseController.self ~> UILabel.self ~* 55], {
             $0.setFontColor(saucyTheme.middle)
         })
         
@@ -549,7 +550,6 @@ extension AppDelegate {
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self], {(v: UITextView) in
                 v.setFontSize(30.0 * saucyTheme.multiplier())
-                v.superview?.sendSubviewToBack(v)
                 
                 // align listen button to substring
                 let content = v.attributedText.string as NSString
@@ -570,10 +570,6 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.textSize)
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
-        
-        //$(CardResponseController.self ~> UILabel.self ~* 55, {
-        //    $0.setFontName(saucyTheme.subheadingFont)
-        //})
         
         $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
             CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in

@@ -151,6 +151,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 else {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
                     UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
+                    if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count <= 1 {
+                        self.firstTimeLoad = false
+                    }
                 }
                 doMain {
                     if self.instance().window == nil {
@@ -167,22 +170,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                         
                         if !self.instance().window!.rootViewController!.isTypeOf(home) {
                             if self.instance().window!.rootViewController!.presentedViewController == nil {
-                                self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
+                                self.instance().window!.rootViewController!.presentViewController(home, animated: true) {
+                                    if self.firstTimeLoad {
+                                        (home as! HomeController).userClick((home as! HomeController).userButton!)
+                                    }
                                     done(v: home)
-                                })
+                                }
                             }
                             else {
-                                self.instance().window!.rootViewController!.dismissViewControllerAnimated(false, completion: {
-                                    self.instance().window!.rootViewController!.presentViewController(home, animated: true, completion: {
+                                self.instance().window!.rootViewController!.dismissViewControllerAnimated(false) {
+                                    self.instance().window!.rootViewController!.presentViewController(home, animated: true) {
                                         done(v: home)
-                                    })
-                                })
+                                    }
+                                }
                             }
                         }
                         else {
-                            self.instance().window!.rootViewController!.dismissViewControllerAnimated(true, completion: {
+                            self.instance().window!.rootViewController!.dismissViewControllerAnimated(true) {
                                 done(v: self.instance().window!.rootViewController!)
-                            })
+                            }
                         }
                     }
                     else {
@@ -292,15 +298,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    static var firstTimeLoad = true
+    
     func afterHome() {
+        AppDelegate.firstTimeLoad = false
         Harpy.sharedInstance().delegate = self
         Harpy.sharedInstance().presentingViewController = AppDelegate.visibleViewController()
         Harpy.sharedInstance().alertType = .None
         Harpy.sharedInstance().checkVersion()
-
-        if AppDelegate.visibleViewController().restorationIdentifier == "Home" {
-            self.didTimeout()
-        }
     }
     
     func didTimeout() {
@@ -312,7 +317,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             }
             
             AppDelegate.performContext({
-                if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 0 {
+                if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 1 {
                     doMain {
                         if !(AppDelegate.visibleViewController() is UserSwitchController) {
                             if let home = AppDelegate.visibleViewController() as? HomeController {
