@@ -14,6 +14,7 @@ class CardResponseController : CardPromptController {
     @IBOutlet weak var response: UITextView!
     
     @IBOutlet weak var promptHeight: NSLayoutConstraint!
+    @IBOutlet weak var nextLabel: UILabel!
     
     override func alignPlay(v: UITextView) {
         super.alignPlay(v)
@@ -23,6 +24,15 @@ class CardResponseController : CardPromptController {
         self.response.contentInset.top = topCorrect
         
         self.promptHeight.constant = min(self.prompt!.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height * 0.3)
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.parentViewController is CardSelfController {
+            self.nextLabel.hidden = true
+        }
 
     }
 

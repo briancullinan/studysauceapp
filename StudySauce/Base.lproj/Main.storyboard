@@ -27,7 +27,7 @@
                                     <segue destination="gnI-XW-KF9" kind="embed" id="VGO-gR-E19"/>
                                 </connections>
                             </containerView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap for next card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQq-VZ-k73">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to see answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQq-VZ-k73">
                                 <rect key="frame" x="20" y="572" width="560" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -63,10 +63,10 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
@@ -85,7 +85,7 @@
                                     <action selector="listenClick:" destination="gnI-XW-KF9" eventType="touchUpInside" id="vdE-qN-eRe"/>
                                 </connections>
                             </button>
-                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
+                            <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
                                 <accessibility key="accessibilityConfiguration" identifier="prompt"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -637,18 +637,18 @@
                                     <action selector="wrongClick:" destination="gJ9-Ua-grz" eventType="touchUpInside" id="hAT-Tm-bGl"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Did you guess correctly?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urm-Cc-xnt">
-                                <rect key="frame" x="151" y="541" width="298" height="20"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="77o-8z-ha7">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                                 <connections>
                                     <segue destination="Eqc-ZA-AZS" kind="embed" id="h3u-I4-U7Q"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Did you guess correctly?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Urm-Cc-xnt">
+                                <rect key="frame" x="151" y="541" width="298" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -4369,19 +4369,19 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <viewControllerLayoutGuide type="bottom" id="tMl-qi-rLZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Gzo-mc-S5O">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-PQ-i9A">
-                                <rect key="frame" x="0.0" y="20" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-Ka-VbU" customClass="DALabeledCircularProgressView">
-                                <rect key="frame" x="230" y="250" width="100" height="100"/>
+                                <rect key="frame" x="230" y="230" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-Ch-UZX">
-                                <rect key="frame" x="230" y="250" width="100" height="100"/>
+                                <rect key="frame" x="230" y="230" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="5WH-xR-Jvu"/>
                                     <constraint firstAttribute="width" constant="100" id="asC-uu-KYj"/>
@@ -4392,32 +4392,38 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="55" contentMode="left" horizontalHuggingPriority="260" verticalHuggingPriority="260" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" text="Correct answer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKC-jN-vg8">
-                                <rect key="frame" x="20" y="237" width="560" height="21"/>
+                                <rect key="frame" x="20" y="217" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" tag="18" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Iq-oc-2Uk">
-                                <rect key="frame" x="20" y="228" width="560" height="1"/>
+                                <rect key="frame" x="20" y="208" width="560" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hT9-1I-uk1"/>
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
-                                <rect key="frame" x="20" y="266" width="560" height="334"/>
+                                <rect key="frame" x="20" y="246" width="560" height="227"/>
                                 <accessibility key="accessibilityConfiguration" identifier="response"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="450347" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="Freedom of speech" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ld4-Jn-kFn">
-                                <rect key="frame" x="0.0" y="20" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="zeg-hg-ZrD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap for next card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZmT-gi-2Td">
+                                <rect key="frame" x="20" y="481" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -4428,7 +4434,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="230" id="Ivc-UE-gQg"/>
                             <constraint firstItem="Ld4-Jn-kFn" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leading" id="Jdc-7h-c9A"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="trailing" id="KaA-rf-hMS"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="ZmT-gi-2Td" secondAttribute="leading" id="Kau-9n-TY5"/>
                             <constraint firstAttribute="trailing" secondItem="Ld4-Jn-kFn" secondAttribute="trailing" id="Mrg-ss-ZBM"/>
+                            <constraint firstItem="ZmT-gi-2Td" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" constant="8" symbolic="YES" id="NSs-cc-ObV"/>
                             <constraint firstItem="RKC-jN-vg8" firstAttribute="top" secondItem="3Iq-oc-2Uk" secondAttribute="bottom" constant="8" symbolic="YES" id="Q5r-1d-W95"/>
                             <constraint firstAttribute="leadingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="leading" id="TtM-Ys-6j2"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leading" constant="230" id="VFr-mp-fAx"/>
@@ -4440,17 +4448,19 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstAttribute="trailingMargin" secondItem="RKC-jN-vg8" secondAttribute="trailing" id="fwA-c6-7X4"/>
                             <constraint firstItem="3Iq-oc-2Uk" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" constant="8" symbolic="YES" id="g01-dn-E4K"/>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="bottom" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" id="h7U-7i-Le1"/>
+                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="ZmT-gi-2Td" secondAttribute="bottom" id="j6M-RJ-UXM"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="trailing" secondItem="Gzo-mc-S5O" secondAttribute="trailingMargin" id="qhb-zs-7PH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZmT-gi-2Td" secondAttribute="trailing" id="sXx-ec-MzB"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerY" secondItem="zI7-Ch-UZX" secondAttribute="centerY" id="tVV-i2-NSL"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="uye-UF-zAz"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="height" secondItem="zI7-Ch-UZX" secondAttribute="height" id="veQ-mK-Zfw"/>
-                            <constraint firstItem="tMl-qi-rLZ" firstAttribute="top" secondItem="JRJ-bT-INN" secondAttribute="bottom" id="zFz-R5-dV4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="image" destination="QcF-PQ-i9A" id="icQ-lO-Y3g"/>
                         <outlet property="left" destination="VFr-mp-fAx" id="rJL-wI-QhG"/>
                         <outlet property="listenButton" destination="zI7-Ch-UZX" id="OLo-Fn-AqQ"/>
+                        <outlet property="nextLabel" destination="ZmT-gi-2Td" id="q1u-iX-sao"/>
                         <outlet property="playButton" destination="nPx-Ka-VbU" id="oX3-xe-z8I"/>
                         <outlet property="prompt" destination="Ld4-Jn-kFn" id="wpG-ia-JIm"/>
                         <outlet property="promptHeight" destination="zeg-hg-ZrD" id="Swr-FE-9Fp"/>
@@ -4923,10 +4933,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="side-by-side logo (all orange)" width="300" height="63"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mZN-Ns-J7P"/>
-        <segue reference="ucz-Xl-O7T"/>
-        <segue reference="9qz-n1-wHJ"/>
-        <segue reference="B8Y-rH-ahi"/>
         <segue reference="GQz-t5-qGU"/>
+        <segue reference="mZN-Ns-J7P"/>
+        <segue reference="VGO-gR-E19"/>
+        <segue reference="h3u-I4-U7Q"/>
+        <segue reference="ucz-Xl-O7T"/>
     </inferredMetricsTieBreakers>
 </document>

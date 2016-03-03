@@ -472,7 +472,8 @@ extension AppDelegate {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
-        $(CardSelfController.self ~> UILabel.self ~* 5, {
+        $([CardSelfController.self ~> UILabel.self ~* 5,
+            CardResponseController.self ~> UILabel.self ~* 5], {
             $0.setFontColor(saucyTheme.middle)
         })
         
