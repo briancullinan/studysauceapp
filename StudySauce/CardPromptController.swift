@@ -212,6 +212,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     self.image.image = UIImage(contentsOfFile: fileName)
                 }
                 self.view.sendSubviewToBack(self.image)
+                if let banner = (self.view ~> (UIView.self ~* 34173)).first {
+                    self.view.sendSubviewToBack(banner)
+                }
             }
         })
     }

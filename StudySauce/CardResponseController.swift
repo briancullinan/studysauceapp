@@ -23,7 +23,12 @@ class CardResponseController : CardPromptController {
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         self.response.contentInset.top = topCorrect
         
-        self.promptHeight.constant = min(self.prompt!.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height * 0.3)
+        if self.isImage {
+            self.promptHeight.constant = self.view.bounds.height * 0.4
+        }
+        else {
+            self.promptHeight.constant = min(self.prompt!.contentSize.height + saucyTheme.padding * 4, self.view.bounds.height * 0.4)
+        }
 
     }
     

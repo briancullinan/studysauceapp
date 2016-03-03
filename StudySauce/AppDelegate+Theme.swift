@@ -568,7 +568,6 @@ extension AppDelegate {
         
         $(CardResponseController.self ~> UITextView.self ~* 450347, {
             $0.setFontSize(saucyTheme.textSize)
-            $0.backgroundColor = UIColor.whiteColor()
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
         

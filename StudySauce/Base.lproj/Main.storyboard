@@ -63,11 +63,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="188" y="193" width="100" height="100"/>
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="544"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
                                 <accessibility key="accessibilityConfiguration" identifier="prompt"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -4372,6 +4372,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view tag="34173" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5o-49-1m8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-PQ-i9A">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                             </imageView>
@@ -4428,7 +4432,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="width" secondItem="Gzo-mc-S5O" secondAttribute="width" id="2qn-b5-7Tb"/>
+                            <constraint firstItem="I5o-49-1m8" firstAttribute="trailing" secondItem="Ld4-Jn-kFn" secondAttribute="trailing" id="BeL-bW-Voq"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="top" secondItem="RKC-jN-vg8" secondAttribute="bottom" constant="8" symbolic="YES" id="BgQ-3m-NMb"/>
+                            <constraint firstItem="I5o-49-1m8" firstAttribute="leading" secondItem="Ld4-Jn-kFn" secondAttribute="leading" id="Ctc-Xd-jbB"/>
+                            <constraint firstItem="I5o-49-1m8" firstAttribute="bottom" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" id="DTr-ya-mnU"/>
                             <constraint firstItem="JRJ-bT-INN" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="Egi-Dm-LEJ"/>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="centerX" secondItem="Gzo-mc-S5O" secondAttribute="centerX" id="EmU-SS-GLW"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" constant="230" id="Ivc-UE-gQg"/>
@@ -4441,9 +4448,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstAttribute="leadingMargin" secondItem="3Iq-oc-2Uk" secondAttribute="leading" id="TtM-Ys-6j2"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leading" constant="230" id="VFr-mp-fAx"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="width" id="WMO-OZ-lcB"/>
+                            <constraint firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="top" id="XPE-5L-Lwk"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerX" secondItem="zI7-Ch-UZX" secondAttribute="centerX" id="adz-aC-v6O"/>
                             <constraint firstItem="RKC-jN-vg8" firstAttribute="leading" secondItem="Gzo-mc-S5O" secondAttribute="leadingMargin" id="cwt-GD-gCO"/>
-                            <constraint firstItem="Ld4-Jn-kFn" firstAttribute="top" secondItem="yAN-Nj-cHq" secondAttribute="bottom" id="d6i-mT-29g"/>
                             <constraint firstItem="QcF-PQ-i9A" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="top" id="elV-ER-dh5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RKC-jN-vg8" secondAttribute="trailing" id="fwA-c6-7X4"/>
                             <constraint firstItem="3Iq-oc-2Uk" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="bottom" constant="8" symbolic="YES" id="g01-dn-E4K"/>
@@ -4454,6 +4461,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="centerY" secondItem="zI7-Ch-UZX" secondAttribute="centerY" id="tVV-i2-NSL"/>
                             <constraint firstItem="zI7-Ch-UZX" firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="uye-UF-zAz"/>
                             <constraint firstItem="nPx-Ka-VbU" firstAttribute="height" secondItem="zI7-Ch-UZX" secondAttribute="height" id="veQ-mK-Zfw"/>
+                            <constraint firstItem="I5o-49-1m8" firstAttribute="top" secondItem="Ld4-Jn-kFn" secondAttribute="top" id="xSH-Zb-PWh"/>
                         </constraints>
                     </view>
                     <connections>
@@ -4935,8 +4943,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     <inferredMetricsTieBreakers>
         <segue reference="GQz-t5-qGU"/>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="VGO-gR-E19"/>
         <segue reference="h3u-I4-U7Q"/>
         <segue reference="ucz-Xl-O7T"/>
+        <segue reference="caI-Fi-3gF"/>
     </inferredMetricsTieBreakers>
 </document>
