@@ -151,8 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 else {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
                     UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
-                    if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count <= 1 {
-                        self.firstTimeLoad = false
+                    if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 1 {
+                        self.firstTimeLoad = true
                     }
                 }
                 doMain {
@@ -298,7 +298,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
-    static var firstTimeLoad = true
+    static var firstTimeLoad = false
     
     func afterHome() {
         AppDelegate.firstTimeLoad = false

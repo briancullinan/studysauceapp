@@ -12,6 +12,59 @@ class BasicKeyboardController: UIInputViewController {
 
     var lowercase = false
     
+    static var _basic: BasicKeyboardController? = nil
+    static var _basicNumbers: BasicKeyboardController? = nil
+    static var _symbols1: BasicKeyboardController? = nil
+    static var _symbols2: BasicKeyboardController? = nil
+    
+    static var basicKeyboard : UIView {
+        if _basic == nil {
+            _basic = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            _basic!.view!.frame = size
+            _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _basic!.view!
+    }
+    
+    static var symbols1Keyboard : UIView {
+        if _symbols1 == nil {
+            _symbols1 = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("Symbols1Keyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            _symbols1!.view!.frame = size
+            _symbols1!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _symbols1!.view!
+    }
+    
+    static var symbols2Keyboard : UIView {
+        if _symbols2 == nil {
+            _symbols2 = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("Symbols2Keyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            _symbols2!.view!.frame = size
+            _symbols2!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _symbols2!.view!
+    }
+    
+    static var basicNumbersKeyboard : UIView {
+        if _basicNumbers == nil {
+            _basicNumbers = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            _basicNumbers!.view!.frame = size
+            _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _basicNumbers!.view!
+    }
+    
     override func updateViewConstraints() {
         super.updateViewConstraints()
     
@@ -47,10 +100,9 @@ class BasicKeyboardController: UIInputViewController {
         // The app has just changed the document's contents, the document context has been updated.
     
     }
-        
-    @IBOutlet weak var symbols1: UIView!
-    @IBOutlet weak var alphabet: UIView!
-    @IBOutlet weak var symbols2: UIView!
+    
+    static var keyboardSwitch: ((UIView) -> Void)? = nil
+    
     @IBAction func didTapButton(sender: UIButton, forEvent event: UIEvent) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         
@@ -59,17 +111,11 @@ class BasicKeyboardController: UIInputViewController {
             case 6 :
                 proxy.deleteBackward()
             case 7 :
-                symbols1.hidden = false
-                alphabet.hidden = true
-                symbols2.hidden = true
+                BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.symbols1Keyboard)
             case 8 :
-                symbols1.hidden = true
-                alphabet.hidden = false
-                symbols2.hidden = true
+                BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.basicKeyboard)
             case 9 :
-                symbols1.hidden = true
-                alphabet.hidden = true
-                symbols2.hidden = false
+                BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.symbols2Keyboard)
             case 5 :
                 proxy.insertText("\n")
             case 2 :

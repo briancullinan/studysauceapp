@@ -12,6 +12,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var users: [User]? = nil
     var selected = false
+    weak var home: UIViewController? = nil
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -25,11 +26,19 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         })
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        
         // call this extra because over current context doesn't fire it when it switches back
         if self.selected != true {
-            self.presentingViewController?.viewDidAppear(animated)
+            self.home?.viewDidAppear(animated)
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.home = self.presentingViewController
     }
     
     override func viewDidLoad() {

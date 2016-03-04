@@ -106,7 +106,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         doMain {
-            if CardSegue.transitionManager.transitioning || !(AppDelegate.visibleViewController() is HomeController) {
+            if AppDelegate.visibleViewController() != self && AppDelegate.visibleViewController() != self.parentViewController {
                 return
             }
             

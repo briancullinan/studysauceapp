@@ -18,7 +18,7 @@ class CardResponseController : CardPromptController {
     
     override func alignPlay(v: UITextView) {
         
-        if self.isImage {
+        if self.isImage || self.isAudio {
             self.promptHeight.constant = self.view.bounds.height * 0.4
         }
         else {

@@ -99,33 +99,6 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-        
-    var _basic: BasicKeyboardController? = nil
-    var _basicNumbers: BasicKeyboardController? = nil
-    
-    var basicKeyboard : UIView {
-        if _basic == nil {
-            _basic = self.storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
-            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, self.view.bounds.width, height)
-            _basic!.view!.frame = size
-            _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        return _basic!.view!
-    }
-    
-    var basicNumbersKeyboard : UIView {
-        if _basicNumbers == nil {
-            _basicNumbers = self.storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
-            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, self.view.bounds.width, height)
-            _basicNumbers!.view!.frame = size
-            _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        return _basicNumbers!.view!
-    }
     
     @IBAction func beginEdit(sender: UITextField) {
         UIView.setAnimationsEnabled(false)
@@ -167,10 +140,14 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                     inputAssistantItem.leadingBarButtonGroups = []
                     inputAssistantItem.trailingBarButtonGroups = []
                     if keyboard == "number" || keyboard == "phone" {
-                        self.inputText!.inputView = self.basicNumbersKeyboard
+                        self.inputText!.inputView = BasicKeyboardController.basicNumbersKeyboard
                     }
                     else {
-                        self.inputText!.inputView = self.basicKeyboard
+                        self.inputText!.inputView = BasicKeyboardController.basicKeyboard
+                    }
+                    BasicKeyboardController.keyboardSwitch = {
+                        self.inputText?.inputView = $0
+                        self.inputText?.reloadInputViews()
                     }
                     self.inputText!.inputAccessoryView = UIView()
                     self.inputText?.reloadInputViews()
@@ -182,16 +159,20 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     func keyboardWillChange(notification: NSNotification) {
         
         let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        var newSize: CGFloat
         if UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
-            self.bottomHalf.constant = keyboardFrame.size.height - saucyTheme.padding * 3
+            newSize = keyboardFrame.size.height - saucyTheme.padding * 3
         }
         else {
-            self.bottomHalf.constant = keyboardFrame.size.height + 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
+            newSize = keyboardFrame.size.height + 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
+        }
+        if self.bottomHalf.constant != newSize {
+            self.bottomHalf.constant = newSize
+            self.view.setNeedsLayout()
+            NSTimer.scheduledTimerWithTimeInterval(0.1,
+                target: self, selector: "updatePlay", userInfo: nil, repeats: false)
         }
         
-        NSTimer.scheduledTimerWithTimeInterval(0.1,
-            target: self, selector: "updatePlay", userInfo: nil, repeats: false)
-        self.view.setNeedsLayout()
         UIView.setAnimationsEnabled(true)
     }
 
