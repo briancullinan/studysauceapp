@@ -113,6 +113,9 @@ class User: NSManagedObject {
         var results: [NSNumber] = []
         // TODO: change this line when userpack order matters
         for up in self.user_packs?.allObjects as! [UserPack] {
+            if up.pack!.isDownloading {
+                continue
+            }
             results.appendContentsOf(up.generateRetention().map{$0.id!})
         }
         if results.count == 0 {

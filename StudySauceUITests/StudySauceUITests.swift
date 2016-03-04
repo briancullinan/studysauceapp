@@ -145,8 +145,9 @@ class StudySauceUITests: XCTestCase {
         
         let app = XCUIApplication()
         
-        if app.buttons["Get answer"].exists {
-            app.buttons["Get answer"].tap()
+        if app.textFields["fillblank"].exists {
+            app.textFields["fillblank"].tap()
+            app.textFields["fillblank"].typeText("\n")
         }
         else if app.staticTexts["Tap to see answer"].exists {
             app.staticTexts["Tap to see answer"].tap()

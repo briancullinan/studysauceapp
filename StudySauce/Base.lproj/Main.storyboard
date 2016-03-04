@@ -63,11 +63,11 @@
                         <viewControllerLayoutGuide type="bottom" id="3hO-ob-mU8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="bLY-bu-chj">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PQl-ru-sU5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rib-6W-6bv" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="188" y="193" width="100" height="100"/>
@@ -86,7 +86,7 @@
                                 </connections>
                             </button>
                             <textView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="LBl-mY-aFi">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="308"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="380"/>
                                 <accessibility key="accessibilityConfiguration" identifier="prompt"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -4351,6 +4351,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="800" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type your answer" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NkX-xa-Rjn" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
                                 <rect key="frame" x="20" y="408" width="560" height="17"/>
+                                <accessibility key="accessibilityConfiguration" identifier="fillblank"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="done"/>
                                 <connections>
@@ -4412,7 +4413,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <viewControllerLayoutGuide type="bottom" id="tMl-qi-rLZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Gzo-mc-S5O">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="502"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view tag="34173" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I5o-49-1m8">
@@ -4422,12 +4423,12 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="QcF-PQ-i9A">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                             </imageView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-Ka-VbU" customClass="DALabeledCircularProgressView">
+                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nPx-Ka-VbU" customClass="DALabeledCircularProgressView">
                                 <rect key="frame" x="230" y="230" width="100" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-Ch-UZX">
+                            <button hidden="YES" opaque="NO" alpha="0.5" tag="1" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zI7-Ch-UZX">
                                 <rect key="frame" x="230" y="230" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="zI7-Ch-UZX" secondAttribute="height" multiplier="1:1" id="5WH-xR-Jvu"/>
@@ -4452,7 +4453,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                             </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="760" verticalCompressionResistancePriority="760" bounces="NO" editable="NO" text="What is one right or freedom from the First Amendment?" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JRJ-bT-INN">
-                                <rect key="frame" x="20" y="246" width="560" height="227"/>
+                                <rect key="frame" x="20" y="246" width="560" height="325"/>
                                 <accessibility key="accessibilityConfiguration" identifier="response"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -4466,7 +4467,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap for next card" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZmT-gi-2Td">
-                                <rect key="frame" x="20" y="481" width="560" height="21"/>
+                                <rect key="frame" x="20" y="579" width="560" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -4986,8 +4987,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
     <inferredMetricsTieBreakers>
         <segue reference="GQz-t5-qGU"/>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="h3u-I4-U7Q"/>
+        <segue reference="B8Y-rH-ahi"/>
+        <segue reference="9qz-n1-wHJ"/>
         <segue reference="ucz-Xl-O7T"/>
-        <segue reference="caI-Fi-3gF"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -321,12 +321,13 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs == nil || (!self.packsLoaded && self.packs!.count == 0) {
-            return tableView.dequeueReusableCellWithIdentifier("Loading")!
-        }
-        if self.packs!.count == 0 {
+        if self.packsLoaded && self.packs!.count == 0 {
             return tableView.dequeueReusableCellWithIdentifier("NoPacks")!
         }
+        else if self.packs == nil || self.packs!.count == 0 {
+            return tableView.dequeueReusableCellWithIdentifier("Loading")!
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
         let object = self.packs![indexPath.row]
