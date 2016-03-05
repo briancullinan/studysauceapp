@@ -112,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static var domain: String {
         #if DEBUG
-            return "staging.studysauce.com"
+            return "cerebro.studysauce.com"
         #else
             return "cerebro.studysauce.com"
         #endif

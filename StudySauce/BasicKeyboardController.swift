@@ -87,6 +87,7 @@ class BasicKeyboardController: UIInputViewController {
             $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpInside)
             $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpOutside)
             $0.addTarget(self, action: Selector("didTapButton:"), forControlEvents: .TouchDown)
+            $0.exclusiveTouch = true
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
@@ -101,6 +102,9 @@ class BasicKeyboardController: UIInputViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if let keyboardContainer = self.parentViewController {
+            (keyboardContainer.view ~> UIView.self).each{$0.hidden = true}
+        }
         self.goUppercase()
     }
 

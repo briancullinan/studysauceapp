@@ -178,7 +178,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.getPacksFromLocalStore()
             }, downloadedHandler: {p in
                 HomeController.syncResponses (p) {
-                    self.packsLoaded = true
                     self.getPacksFromLocalStore()
                 }
         })
@@ -254,11 +253,14 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 total = "\(count) card\(s)"
             }
 
-            self.packs = AppDelegate.getUser()!.getPacks()
-                .filter({
-                    $0.isDownloading == false &&
-                    $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
-                })
+            let allPacks = AppDelegate.getUser()!.getPacks()
+            self.hasPacks = allPacks.count > 0
+            let retention = allPacks.filter({
+                $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
+            })
+            self.hasRetention = retention.count > 0
+            self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
+            self.packs = retention.filter({!$0.isDownloading})
             doMain {
                 self.cardCount!.text = total
                 self.tableView!.reloadData()
@@ -267,21 +269,21 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if self.packs == nil || self.packs!.filter({!$0.isDownloading}).count == 0  {
+        if self.packs == nil || self.packs!.count == 0  {
             return saucyTheme.textSize * saucyTheme.lineHeight * 2
         }
         return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.packs == nil || self.packs!.filter({!$0.isDownloading}).count == 0  {
+        if self.packs == nil || self.packs!.count == 0  {
             return 1
         }
         return self.packs!.count
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.packs == nil || self.packs!.filter({!$0.isDownloading}).count == 0  {
+        if self.packs == nil || self.packs!.count == 0  {
             return
         }
         if let home = self.parentViewController as? HomeController {
@@ -291,15 +293,19 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    var hasPacks = false
+    var hasRetention = false
+    var hasDownloading = false
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packs != nil && self.packsLoaded && AppDelegate.getUser() != nil && AppDelegate.getUser()!.getPacks().count == 0 {
+        if self.packs != nil && self.packsLoaded && !self.hasPacks {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
             return cell
         }
-        else if self.packs == nil || self.packs!.filter({!$0.isDownloading}).count == 0 {
+        else if self.packs == nil || (self.hasDownloading && self.packs!.count == 0) {
             return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
         }
-        else if self.packsLoaded && self.packs!.count == 0 {
+        else if !self.hasRetention && !self.hasDownloading {
             let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)
             return cell
         }

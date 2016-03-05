@@ -12,6 +12,7 @@ import UIKit
 class CardSegue : UIStoryboardSegue {
  
     static var transitionManager: CardTransitionManager = CardTransitionManager()
+    static var reassignment = false
     
     override func perform() {
         var last: UIViewController = self.sourceViewController
@@ -57,6 +58,7 @@ class CardSegue : UIStoryboardSegue {
                 current = current.presentingViewController as! CardController
             }
             if current.card != (last as? CardController)?.card {
+                CardSegue.reassignment = true
                 CardSegue.transitionManager.transitioning = true
                 let root = current.presentingViewController!
                 let snapShotView = last.view.snapshotViewAfterScreenUpdates(false)
@@ -67,6 +69,7 @@ class CardSegue : UIStoryboardSegue {
                         snapShotView.removeFromSuperview()
                         next.transitioningDelegate = CardSegue.transitionManager
                         last.transitioningDelegate = CardSegue.transitionManager
+                        CardSegue.reassignment = false
                         last.presentViewController(next, animated: true, completion: nil)
                     }
                 })

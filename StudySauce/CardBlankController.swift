@@ -68,8 +68,16 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage {
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.inputText.resignFirstResponder()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage && !CardSegue.reassignment {
             self.inputText!.becomeFirstResponder()
         }
     }
@@ -126,6 +134,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 else {
                     self.inputText.inputView = BasicKeyboardController.basicKeyboard
                 }
+                BasicKeyboardController._basic?.goUppercase()
                 BasicKeyboardController.keyboardHeight = 0
                 BasicKeyboardController.keyboardSwitch = {
                     self.inputText.inputView = $0
