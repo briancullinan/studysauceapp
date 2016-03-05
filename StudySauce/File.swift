@@ -19,45 +19,48 @@ class File: NSManagedObject {
         let fileManager = NSFileManager.defaultManager()
         url = url.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         AppDelegate.performContext({
-            let file = AppDelegate.list(File.self).filter({$0.url == url}).first ?? AppDelegate.insert(File.self) <| {
-                $0.url = url
+            var file = AppDelegate.list(File.self).filter({$0.url == url}).first
+            if file == nil {
+                file = AppDelegate.insert(File.self) <| {
+                    $0.url = url
+                }
             }
             AppDelegate.saveContext()
 
-            if file.filename != nil && fileManager.fileExistsAtPath(file.filename!) {
+            if file!.filename != nil && fileManager.fileExistsAtPath(file!.filename!) {
                 doMain {
-                    done(file)
+                    done(file!)
                 }
                 return
             }
-            if file.downloading {
+            if file!.downloading {
                 return
             }
-            file.downloading = true
+            file!.downloading = true
             doBackground {
                 let data = NSData(contentsOfURL: NSURL(string: url)!)
                 let fileName = fileManager.displayNameAtPath(url)
                 let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
                 if data == nil {
                     AppDelegate.performContext({
-                        file.filename = "notfound"
+                        file!.filename = "notfound"
                         AppDelegate.saveContext()
-                        file.downloading = false
+                        file!.downloading = false
                         // show image
                         doMain {
-                            done(file)
+                            done(file!)
                         }
                     })
                     return
                 }
                 fileManager.createFileAtPath(tempFile.path!, contents: data!, attributes: nil)
                 AppDelegate.performContext({
-                    file.filename = tempFile.path
+                    file!.filename = tempFile.path
                     AppDelegate.saveContext()
-                    file.downloading = false
+                    file!.downloading = false
                     // show image
                     doMain {
-                        done(file)
+                        done(file!)
                     }
                 })
             }

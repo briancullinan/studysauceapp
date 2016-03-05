@@ -30,33 +30,37 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     @IBOutlet weak var size: NSLayoutConstraint!
     
     @IBOutlet weak var image: UIImageView!
-    @IBOutlet internal weak var prompt: UITextView? = nil
+    @IBOutlet internal weak var prompt: UITextView!
     @IBOutlet internal weak var listenButton: UIButton!
     @IBOutlet internal weak var playButton: DALabeledCircularProgressView!
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.content.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+        self.prompt.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.alignPlay(self.prompt)        
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.content.removeObserver(self, forKeyPath: "contentSize")
+        self.prompt.removeObserver(self, forKeyPath: "contentSize")
     }
     
     /// Force the text in a UITextView to always center itself.
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        self.alignPlay(self.content)
+        self.alignPlay(self.prompt)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        self.alignPlay(self.content)
+        self.alignPlay(self.prompt)
     }
     
-    var showButtons: NSDate? = nil
-    var showButtonsTimer: NSTimer? = nil
-    
     internal func alignPlay(v: UITextView) {
+        self.view.layoutIfNeeded()
+        
         let content = v.attributedText.string as NSString
         let wholeRange = NSMakeRange(0, content.length)
         let range = content.rangeOfString("P14y", options: [], range: wholeRange)
@@ -64,7 +68,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         var topCorrect = (v.bounds.size.height - v.contentSize.height * v.zoomScale) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         v.contentInset.top = topCorrect
-
+        
         if range.length > 0 {
             let start = v.positionFromPosition(v.beginningOfDocument, offset: range.location)!
             // text position of the end of the range
@@ -73,17 +77,15 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             // text range of the range
             let tRange = v.textRangeFromPosition(start, toPosition: end)
             let position = v.firstRectForRange(tRange!)
-            if let vc = v.viewController() as? CardPromptController where vc.showButtons != nil && NSDate() > vc.showButtons! {
-                let global = vc.view.convertRect(position, fromView: v)
-                vc.size.constant = global.height
-                vc.top.constant = global.origin.y + ((global.height - vc.size.constant) / 2)
-                vc.left.constant = global.origin.x + ((global.width - vc.size.constant) / 2)
-                if vc.isAudio {
-                    vc.listenButton.hidden = false
-                    vc.playButton.hidden = false
-                }
+
+            let global = self.view.convertRect(position, fromView: v)
+            self.size.constant = global.height
+            self.top.constant = global.origin.y + ((global.height - self.size.constant) / 2)
+            self.left.constant = global.origin.x + ((global.width - self.size.constant) / 2)
+            if self.isAudio {
+                self.listenButton.hidden = false
+                self.playButton.hidden = false
             }
-            
         }
     }
     
@@ -94,13 +96,20 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             self.prompt!.text = self.card!.content!
             
             self.setupContent(self.prompt!)
+            
+            self.playButton.hidden = true
+            self.listenButton.hidden = true
+            self.image.hidden = true
+            self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updatePlay", userInfo: nil, repeats: true)
+            self.autoPlay = !(self is CardResponseController)
+            self.view.sendSubviewToBack(self.image)
+            if let banner = (self.view ~> (UIView.self ~* 34173)).first {
+                self.view.sendSubviewToBack(banner)
+            }
         }
     }
     
-    weak var content: UITextView!
-    
     internal func setupContent(view: UITextView) {
-        self.content = view
         var content = view.text
         
         // replace new line characters with real lines
@@ -145,30 +154,19 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 pvc.view.layoutIfNeeded()
             }
         }
-        self.playButton.hidden = true
-        self.listenButton.hidden = true
-        self.image.hidden = true
-        self.showButtons = NSDate().dateByAddingTimeInterval(1)
-        self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1,
-            target: self, selector: "updatePlay", userInfo: nil, repeats: true)
-        self.content.text = content
-        self.autoPlay = !(self is CardResponseController)
-        if let banner = (self.view ~> (UIView.self ~* 34173)).first {
-            self.view.sendSubviewToBack(banner)
-        }
+        self.prompt.text = content
     }
     
+    var showButtonsTimer: NSTimer? = nil
+    
     func updatePlay() {
-        self.alignPlay(self.content)
+        self.alignPlay(self.prompt)
         if self.url != nil {
-            if AppDelegate.visibleViewController() == self.parentViewController?.parentViewController && !CardSegue.transitionManager.transitioning {
+            if ((AppDelegate.visibleViewController() == self.parentViewController && self.parentViewController is CardController) || (AppDelegate.visibleViewController() == self.parentViewController?.parentViewController && self.parentViewController?.parentViewController is CardController)) && !CardSegue.transitionManager.transitioning {
                 self.shouldPlay = self.autoPlay
                 self.downloadAudio(self.url!)
-                self.showButtonsTimer?.invalidate()
+                showButtonsTimer?.invalidate()
             }
-        }
-        else {
-            self.showButtonsTimer?.invalidate()
         }
     }
     
@@ -194,8 +192,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                     self.player?.prepareToPlay()
                 }
                 
-                if self.shouldPlay && !CardSegue.transitionManager.transitioning &&
-                    (AppDelegate.visibleViewController() == self.parentViewController?.parentViewController || AppDelegate.visibleViewController() == self.parentViewController) {
+                if self.shouldPlay {
                     self.player!.play()
                     self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
                     self.shouldPlay = false

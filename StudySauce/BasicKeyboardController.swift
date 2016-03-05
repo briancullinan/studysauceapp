@@ -10,8 +10,16 @@ import UIKit
 
 class BasicKeyboardController: UIInputViewController {
 
-    var lowercase = false
+    var lowercase = false {
+        didSet {
+            if let shift = (self.view ~> (UIButton.self ~* 2)).first {
+                AppDelegate.rerenderView(shift)
+            }
+        }
+    }
     
+    static var keyboardHeight = CGFloat(0.0)
+ 
     static var _basic: BasicKeyboardController? = nil
     static var _basicNumbers: BasicKeyboardController? = nil
     static var _symbols1: BasicKeyboardController? = nil
@@ -74,15 +82,26 @@ class BasicKeyboardController: UIInputViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doMain {
-            (self.view ~> UIButton.self).each {
-                if $0.tag == 0 {
-                    let title = $0.titleForState(.Normal)
-                    $0.setTitle(title?.lowercaseString, forState: .Normal)
-                }
-            }
-            self.lowercase = true
+        (self.view ~> UIButton.self).each {
+            $0.removeTarget(nil, action: nil, forControlEvents: .AllTouchEvents)
+            $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpInside)
+            $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpOutside)
+            $0.addTarget(self, action: Selector("didTapButton:"), forControlEvents: .TouchDown)
         }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    func keyboardWillChange(notification: NSNotification) {
+        
+        let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        BasicKeyboardController.keyboardHeight = keyboardFrame.size.height
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.goUppercase()
     }
 
     override func didReceiveMemoryWarning() {
@@ -102,14 +121,91 @@ class BasicKeyboardController: UIInputViewController {
     }
     
     static var keyboardSwitch: ((UIView) -> Void)? = nil
+    var repeatTimer: NSTimer? = nil
     
-    @IBAction func didTapButton(sender: UIButton, forEvent event: UIEvent) {
+    @IBAction func cancelTimer(sender: UIButton) {
+        self.repeatTimer?.invalidate()
+        
+        if sender.tag != 2 {
+            let proxy = self.textDocumentProxy as UITextDocumentProxy
+            if proxy.hasText() {
+                self.repeatTitle = self.repeatTitle.lowercaseString
+                self.goLowercase()
+            }
+            else {
+                self.repeatTitle = self.repeatTitle.uppercaseString
+                self.goUppercase()
+            }
+        }
+    }
+    
+    func repeatText() {
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        proxy.insertText(repeatTitle)
+        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "repeatText", userInfo: nil, repeats: false)
+    }
+    
+    func repeatDelete() {
+        let proxy = self.textDocumentProxy as UITextDocumentProxy
+        proxy.deleteBackward()
+        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "repeatDelete", userInfo: nil, repeats: false)
+    }
+
+    var repeatTitle = ""
+    
+    func goUppercase() {
+        (self.view ~> UIButton.self).each {
+            if $0.tag == 0 {
+                let title = $0.titleForState(.Normal)
+                $0.setTitle(title?.uppercaseString, forState: .Normal)
+            }
+        }
+        self.lowercase = false
+    }
+    
+    func goLowercase() {
+        (self.view ~> UIButton.self).each {
+            if $0.tag == 0 {
+                let title = $0.titleForState(.Normal)
+                $0.setTitle(title?.lowercaseString, forState: .Normal)
+            }
+        }
+        self.lowercase = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if let keyboardContainer = self.parentViewController {
+            (keyboardContainer.view ~> UIView.self).each{$0.hidden = true}
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let keyboardContainer = self.parentViewController {
+            (keyboardContainer.view ~> UIView.self).each{$0.hidden = false}
+        }
+    }
+
+    override func willMoveToParentViewController(parent: UIViewController?) {
+        super.willMoveToParentViewController(parent)
+        
+        if parent != nil {
+            (parent!.view ~> UIView.self).each {$0.hidden = true}
+        }
+    }
+    
+    @IBAction func didTapButton(sender: UIButton) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         
         if let title = sender.titleForState(.Normal) {
             switch sender.tag {
             case 6 :
                 proxy.deleteBackward()
+                self.repeatTitle = ""
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatDelete", userInfo: nil, repeats: false)
             case 7 :
                 BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.symbols1Keyboard)
             case 8 :
@@ -121,31 +217,36 @@ class BasicKeyboardController: UIInputViewController {
             case 2 :
                 // toggle case for all keys
                 if self.lowercase {
-                    (self.view ~> UIButton.self).each {
-                        if $0.tag == 0 {
-                            let title = $0.titleForState(.Normal)
-                            $0.setTitle(title?.uppercaseString, forState: .Normal)
-                        }
-                    }
-                    self.lowercase = false
+                    self.goUppercase()
                 }
                 else {
-                    (self.view ~> UIButton.self).each {
-                        if $0.tag == 0 {
-                            let title = $0.titleForState(.Normal)
-                            $0.setTitle(title?.lowercaseString, forState: .Normal)
-                        }
-                    }
-                    self.lowercase = true
+                    self.goLowercase()
                 }
             case 3 :
                 proxy.insertText(" ")
+                self.repeatTitle = " "
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatText", userInfo: nil, repeats: false)
             //case "CHG" :
             //    self.advanceToNextInputMode()
             default :
                 proxy.insertText(title)
+                self.repeatTitle = title
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatText", userInfo: nil, repeats: false)
+
+            }
+        }
+        
+        // TODO: capitalize based on proxy.autocapitalizationType
+
+        if sender.tag != 2 {
+            if proxy.hasText() {
+                self.repeatTitle = self.repeatTitle.lowercaseString
+                self.goLowercase()
+            }
+            else {
+                self.repeatTitle = self.repeatTitle.uppercaseString
+                self.goUppercase()
             }
         }
     }
-    
 }

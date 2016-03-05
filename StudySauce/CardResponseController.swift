@@ -12,7 +12,6 @@ import UIKit
 class CardResponseController : CardPromptController {
     
     @IBOutlet weak var response: UITextView!
-    
     @IBOutlet weak var promptHeight: NSLayoutConstraint!
     @IBOutlet weak var nextLabel: UILabel!
     
@@ -24,22 +23,28 @@ class CardResponseController : CardPromptController {
         else {
             self.promptHeight.constant = min(self.prompt!.contentSize.height + saucyTheme.padding * 5, self.view.bounds.height * 0.45)
         }
-
-        super.alignPlay(v)
         
         var topCorrect = (self.response.bounds.size.height - self.response.contentSize.height * self.response.zoomScale) / 2
         topCorrect = topCorrect < 0.0 ? 0.0 : topCorrect;
         self.response.contentInset.top = topCorrect
+
+        super.alignPlay(v)
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
         if self.parentViewController is CardSelfController {
             self.nextLabel.hidden = true
         }
-
+        
+        self.response.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+        
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.response.removeObserver(self, forKeyPath: "contentSize")
     }
 
     override func viewDidLoad() {

@@ -90,6 +90,7 @@ extension AppDelegate {
                                 let saucyImage = UIImageView(image: UIImage(data: data))
                                 card.view.addSubview(saucyImage)
                                 card.view.sendSubviewToBack(saucyImage)
+                                saucyImage.tag = 26
                                 saucyImage.frame = card.embeddedView.bounds
                                 saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
                                 saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
@@ -549,7 +550,12 @@ extension AppDelegate {
 
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self], {(v: UITextView) in
-                v.setFontSize(30.0 * saucyTheme.multiplier())
+                if v.tag == 450347 {
+                    v.setFontSize(saucyTheme.textSize * 1.4)
+                }
+                else {
+                    v.setFontSize(30.0 * saucyTheme.multiplier())
+                }
                 
                 // align listen button to substring
                 let content = v.attributedText.string as NSString
@@ -567,7 +573,6 @@ extension AppDelegate {
         })
         
         $(CardResponseController.self ~> UITextView.self ~* 450347, {
-            $0.setFontSize(saucyTheme.textSize * 1.4)
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
 
@@ -688,7 +693,15 @@ extension AppDelegate {
             $0.backgroundColor = saucyTheme.secondary
             $0.setFontColor(saucyTheme.lightColor)
         })
-        
+        $(BasicKeyboardController.self ~> UIButton.self ~* 2, {
+            if ($0.viewController() as! BasicKeyboardController).lowercase {
+                
+            }
+            else {
+                $0.backgroundColor = saucyTheme.secondary
+                $0.setFontColor(saucyTheme.lightColor)
+            }
+        })
         
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
