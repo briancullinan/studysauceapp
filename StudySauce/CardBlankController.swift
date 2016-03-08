@@ -134,8 +134,8 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 else {
                     self.inputText.inputView = BasicKeyboardController.basicKeyboard
                 }
-                BasicKeyboardController._basic?.goUppercase()
-                BasicKeyboardController.keyboardHeight = 0
+                BasicKeyboardController._basic?.goLowercase()
+                BasicKeyboardController.keyboardHeight = 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
                 BasicKeyboardController.keyboardSwitch = {
                     self.inputText.inputView = $0
                     self.inputText.reloadInputViews()

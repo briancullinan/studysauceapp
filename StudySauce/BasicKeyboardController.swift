@@ -105,7 +105,7 @@ class BasicKeyboardController: UIInputViewController {
         if let keyboardContainer = self.parentViewController {
             (keyboardContainer.view ~> UIView.self).each{$0.hidden = true}
         }
-        self.goUppercase()
+        self.goLowercase()
     }
 
     override func didReceiveMemoryWarning() {
@@ -130,6 +130,7 @@ class BasicKeyboardController: UIInputViewController {
     @IBAction func cancelTimer(sender: UIButton) {
         self.repeatTimer?.invalidate()
         
+        /*
         if sender.tag != 2 {
             let proxy = self.textDocumentProxy as UITextDocumentProxy
             if proxy.hasText() {
@@ -141,6 +142,7 @@ class BasicKeyboardController: UIInputViewController {
                 self.goUppercase()
             }
         }
+        */
     }
     
     func repeatText() {
@@ -241,7 +243,7 @@ class BasicKeyboardController: UIInputViewController {
         }
         
         // TODO: capitalize based on proxy.autocapitalizationType
-
+        /*
         if sender.tag != 2 {
             if proxy.hasText() {
                 self.repeatTitle = self.repeatTitle.lowercaseString
@@ -252,5 +254,6 @@ class BasicKeyboardController: UIInputViewController {
                 self.goUppercase()
             }
         }
+        */
     }
 }
