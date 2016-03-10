@@ -243,8 +243,11 @@ class BasicKeyboardController: UIInputViewController {
         }
         
         // TODO: capitalize based on proxy.autocapitalizationType
-        /*
         if sender.tag != 2 {
+            self.goLowercase()
+            self.repeatTitle = self.repeatTitle.lowercaseString
+        }
+        /*
             if proxy.hasText() {
                 self.repeatTitle = self.repeatTitle.lowercaseString
                 self.goLowercase()
