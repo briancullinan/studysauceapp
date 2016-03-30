@@ -71,6 +71,10 @@ class StudySauceUITests: XCTestCase {
         }
         else if app.buttons["shuffle"].exists && app.buttons["shuffle"].hittable  {
             // already on home do nothing
+            if app.otherElements["PopoverDismissRegion"].exists && app.otherElements["PopoverDismissRegion"].hittable {
+                app.otherElements["PopoverDismissRegion"].tap()
+            }
+            
         }
         else if app.buttons["BackButton"].exists && app.buttons["BackButton"].hittable {
             expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: app.buttons["BackButton"], handler: nil)

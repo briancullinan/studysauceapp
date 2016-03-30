@@ -100,7 +100,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
             self.playButton.hidden = true
             self.listenButton.hidden = true
             self.image.hidden = true
-            self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updatePlay", userInfo: nil, repeats: true)
+            self.showButtonsTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(CardPromptController.updatePlay), userInfo: nil, repeats: true)
             self.autoPlay = !(self is CardResponseController)
             self.view.sendSubviewToBack(self.image)
             if let banner = (self.view ~> (UIView.self ~* 34173)).first {
@@ -116,16 +116,13 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
         content = lines!.stringByReplacingMatchesInString(content, options: [], range: NSMakeRange(0, content.characters.count), withTemplate: "\n")
         
-        
         // find the hyperlink and replace it with a listen button
         let ex = try? NSRegularExpression(pattern: "https://.*", options: NSRegularExpressionOptions.CaseInsensitive)
         let match = ex?.firstMatchInString(content, options: [], range:NSMakeRange(0, content.characters.count))
         let matched = match?.rangeAtIndex(0)
         if matched != nil {
-            let range = Range(
-                start: self.card!.content!.startIndex.advancedBy(matched!.location),
-                end:   self.card!.content!.startIndex.advancedBy(matched!.location + matched!.length))
-            self.url = self.card!.content!.substringWithRange(range).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+            let range = content.startIndex.advancedBy(matched!.location)...content.startIndex.advancedBy(matched!.location + matched!.length)
+            self.url = content.substringWithRange(range).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
             content.replaceRange(range, with: "P14y")
             if (self.url!.hasSuffix(".m4a") || self.url!.hasSuffix(".mp3")) {
                 self.isAudio = true
@@ -194,7 +191,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 
                 if self.shouldPlay {
                     self.player!.play()
-                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "updateProgress", userInfo: nil, repeats: true)
+                    self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: #selector(CardPromptController.updateProgress), userInfo: nil, repeats: true)
                     self.shouldPlay = false
                 }
                 else {

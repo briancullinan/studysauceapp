@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         #endif
     }
     
-    static func studySauceCom(var path_and_query: String) -> NSURL! {
+    static func studySauceCom(path_and_query: String) -> NSURL! {
         #if DEBUG
             if path_and_query.containsString("?") {
                 path_and_query = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
@@ -256,7 +256,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         // timeout timer
         NSTimer.scheduledTimerWithTimeInterval(1,
-            target: self, selector: "checkTimeout", userInfo: nil, repeats: true)
+            target: self, selector: #selector(AppDelegate.checkTimeout), userInfo: nil, repeats: true)
         
         // Configure tracker from GoogleService-Info.plist.
         var configureError:NSError?
@@ -326,9 +326,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                             else {
                                 AppDelegate.goHome {home in
                                     let h = home as! HomeController
-                                    doMain {
-                                        h.userClick(h.userButton!)
-                                    }
+                                    h.userClick(h.userButton!)
                                 }
                             }
                         }

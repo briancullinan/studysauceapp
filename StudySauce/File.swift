@@ -15,14 +15,14 @@ class File: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
     var downloading = false
     
-    static func save(var url: String, done: (_: File) -> Void = {(_: File) in}) {
+    static func save(url: String, done: (_: File) -> Void = {(_: File) in}) {
         let fileManager = NSFileManager.defaultManager()
-        url = url.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let urlTrimmed = url.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
         AppDelegate.performContext({
-            var file = AppDelegate.list(File.self).filter({$0.url == url}).first
+            var file = AppDelegate.list(File.self).filter({$0.url == urlTrimmed}).first
             if file == nil {
                 file = AppDelegate.insert(File.self) <| {
-                    $0.url = url
+                    $0.url = urlTrimmed
                 }
             }
             AppDelegate.saveContext()
@@ -38,8 +38,8 @@ class File: NSManagedObject {
             }
             file!.downloading = true
             doBackground {
-                let data = NSData(contentsOfURL: NSURL(string: url)!)
-                let fileName = fileManager.displayNameAtPath(url)
+                let data = NSData(contentsOfURL: NSURL(string: urlTrimmed)!)
+                let fileName = fileManager.displayNameAtPath(urlTrimmed)
                 let tempFile = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent(fileName)
                 if data == nil {
                     AppDelegate.performContext({

@@ -84,12 +84,12 @@ class BasicKeyboardController: UIInputViewController {
         
         (self.view ~> UIButton.self).each {
             $0.removeTarget(nil, action: nil, forControlEvents: .AllTouchEvents)
-            $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpInside)
-            $0.addTarget(self, action: Selector("cancelTimer:"), forControlEvents: .TouchUpOutside)
-            $0.addTarget(self, action: Selector("didTapButton:"), forControlEvents: .TouchDown)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), forControlEvents: .TouchUpInside)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), forControlEvents: .TouchUpOutside)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.didTapButton(_:)), forControlEvents: .TouchDown)
             $0.exclusiveTouch = true
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillChange:", name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BasicKeyboardController.keyboardWillChange(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
     func keyboardWillChange(notification: NSNotification) {
@@ -148,13 +148,15 @@ class BasicKeyboardController: UIInputViewController {
     func repeatText() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.insertText(repeatTitle)
-        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "repeatText", userInfo: nil, repeats: false)
+        self.repeatTimer?.invalidate()
+        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
     }
     
     func repeatDelete() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.deleteBackward()
-        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "repeatDelete", userInfo: nil, repeats: false)
+        self.repeatTimer?.invalidate()
+        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
     }
 
     var repeatTitle = ""
@@ -205,13 +207,14 @@ class BasicKeyboardController: UIInputViewController {
     
     @IBAction func didTapButton(sender: UIButton) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
+        self.repeatTimer?.invalidate()
         
         if let title = sender.titleForState(.Normal) {
             switch sender.tag {
             case 6 :
                 proxy.deleteBackward()
                 self.repeatTitle = ""
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatDelete", userInfo: nil, repeats: false)
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
             case 7 :
                 BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.symbols1Keyboard)
             case 8 :
@@ -231,13 +234,13 @@ class BasicKeyboardController: UIInputViewController {
             case 3 :
                 proxy.insertText(" ")
                 self.repeatTitle = " "
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatText", userInfo: nil, repeats: false)
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
             //case "CHG" :
             //    self.advanceToNextInputMode()
             default :
                 proxy.insertText(title)
                 self.repeatTitle = title
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: "repeatText", userInfo: nil, repeats: false)
+                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
 
             }
         }

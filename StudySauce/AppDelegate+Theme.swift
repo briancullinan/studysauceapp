@@ -200,13 +200,13 @@ extension AppDelegate {
         */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
                     
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.rotated), name: UIApplicationDidBecomeActiveNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.keyboard), name: UIKeyboardDidShowNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboard", name: UIKeyboardDidHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.keyboard), name: UIKeyboardDidHideNotification, object: nil)
         
         
         if let window = AppDelegate.instance().window {
@@ -217,9 +217,9 @@ extension AppDelegate {
         
         // set up font names
         $(UIButton.self, {
-            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchDown)
-            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpInside)
-            $0.addTarget(self, action: Selector("buttonTapped:"), forControlEvents: UIControlEvents.TouchUpOutside)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchDown)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
         })
         
         $(UIViewController.self ~>> UIView.self, {_ in

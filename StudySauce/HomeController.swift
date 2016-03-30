@@ -14,6 +14,7 @@ import CoreData
 class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UIPopoverPresentationControllerDelegate {
     @IBOutlet internal weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
+    @IBOutlet weak var monkeyButton: UIButton? = nil
     var packs: [Pack]? = nil
     var normalImage:UIImage!
     var selectedImage:UIImage!
@@ -26,21 +27,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var userButton: UIButton? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
-        if self.checking {
-            return
-        }
-        self.checking = true
-        AppDelegate.performContext {
-            if AppDelegate.getUser()?.getRetentionRemaining() > 0 {
-                doMain {
-                    self.selectedPack = nil
-                    self.performSegueWithIdentifier("card", sender: self)
-                    self.checking = false
-                }
-            }
-            else {
-                self.checking = false
-            }
+        if self.hasRetention {
+            self.monkeyButton?.highlighted = true
+            self.hasRetention = false
+            self.selectedPack = nil
+            self.performSegueWithIdentifier("card", sender: self)
         }
     }
     
@@ -151,6 +142,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
+        self.monkeyButton?.setImage(UIImage(named: "shuffle_gray"), forState: .Disabled)
+        self.monkeyButton?.setImage(UIImage(named: "shuffle_depressed"), forState: .Highlighted)
         if AppDelegate.getUser() == nil {
             return
         }
@@ -162,7 +155,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.tableView != nil {
             
             if self.taskManager == nil {
-                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "homeSync", userInfo: nil, repeats: true)
+                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: true)
             }
             
             self.getPacksFromLocalStore()
@@ -196,7 +189,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][correct]"] = correct
             data["responses[\(index)][answer]"] = answer
             data["responses[\(index)][created]"] = created
-            index++
+            index += 1
         }
         let maxIds = AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]
         let responseDates = maxIds.filter {(r: Response) in r.id != nil && r.card != nil && r.card!.pack != nil && r.card!.pack! == pack}
@@ -232,6 +225,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             (vc as? HomeController)?.taskManager?.invalidate()
             (vc as? HomeController)?.taskManager = nil
         }
+        (self.parentViewController as? HomeController)?.taskManager?.invalidate()
+        (self.parentViewController as? HomeController)?.taskManager = nil
     }
     
     private func getPacksFromLocalStore()
@@ -262,6 +257,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
             self.packs = retention.filter({!$0.isDownloading})
             doMain {
+                (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
                 self.cardCount!.text = total
                 self.tableView!.reloadData()
             }
@@ -294,7 +290,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     var hasPacks = false
-    var hasRetention = false
+    var hasRetention = false {
+        didSet {
+            (self.parentViewController as? HomeController)?.hasRetention = self.hasRetention
+        }
+    }
     var hasDownloading = false
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -50,17 +50,24 @@ class CardResponseController : CardPromptController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        var response = ""
+        
         let correct = self.card!.getCorrect()
         if correct == nil || correct!.value == nil {
-            self.response!.text = "\(self.card!.response!)"
+            response = "\(self.card!.response!)"
         }
         else {
             if self.card!.response != nil && self.card!.response != "" {
-                self.response!.text = "\(correct!.content!)\n\r\(self.card!.response!)"
+                response = "\(correct!.content!)\n\r\(self.card!.response!)"
             }
             else {
-                self.response!.text = "\(correct!.content!)"
+                response = "\(correct!.content!)"
             }
         }
+        
+        let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
+        response = lines!.stringByReplacingMatchesInString(response, options: [], range: NSMakeRange(0, response.characters.count), withTemplate: "\n")
+        
+        self.response!.text = response
     }
 }

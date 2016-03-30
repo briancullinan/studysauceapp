@@ -81,7 +81,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             }
             let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
             if card == nil {
-                print("Card not found")
+                print("Card not found \(response)")
             }
             newResponse!.correct = response["correct"] as? NSNumber == 1
             newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
