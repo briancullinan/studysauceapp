@@ -27,27 +27,11 @@ class Card: NSManagedObject {
     func getAllAnswers() -> [Answer] {
         return self.answers!.allObjects as! [Answer]
     }
-
-    func getAllResponses() -> [Response] {
-        return self.responses?.allObjects as! [Response]
-    }
-    
-    func getResponses(user: User?) -> [Response] {
-        var result:[Response] = []
-        if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: true)]) as? [Response] {
-            for r in sorted {
-                if r.user == user {
-                    result.append(r)
-                }
-            }
-        }
-        return result
-    }
     
     func getCorrect() -> Answer? {
         for a in self.answers!.allObjects as! [Answer] {
             if a.correct == 1 {
-                return a;
+                return a
             }
         }
         return nil

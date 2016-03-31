@@ -36,7 +36,7 @@ public class PackRetentionCell: UITableViewCell {
         self.titleLabel.text = title
         // TODO: check number of responses in pack
         if up.downloaded == nil || up.created == nil || up.created!.dateByAddingTimeInterval(60*2) > NSDate() ||
-            (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.card?.pack == pack}).count == 0 {
+            AppDelegate.getPredicate(Response.self, NSPredicate(format: "user=%@ AND card.pack=%@", AppDelegate.getUser()!, pack)).count == 0 {
             newLabel.hidden = false
             newLabel.text = "New "
         }

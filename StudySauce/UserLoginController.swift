@@ -148,7 +148,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
     
     private static func checkForReset(allFinished: () -> Void) -> Bool {
-        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
         let users = AppDelegate.list(User.self)
         for u in users {
             if let resetTime = NSDate.parse(u.getProperty("reset_db") as? String) {

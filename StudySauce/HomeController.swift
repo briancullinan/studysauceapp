@@ -180,10 +180,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
-    static var alreadySyncing: [Pack] = [Pack]()
-    
     internal static func syncResponses(pack: Pack, _ done: () -> Void = {}) {
-        let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
+        let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "id==%@ AND user==%@", nil as COpaquePointer, AppDelegate.getUser()!))
         var index = 0
         var data = Dictionary<String, AnyObject?>()
         for response in responses {
@@ -197,10 +195,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][created]"] = created
             index += 1
         }
-        let maxIds = AppDelegate.getUser()!.responses!.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Response]
-        let responseDates = maxIds.filter {(r: Response) in r.id != nil && r.card != nil && r.card!.pack != nil && r.card!.pack! == pack}
-        if responseDates.count > 0 {
-            data["since"] = responseDates.last!.id!
+        if let last = AppDelegate.getLast(Response.self, NSPredicate(format: "user==%@ AND card.pack==%@", AppDelegate.getUser()!, pack))?.id {
+            data["since"] = last
+            print("Since \(last)")
         }
         data["pack"] = pack.id!
         let user = AppDelegate.getUser()!

@@ -80,7 +80,7 @@ class UserPack: NSManagedObject {
         // if a card hasn't been answered, return the next card
         let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as? [Card] ?? [Card]()
         for c in cards {
-            let responses = c.getResponses(self.user)
+            let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card=%@ AND user=%@", c, self.user!))
             var last: Response? = nil
             var i = 0
             var correctAfter = false
@@ -90,7 +90,7 @@ class UserPack: NSManagedObject {
                     continue
                 }
                 if r.correct == 1 {
-                    // If it is in between time intervals ignore the reponse
+                    // If it is in between time intervals ignore the response
                     while i < intervals.count && (last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3)) {
                         // shift the time interval if answers correctly in the right time frame
                         last = r

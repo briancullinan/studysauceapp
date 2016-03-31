@@ -75,14 +75,19 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     static internal func processResponses(user: User, _ json: NSArray) {
         var count = 0
         print("Syncing \(json.count) responses")
+        var cards = Dictionary<NSNumber,Card>()
         for response in json {
             var newResponse = response["id"] as? NSNumber != nil ? AppDelegate.get(Response.self, response["id"] as! NSNumber) : nil
             if newResponse == nil {
                 newResponse = AppDelegate.insert(Response.self)
                 newResponse!.id = response["id"] as? NSNumber
-                let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
+                var card = cards[response["card"] as! NSNumber]
                 if card == nil {
-                    print("Card not found \(response)")
+                    card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
+                    cards[response["card"] as! NSNumber] = card
+                    if card == nil {
+                        print("Card not found \(response)")
+                    }
                 }
                 newResponse!.correct = response["correct"] as? NSNumber == 1
                 newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first

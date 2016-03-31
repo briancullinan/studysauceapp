@@ -93,12 +93,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let predicate = NSPredicate(format: "id=\(id)")
         fetchRequest.predicate = predicate
         fetchRequest.fetchLimit = 1
-        fetchRequest.includesSubentities = true
-        fetchRequest.returnsObjectsAsFaults = false
         let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
         return result as? A
     }
     
+    static func getPredicate<A: NSManagedObject>(a: A.Type, _ pred: NSPredicate) -> [A] {
+        let fetchRequest = NSFetchRequest(entityName: "\(a)")
+        fetchRequest.predicate = pred
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
+        let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest)
+        return result as? [A] ?? []
+    }
+
+    static func getLast<A: NSManagedObject>(a: A.Type, _ pred: NSPredicate) -> A? {
+        let fetchRequest = NSFetchRequest(entityName: "\(a)")
+        fetchRequest.predicate = pred
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
+        let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
+        return result as? A
+    }
+    
+    static func getMax<A: NSManagedObject>(a: A.Type, _ pred: String) -> A? {
+        let fetchRequest = NSFetchRequest(entityName: "\(a)")
+        let predicate = NSPredicate(format: pred)
+        fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: false)]
+        let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
+        return result as? A
+    }
+
     static func deleteObject(obj: NSManagedObject) {
         AppDelegate.managedObjectContext?.deleteObject(obj)
     }
@@ -437,7 +462,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
-        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
         do {
             var options = Dictionary<NSObject, AnyObject>()
             options[NSMigratePersistentStoresAutomaticallyOption] = true
@@ -459,7 +484,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     {
         // try to save users and cookies
                 
-        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
+        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
         do {
             try self.managedObjectContext?.persistentStoreCoordinator?.destroyPersistentStoreAtURL(url, withType: NSSQLiteStoreType, options: nil)
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
