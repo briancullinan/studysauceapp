@@ -67,19 +67,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         if self.users != nil && self.users!.count > 0 && i < self.users!.count {
             AppDelegate.instance().user = self.users![i]
-            let home = self.presentingViewController! as? HomeController
-            self.dismissViewControllerAnimated(true, completion: {
-                if self.users![i].getProperty("seen_tutorial") as? Bool != true {
-                    AppDelegate.goHome(home)
-                }
-                else {
-                    home?.viewDidAppear(true)
-                    if let subHome = home?.childViewControllers.filter({$0 is HomeController}).first as? HomeController {
-                        subHome.packs = nil
-                        subHome.tableView?.reloadData()
-                    }
-                }
-            })
+            AppDelegate.goHome(nil)
         }
     }
     
@@ -91,11 +79,8 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func logout(sender: UIButton) {
-        let home = self.presentingViewController!
         UserLoginController.logout({
-            self.dismissViewControllerAnimated(true, completion: {
-                AppDelegate.goHome(home)
-            })
+            AppDelegate.goHome(nil, true)
         })
     }
     

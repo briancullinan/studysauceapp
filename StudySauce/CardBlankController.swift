@@ -107,7 +107,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             
             //Adding done button for textField
             returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
-            self.inputText.addDoneOnKeyboardWithTarget(self, action: Selector("correctClick:"))
+            self.inputText.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
             self.inputText.delegate = self
             
             let keyboard = self.card?.pack?.getProperty("keyboard") as? String
@@ -144,7 +144,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 self.inputText.reloadInputViews()
             }
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateConstraints", name: UIKeyboardWillChangeFrameNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CardBlankController.updateConstraints), name: UIKeyboardWillChangeFrameNotification, object: nil)
         }
     }
     

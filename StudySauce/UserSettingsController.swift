@@ -125,7 +125,7 @@ class UserSettingsController: UITableViewController {
                 cacheResetTime = NSDate()
                 cacheResetCount = 0
             }
-            cacheResetCount++
+            cacheResetCount += 1
             if cacheResetCount > 10 {
                 cacheResetCount = 0
                 AppDelegate.performContext {
@@ -230,7 +230,7 @@ class UserSettingsController: UITableViewController {
             else if self.users!.count == 0 || indexPath.row == self.users!.count * 2 {
                 cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
                 if let add = (cell ~> (UIButton.self ~* {$0.tag == 1})).first {
-                    add.addTarget(self, action: "addClick:", forControlEvents: UIControlEvents.TouchUpInside)
+                    add.addTarget(self, action: #selector(UserSettingsController.addClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
                 }
             }
             else if indexPath.row % 2 == 0 {

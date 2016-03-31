@@ -44,7 +44,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.registrationCode!.addDoneOnKeyboardWithTarget(self, action: Selector("submitCode:"))
+        self.registrationCode!.addDoneOnKeyboardWithTarget(self, action: #selector(UserInviteController.submitCode(_:)))
         self.registrationCode!.delegate = self
     }
     

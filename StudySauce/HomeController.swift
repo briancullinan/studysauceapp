@@ -18,7 +18,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var packs: [Pack]? = nil
     var normalImage:UIImage!
     var selectedImage:UIImage!
-    var taskManager:NSTimer? = nil
+    private var taskManager:NSTimer? = nil
     var checking = false
     var selectedPack: Pack? = nil
     
@@ -165,12 +165,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func homeSync() {
+        let user = AppDelegate.getUser()
         // Load packs from database
         PackSummaryController.getPacks({
             self.packsLoaded = true
             self.getPacksFromLocalStore()
             }, downloadedHandler: {p in
                 HomeController.syncResponses (p) {
+                    if AppDelegate.getUser() != user {
+                        return
+                    }
                     self.getPacksFromLocalStore()
                 }
         })
@@ -201,7 +205,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         postJson("/packs/responses/\(user.id!)", data) {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
-                    if let responses = ids["responses"] as? NSArray {
+                    if let responses = ids["responses"] as? NSArray where responses.count > 0 {
                         PackSummaryController.processResponses(user, responses)
                     }
                     for r in responses {
@@ -218,7 +222,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.stopTasks()
     }
     
-    private func stopTasks() {
+    func stopTasks() {
         self.taskManager?.invalidate()
         self.taskManager = nil
         for vc in self.childViewControllers {

@@ -54,7 +54,7 @@ class CardSegue : UIStoryboardSegue {
             var count = 0
             var current = parent
             while current.presentingViewController is CardController {
-                count++
+                count += 1
                 current = current.presentingViewController as! CardController
             }
             if current.card != (last as? CardController)?.card {

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
 
     var isRotating = false
     var needsUpdating = false
-    var timeout = 60.0 * 60.0
+    var timeout = 60.0 * 10
     internal var device: String? = nil
     var window: UIWindow?
     var storyboard: UIStoryboard?
@@ -151,7 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 else {
                     home = self.instance().storyboard!.instantiateViewControllerWithIdentifier("Home")
                     UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Badge, UIUserNotificationType.Sound, UIUserNotificationType.Alert], categories: nil))
-                    if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 1 {
+                    self.isMultiuser = AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 1
+                    if self.isMultiuser {
                         self.firstTimeLoad = true
                     }
                 }
@@ -298,6 +299,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    static var isMultiuser = false
     static var firstTimeLoad = false
     
     func afterHome() {
@@ -312,27 +314,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         
         if !self.needsUpdating {
             
-            if self.window == nil || self.user == nil {
+            if self.window == nil || self.user == nil || !AppDelegate.isMultiuser {
                 return
             }
             
-            AppDelegate.performContext({
-                if AppDelegate.list(User.self).filter({$0.user_packs?.count > 0}).count > 1 {
-                    doMain {
-                        if !(AppDelegate.visibleViewController() is UserSwitchController) {
-                            if let home = AppDelegate.visibleViewController() as? HomeController {
-                                home.userClick(home.userButton!)
-                            }
-                            else {
-                                AppDelegate.goHome {home in
-                                    let h = home as! HomeController
-                                    h.userClick(h.userButton!)
-                                }
-                            }
-                        }
+            if !(AppDelegate.visibleViewController() is UserSwitchController) {
+                if let home = AppDelegate.visibleViewController() as? HomeController {
+                    home.userClick(home.userButton!)
+                }
+                else {
+                    AppDelegate.goHome {home in
+                        let h = home as! HomeController
+                        h.userClick(h.userButton!)
                     }
                 }
-            })
+            }
         }
     }
     
@@ -397,6 +393,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+        if let home = AppDelegate.visibleViewController() as? HomeController {
+            home.stopTasks()
+        }
+        
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -406,7 +406,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
 
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-        self.didTimeout()
+        self.checkTimeout()
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

@@ -94,7 +94,7 @@ class UserPack: NSManagedObject {
                     while i < intervals.count && (last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3)) {
                         // shift the time interval if answers correctly in the right time frame
                         last = r
-                        i++
+                        i += 1
                     }
                     correctAfter = true
                 }

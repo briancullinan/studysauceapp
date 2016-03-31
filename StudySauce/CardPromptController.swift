@@ -121,8 +121,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
         let match = ex?.firstMatchInString(content, options: [], range:NSMakeRange(0, content.characters.count))
         let matched = match?.rangeAtIndex(0)
         if matched != nil {
-            let range = content.startIndex.advancedBy(matched!.location)...content.startIndex.advancedBy(matched!.location + matched!.length)
+            let range = content.startIndex.advancedBy(matched!.location)..<content.startIndex.advancedBy(matched!.location + matched!.length)
             self.url = content.substringWithRange(range).stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+
             content.replaceRange(range, with: "P14y")
             if (self.url!.hasSuffix(".m4a") || self.url!.hasSuffix(".mp3")) {
                 self.isAudio = true

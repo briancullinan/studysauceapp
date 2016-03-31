@@ -26,12 +26,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         self.panGesture = UIPanGestureRecognizer()
         self.panGesture!.delegate = self
         self.panGesture!.cancelsTouchesInView = false
-        self.panGesture!.addTarget(self, action: "handleOnstagePan:")
+        self.panGesture!.addTarget(self, action: #selector(CardTransitionManager.handleOnstagePan(_:)))
         self.tap = UITapGestureRecognizer()
         self.tap!.delegate = self
         self.tap!.numberOfTapsRequired = 1
         self.tap!.cancelsTouchesInView = false
-        self.tap!.addTarget(self, action: "handleOnstageTap:")
+        self.tap!.addTarget(self, action: #selector(CardTransitionManager.handleOnstageTap(_:)))
         AppDelegate.instance().window!.addGestureRecognizer(self.panGesture!)
         AppDelegate.instance().window!.addGestureRecognizer(self.tap!)
         }
@@ -50,7 +50,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             || vc.canPerformSegueWithIdentifier("last")
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true
-            || vc.respondsToSelector("lastClick") || vc.respondsToSelector("nextClick") {
+            || vc.respondsToSelector(Selector("lastClick")) || vc.respondsToSelector(Selector("nextClick")) {
                 if !self.transitioning {
                     return true
                 }
@@ -77,7 +77,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     */
     
     func handleOnstageTap(tap: UITapGestureRecognizer) {
-        NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: "doNextTap", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: #selector(CardTransitionManager.doNextTap), userInfo: nil, repeats: false)
     }
     
     func doNextTap() {
@@ -85,8 +85,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             let vc = AppDelegate.visibleViewController()
             self.interactive = false
             
-            if vc.respondsToSelector("nextClick") {
-                vc.performSelector("nextClick")
+            if vc.respondsToSelector(Selector("nextClick")) {
+                vc.performSelector(Selector("nextClick"))
             }
 
             if let card = vc as? CardController {
@@ -123,11 +123,11 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 
                 let vc = AppDelegate.visibleViewController()
                 
-                if d > 0 && vc.respondsToSelector("lastClick") {
-                    vc.performSelector("lastClick")
+                if d > 0 && vc.respondsToSelector(Selector("lastClick")) {
+                    vc.performSelector(Selector("lastClick"))
                 }
-                else if vc.respondsToSelector("nextClick") {
-                    vc.performSelector("nextClick")
+                else if vc.respondsToSelector(Selector("nextClick")) {
+                    vc.performSelector(Selector("nextClick"))
                 }
 
                 if let card = vc as? CardController {

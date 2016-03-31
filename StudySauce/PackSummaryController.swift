@@ -32,6 +32,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
         getJson("/packs/download/\(user.id!)", ["pack" : forPack.id!]) {(json: AnyObject) in
             AppDelegate.performContext {
+                if(user != AppDelegate.getUser()) {
+                    return
+                }
                 var ids = [NSNumber]()
                 
                 for card in json as! NSArray {
@@ -52,9 +55,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     AppDelegate.saveContext()
                     
                     self.processAnswers(newCard!, json: card["answers"] as! NSArray)
-                    
-                    // sync responses
-                    self.processResponses(user, card["responses"] as! NSArray)
                 }
                 
                 // remove cards that no longer exist
@@ -78,17 +78,17 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             if newResponse == nil {
                 newResponse = AppDelegate.insert(Response.self)
                 newResponse!.id = response["id"] as? NSNumber
+                let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
+                if card == nil {
+                    print("Card not found \(response)")
+                }
+                newResponse!.correct = response["correct"] as? NSNumber == 1
+                newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
+                newResponse!.value = response["value"] as? String
+                newResponse!.card = card!
+                newResponse!.created = NSDate.parse(response["created"] as? String)
+                newResponse!.user = user
             }
-            let card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
-            if card == nil {
-                print("Card not found \(response)")
-            }
-            newResponse!.correct = response["correct"] as? NSNumber == 1
-            newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
-            newResponse!.value = response["value"] as? String
-            newResponse!.card = card!
-            newResponse!.created = NSDate.parse(response["created"] as? String)
-            newResponse!.user = user
         }
 
         AppDelegate.saveContext()
@@ -136,6 +136,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let user = AppDelegate.getUser()!
         getJson("/packs/list/\(user.id!)") {json in
             AppDelegate.performContext {
+                if AppDelegate.getUser() != user {
+                    return
+                }
                 var ids = [NSNumber]()
                 for pack in json as! NSArray {
                     var newPack = pack["id"] as? NSNumber != nil ? AppDelegate.get(Pack.self, pack["id"] as! NSNumber) : nil
@@ -165,12 +168,12 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                             if up["id"] as? NSNumber == user.id {
                                 let userPack = newPack?.getUserPack(user)
                                 userPack!.created = NSDate.parse(up["created"] as? String)
-                                AppDelegate.saveContext()
                                 self.downloadIfNeeded(newPack!, user) {
                                     downloadedHandler(newPack!)
                                 }
                             }
                         }
+                        AppDelegate.saveContext()
                     }
                 }
 
@@ -255,16 +258,14 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     PackSummaryController.getCards(p, user) {_,_ in
                         // TODO: update downloading status in table row!
-                        AppDelegate.performContext {
-                            p.isDownloading = false
-                            up.retries = ""
-                            up.downloaded = NSDate()
-                            AppDelegate.saveContext()
-                            if user != AppDelegate.getUser() {
-                                return
-                            }
-                            done()
+                        p.isDownloading = false
+                        up.retries = ""
+                        up.downloaded = NSDate()
+                        AppDelegate.saveContext()
+                        if user != AppDelegate.getUser() {
+                            return
                         }
+                        done()
                     }
             }
             else {

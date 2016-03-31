@@ -90,10 +90,10 @@ class PackResultsController: UIViewController {
         for c in cards! {
             if let last = c.getResponse(AppDelegate.getUser()) {
                 if last.correct == 1 {
-                    correct++
+                    correct += 1
                 }
                 else {
-                    wrong++
+                    wrong += 1
                 }
             }
         }

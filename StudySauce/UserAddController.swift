@@ -29,11 +29,11 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.inviteCode!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.inviteCode!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
         self.inviteCode!.delegate = self
-        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
         self.childFirst!.delegate = self
-        self.childLast!.addDoneOnKeyboardWithTarget(self, action: Selector("addClick:"))
+        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
         self.childLast!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }
