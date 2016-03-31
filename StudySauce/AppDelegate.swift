@@ -92,6 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let fetchRequest = NSFetchRequest(entityName: "\(a)")
         let predicate = NSPredicate(format: "id=\(id)")
         fetchRequest.predicate = predicate
+        fetchRequest.fetchLimit = 1
         fetchRequest.includesSubentities = true
         fetchRequest.returnsObjectsAsFaults = false
         let result = try? AppDelegate.managedObjectContext!.executeFetchRequest(fetchRequest).first
@@ -438,7 +439,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            var options = Dictionary<NSObject, AnyObject>()
+            options[NSMigratePersistentStoresAutomaticallyOption] = true
+            options[NSInferMappingModelAutomaticallyOption] = true
+            //options["journal_mode"] = "DELETE"
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
         }
         catch _ as NSError {
             return self.resetLocalStore(false)
@@ -456,11 +461,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                 
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("CoreDataDemo.sqlite") as NSURL
         do {
+            try self.managedObjectContext?.persistentStoreCoordinator?.destroyPersistentStoreAtURL(url, withType: NSSQLiteStoreType, options: nil)
             try NSFileManager.defaultManager().removeItemAtPath(url.path!)
             try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-wal")
             try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-shm")
-            let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+            let coordinator = AppDelegate.getPersistentStoreCoordinator()
             let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
             managedObjectContext.persistentStoreCoordinator = coordinator
             if manual {

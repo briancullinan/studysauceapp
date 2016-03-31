@@ -180,6 +180,8 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         })
     }
     
+    static var alreadySyncing: [Pack] = [Pack]()
+    
     internal static func syncResponses(pack: Pack, _ done: () -> Void = {}) {
         let responses = (AppDelegate.getUser()!.responses!.allObjects as! [Response]).filter({$0.id == nil || $0.id == 0})
         var index = 0
@@ -205,6 +207,9 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         postJson("/packs/responses/\(user.id!)", data) {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
+                    if AppDelegate.getUser() != user {
+                        return
+                    }
                     if let responses = ids["responses"] as? NSArray where responses.count > 0 {
                         PackSummaryController.processResponses(user, responses)
                     }

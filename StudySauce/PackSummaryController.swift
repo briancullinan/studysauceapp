@@ -73,6 +73,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     static internal func processResponses(user: User, _ json: NSArray) {
+        var count = 0
+        print("Syncing \(json.count) responses")
         for response in json {
             var newResponse = response["id"] as? NSNumber != nil ? AppDelegate.get(Response.self, response["id"] as! NSNumber) : nil
             if newResponse == nil {
@@ -88,6 +90,11 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 newResponse!.card = card!
                 newResponse!.created = NSDate.parse(response["created"] as? String)
                 newResponse!.user = user
+                count += 1
+            }
+            if count == 20 {
+                AppDelegate.saveContext()
+                count = 0
             }
         }
 
