@@ -103,8 +103,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
             
-            self.childViewControllers.filter({$0 is HomeController}).each{$0.viewDidAppear(animated)}
-            
             self.viewDidLoad()
             
             if self.tableView != nil {
@@ -291,7 +289,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             let allPacks = AppDelegate.getUser()!.getPacks()
             self.hasPacks = allPacks.count > 0
-            self.packs = allPacks.filter{!$0.isDownloading && $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0}
+            self.packs = allPacks.filter({!$0.isDownloading}).filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
             self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
             
             doMain {

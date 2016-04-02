@@ -32,6 +32,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         // call this extra because over current context doesn't fire it when it switches back
         if self.selected != true {
             self.home?.viewDidAppear(animated)
+            self.home?.childViewControllers.filter({$0 is HomeController}).each{$0.viewDidAppear(animated)}
         }
     }
     

@@ -65,7 +65,8 @@ class UserPack: NSManagedObject {
     
     func getRetentionCount() -> Int {
         // TODO: speed this up by checkin string for ids?
-        return self.getRetention().count
+        let retention = self.user!.getRetention()
+        return AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@ AND id IN %@", self.pack!, retention)).count
     }
     
     func getRetentionCard() -> Card? {
@@ -93,7 +94,7 @@ class UserPack: NSManagedObject {
         var result = [Int]()
         let existing = self.retention as? NSDictionary
         // if a card hasn't been answered, return the next card
-        let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as? [Card] ?? [Card]()
+        let cards = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@", self.pack!))
         for c in cards {
             let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card=%@ AND user=%@", c, self.user!))
             var last: NSDate? = NSDate.parse((existing?["\(c.id!)"] as? Array<AnyObject>)?[1] as? String)
