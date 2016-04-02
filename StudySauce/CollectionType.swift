@@ -16,6 +16,12 @@ extension CollectionType {
     }
 }
 
+func += <KeyType, ValueType> (inout left: Dictionary<KeyType, ValueType>, right: Dictionary<KeyType, ValueType>) {
+    for (k, v) in right {
+        left.updateValue(v, forKey: k)
+    }
+}
+
 extension MutableCollectionType where Index == Int {
     /// Shuffle the elements of `self` in-place.
     mutating func shuffleInPlace() {

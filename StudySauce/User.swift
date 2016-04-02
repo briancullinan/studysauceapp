@@ -29,53 +29,22 @@ class User: NSManagedObject {
     }
     
     func getAllProperties() -> NSDictionary? {
-        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
-            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
-                return json as? NSDictionary
-            }
-        }
-        return nil
+        return self.properties as? NSDictionary
     }
     
     func getProperty(prop: String) -> AnyObject? {
-        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
-            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
-                if let val = (json as? NSDictionary)?[prop] {
-                    return val
-                }
-            }
-        }
-        return nil
+        return (self.properties as? NSDictionary)?[prop]
     }
     
     func setProperty(prop: String, _ obj: AnyObject?) {
-        var props: Dictionary<String,AnyObject>
-        if let data = self.properties?.dataUsingEncoding(NSUTF8StringEncoding) {
-            if let json = try? NSJSONSerialization.JSONObjectWithData(data, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments]) {
-                if let existing = json as? Dictionary<String,AnyObject> {
-                    props = existing
-                }
-                else {
-                    props = Dictionary<String,AnyObject>()
-                }
-            }
-            else {
-                props = Dictionary<String,AnyObject>()
-            }
-        }
-        else {
-            props = Dictionary<String,AnyObject>()
-        }
+        var props: Dictionary<String,AnyObject> = self.properties as? Dictionary<String,AnyObject> ?? Dictionary<String,AnyObject>()
         if obj == nil {
             props.removeValueForKey(prop)
         }
         else {
             props[prop] = obj!
         }
-        
-        if let newStr = try? NSJSONSerialization.dataWithJSONObject(props, options: []) {
-            self.properties = "\(NSString(data: newStr, encoding: NSUTF8StringEncoding)!)"
-        }
+        self.properties = props
     }
     
     func getRetentionIndex(card: Card) -> Int {
@@ -92,11 +61,19 @@ class User: NSManagedObject {
     
     func getRetentionCard() -> Card? {
         let cards = self.getRetention()
-        
+        print(self.retention_to)
         for c in cards {
-            if let card = AppDelegate.get(Card.self, c) {
+            if let card = AppDelegate.get(Card.self, c) where card.pack != nil {
+                let up = card.pack!.getUserPack(AppDelegate.getUser())
+                let retention = (up.retention as? NSDictionary)?["\(card.id!)"] as? Array<AnyObject>
                 let response = card.getResponse(self)
-                if response == nil || response!.created! < self.retention_to! {
+                if (retention == nil || retention![3] as? String == nil) && response == nil {
+                    return card
+                }
+                else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.retention_to! {
+                    return card
+                }
+                else if response != nil && response!.created! < self.retention_to! {
                     return card
                 }
             }
@@ -109,21 +86,20 @@ class User: NSManagedObject {
         return self.retention!.componentsSeparatedByString(",").filter({$0 != ""}).map({Int($0)!})
     }
     
-    func generateRetention() -> [NSNumber] {
-        var results: [NSNumber] = []
+    func generateRetention() -> [Int] {
+        var results = [Int]()
         // TODO: change this line when userpack order matters
         for up in self.user_packs?.allObjects as! [UserPack] {
             if up.pack!.isDownloading {
                 continue
             }
-            results.appendContentsOf(up.generateRetention().map{$0.id!})
+            results.appendContentsOf(up.generateRetention())
         }
         if results.count == 0 {
             self.retention = ""
         }
         else {
-            results.shuffleInPlace()
-            self.retention = results.map { c -> String in
+            self.retention = results.shuffle().map { c -> String in
                 return "\(c)"
                 }.joinWithSeparator(",")
         }

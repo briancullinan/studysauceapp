@@ -61,7 +61,10 @@ class PackResultsController: UIViewController {
             }
             else {
                 // only wrong
-                var retries = up.getRetries().filter{c -> Bool in return c.getResponse(AppDelegate.getUser())?.correct != 1}
+                var retries = up.getRetries().filter{
+                    let response = $0.getResponse(AppDelegate.getUser())
+                    return response == nil && ((up.retention as? NSDictionary)?["\($0.id!)"] as? NSArray)?[2] as? Bool ?? true
+                        || response?.correct != 1}
                 retries.shuffleInPlace()
                 up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
                 up.retry_to = NSDate()
@@ -86,15 +89,19 @@ class PackResultsController: UIViewController {
         // add up results differently when loading from a retention pack
         var correct = 0
         var wrong = 0
-        let cards = self.isRetention ? (self.selectedPack != nil ? self.selectedPack?.getUserPack(AppDelegate.getUser()).getRetention() : AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!}) : self.pack.cards?.allObjects
+        let up = self.pack.getUserPack(AppDelegate.getUser())
+        let cards = self.isRetention
+            ? (self.selectedPack != nil
+            ? self.selectedPack?.getUserPack(AppDelegate.getUser()).getRetention()
+            : AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!})
+            : self.pack.cards?.allObjects
         for c in cards! {
-            if let last = c.getResponse(AppDelegate.getUser()) {
-                if last.correct == 1 {
-                    correct += 1
-                }
-                else {
-                    wrong += 1
-                }
+            let last = c.getResponse(AppDelegate.getUser())
+            if (last != nil && last!.correct == 1) || last == nil && ((up.retention as? NSDictionary)?["\(c.id!!)"] as? NSArray)?[2] as? Bool == false {
+                correct += 1
+            }
+            else {
+                wrong += 1
             }
         }
         

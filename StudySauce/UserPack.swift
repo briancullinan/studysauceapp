@@ -15,8 +15,15 @@ class UserPack: NSManagedObject {
         let retries = self.getRetries()
                 
         for c in retries {
+            let retention = (self.retention as? NSDictionary)?["\(c.id!)"] as? NSArray
             let response = c.getResponse(user)
-            if response == nil || response!.created! < self.retry_to! {
+            if response == nil && (retention == nil || retention![3] as? String == nil) {
+                return c
+            }
+            else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.retry_to! {
+                return c
+            }
+            else if response != nil && response!.created! < self.retry_to! {
                 return c
             }
         }
@@ -65,8 +72,15 @@ class UserPack: NSManagedObject {
         let cards = self.getRetention()
         
         for card in cards {
+            let retention = (self.retention as? NSDictionary)?["\(card.id!)"] as? NSArray
             let response = card.getResponse(self.user)
-            if response == nil || response!.created! < self.user!.retention_to! {
+            if response == nil && (retention == nil || retention![3] as? String == nil) {
+                return card
+            }
+            else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.user!.retention_to! {
+                return card
+            }
+            else if response != nil && response!.created! < self.user!.retention_to! {
                 return card
             }
         }
@@ -74,33 +88,34 @@ class UserPack: NSManagedObject {
         return nil
     }
 
-    func generateRetention() -> [Card] {
+    func generateRetention() -> [Int] {
         let intervals = [1, 2, 4, 7, 14, 28, 28 * 3, 28 * 6, 7 * 52]
-        var result: [Card] = []
+        var result = [Int]()
+        let existing = self.retention as? NSDictionary
         // if a card hasn't been answered, return the next card
         let cards = self.pack?.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as? [Card] ?? [Card]()
         for c in cards {
             let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card=%@ AND user=%@", c, self.user!))
-            var last: Response? = nil
-            var i = 0
+            var last: NSDate? = NSDate.parse((existing?["\(c.id!)"] as? Array<AnyObject>)?[1] as? String)
+            var i = intervals.indexOf((existing?["\(c.id!)"] as? Array<AnyObject>)?[0] as? Int ?? 1) ?? 0
             var correctAfter = false
             for r in responses {
-                // TODO: if its correct the first time skip to index 2
+                //  if its correct the first time skip to index 2
                 if r.created == nil {
                     continue
                 }
                 if r.correct == 1 {
                     // If it is in between time intervals ignore the response
-                    while i < intervals.count && (last == nil || r.created!.time(3) >= last!.created!.addDays(intervals[i]).time(3)) {
+                    while i < intervals.count && (last == nil || r.created!.time(3) >= last!.addDays(intervals[i]).time(3)) {
                         // shift the time interval if answers correctly in the right time frame
-                        last = r
+                        last = r.created
                         i += 1
                     }
                     correctAfter = true
                 }
                 else {
                     i = 0
-                    last = r
+                    last = r.created
                     correctAfter = false
                 }
             }
@@ -110,8 +125,8 @@ class UserPack: NSManagedObject {
             if i > intervals.count - 1 {
                 i = intervals.count - 1
             }
-            if responses.count == 0 || (i == 0 && !correctAfter) || last!.created!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
-                result.append(c)
+            if last == nil || (i == 0 && !correctAfter) || last!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
+                result.append(Int(c.id!))
             }
         }
         return result

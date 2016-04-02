@@ -72,40 +72,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
-    static internal func processResponses(user: User, _ json: NSArray) {
-        var count = 0
-        print("Syncing \(json.count) responses")
-        var cards = Dictionary<NSNumber,Card>()
-        for response in json {
-            var newResponse = response["id"] as? NSNumber != nil ? AppDelegate.get(Response.self, response["id"] as! NSNumber) : nil
-            if newResponse == nil {
-                newResponse = AppDelegate.insert(Response.self)
-                newResponse!.id = response["id"] as? NSNumber
-                var card = cards[response["card"] as! NSNumber]
-                if card == nil {
-                    card = AppDelegate.get(Card.self, response["card"] as! NSNumber)
-                    cards[response["card"] as! NSNumber] = card
-                    if card == nil {
-                        print("Card not found \(response)")
-                    }
-                }
-                newResponse!.correct = response["correct"] as? NSNumber == 1
-                newResponse!.answer = card!.getAllAnswers().filter({$0.id == response["answer"] as? NSNumber}).first
-                newResponse!.value = response["value"] as? String
-                newResponse!.card = card!
-                newResponse!.created = NSDate.parse(response["created"] as? String)
-                newResponse!.user = user
-                count += 1
-            }
-            if count == 20 {
-                AppDelegate.saveContext()
-                count = 0
-            }
-        }
-
-        AppDelegate.saveContext()
-    }
-    
     static private func processAnswers(card: Card, json: NSArray) {
         // create anwers
         var answers = card.getAllAnswers()
@@ -157,33 +123,41 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     if pack["deleted"] as? Bool == true {
                         continue
                     }
+                    var isNew = false
                     if newPack == nil {
                         newPack = AppDelegate.insert(Pack.self)
+                        isNew = true
                     }
-                    
                     ids.insert(pack["id"] as! NSNumber, atIndex: 0)
-                    newPack!.id = pack["id"] as? NSNumber
-                    newPack!.title = pack["title"] as? String
-                    newPack!.creator = pack["creator"] as? String
-                    newPack!.logo = pack["logo"] as? String
-                    newPack!.created = NSDate.parse(pack["created"] as? String)
-                    newPack!.modified = NSDate.parse(pack["modified"] as? String)
-                    newPack!.count = pack["count"] as? NSNumber
-                    let properties = pack["properties"] as? NSDictionary
-                    for p in properties?.allKeys ?? [] {
-                        newPack!.setProperty("\(p)", properties?.valueForKey("\(p)"))
+                    if isNew || NSDate.parse(pack["modified"] as? String) == nil || newPack!.modified == nil || NSDate.parse(pack["modified"] as? String)! > newPack!.modified! {
+                        newPack!.id = pack["id"] as? NSNumber
+                        newPack!.title = pack["title"] as? String
+                        newPack!.creator = pack["creator"] as? String
+                        newPack!.logo = pack["logo"] as? String
+                        newPack!.created = NSDate.parse(pack["created"] as? String)
+                        newPack!.modified = NSDate.parse(pack["modified"] as? String)
+                        newPack!.count = pack["count"] as? NSNumber
+                        let properties = pack["properties"] as? NSDictionary
+                        for p in properties?.allKeys ?? [] {
+                            newPack!.setProperty("\(p)", properties?.valueForKey("\(p)"))
+                        }
+                        AppDelegate.saveContext()
                     }
-                    AppDelegate.saveContext()
                     
                     if let userPacks = pack["users"] as? NSArray where userPacks.count > 0 {
+                        var hasPack = false
                         for up in userPacks {
                             if up["id"] as? NSNumber == user.id {
-                                let userPack = newPack?.getUserPack(user)
-                                userPack!.created = NSDate.parse(up["created"] as? String)
+                                hasPack = true
+                                let userPack = newPack!.getUserPack(user)
+                                userPack.created = NSDate.parse(up["created"] as? String)
                                 self.downloadIfNeeded(newPack!, user) {
                                     downloadedHandler(newPack!)
                                 }
                             }
+                        }
+                        if !hasPack {
+                            AppDelegate.deleteObject(newPack!.getUserPack(user))
                         }
                         AppDelegate.saveContext()
                     }
@@ -194,6 +168,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     if ids.indexOf(p.id!) == nil {
                         for up in p.user_packs?.allObjects as! [UserPack] {
                             AppDelegate.deleteObject(up)
+                        }
+                        for c in p.cards?.allObjects as! [Card] {
+                            AppDelegate.deleteObject(c)
                         }
                         AppDelegate.deleteObject(p)
                     }
@@ -292,10 +269,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         self.pack = self.packs![indexPath.row]
-        let user = AppDelegate.getUser()!
-        PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
-            self.transitionToCard()
-        }
+        self.transitionToCard()
     }
     
     private func transitionToCard() {
@@ -303,21 +277,25 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             !(AppDelegate.visibleViewController() is PackSummaryController) {
             return
         }
-        AppDelegate.performContext {
-            let user = AppDelegate.getUser()!
-            if self.pack!.cards!.count  == 0 {
-                // something went wrong
-                return
-            }
-            if self.pack!.getUserPack(user).getRetryCard() == nil {
-                self.pack!.getUserPack(user).getRetries(true)
-            }
-            doMain {
-                if self.pack == nil || CardSegue.transitionManager.transitioning ||
-                    !(AppDelegate.visibleViewController() is PackSummaryController) {
+        let user = AppDelegate.getUser()!
+        PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
+            AppDelegate.performContext {
+                let user = AppDelegate.getUser()!
+                if self.pack!.cards!.count  == 0 {
+                    // something went wrong
                     return
                 }
-                self.performSegueWithIdentifier("card", sender: self)
+                if self.pack!.getUserPack(user).getRetryCard() == nil {
+                    self.pack!.getUserPack(user).getRetries(true)
+                }
+                print("Starting \(self.pack!.cards!.count) cards")
+                doMain {
+                    if self.pack == nil || CardSegue.transitionManager.transitioning ||
+                        !(AppDelegate.visibleViewController() is PackSummaryController) {
+                        return
+                    }
+                    self.performSegueWithIdentifier("card", sender: self)
+                }
             }
         }
     }
@@ -344,11 +322,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
         let object = self.packs![indexPath.row]
-        cell.updateTableView = {
-            // list all packs with the same icon
-            let indexes = self.packs!.filter({$0.logo != nil}).map({NSIndexPath(forRow: self.packs!.indexOf($0)!, inSection: 0)})
-            tableView.reloadRowsAtIndexPaths(indexes, withRowAnimation: UITableViewRowAnimation.Fade)
-        }
         cell.configure(object)
         return cell
     }

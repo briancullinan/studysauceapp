@@ -15,7 +15,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet internal weak var embeddedView: UIView!
     @IBOutlet weak var tableView: UITableView? = nil
     @IBOutlet weak var monkeyButton: UIButton? = nil
-    var packs: [Pack]? = nil
+    var packs: [Pack]? = nil {
+        didSet {
+            self.hasRetention = packs != nil && packs!.count > 0
+        }
+    }
     var normalImage:UIImage!
     var selectedImage:UIImage!
     private var taskManager:NSTimer? = nil
@@ -86,8 +90,6 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.childViewControllers.each{$0.viewDidAppear(animated)}
-        
         if let blur = (self.view ~> UIVisualEffectView.self).first {
             UIView.animateWithDuration(0.15, animations: {
                 blur.alpha = 0
@@ -101,7 +103,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
             
+            self.childViewControllers.filter({$0 is HomeController}).each{$0.viewDidAppear(animated)}
+            
             self.viewDidLoad()
+            
+            if self.tableView != nil {
+                self.homeSync()
+            }
         }
     }
     
@@ -155,35 +163,38 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if self.tableView != nil {
             
             if self.taskManager == nil {
-                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: true)
+                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: true)
             }
-            
-            self.getPacksFromLocalStore()
-            
-            doMain(self.homeSync)
         }
     }
     
+    var packRefresher: NSTimer? = nil
+    
     func homeSync() {
         let user = AppDelegate.getUser()
+        print("Syncing...")
         // Load packs from database
         PackSummaryController.getPacks({
-            self.packsLoaded = true
-            self.getPacksFromLocalStore()
+            if AppDelegate.getUser() != user {
+                return
+            }
+            HomeController.syncResponses {
+                self.packsLoaded = true
+                self.packRefresher?.invalidate()
+                self.getPacksFromLocalStore()
+                //self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+            }
             }, downloadedHandler: {p in
-                HomeController.syncResponses (p) {
-                    if AppDelegate.getUser() != user {
-                        return
-                    }
-                    self.getPacksFromLocalStore()
-                }
+                //self.packRefresher?.invalidate()
+                //self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
         })
     }
     
-    internal static func syncResponses(pack: Pack, _ done: () -> Void = {}) {
-        let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "id==%@ AND user==%@", nil as COpaquePointer, AppDelegate.getUser()!))
+    internal static func syncResponses(pack: Pack? = nil, _ done: () -> Void = {}) {
+        let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "id==0 AND user==%@", AppDelegate.getUser()!))
         var index = 0
         var data = Dictionary<String, AnyObject?>()
+        data["version"] = 2
         for response in responses {
             let correct = response.correct != nil && response.correct == 1
             let answer = response.answer != nil ? response.answer!.id! : 0
@@ -195,23 +206,41 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             data["responses[\(index)][created]"] = created
             index += 1
         }
-        if let last = AppDelegate.getLast(Response.self, NSPredicate(format: "user==%@ AND card.pack==%@", AppDelegate.getUser()!, pack))?.id {
-            data["since"] = last
-            print("Since \(last)")
+        if pack != nil {
+            data["pack"] = pack!.id!
         }
-        data["pack"] = pack.id!
         let user = AppDelegate.getUser()!
         postJson("/packs/responses/\(user.id!)", data) {json -> Void in
             if let ids = json as? NSDictionary {
                 AppDelegate.performContext({
+                    print("Sync downloaded")
+                    for r in responses {
+                        AppDelegate.deleteObject(r)
+                    }
+                    AppDelegate.saveContext()
+                    
                     if AppDelegate.getUser() != user {
                         return
                     }
-                    if let responses = ids["responses"] as? NSArray where responses.count > 0 {
-                        PackSummaryController.processResponses(user, responses)
+                    
+                    if pack != nil {
+                        if let retention = ids["retention"] as? NSDictionary {
+                            let up = pack!.getUserPack(user)
+                            up.retention = retention
+                        }
                     }
-                    for r in responses {
-                        AppDelegate.deleteObject(r)
+                    else {
+                        if let retentionPacks = ids["retention"] as? NSArray {
+                            for retentionPack in retentionPacks {
+                                if let r = retentionPack as? NSDictionary {
+                                    let pack = AppDelegate.get(Pack.self, r["id"] as! NSNumber)!
+                                    if let retention = r["retention"] as? NSDictionary {
+                                        let up = pack.getUserPack(user)
+                                        up.retention = retention
+                                    }
+                                }
+                            }
+                        }
                     }
                     AppDelegate.saveContext()
                     done()
@@ -235,12 +264,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         (self.parentViewController as? HomeController)?.taskManager = nil
     }
     
-    private func getPacksFromLocalStore()
+    internal func getPacks() {
+        self.getPacksFromLocalStore(nil)
+    }
+    
+    private func getPacksFromLocalStore(pack: Pack? = nil)
     {
         
         if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
             return
         }
+        
+        print("Loading packs")
         
         AppDelegate.performContext {
             if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
@@ -256,13 +291,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
             let allPacks = AppDelegate.getUser()!.getPacks()
             self.hasPacks = allPacks.count > 0
-            let retention = allPacks.filter({
-                $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0
-            })
-            self.hasRetention = retention.count > 0
+            self.packs = allPacks.filter{!$0.isDownloading && $0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0}
             self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
-            self.packs = retention.filter({!$0.isDownloading})
+            
             doMain {
+                print("Updating home screen")
                 (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
                 self.cardCount!.text = total
                 self.tableView!.reloadData()

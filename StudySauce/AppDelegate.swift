@@ -145,15 +145,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     }
     
     static func studySauceCom(path_and_query: String) -> NSURL! {
+        var newPathQuery = path_and_query
         #if DEBUG
-            if path_and_query.containsString("?") {
-                path_and_query = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
+            if newPathQuery.containsString("?") {
+                newPathQuery = path_and_query + "&XDEBUG_SESSION_START=PHPSTORM"
             }
             else {
-                path_and_query = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
+                newPathQuery = path_and_query + "?XDEBUG_SESSION_START=PHPSTORM"
             }
         #endif
-        return NSURL(string: "https://\(self.domain)\(path_and_query)")!
+        return NSURL(string: "https://\(self.domain)\(newPathQuery)")!
     }
     
     static func goHome (fromView: UIViewController? = nil, _ refetch: Bool = false, _ done: (v: UIViewController) -> Void = {_ in}) {
@@ -464,11 +465,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: AppDelegate.managedObjectModel)
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
         do {
-            var options = Dictionary<NSObject, AnyObject>()
-            options[NSMigratePersistentStoresAutomaticallyOption] = true
-            options[NSInferMappingModelAutomaticallyOption] = true
+            //var options = Dictionary<NSObject, AnyObject>()
+            //options[NSMigratePersistentStoresAutomaticallyOption] = true
+            //options[NSInferMappingModelAutomaticallyOption] = true
             //options["journal_mode"] = "DELETE"
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
         }
         catch _ as NSError {
             return self.resetLocalStore(false)
@@ -485,24 +486,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // try to save users and cookies
                 
         let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
-        do {
-            try self.managedObjectContext?.persistentStoreCoordinator?.destroyPersistentStoreAtURL(url, withType: NSSQLiteStoreType, options: nil)
-            try NSFileManager.defaultManager().removeItemAtPath(url.path!)
-            try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-wal")
-            try NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-shm")
-            let coordinator = AppDelegate.getPersistentStoreCoordinator()
-            let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
-            managedObjectContext.persistentStoreCoordinator = coordinator
-            if manual {
-                self.managedObjectContext = managedObjectContext
-            }
-            
-            return coordinator
-        }
-        catch let error as NSError {
-            NSLog("Unresolved error \(error), \(error.userInfo)")
-        }
-        return nil
+        //try? self.managedObjectContext?.persistentStoreCoordinator?.destroyPersistentStoreAtURL(url, withType: NSSQLiteStoreType, options: nil)
+        try? NSFileManager.defaultManager().removeItemAtPath(url.path!)
+        try? NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-wal")
+        try? NSFileManager.defaultManager().removeItemAtPath("\(url.path!)-shm")
+        let coordinator = AppDelegate.getPersistentStoreCoordinator()
+        let managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.PrivateQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        self.managedObjectContext = managedObjectContext
+        return coordinator
     }
     
     private static var managedObjectContext: NSManagedObjectContext? = {

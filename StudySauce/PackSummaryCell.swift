@@ -16,7 +16,6 @@ public class PackSummaryCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var creatorLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
-    var updateTableView: (() -> Void)? = nil
     
     weak var pack: Pack? = nil
     
@@ -24,9 +23,13 @@ public class PackSummaryCell: UITableViewCell {
         self.logoImage.hidden = true
         File.save(url, done: {(_:File) in
             doMain {
-                if self.updateTableView != nil {
-                    self.updateTableView!()
-                    self.logoImage.hidden = false
+                if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
+                    (vc.view ~> PackSummaryCell.self).each {
+                        if $0.pack!.logo == self.pack!.logo && $0.logoImage.hidden {
+                            $0.logoImage.image = self.logoImage.image
+                            $0.logoImage.hidden = false
+                        }
+                    }
                 }
             }
         })
