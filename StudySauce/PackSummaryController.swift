@@ -28,7 +28,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     // TODO: Constrains are intentionally not used in the SQLite database ID columns to allow soft relations to other tables
     //   if the database is ever changed this feature of SQLite has to be transfered or these download functions will have to be refactored.
     private static func getCards(forPack: Pack, _ user: User, _ completionHandler: ([Card], NSError!) -> Void) -> Void {
-        var cards = forPack.cards?.allObjects as! [Card]
+        var cards = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", forPack))
         
         getJson("/packs/download/\(user.id!)", ["pack" : forPack.id!]) {(json: AnyObject) in
             AppDelegate.performContext {
@@ -185,15 +185,9 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     private func getPacksFromLocalStore() -> Void
     {
         AppDelegate.performContext {
-            var packs = [Pack]()
-            for p in AppDelegate.list(Pack.self) {
-                let userPacks = p.user_packs?.allObjects as? [UserPack] ?? []
-                if userPacks.filter({$0.user?.id == AppDelegate.getUser()?.id}).count > 0 {
-                    packs.insert(p, atIndex: 0)
-                }
-            }
-            self.packs = packs
+            let packs = AppDelegate.getPredicate(Pack.self, NSPredicate(format: "ANY user_packs.user==%@", AppDelegate.getUser()!))
             doMain {
+                self.packs = packs
                 self.tableView.reloadData()
             }
         }

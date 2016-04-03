@@ -288,11 +288,12 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
 
             let allPacks = AppDelegate.getUser()!.getPacks()
-            self.hasPacks = allPacks.count > 0
-            self.packs = allPacks.filter({!$0.isDownloading}).filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
-            self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
+            let packs = allPacks.filter({!$0.isDownloading}).filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
             
             doMain {
+                self.hasPacks = allPacks.count > 0
+                self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
+                self.packs = packs
                 print("Updating home screen")
                 (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
                 self.cardCount!.text = total

@@ -33,7 +33,7 @@ class UserPack: NSManagedObject {
     func getRetries(refresh: Bool = false) -> [Card] {
         // if retries is empty generate a list and randomize it
         if self.retries == nil || self.retries == "" || refresh {
-                var retries = self.pack!.cards?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "id", ascending: true)]) as! [Card]
+            var retries = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", self.pack!))
                 retries.shuffleInPlace()
                 self.retries = retries.map { c -> String in
                     return "\(c.id!)"
@@ -65,8 +65,7 @@ class UserPack: NSManagedObject {
     
     func getRetentionCount() -> Int {
         // TODO: speed this up by checkin string for ids?
-        let retention = self.user!.getRetention()
-        return AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@ AND id IN %@", self.pack!, retention)).count
+        return self.getRetention().count
     }
     
     func getRetentionCard() -> Card? {
@@ -97,9 +96,10 @@ class UserPack: NSManagedObject {
         let cards = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@", self.pack!))
         for c in cards {
             let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card=%@ AND user=%@", c, self.user!))
-            var last: NSDate? = NSDate.parse((existing?["\(c.id!)"] as? Array<AnyObject>)?[1] as? String)
-            var i = intervals.indexOf((existing?["\(c.id!)"] as? Array<AnyObject>)?[0] as? Int ?? 1) ?? 0
-            var correctAfter = false
+            let retention = existing?["\(c.id!)"] as? NSArray
+            var last: NSDate? = NSDate.parse(retention?[1] as? String)
+            var i = intervals.indexOf(retention?[0] as? Int ?? 1) ?? 0
+            var correctAfter = retention?[2] as? Bool == false ?? false
             for r in responses {
                 //  if its correct the first time skip to index 2
                 if r.created == nil {
@@ -135,6 +135,6 @@ class UserPack: NSManagedObject {
     
     func getRetention() -> [Card] {
         let retention = self.user!.getRetention()
-        return (self.pack!.cards?.allObjects as! [Card]).filter({return retention.contains($0.id!)})
+        return AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@ AND id IN %@", self.pack!, retention))
     }
 }

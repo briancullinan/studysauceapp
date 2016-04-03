@@ -50,8 +50,13 @@ class PackResultsController: UIViewController {
     
     func doReset() {
         if self.isRetention {
-            // force homescreen to update with new retention cards
-            AppDelegate.getUser()!.generateRetention()
+            if self.selectedPack != nil {
+                self.selectedPack?.getUserPack(AppDelegate.getUser()).generateRetention()
+            }
+            else {
+                // force homescreen to update with new retention cards
+                AppDelegate.getUser()!.generateRetention()
+            }
         }
         else {
             // next time card is loaded retries will be repopulated
@@ -63,7 +68,8 @@ class PackResultsController: UIViewController {
                 // only wrong
                 var retries = up.getRetries().filter{
                     let response = $0.getResponse(AppDelegate.getUser())
-                    return response == nil && ((up.retention as? NSDictionary)?["\($0.id!)"] as? NSArray)?[2] as? Bool ?? true
+                    let retention = (up.retention as? NSDictionary)?["\($0.id!)"] as? NSArray
+                    return response == nil && retention?[2] as? Bool ?? true
                         || response?.correct != 1}
                 retries.shuffleInPlace()
                 up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
@@ -89,15 +95,18 @@ class PackResultsController: UIViewController {
         // add up results differently when loading from a retention pack
         var correct = 0
         var wrong = 0
-        let up = self.pack.getUserPack(AppDelegate.getUser())
-        let cards = self.isRetention
+        // get list of cards based on what process the user entered through
+        let cards: [Card] = self.isRetention
             ? (self.selectedPack != nil
-            ? self.selectedPack?.getUserPack(AppDelegate.getUser()).getRetention()
-            : AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!})
-            : self.pack.cards?.allObjects
-        for c in cards! {
+                ? self.selectedPack!.getUserPack(AppDelegate.getUser()).getRetention()
+                : AppDelegate.getUser()!.getRetention().map{AppDelegate.get(Card.self, $0)!})
+            : self.pack.cards!.allObjects as! [Card]
+        
+        for c in cards {
+            let up = c.pack!.getUserPack(AppDelegate.getUser())
             let last = c.getResponse(AppDelegate.getUser())
-            if (last != nil && last!.correct == 1) || last == nil && ((up.retention as? NSDictionary)?["\(c.id!!)"] as? NSArray)?[2] as? Bool == false {
+            let retention = (up.retention as? NSDictionary)?["\(c.id!)"] as? NSArray
+            if (last != nil && last!.correct == 1) || last == nil && retention?[2] as? Bool == false {
                 correct += 1
             }
             else {

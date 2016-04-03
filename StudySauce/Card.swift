@@ -14,14 +14,7 @@ class Card: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
     
     func getResponse(user: User?) -> Response? {
-        if let sorted = self.responses?.sortedArrayUsingDescriptors([NSSortDescriptor(key: "created", ascending: false)]) as? [Response] {
-            for r in sorted {
-                if r.user == user {
-                    return r
-                }
-            }
-        }
-        return nil;
+        return AppDelegate.getLast(Response.self, NSPredicate(format: "card==%@ AND user==%@", self, user!));
     }
     
     func getAllAnswers() -> [Answer] {

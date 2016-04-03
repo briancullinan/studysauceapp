@@ -14,13 +14,7 @@ class User: NSManagedObject {
 // Insert code here to add functionality to your managed object subclass
     
     func getPacks() -> [Pack] {
-        var result: [Pack] = []
-        if self.user_packs == nil || self.user_packs!.count == 0 {
-            return result
-        }
-        for up in self.user_packs?.allObjects as? [UserPack] ?? [UserPack]() {
-            result.append(up.pack!)
-        }
+        let result = AppDelegate.getPredicate(Pack.self, NSPredicate(format: "ANY user_packs.user==%@", self))
         return result
     }
     
@@ -65,7 +59,7 @@ class User: NSManagedObject {
         for c in cards {
             if let card = AppDelegate.get(Card.self, c) where card.pack != nil {
                 let up = card.pack!.getUserPack(AppDelegate.getUser())
-                let retention = (up.retention as? NSDictionary)?["\(card.id!)"] as? Array<AnyObject>
+                let retention = (up.retention as? NSDictionary)?["\(card.id!)"] as? NSArray
                 let response = card.getResponse(self)
                 if (retention == nil || retention![3] as? String == nil) && response == nil {
                     return card
