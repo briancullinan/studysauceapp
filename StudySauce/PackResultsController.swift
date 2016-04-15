@@ -51,12 +51,13 @@ class PackResultsController: UIViewController {
     func doReset() {
         if self.isRetention {
             if self.selectedPack != nil {
-                self.selectedPack?.getUserPack(AppDelegate.getUser()).generateRetention()
+                // This line doesn't actually do anything because the generated count isn't cached anywhere
+                //self.selectedPack?.getUserPack(AppDelegate.getUser()).generateRetention()
             }
             else {
                 // force homescreen to update with new retention cards
-                AppDelegate.getUser()!.generateRetention()
             }
+            AppDelegate.getUser()!.generateRetention()
         }
         else {
             // next time card is loaded retries will be repopulated

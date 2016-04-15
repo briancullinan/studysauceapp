@@ -21,18 +21,25 @@ public class PackSummaryCell: UITableViewCell {
     
     func downloadLogo(url: String) {
         self.logoImage.hidden = true
-        File.save(url, done: {(_:File) in
-            doMain {
-                if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
-                    (vc.view ~> PackSummaryCell.self).each {
-                        if $0.pack!.logo == self.pack!.logo && $0.logoImage.hidden {
-                            $0.logoImage.image = self.logoImage.image
-                            $0.logoImage.hidden = false
+        File.save(url) {(f :File) in
+            let fileName = f.filename!
+            let fileManager = NSFileManager.defaultManager()
+            if let data = fileManager.contentsAtPath(fileName) {
+                doMain {
+                    self.logoImage.image = UIImage(data: data)
+                    self.logoImage.hidden = false
+                    
+                    if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
+                        (vc.view ~> PackSummaryCell.self).each {
+                            if $0.pack!.logo == self.pack!.logo && $0.logoImage.hidden {
+                                $0.logoImage.image = self.logoImage.image
+                                $0.logoImage.hidden = false
+                            }
                         }
                     }
                 }
             }
-        })
+        }
     }
     
     internal func configure(pack: Pack) {

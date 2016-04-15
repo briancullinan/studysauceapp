@@ -54,7 +54,9 @@ class CardResponseController : CardPromptController {
         
         let correct = self.card!.getCorrect()
         if correct == nil || correct!.value == nil {
-            response = "\(self.card!.response!)"
+            if self.card!.response != nil && self.card!.response != "" {
+                response = "\(self.card!.response!)"
+            }
         }
         else {
             if self.card!.response != nil && self.card!.response != "" {

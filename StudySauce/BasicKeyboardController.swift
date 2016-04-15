@@ -78,7 +78,16 @@ class BasicKeyboardController: UIInputViewController {
     
         // Add custom view sizing constraints here
     }
-
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        self.repeatTimer?.invalidate()
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        (self.view ~> UIButton.self).each {
+            $0.highlighted = false
+            $0.backgroundColor = saucyTheme.lightColor
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -129,7 +138,6 @@ class BasicKeyboardController: UIInputViewController {
     
     @IBAction func cancelTimer(sender: UIButton) {
         self.repeatTimer?.invalidate()
-        
         /*
         if sender.tag != 2 {
             let proxy = self.textDocumentProxy as UITextDocumentProxy
