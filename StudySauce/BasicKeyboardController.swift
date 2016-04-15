@@ -85,6 +85,7 @@ class BasicKeyboardController: UIInputViewController {
         (self.view ~> UIButton.self).each {
             $0.highlighted = false
             $0.backgroundColor = saucyTheme.lightColor
+            $0.setFontColor(saucyTheme.fontColor)
         }
     }
     

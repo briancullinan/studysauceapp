@@ -94,8 +94,9 @@ class UserPack: NSManagedObject {
         let existing = self.retention as? NSDictionary
         // if a card hasn't been answered, return the next card
         let cards = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@", self.pack!))
+        let responsesUnfiltered = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card IN %@ AND user=%@", cards, self.user!))
         for c in cards {
-            let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "card=%@ AND user=%@", c, self.user!))
+            let responses = responsesUnfiltered.filter({$0.card == c})
             let retention = existing?["\(c.id!)"] as? NSArray
             var last: NSDate? = NSDate.parse(retention?[1] as? String)
             var i = intervals.indexOf(retention?[0] as? Int ?? 1) ?? 0

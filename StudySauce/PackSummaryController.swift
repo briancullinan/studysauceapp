@@ -38,9 +38,10 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                 var ids = [NSNumber]()
                 
                 for card in json as! NSArray {
-                    var newCard = card["id"] as? NSNumber != nil ? AppDelegate.get(Card.self, card["id"] as! NSNumber) : nil
+                    var newCard = card["id"] as? NSNumber != nil ? cards.filter({$0.id == (card["id"] as! NSNumber)}).first : nil
                     if newCard == nil {
                         newCard = AppDelegate.insert(Card.self)
+                        newCard!.pack = forPack
                         cards.insert(newCard!, atIndex: 0)
                     }
                     
@@ -49,7 +50,6 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     newCard!.content = card["content"] as? String
                     newCard!.response = card["response"] as? String
                     newCard!.response_type = card["response_type"] as? String
-                    newCard!.pack = forPack
                     newCard!.created = NSDate.parse(card["created"] as? String)
                     newCard!.modified = NSDate.parse(card["modified"] as? String)
                     AppDelegate.saveContext()
@@ -229,34 +229,32 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         if p.isDownloading {
             return
         }
-        AppDelegate.performContext {
-            if user != AppDelegate.getUser() {
-                return
-            }
-            let up = p.getUserPack(user)
-            if p.cards!.count == 0 || up.downloaded == nil
-                || (p.modified != nil && p.modified! > up.downloaded!) {
-                    
-                    p.isDownloading = true
-                    
-                    PackSummaryController.getCards(p, user) {_,_ in
-                        // TODO: update downloading status in table row!
-                        p.isDownloading = false
-                        up.retries = ""
-                        up.downloaded = NSDate()
-                        AppDelegate.saveContext()
-                        if user != AppDelegate.getUser() {
-                            return
-                        }
-                        done()
-                    }
-            }
-            else {
+        if user != AppDelegate.getUser() {
+            return
+        }
+        let up = p.getUserPack(user)
+        if p.cards!.count == 0 || up.downloaded == nil
+            || (p.modified != nil && p.modified! > up.downloaded!) {
+            
+            p.isDownloading = true
+            
+            PackSummaryController.getCards(p, user) {_,_ in
+                // TODO: update downloading status in table row!
+                p.isDownloading = false
+                up.retries = ""
+                up.downloaded = NSDate()
+                AppDelegate.saveContext()
+                if user != AppDelegate.getUser() {
+                    return
+                }
                 done()
             }
         }
+        else {
+            done()
+        }
     }
-    
+
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.packs == nil || self.packs!.count == 0 {
@@ -272,8 +270,8 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
             return
         }
         let user = AppDelegate.getUser()!
-        PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
-            AppDelegate.performContext {
+        AppDelegate.performContext {
+            PackSummaryController.downloadIfNeeded(self.pack!, user) { () -> Void in
                 let user = AppDelegate.getUser()!
                 if self.pack!.cards!.count  == 0 {
                     // something went wrong

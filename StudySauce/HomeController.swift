@@ -178,13 +178,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             HomeController.syncResponses {
                 self.packsLoaded = true
-                self.packRefresher?.invalidate()
                 self.getPacksFromLocalStore()
-                //self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
             }
             }, downloadedHandler: {p in
-                //self.packRefresher?.invalidate()
-                //self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+                doMain {
+                    self.packRefresher?.invalidate()
+                    self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+                }
         })
     }
     
@@ -210,7 +210,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let user = AppDelegate.getUser()!
         postJson("/packs/responses/\(user.id!)", data) {json -> Void in
             if let ids = json as? NSDictionary {
-                AppDelegate.performContext({
+                AppDelegate.performContext {
                     print("Sync downloaded")
                     for r in responses {
                         AppDelegate.deleteObject(r)
@@ -242,7 +242,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     AppDelegate.saveContext()
                     done()
-                })
+                }
             }
         }
     }
@@ -262,43 +262,40 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         (self.parentViewController as? HomeController)?.taskManager = nil
     }
     
-    internal func getPacks() {
-        self.getPacksFromLocalStore(nil)
+    func getPacks() {
+        AppDelegate.performContext {
+            self.getPacksFromLocalStore();
+        }
     }
     
-    private func getPacksFromLocalStore(pack: Pack? = nil)
+    private func getPacksFromLocalStore()
     {
-        
         if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
             return
         }
         
         print("Loading packs")
         
-        AppDelegate.performContext {
-            if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
-                return
-            }
-            
-            var total = "0 cards"
-            if self.cardCount != nil {
-                let count = AppDelegate.getUser()!.getRetentionRemaining()
-                let s = count == 1 ? "" : "s"
-                total = "\(count) card\(s)"
-            }
-
-            let allPacks = AppDelegate.getUser()!.getPacks()
-            let packs = allPacks.filter({!$0.isDownloading}).filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
-            
-            doMain {
-                self.hasPacks = allPacks.count > 0
-                self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
-                self.packs = packs
-                print("Updating home screen")
-                (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
-                self.cardCount!.text = total
-                self.tableView!.reloadData()
-            }
+        self.packRefresher = nil
+        
+        var total = "0 cards"
+        if self.cardCount != nil {
+            let count = AppDelegate.getUser()!.getRetentionRemaining()
+            let s = count == 1 ? "" : "s"
+            total = "\(count) card\(s)"
+        }
+        
+        let allPacks = AppDelegate.getUser()!.getPacks()
+        let packs = allPacks.filter({!$0.isDownloading}).filter({$0.getUserPack(AppDelegate.getUser()).getRetentionCount() > 0})
+        
+        doMain {
+            self.hasPacks = allPacks.count > 0
+            self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
+            self.packs = packs
+            print("Updating home screen")
+            (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
+            self.cardCount!.text = total
+            self.tableView!.reloadData()
         }
     }
 
