@@ -26,7 +26,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func codeButton(sender: UIButton) {
-        self.showDialog(NSLocalizedString("Ask you sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
+        self.showDialog(NSLocalizedString("Ask your sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
     }
     
     @IBAction func submitCode(sender: UIButton) {

@@ -63,7 +63,11 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         else {
             self.mail = self.inputText.text
             self.showNoConnectionDialog {
-                postJson("/reset", ["email": self.mail]) {(json) in
+                postJson("/reset", ["email": self.mail], error: {_ in
+                    self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
+                        self.inputText.becomeFirstResponder()
+                    }
+                }) {(json) in
                     self.showDialog(NSLocalizedString("Your password has been reset.  Please check your email.", comment: "Password reset confirmation message"), NSLocalizedString("Go home", comment: "Return to the landing page after password is reset")) {
                         doMain(self.done)
                             // password resets don't change users until code is entered so don't bother refetching
