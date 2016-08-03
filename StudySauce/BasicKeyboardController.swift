@@ -24,10 +24,14 @@ class BasicKeyboardController: UIInputViewController {
     static var _basicNumbers: BasicKeyboardController? = nil
     static var _symbols1: BasicKeyboardController? = nil
     static var _symbols2: BasicKeyboardController? = nil
+    static var keyboards: UIStoryboard? = nil
     
     static var basicKeyboard : UIView {
+        if keyboards == nil {
+            keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
+        }
         if _basic == nil {
-            _basic = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
+            _basic = keyboards!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
             _basic!.view!.frame = size
@@ -38,8 +42,11 @@ class BasicKeyboardController: UIInputViewController {
     }
     
     static var symbols1Keyboard : UIView {
+        if keyboards == nil {
+            keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
+        }
         if _symbols1 == nil {
-            _symbols1 = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("Symbols1Keyboard") as? BasicKeyboardController
+            _symbols1 = keyboards!.instantiateViewControllerWithIdentifier("Symbols1Keyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
             _symbols1!.view!.frame = size
@@ -50,8 +57,11 @@ class BasicKeyboardController: UIInputViewController {
     }
     
     static var symbols2Keyboard : UIView {
+        if keyboards == nil {
+            keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
+        }
         if _symbols2 == nil {
-            _symbols2 = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("Symbols2Keyboard") as? BasicKeyboardController
+            _symbols2 = keyboards!.instantiateViewControllerWithIdentifier("Symbols2Keyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
             _symbols2!.view!.frame = size
@@ -62,8 +72,11 @@ class BasicKeyboardController: UIInputViewController {
     }
     
     static var basicNumbersKeyboard : UIView {
+        if keyboards == nil {
+            keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
+        }
         if _basicNumbers == nil {
-            _basicNumbers = AppDelegate.instance().storyboard!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
+            _basicNumbers = keyboards!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
             let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
             _basicNumbers!.view!.frame = size
