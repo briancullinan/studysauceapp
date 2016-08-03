@@ -26,11 +26,16 @@ class TutorialPageViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        var seen = userDefaults.valueForKey("seen_tutorial") as? String ?? ""
-        seen = "\(seen)\(seen != "" ? "," : "")\(AppDelegate.getUser()!.id!)"
-        userDefaults.setValue(seen, forKey: "seen_tutorial")
-        userDefaults.synchronize() // don't forget this!!!!
+        AppDelegate.performContext {
+            if(AppDelegate.getUser() == nil) {
+                return
+            }
+            let userDefaults = NSUserDefaults.standardUserDefaults()
+            var seen = userDefaults.valueForKey("seen_tutorial") as? String ?? ""
+            seen = "\(seen)\(seen != "" ? "," : "")\(AppDelegate.getUser()!.id!)"
+            userDefaults.setValue(seen, forKey: "seen_tutorial")
+            userDefaults.synchronize() // don't forget this!!!!
+        }
     }
     
     @IBAction func skipClick(sender: UIButton) {

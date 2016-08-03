@@ -34,8 +34,7 @@ class UserPack: NSManagedObject {
         // if retries is empty generate a list and randomize it
         if self.retries == nil || self.retries == "" || refresh {
             var retries = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", self.pack!))
-                retries.shuffleInPlace()
-                self.retries = retries.map { c -> String in
+                self.retries = retries.shuffle().map { c -> String in
                     return "\(c.id!)"
                     }.joinWithSeparator(",")
                 self.retry_to = NSDate()
@@ -135,7 +134,9 @@ class UserPack: NSManagedObject {
     }
     
     func getRetention() -> [Card] {
+        // TODO: fix this because it breaks the chain, probably doesn't matter for speed to just check this pack since responses are always synced
         let retention = self.user!.getRetention()
         return AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack=%@ AND id IN %@", self.pack!, retention))
+        // return in retention order
     }
 }

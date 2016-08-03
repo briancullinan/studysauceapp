@@ -28,6 +28,7 @@
 		64570BDC1BC64B4D00F9C6EB /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDB1BC64B4D00F9C6EB /* String.swift */; };
 		64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64570BDD1BC64C6100F9C6EB /* DialogController.swift */; };
 		6469661F1BF2F1990081FC3F /* CollectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6469661E1BF2F1990081FC3F /* CollectionType.swift */; };
+		6471392D1D527F0F001A679B /* Keyboards.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6471392C1D527F0F001A679B /* Keyboards.storyboard */; };
 		64766A9B1BF3C1650010FD8C /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9A1BF3C1650010FD8C /* UIButton.swift */; };
 		64766A9D1BF3C2B20010FD8C /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9C1BF3C2B20010FD8C /* UILabel.swift */; };
 		64766A9F1BF3DD040010FD8C /* TQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9E1BF3DD040010FD8C /* TQuery.swift */; };
@@ -146,6 +147,7 @@
 		64570BDB1BC64B4D00F9C6EB /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		64570BDD1BC64C6100F9C6EB /* DialogController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialogController.swift; sourceTree = "<group>"; };
 		6469661E1BF2F1990081FC3F /* CollectionType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionType.swift; sourceTree = "<group>"; };
+		6471392C1D527F0F001A679B /* Keyboards.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Keyboards.storyboard; sourceTree = "<group>"; };
 		64766A9A1BF3C1650010FD8C /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		64766A9C1BF3C2B20010FD8C /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		64766A9E1BF3DD040010FD8C /* TQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TQuery.swift; sourceTree = "<group>"; };
@@ -490,6 +492,7 @@
 				64C2F4A91C2094C400F7C854 /* Bridge.h */,
 				64C167DF1C456D4000ECDFED /* Podfile */,
 				64A8A8761C77CF0B005AE14B /* BasicKeyboard.xib */,
+				6471392C1D527F0F001A679B /* Keyboards.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				64ED1DD61BEC173700A9E2A2 /* Info.plist in Resources */,
 				642354161BBDFDD800B068DB /* Main.storyboard in Resources */,
 				845052611BA4AA3B005377D9 /* LaunchScreen.xib in Resources */,
+				6471392D1D527F0F001A679B /* Keyboards.storyboard in Resources */,
 				64A8A8771C77CF0B005AE14B /* BasicKeyboard.xib in Resources */,
 				8450525E1BA4AA3B005377D9 /* Images.xcassets in Resources */,
 				64C167E21C45730200ECDFED /* GoogleService-Info.plist in Resources */,

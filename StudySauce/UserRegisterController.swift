@@ -117,6 +117,10 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.firstName!.delegate = self
         self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
         self.email!.delegate = self
+        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.childFirst!.delegate = self
+        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.childLast!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }
     
@@ -140,7 +144,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             "first" : self.first,
             "last" : self.last,
             "email" : self.mail,
-            "pass" : self.pass,
+            "password" : self.pass,
             "csrf_token" : self.token
         ]
         if self.child == true {

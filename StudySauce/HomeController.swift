@@ -198,6 +198,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let answer = response.answer != nil ? response.answer!.id! : 0
             let created = response.created!.toRFC()
             let cardId = response.card!.id!
+            data["responses[\(index)][value]"] = response.value
             data["responses[\(index)][card]"] = cardId
             data["responses[\(index)][correct]"] = correct
             data["responses[\(index)][answer]"] = answer

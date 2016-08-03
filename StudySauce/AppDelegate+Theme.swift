@@ -399,13 +399,13 @@ extension AppDelegate {
         })
         
         // packs and settings buttons on home page
-        $([HomeController.self ~>> UIButton.self ~* 1337], {(v: UIButton) in
+        $([HomeController.self ~>> UIButton.self ~* 1337]) {(v: UIButton) in
             v.contentEdgeInsets = UIEdgeInsetsMake(
                 0,
                 saucyTheme.textSize * 1.5 / 2,
                 saucyTheme.textSize * 1.5,
                 saucyTheme.textSize * 1.5 / 2)
-        })
+        }
         
         // borders
         $(HomeController.self ~> UITableView.self ~+ UIView.self ~* 2, {
@@ -517,12 +517,13 @@ extension AppDelegate {
             }
         })
         
-        $(UIImageView.self ~* 23 ~+ UITextField.self ~>> UILabel.self, {
-            if $0.text == ($0.superview as? UITextField)?.placeholder {
-                $0.setFontColor(saucyTheme.lightColor)
+        $([UIImageView.self ~* 23 ~+ UITextField.self ~>> UILabel.self,
+            UIImageView.self ~* 23 ~+ UIView.self ~> UITextField.self ~>> UILabel.self], {(v: UILabel) in
+            if v.text == (v.superview as? UITextField)?.placeholder {
+                v.setFontColor(saucyTheme.lightColor)
             }
         })
-
+        
         $([CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()
@@ -703,6 +704,12 @@ extension AppDelegate {
             }
         })
         
+        $([HomeController.self ~> UILabel.self ~* 59]) {(v: UILabel) in
+            v.setFontColor(saucyTheme.primary)
+            v.superview?.bringSubviewToFront(v)
+            v.setFontName(saucyTheme.subheadingFont)
+        }
+
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }

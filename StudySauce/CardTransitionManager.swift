@@ -324,6 +324,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
         
         let duration = self.transitionDuration(transitionContext)
+        last.view.hidden = false
+        next.view.hidden = false
         
         // perform the animation!
         UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: {
@@ -406,6 +408,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 if(transitionContext.transitionWasCancelled()){
                     
                     transitionContext.completeTransition(false)
+                    if self.presenting {
+                        next.view.hidden = true
+                    }
+                    else {
+                        last.view.hidden = true
+                    }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.from.view)
                     
@@ -413,6 +421,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 else {
                     
                     transitionContext.completeTransition(true)
+                    if self.presenting {
+                        last.view.hidden = true
+                    }
+                    else {
+                        next.view.hidden = true
+                    }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.to.view)
                     
