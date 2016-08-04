@@ -19,11 +19,11 @@ class ContactUsController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]!
         self.message.text = "\n\nMy System Information:\nApp Version: \(version)\nModel: \(UIDevice.currentDevice().modelName)\nVersion: \(UIDevice.currentDevice().systemVersion)\n"
-        self.name!.addDoneOnKeyboardWithTarget(self, action: #selector(ContactUsController.sendEmail(_:)))
+        self.name!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.name!.delegate = self
-        self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(ContactUsController.sendEmail(_:)))
+        self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.email!.delegate = self
-        self.message!.addDoneOnKeyboardWithTarget(self, action: #selector(ContactUsController.sendEmail(_:)))
+        self.message!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         IQKeyboardManager.sharedManager().enable = true
     }
     

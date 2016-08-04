@@ -111,15 +111,15 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             self.childLast.hidden = true
             //self.addButton.hidden = true
         }
-        self.lastName!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.lastName!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.lastName!.delegate = self
-        self.firstName!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.firstName!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.firstName!.delegate = self
-        self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.email!.delegate = self
-        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.childFirst!.delegate = self
-        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UserRegisterController.registerClick(_:)))
+        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.childLast!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }

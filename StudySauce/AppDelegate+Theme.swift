@@ -118,7 +118,9 @@ extension AppDelegate {
                     let vc = AppDelegate.visibleViewController()
                     if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
                         vc.orientation = UIApplication.sharedApplication().statusBarOrientation
-                        AppDelegate.rerenderView(vc.view)
+                        if !vc.view.hidden {
+                            AppDelegate.rerenderView(vc.view)
+                        }
                     }
                     self.isRotating = false
                 }
@@ -133,8 +135,12 @@ extension AppDelegate {
                 self.isRotating = true
                 doMain {
                     let vc = AppDelegate.visibleViewController()
+                    if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
                         vc.orientation = UIApplication.sharedApplication().statusBarOrientation
-                    AppDelegate.rerenderView(vc.view)
+                        if !vc.view.hidden {
+                            AppDelegate.rerenderView(vc.view)
+                        }
+                    }
                     self.isRotating = false
                 }
             }
@@ -513,14 +519,13 @@ extension AppDelegate {
         
         $(UITextField.self ~>> UILabel.self, {
             if $0.text == ($0.superview as? UITextField)?.placeholder {
-                $0.setFontColor(saucyTheme.middle)
+                $0.setFontColor(saucyTheme.lightColor)
             }
         })
         
-        $([UIImageView.self ~* 23 ~+ UITextField.self ~>> UILabel.self,
-            UIImageView.self ~* 23 ~+ UIView.self ~> UITextField.self ~>> UILabel.self], {(v: UILabel) in
+        $([CardBlankController.self ~> UITextField.self ~>> UILabel.self], {(v: UILabel) in
             if v.text == (v.superview as? UITextField)?.placeholder {
-                v.setFontColor(saucyTheme.lightColor)
+                v.setFontColor(saucyTheme.middle)
             }
         })
         

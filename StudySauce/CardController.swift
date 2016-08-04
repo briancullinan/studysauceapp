@@ -48,6 +48,8 @@ class CardController: UIViewController {
     }
     */
     
+    static var cardTypes: UIStoryboard? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,7 +101,10 @@ class CardController: UIViewController {
             else if self.card?.response_type == "sa" {
                 view = "Blank"
             }
-            self.subview = self.storyboard!.instantiateViewControllerWithIdentifier(view)
+            if CardController.cardTypes == nil {
+                CardController.cardTypes = UIStoryboard(name: "CardTypes", bundle: nil)
+            }
+            self.subview = CardController.cardTypes!.instantiateViewControllerWithIdentifier(view)
         }
         self.subview!.view.translatesAutoresizingMaskIntoConstraints = false
         self.embeddedView.addSubview(self.subview!.view)

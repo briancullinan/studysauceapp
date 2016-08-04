@@ -61,9 +61,9 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         self.showNoConnectionDialog({
             UserLoginController.login()
         })
-        self.password!.addDoneOnKeyboardWithTarget(self, action: #selector(UserLoginController.loginClick(_:)))
+        self.password!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.password!.delegate = self
-        self.username!.addDoneOnKeyboardWithTarget(self, action: #selector(UserLoginController.loginClick(_:)))
+        self.username!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.username!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }

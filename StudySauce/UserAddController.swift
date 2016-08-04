@@ -13,11 +13,15 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     internal var childFirstName: String?
     internal var childLastName: String?
     internal var code: String?
+    internal var token: String?
+    var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
     @IBOutlet weak var inviteCode: TextField!
     @IBOutlet weak var addButton: UIButton!
-    internal var token: String?
+    @IBOutlet weak var schoolSystem: TextField!
+    @IBOutlet weak var schoolYear: TextField!
+    @IBOutlet weak var schoolName: TextField!
     
     @IBAction func backClick(sender: UIButton) {
         CardSegue.transitionManager.transitioning = true
@@ -29,13 +33,68 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.inviteCode!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
-        self.inviteCode!.delegate = self
-        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
+        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.childFirst!.delegate = self
-        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UserAddController.addClick(_:)))
+        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.childLast!.delegate = self
-        IQKeyboardManager.sharedManager().enable = true
+        self.schoolSystem.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
+        self.schoolSystem.delegate = self
+        self.schoolYear.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
+        self.schoolYear.delegate = self
+        self.schoolName.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
+        self.schoolName.delegate = self
+        
+        //IQKeyboardManager.sharedManager().enable = false
+        //IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = true
+        //IQKeyboardManager.sharedManager().enableAutoToolbar = false
+        returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
+        
+        self.assignSelectKeyboard(self.schoolSystem)
+        self.assignSelectKeyboard(self.schoolYear)
+        self.assignSelectKeyboard(self.schoolName)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserAddController.reshowKeyboard), name: UIKeyboardDidHideNotification, object: nil)
+    }
+    
+    func reshowKeyboard() {
+        doMain {
+            if self.switched != nil {
+                let switchTo = self.switched!
+                self.switched = nil
+                switchTo.becomeFirstResponder()
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+    }
+
+    var switched: UITextField? = nil
+    @IBAction func textFieldDidBeginEditing(textField: UITextField) {
+        doMain {
+            self.switched = textField
+        }
+    }
+    
+    @IBAction func textFieldDidEndEditing(textField: UITextField) {
+        if textField == self.schoolSystem || textField == self.schoolYear || textField == self.schoolName {
+            UIView.setAnimationsEnabled(false)
+            doMain {
+                self.childFirst.resignFirstResponder()
+                self.childLast.resignFirstResponder()
+            }
+        }
+        else {
+            self.switched = nil
+        }
+    }
+    
+    func assignSelectKeyboard(input: TextField) {
+        input.tintColor = UIColor.clearColor()
+        input.inputView = BasicKeyboardController.pickerKeyboard
+        BasicKeyboardController.keyboardHeight = 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
+        BasicKeyboardController.keyboardSwitch = {
+            input.inputView = $0
+            input.reloadInputViews()
+        }
+        input.reloadInputViews()
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -61,6 +120,9 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     @IBAction func addClick(sender: UIButton) {
         self.childFirst.resignFirstResponder()
         self.childLast.resignFirstResponder()
+        self.schoolSystem.resignFirstResponder()
+        self.schoolYear.resignFirstResponder()
+        self.schoolName.resignFirstResponder()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
         self.code = self.inviteCode.text

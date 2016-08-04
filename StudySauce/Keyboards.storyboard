@@ -1515,5 +1515,40 @@
             </objects>
             <point key="canvasLocation" x="-725" y="-1480"/>
         </scene>
+        <!--Basic Keyboard Controller-->
+        <scene sceneID="1t6-UD-P6F">
+            <objects>
+                <viewController storyboardIdentifier="EntityPickerKeyboard" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Cev-RN-sJH" customClass="BasicKeyboardController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kJp-bb-Rbn"/>
+                        <viewControllerLayoutGuide type="bottom" id="F2v-gO-uDW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Upo-01-clq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-BI-FKV">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Cev-RN-sJH" id="4qa-Ii-WNN"/>
+                                    <outlet property="delegate" destination="Cev-RN-sJH" id="mlA-w0-WR6"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wcD-BI-FKV" firstAttribute="height" secondItem="Upo-01-clq" secondAttribute="height" id="M8c-LW-07l"/>
+                            <constraint firstItem="wcD-BI-FKV" firstAttribute="centerY" secondItem="Upo-01-clq" secondAttribute="centerY" id="i4i-Wh-kDm"/>
+                            <constraint firstItem="wcD-BI-FKV" firstAttribute="centerX" secondItem="Upo-01-clq" secondAttribute="centerX" id="sQ6-6V-jRm"/>
+                            <constraint firstItem="wcD-BI-FKV" firstAttribute="width" secondItem="Upo-01-clq" secondAttribute="width" id="xOa-mE-s4q"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="300"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q40-mb-3wG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="95" y="-1480"/>
+        </scene>
     </scenes>
 </document>

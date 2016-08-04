@@ -23,7 +23,7 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         if token != nil {
             inputText.secureTextEntry = true
             inputText.placeholder = NSLocalizedString("New password", comment: "Placeholder for reset password after the token has been retrieved from email.")
-            self.inputText!.addDoneOnKeyboardWithTarget(self, action: #selector(UserResetController.resetClick(_:)))
+            self.inputText!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
             self.inputText!.delegate = self
        }
     }

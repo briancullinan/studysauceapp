@@ -409,7 +409,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     
                     transitionContext.completeTransition(false)
                     if self.presenting {
-                        next.view.hidden = true
+                        if next.modalPresentationStyle != .OverCurrentContext {
+                            next.view.hidden = true
+                        }
                     }
                     else {
                         last.view.hidden = true
@@ -422,7 +424,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     
                     transitionContext.completeTransition(true)
                     if self.presenting {
-                        last.view.hidden = true
+                        if next.modalPresentationStyle != .OverCurrentContext {
+                            last.view.hidden = true
+                        }
                     }
                     else {
                         next.view.hidden = true

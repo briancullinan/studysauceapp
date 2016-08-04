@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BasicKeyboardController: UIInputViewController {
+class BasicKeyboardController: UIInputViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     var lowercase = false {
         didSet {
@@ -24,6 +24,7 @@ class BasicKeyboardController: UIInputViewController {
     static var _basicNumbers: BasicKeyboardController? = nil
     static var _symbols1: BasicKeyboardController? = nil
     static var _symbols2: BasicKeyboardController? = nil
+    static var _picker: BasicKeyboardController? = nil
     static var keyboards: UIStoryboard? = nil
     
     static var basicKeyboard : UIView {
@@ -86,6 +87,21 @@ class BasicKeyboardController: UIInputViewController {
         return _basicNumbers!.view!
     }
     
+    static var pickerKeyboard : UIView {
+        if keyboards == nil {
+            keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
+        }
+        if _picker == nil {
+            _picker = keyboards!.instantiateViewControllerWithIdentifier("EntityPickerKeyboard") as? BasicKeyboardController
+            let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
+            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            _picker!.view!.frame = size
+            _picker!.view!.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        return _picker!.view!
+    }
+
     override func updateViewConstraints() {
         super.updateViewConstraints()
     
@@ -101,6 +117,8 @@ class BasicKeyboardController: UIInputViewController {
             $0.setFontColor(saucyTheme.fontColor)
         }
     }
+    
+    var pickerData: NSArray? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,6 +243,21 @@ class BasicKeyboardController: UIInputViewController {
         if parent != nil {
             (parent!.view ~> UIView.self).each {$0.hidden = true}
         }
+    }
+    
+    // The number of columns of data
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData?.count ?? 1
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return (pickerData?.count ?? 0) > 0 ? pickerData?[row] as! String : "Select another group"
     }
     
     @IBAction func didTapButton(sender: UIButton) {
