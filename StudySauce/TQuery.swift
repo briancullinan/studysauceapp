@@ -258,7 +258,7 @@ class TImmediateChild<B: UIView>: TQueryable<B> {
         if super.matches(view) {
             // self.a can be a view controller type or another view type
             if view.nextResponder() != nil && (self.q.matches(view.nextResponder()!) ||
-                view.nextResponder()!.nextResponder() != nil && self.q.matches(view.nextResponder()!.nextResponder()!)) {
+                view.nextResponder()!.nextResponder() != nil && view.nextResponder()!.nextResponder()! is UIViewController && self.q.matches(view.nextResponder()!.nextResponder()!)) {
                 return true
             }
             else if let parent = view.superview where parent != nil {

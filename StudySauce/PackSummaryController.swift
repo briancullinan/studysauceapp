@@ -257,11 +257,23 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
 
     // MARK: - Table View
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == 0 {
+            self.transitionToStore()
+            return
+        }
         if self.packs == nil || self.packs!.count == 0 {
             return
         }
-        self.pack = self.packs![indexPath.row]
+        self.pack = self.packs![indexPath.row - 1]
         self.transitionToCard()
+    }
+    
+    private func transitionToStore() {
+        if CardSegue.transitionManager.transitioning ||
+            !(AppDelegate.visibleViewController() is PackSummaryController) {
+            return
+        }
+        self.performSegueWithIdentifier("store", sender: self)
     }
     
     private func transitionToCard() {
@@ -298,13 +310,16 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.packs == nil || self.packs!.count == 0 {
-            return 1
+            return 2
         }
-        return self.packs!.count
+        return self.packs!.count + 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.packsLoaded && self.packs!.count == 0 {
+        if indexPath.row == 0 {
+            return tableView.dequeueReusableCellWithIdentifier("Store")!
+        }
+        if self.packsLoaded && self.packs?.count == 0 {
             return tableView.dequeueReusableCellWithIdentifier("NoPacks")!
         }
         else if self.packs == nil || self.packs!.count == 0 {
@@ -313,7 +328,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackSummaryCell
         
-        let object = self.packs![indexPath.row]
+        let object = self.packs![indexPath.row - 1]
         cell.configure(object)
         return cell
     }

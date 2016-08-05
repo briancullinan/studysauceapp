@@ -10,13 +10,13 @@ import Foundation
 import CoreData
 import UIKit
 
-public class PackSummaryCell: UITableViewCell {
+public class CouponCell: UITableViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var countLabel: UIButton!
     
-    weak var pack: Pack? = nil
+    weak var json: NSDictionary? = nil
     
     func downloadLogo(url: String) {
         self.logoImage.hidden = true
@@ -30,7 +30,7 @@ public class PackSummaryCell: UITableViewCell {
                     
                     if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
                         (vc.view ~> PackSummaryCell.self).each {
-                            if $0.pack!.logo == self.pack!.logo && $0.logoImage.hidden {
+                            if $0.pack!.logo == self.json!["logo"] as? String ?? "" && $0.logoImage.hidden {
                                 $0.logoImage.image = self.logoImage.image
                                 $0.logoImage.hidden = false
                             }
@@ -41,10 +41,10 @@ public class PackSummaryCell: UITableViewCell {
         }
     }
     
-    internal func configure(pack: Pack) {
-        self.pack = pack
-        let title = pack.title
-        var url = pack.logo ?? ""
+    internal func configure(json: NSDictionary) {
+        self.json = json
+        let title = json["description"] as? String ?? ""
+        var url = json["logo"] as? String ?? ""
         if url.isEmpty {
             url = AppDelegate.studySauceCom("/bundles/studysauce/images/upload_image.png").absoluteString
         }
@@ -66,9 +66,15 @@ public class PackSummaryCell: UITableViewCell {
                 self.downloadLogo(url)
             }
         }
-        let count = Int(pack.count ?? 0)
-        let s = count > 1 ? "s" : ""
-        self.countLabel.text = "\(count) card\(s)";
+        let count = json["cardCount"] as? Int ?? 0
+        let s = count == 1 ? " card" : " cards"
+        let option = json["options"]?.allKeys[0] as? String ?? ""
+        let props = json["options"] as! NSDictionary
+        let price = (props[option] as! NSDictionary)["price"] ?? ""
+        let dbl = Double("\(price!)")
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        self.countLabel.setTitle((dbl ?? 0.0).isZero ? "Free" : formatter.stringFromNumber(dbl!), forState: UIControlState.Normal)
         self.titleLabel.text = title
     }
 }

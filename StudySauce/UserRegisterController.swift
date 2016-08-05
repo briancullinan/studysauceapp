@@ -28,8 +28,6 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var childButton: UIButton!
-    @IBOutlet weak var childFirst: TextField!
-    @IBOutlet weak var childLast: TextField!
     
     
     @IBAction func addChild(sender: UIButton) {
@@ -62,25 +60,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     
     @IBAction func switchClick(sender: UIButton) {
         self.childSwitch.setOn(!self.childSwitch.on, animated: true)
-        self.childSwitchOn(self.childSwitch)
     }
-    
-    @IBAction func childSwitchOn(sender: AnyObject) {
-        
-        if childSwitch.on
-        {
-            self.childFirst.hidden = false
-            self.childLast.hidden = false
-            //self.addButton.hidden = false
-        }
-        else
-        {
-            self.childFirst.hidden = true
-            self.childLast.hidden = true
-            //self.addButton.hidden = true
-        }
-    }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,14 +72,10 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.childSwitch.hidden = false
         self.childButton.hidden = false
         //self.addButton.hidden = false
-        self.childFirst.hidden = false
-        self.childLast.hidden = false
         if self.props?["child_required"] as? Bool == true {
             self.childSwitch.on = true
             self.childSwitch.hidden = true
             self.childButton.hidden = true
-            self.childFirst.hidden = false
-            self.childLast.hidden = false
             //self.addButton.hidden = false
         }
         if self.props?["child_disabled"] as? Bool == true {
@@ -107,8 +83,6 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             self.childSwitch.on = false
             self.childSwitch.hidden = true
             self.childButton.hidden = true
-            self.childFirst.hidden = true
-            self.childLast.hidden = true
             //self.addButton.hidden = true
         }
         self.lastName!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
@@ -117,10 +91,6 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.firstName!.delegate = self
         self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.email!.delegate = self
-        self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
-        self.childFirst!.delegate = self
-        self.childLast!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
-        self.childLast!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }
     
@@ -139,18 +109,15 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     }
     
     func registerUser() {
-        var registrationInfo: Dictionary<String,AnyObject?> = [
+        let registrationInfo: Dictionary<String,AnyObject?> = [
             "code" : self.registrationCode,
             "first" : self.first,
             "last" : self.last,
             "email" : self.mail,
             "password" : self.pass,
+            "hasChild" : self.child == true ? "true" : "false",
             "csrf_token" : self.token
         ]
-        if self.child == true {
-            registrationInfo["childFirst"] = self.childFirst.text
-            registrationInfo["childLast"] = self.childLast.text
-        }
         doMain {
             self.registerButton.enabled = false
             self.registerButton.alpha = 0.85
@@ -162,6 +129,14 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             postJson("/account/create", registrationInfo, error: {_ in
                 doMain(self.done)
                 }, redirect: {(path) in
+                    // check for register child redirect
+                    if path == "/register/child" {
+                        redirect = true
+                        AppDelegate.goHome(self, true) {_ in
+                            // TODO: go to register child panel immediately
+                            doMain (self.done)
+                        }
+                    }
                     // login was a success!
                     if path == "/home" {
                         redirect = true

@@ -592,10 +592,15 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.headingSize)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338, {
-            $0.setFontName(saucyTheme.textFont)
-            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
-            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
+        $([UIViewController.self ~> UIButton.self ~* 1338, UIViewController.self ~> UIButton.self ~* 1339], {(v: UIButton) in
+            v.backgroundColor = saucyTheme.secondary
+            v.setFontName(saucyTheme.textFont)
+            v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
+            v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
+        })
+        
+        $(UIViewController.self ~> UIButton.self ~* 1339, {
+            $0.backgroundColor = saucyTheme.primary
         })
         
         $(UIViewController.self ~> UIButton.self ~* 1338 ~* {$0.highlighted}, {
@@ -663,6 +668,10 @@ extension AppDelegate {
 
         })
         
+        $(PackSummaryController.self ~> UITableViewCell.self ~* "Store" ~> UILabel.self, {
+            $0.setFontColor(saucyTheme.secondary)
+        })
+        
         $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UILabel.self, {
             $0.alpha = 0.75
             $0.setFontSize(saucyTheme.textSize * 0.75)
@@ -709,12 +718,27 @@ extension AppDelegate {
             }
         })
         
-        $([HomeController.self ~> UILabel.self ~* 59]) {(v: UILabel) in
+        $([UILabel.self ~* 59]) {(v: UILabel) in
             v.setFontColor(saucyTheme.primary)
             v.superview?.bringSubviewToFront(v)
             v.setFontName(saucyTheme.subheadingFont)
         }
 
+        
+        $(StoreController.self ~> UIView.self ~* 57 ~>> UILabel.self) {
+            $0.setFontColor(UIColor(0x44AA44))
+            $0.setFontName(saucyTheme.subheadingFont)
+        }
+        
+        $([StoreController.self ~> UIView.self ~* 57 ~> UIButton.self, StoreController.self ~> UILabel.self ~* 56 ~+ UIButton.self]) {
+            $0.setBackground(saucyTheme.primary)
+        }
+        
+        $(StoreController.self ~> UILabel.self ~* 56) {
+            $0.setFontName(saucyTheme.subheadingFont)
+            $0.layer.addBorder(UIRectEdge.Top, color: saucyTheme.fontColor, thickness: 1)
+        }
+        
         // This is the normal way to change appearance on a single type
         UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
     }
