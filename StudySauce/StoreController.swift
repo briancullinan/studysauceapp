@@ -83,7 +83,9 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         else {
             self.getCouponsFromRemoteStore()
         }
-        self.updateCart()
+        doMain {
+            self.updateCart()
+        }
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
     }
     
@@ -161,6 +163,21 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             }
         }
         cartCount.text = "\(AppDelegate.cart.count)"
+        var total = 0.0
+        for c in self.coupons ?? [] {
+            if AppDelegate.cart.contains((c as! NSDictionary)["name"] as! String) {
+                let coupon = c as! NSDictionary
+                let options = coupon["options"] as! NSDictionary
+                let option = coupon["options"]?.allKeys[0] as? String ?? ""
+                let price = (options[option] as! NSDictionary)["price"] ?? ""
+                total += Double("\(price!)") ?? 0.0
+            }
+        }
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        self.subTotal.text = formatter.stringFromNumber(total)
+        self.tax.text = formatter.stringFromNumber(total * 0.0795)
+        self.total.text = formatter.stringFromNumber(total + total * 0.0795)
         self.updateViewConstraints()
     }
     
@@ -188,23 +205,9 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             "footers" : user.hasRole("ROLE_ADMIN") ? ["coupon" : true] : false
         ]) {json in
             self.coupons = (json["results"] as? NSDictionary)?["coupon"] as? NSArray
-            var total = 0.0
-            for c in self.coupons! {
-                if AppDelegate.cart.contains((c as! NSDictionary)["name"] as! String) {
-                    let coupon = c as! NSDictionary
-                    let options = coupon["options"] as! NSDictionary
-                    let option = coupon["options"]?.allKeys[0] as? String ?? ""
-                    let price = (options[option] as! NSDictionary)["price"] ?? ""
-                    total += Double("\(price!)") ?? 0.0
-                }
-            }
-            let formatter = NSNumberFormatter()
-            formatter.numberStyle = .CurrencyStyle
+            
             doMain {
                 self.couponsLoaded = true
-                self.subTotal.text = formatter.stringFromNumber(total)
-                self.tax.text = formatter.stringFromNumber(total * 0.0795)
-                self.total.text = formatter.stringFromNumber(total + total * 0.0795)
                 self.tableView.reloadData()
             }
         }
