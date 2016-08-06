@@ -32,6 +32,7 @@
 		6471392F1D5281A5001A679B /* CardTypes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6471392E1D5281A5001A679B /* CardTypes.storyboard */; };
 		647139311D539662001A679B /* StoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647139301D539662001A679B /* StoreController.swift */; };
 		647139331D5422D1001A679B /* CouponCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647139321D5422D1001A679B /* CouponCell.swift */; };
+		647139351D568CA5001A679B /* SINQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647139341D568CA5001A679B /* SINQ.swift */; };
 		64766A9B1BF3C1650010FD8C /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9A1BF3C1650010FD8C /* UIButton.swift */; };
 		64766A9D1BF3C2B20010FD8C /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9C1BF3C2B20010FD8C /* UILabel.swift */; };
 		64766A9F1BF3DD040010FD8C /* TQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64766A9E1BF3DD040010FD8C /* TQuery.swift */; };
@@ -154,6 +155,7 @@
 		6471392E1D5281A5001A679B /* CardTypes.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CardTypes.storyboard; sourceTree = "<group>"; };
 		647139301D539662001A679B /* StoreController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoreController.swift; sourceTree = "<group>"; };
 		647139321D5422D1001A679B /* CouponCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CouponCell.swift; sourceTree = "<group>"; };
+		647139341D568CA5001A679B /* SINQ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SINQ.swift; sourceTree = "<group>"; };
 		64766A9A1BF3C1650010FD8C /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		64766A9C1BF3C2B20010FD8C /* UILabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		64766A9E1BF3DD040010FD8C /* TQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TQuery.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				64306E0E1BFE62AD0069BF1F /* JSON.swift */,
 				64C167CD1C38A4FF00ECDFED /* UIDevice.swift */,
 				64A8A8781C7B7D11005AE14B /* NotificationManager.swift */,
+				647139341D568CA5001A679B /* SINQ.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -830,6 +833,7 @@
 				64D219F01BBCAE34005F9094 /* UIViewController.swift in Sources */,
 				64C2F4A81C2090F100F7C854 /* DALabeledCircularProgressView.m in Sources */,
 				64570BDE1BC64C6100F9C6EB /* DialogController.swift in Sources */,
+				647139351D568CA5001A679B /* SINQ.swift in Sources */,
 				64D219E31BBB0CCB005F9094 /* User.swift in Sources */,
 				64ED1DCF1BEC173700A9E2A2 /* IQKeyboardManager.swift in Sources */,
 				64A1646D1BFBC22600345E55 /* File.swift in Sources */,

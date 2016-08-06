@@ -1672,7 +1672,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="addButton" destination="ZrM-Nu-8oj" id="5c2-fV-34L"/>
                         <outlet property="childFirst" destination="xDh-Kk-7NG" id="1cz-Yf-mG1"/>
                         <outlet property="childLast" destination="x5I-8x-auy" id="T9B-5F-hzJ"/>
-                        <outlet property="inviteCode" destination="MG9-jv-G3h" id="ckQ-as-hhv"/>
                         <outlet property="schoolName" destination="Peg-v3-XKz" id="qik-ht-l49"/>
                         <outlet property="schoolSystem" destination="MG9-jv-G3h" id="lwO-Hu-YCE"/>
                         <outlet property="schoolYear" destination="LuW-eo-a6c" id="9WI-lG-CfO"/>

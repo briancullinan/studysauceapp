@@ -240,6 +240,8 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         if let keyboardContainer = self.parentViewController {
             (keyboardContainer.view ~> UIView.self).each{$0.hidden = false}
         }
+        
+        self.picker?.reloadAllComponents()
     }
 
     override func willMoveToParentViewController(parent: UIViewController?) {

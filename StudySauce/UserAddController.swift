@@ -17,7 +17,6 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
     @IBOutlet weak var childFirst: UITextField!
     @IBOutlet weak var childLast: UITextField!
-    @IBOutlet weak var inviteCode: TextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var schoolSystem: TextField!
     @IBOutlet weak var schoolYear: TextField!
@@ -49,7 +48,10 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.getInvitesFromRemoteStore()
     }
     
-    var invites: NSArray = []
+    var invites: [NSDictionary] = []
+    var level1: [NSDictionary] = []
+    var level2: [NSDictionary] = []
+    var level3: [NSDictionary] = []
     
     // Catpure the picker view selection
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -60,7 +62,18 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
         (self.view ~> TextField.self).each {
             if $0.isFirstResponder() {
-                $0.text = ((self.invites[row-1] as! NSDictionary)["group"] as! NSDictionary)["name"] as? String
+                if $0 == self.schoolSystem {
+                    $0.text = self.level3[row-1]["name"] as? String
+                }
+                else if $0 == self.schoolYear {
+                    let system = (self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first! as NSDictionary)["name"] as? String
+                    $0.text = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system})[row-1]["name"] as? String
+                }
+                else if $0 == self.schoolName {
+                    let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
+                    $0.text = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year})[row-1]["name"] as? String
+                }
+                
                 $0.resignFirstResponder()
             }
         }
@@ -73,15 +86,57 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     
     // The number of rows of data
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.invites.count + 1
+        var count = 1
+        (self.view ~> TextField.self).each {
+            if $0.isFirstResponder() {
+                if $0 == self.schoolSystem {
+                    count = self.level3.count + 1
+                }
+                else if $0 == self.schoolYear {
+                    let system = self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first?["name"] as? String
+                    count = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system}).count + 1
+                }
+                else if $0 == self.schoolName {
+                    let year = self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first?["name"] as? String
+                    count = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year}).count + 1
+                }
+            }
+        }
+        return count
     }
     
     // The data to return for the row and component (column) that"s being passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {
-            return "Select a school system"
+        var text = ""
+        (self.view ~> TextField.self).each {
+            if $0.isFirstResponder() {
+                if row == 0 {
+                    if $0 == self.schoolSystem {
+                        text = "Select a school system"
+                    }
+                    else if $0 == self.schoolYear {
+                        text = "Select a school year"
+                    }
+                    else if $0 == self.schoolName {
+                        text = "Select a school"
+                    }
+                }
+                else {
+                    if $0 == self.schoolSystem {
+                        text = self.level3[row-1]["name"] as! String
+                    }
+                    else if $0 == self.schoolYear {
+                        let system = (self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first! as NSDictionary)["name"] as? String
+                        text = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system})[row-1]["name"] as! String
+                    }
+                    else if $0 == self.schoolName {
+                        let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
+                        text = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year})[row-1]["name"] as! String
+                    }
+                }
+            }
         }
-        return ((self.invites[row-1] as! NSDictionary)["group"] as! NSDictionary)["name"] as? String
+        return text
     }
     
     var isHiding = false
@@ -122,7 +177,13 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         "headers" : false,
         "footers" : false,
         ]) {json in
-            self.invites = (json["results"] as? NSDictionary)?["invite-1"] as! NSArray
+            self.invites = ((json["results"] as? NSDictionary)?["invite-1"] as! NSArray).map({$0 as! NSDictionary})
+            self.level1 = self.invites.map({$0["group"] as! NSDictionary})
+            self.level1 = sinq(self.level1).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
+            self.level2 = self.level1.map({$0["parent"] as! NSDictionary})
+            self.level2 = sinq(self.level2).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
+            self.level3 = self.level2.map({$0["parent"] as! NSDictionary})
+            self.level3 = sinq(self.level3).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
             doMain {
                 (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker?.reloadAllComponents()
             }
@@ -195,7 +256,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.resignAllResponders()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
-        self.code = self.inviteCode.text
+        self.code = self.invites.filter({($0["group"] as? NSDictionary)?["name"] as? String == self.schoolName.text}).first?["code"] as? String
         if self.childFirstName != "" && self.childLastName != "" && self.code != "" {
             let registrationInfo: Dictionary<String,AnyObject?> = [
                 "csrf_token" : self.token,

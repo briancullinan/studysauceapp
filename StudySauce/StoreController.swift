@@ -72,7 +72,9 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
-        self.updateCart()
+        doMain {
+            self.updateCart()
+        }
     }
     
     override func viewDidLoad() {
