@@ -53,6 +53,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
         self.view.endEditing(true)
     }
     
@@ -229,6 +230,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 "_remember_me" : "on",
                 "csrf_token"   : UserLoginController.token]
             , error: {_ in
+                
                 doMain(self.done)
             }, redirect: {(path) in
                 if path == "/login" {

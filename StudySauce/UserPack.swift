@@ -33,7 +33,7 @@ class UserPack: NSManagedObject {
     func getRetries(refresh: Bool = false) -> [Card] {
         // if retries is empty generate a list and randomize it
         if self.retries == nil || self.retries == "" || refresh {
-            var retries = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", self.pack!))
+            let retries = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", self.pack!))
                 self.retries = retries.shuffle().map { c -> String in
                     return "\(c.id!)"
                     }.joinWithSeparator(",")

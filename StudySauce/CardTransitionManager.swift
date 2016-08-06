@@ -50,10 +50,12 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             || vc.canPerformSegueWithIdentifier("last")
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true
-            || vc.respondsToSelector(Selector("lastClick")) || vc.respondsToSelector(Selector("nextClick")) {
-                if !self.transitioning {
-                    return true
-                }
+            || vc.respondsToSelector(Selector("lastClick"))
+            || vc.respondsToSelector(Selector("nextClick"))
+        {
+            if !self.transitioning {
+                return true
+            }
         }
         return false
     }

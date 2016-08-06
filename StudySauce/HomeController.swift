@@ -29,6 +29,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var cardCount: UILabel? = nil
     @IBOutlet weak var bigButton: UIButton? = nil
     @IBOutlet weak var userButton: UIButton? = nil
+    @IBOutlet weak var cartCount: UILabel? = nil
         
     @IBAction func monkeyClick(sender: UIButton) {
         if self.hasRetention {
@@ -148,6 +149,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.bigbutton!.setImage(selectedImage, forState: UIControlState.Selected)
         }
         */
+        if cartCount != nil {
+            cartCount!.text = "\(AppDelegate.cart.count)"
+        }
+        
         self.monkeyButton?.setImage(UIImage(named: "shuffle_gray"), forState: .Disabled)
         self.monkeyButton?.setImage(UIImage(named: "shuffle_depressed"), forState: .Highlighted)
         if AppDelegate.getUser() == nil {

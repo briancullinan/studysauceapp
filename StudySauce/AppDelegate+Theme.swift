@@ -523,13 +523,17 @@ extension AppDelegate {
             }
         })
         
-        $([CardBlankController.self ~> UITextField.self ~>> UILabel.self], {(v: UILabel) in
+        $([StoreController.self ~> UITextField.self ~>> UILabel.self,
+            CardBlankController.self ~> UITextField.self ~>> UILabel.self
+//            ContactUsController.self ~> UITextField.self ~>> UILabel.self  Contact us uses labels instead of placeholders
+            ], {(v: UILabel) in
             if v.text == (v.superview as? UITextField)?.placeholder {
                 v.setFontColor(saucyTheme.middle)
             }
         })
         
-        $([CardBlankController.self ~> UITextField.self,
+        $([StoreController.self ~> UITextField.self,
+            CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()
             v.borderStyle = UITextBorderStyle.None
@@ -599,12 +603,21 @@ extension AppDelegate {
             v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
         
+        $(StoreController.self ~> UIButton.self ~* 1338) {
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 0.5, saucyTheme.padding)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 0.5, -saucyTheme.padding)
+        }
+        
+        $(StoreController.self ~> TextField.self) {
+            $0.padding = UIEdgeInsets(saucyTheme.padding * 0.5)
+        }
+        
         $(UIViewController.self ~> UIButton.self ~* 1339, {
             $0.backgroundColor = saucyTheme.primary
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {$0.highlighted}, {
-            $0.backgroundColor = saucyTheme.secondary
+        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.enabled}, {
+            $0.backgroundColor = saucyTheme.middle
         })
         
         $([CardController.self ~>> UIView.self,
@@ -736,7 +749,11 @@ extension AppDelegate {
         
         $(StoreController.self ~> UILabel.self ~* 56) {
             $0.setFontName(saucyTheme.subheadingFont)
-            $0.layer.addBorder(UIRectEdge.Top, color: saucyTheme.fontColor, thickness: 1)
+            $0.layer.addBorder(UIRectEdge.Top, color: saucyTheme.fontColor, thickness: 2)
+        }
+        
+        $(UserSettingsController.self ~> UIView.self ~* "childLast") {
+            $0.layer.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 2)
         }
         
         // This is the normal way to change appearance on a single type

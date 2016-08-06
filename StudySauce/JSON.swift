@@ -40,8 +40,9 @@ func getJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary
                     }
                 }
             }
-            catch let error as NSError {
-                NSLog("\(error.description)")
+            catch let e as NSError {
+                NSLog("\(e.description)")
+                error(code: (response as! NSHTTPURLResponse).statusCode)
             }
         }
     })
@@ -109,8 +110,9 @@ func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionar
                     }
                 }
             }
-            catch let error as NSError {
-                NSLog("\(error.description)")
+            catch let e as NSError {
+                NSLog("\(e.description)")
+                error(code: (response as! NSHTTPURLResponse).statusCode)
             }
         }
     })

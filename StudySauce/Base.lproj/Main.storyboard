@@ -297,6 +297,7 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XRA-tD-0xM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GvP-pV-1Lu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="319" y="-5891"/>
         </scene>
@@ -1334,7 +1335,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="qYh-Jy-Edn" kind="custom" identifier="last" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="EaG-zz-3ba"/>
+                                    <segue destination="GvP-pV-1Lu" kind="unwind" identifier="last" unwindAction="returnToHome:" id="uh3-l3-4gB"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1366,7 +1367,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="password" destination="teK-Wh-Efb" id="mtY-M9-umn"/>
                         <outlet property="registerButton" destination="EJy-2L-83Z" id="8m9-JG-8PF"/>
                         <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Edk-H5-39l"/>
-                        <segue destination="FRY-M3-qZh" kind="custom" identifier="addChild" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="1aM-a1-zUr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1385,9 +1385,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Ymo-BP-TUU">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                             <button opaque="NO" tag="26" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvO-vb-TdF">
                                 <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <constraints>
@@ -1396,7 +1393,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="lkG-3h-A5d" kind="unwind" identifier="last" unwindAction="returnToLogin:" id="AiK-hK-VJX"/>
+                                    <action selector="lastClick" destination="wlz-1W-mJc" eventType="touchUpInside" id="IIB-ID-A6J"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Email address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zbm-Ci-bEG" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
@@ -1422,6 +1419,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Ymo-BP-TUU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1444,10 +1444,11 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     <connections>
                         <outlet property="inputText" destination="zbm-Ci-bEG" id="Fu5-bS-m3W"/>
                         <outlet property="resetButton" destination="33R-vM-XWY" id="12n-pD-woQ"/>
+                        <segue destination="X52-GF-cm9" kind="unwind" identifier="login" unwindAction="returnToLogin:" id="Iu7-8o-HoQ"/>
+                        <segue destination="GvP-pV-1Lu" kind="unwind" identifier="home" unwindAction="returnToHome:" id="iEy-tm-142"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z8Q-Gq-h0y" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="lkG-3h-A5d" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="319" y="-5074"/>
         </scene>
@@ -1600,7 +1601,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <action selector="backClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="kYP-M8-Kdx"/>
+                                    <segue destination="X5k-KK-RVh" kind="unwind" unwindAction="returnToHome:" id="n2D-Na-nbH"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-8x-auy" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
@@ -1675,8 +1676,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="schoolName" destination="Peg-v3-XKz" id="qik-ht-l49"/>
                         <outlet property="schoolSystem" destination="MG9-jv-G3h" id="lwO-Hu-YCE"/>
                         <outlet property="schoolYear" destination="LuW-eo-a6c" id="9WI-lG-CfO"/>
-                        <segue destination="X5k-KK-RVh" kind="unwind" identifier="settings" unwindAction="returnToSettings:" id="pS0-uo-STP"/>
-                        <segue destination="X5k-KK-RVh" kind="unwind" identifier="switch" unwindAction="returnToSwitch:" id="dib-2F-l7W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fe-8i-ZCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2032,6 +2031,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                     </view>
                     <connections>
                         <outlet property="bigButton" destination="VuU-ca-cmN" id="H9h-Sh-hZQ"/>
+                        <outlet property="cartCount" destination="2Mz-gx-SwT" id="YXL-xT-eEu"/>
                         <outlet property="embeddedView" destination="Hsw-He-5Sh" id="9lx-jT-qWl"/>
                         <outlet property="monkeyButton" destination="VuU-ca-cmN" id="Q6D-cV-Bs8"/>
                         <outlet property="userButton" destination="Avt-4M-VMm" id="5RX-HL-Xtd"/>
@@ -2870,18 +2870,18 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" tag="26" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrH-D3-Ki6">
-                                <rect key="frame" x="20" y="28" width="63" height="42"/>
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="5CP-1Y-Wcq"/>
                                     <constraint firstAttribute="width" secondItem="JrH-D3-Ki6" secondAttribute="height" multiplier="3:2" id="TXz-6z-y9F"/>
                                 </constraints>
                                 <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="s6r-OB-4Gk" kind="unwind" identifier="last" unwindAction="returnToHome:" id="gbu-b6-nNm"/>
+                                    <action selector="lastClick" destination="e1u-L7-dxh" eventType="touchUpInside" id="M1g-dX-j7y"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1fW-dP-gCV">
-                                <rect key="frame" x="0.0" y="156" width="600" height="271"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="518"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -2909,7 +2909,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="69" id="cTM-1w-X49" customClass="CouponCell" customModule="StudySauce" customModuleProvider="target">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Store" rowHeight="69" id="cTM-1w-X49" customClass="CouponCell" customModule="StudySauce" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="600" height="69"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalHuggingPriority="750" tableViewCell="cTM-1w-X49" id="bHT-Ed-q7W">
@@ -2928,9 +2928,12 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                         <constraint firstAttribute="height" secondItem="R7M-Oc-aql" secondAttribute="width" multiplier="1:2" id="ubN-9w-R8E"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSy-LZ-Ozi">
+                                                <button opaque="NO" tag="1338" contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSy-LZ-Ozi">
                                                     <rect key="frame" x="561" y="31" width="31" height="30"/>
                                                     <state key="normal" title="Free"/>
+                                                    <connections>
+                                                        <action selector="addCart:" destination="cTM-1w-X49" eventType="touchUpInside" id="Gnf-BE-aNe"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2956,8 +2959,93 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <outlet property="titleLabel" destination="Fvs-7y-aag" id="yNZ-Id-Ar8"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="750" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="Cart" rowHeight="94" id="9iF-Hj-Sk9" customClass="CouponCell" customModule="StudySauce" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="141" width="600" height="94"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" verticalHuggingPriority="750" tableViewCell="9iF-Hj-Sk9" id="N5n-Kg-qOJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="750" horizontalCompressionResistancePriority="745" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aka-z3-DND">
+                                                    <rect key="frame" x="118" y="34" width="411" height="25"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="cYF-i2-HXu">
+                                                    <rect key="frame" x="8" y="8" width="102" height="51"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" secondItem="cYF-i2-HXu" secondAttribute="width" multiplier="1:2" id="tHS-Is-ZJw"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5k1-vA-Wlb">
+                                                    <rect key="frame" x="537" y="29" width="55" height="30"/>
+                                                    <state key="normal" title="Remove"/>
+                                                    <connections>
+                                                        <action selector="addCart:" destination="9iF-Hj-Sk9" eventType="touchUpInside" id="wPE-oQ-21q"/>
+                                                    </connections>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="745" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgP-Y9-HUx">
+                                                    <rect key="frame" x="118" y="8" width="411" height="26"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="746" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Who is this for?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="stH-My-67w" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                                    <rect key="frame" x="118" y="59" width="411" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="selectStudent:" destination="9iF-Hj-Sk9" eventType="editingDidBegin" id="zQz-4g-bsE"/>
+                                                    </connections>
+                                                </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="255" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rmh-Xy-pHi">
+                                                    <rect key="frame" x="537" y="8" width="55" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="cYF-i2-HXu" firstAttribute="bottom" secondItem="5k1-vA-Wlb" secondAttribute="bottom" id="1uE-l3-g9J"/>
+                                                <constraint firstItem="wgP-Y9-HUx" firstAttribute="top" secondItem="cYF-i2-HXu" secondAttribute="top" id="BG7-Xk-YJL"/>
+                                                <constraint firstItem="wgP-Y9-HUx" firstAttribute="height" secondItem="Aka-z3-DND" secondAttribute="height" id="ChF-ez-e5c"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="stH-My-67w" secondAttribute="bottom" id="IgW-Zo-Zib"/>
+                                                <constraint firstItem="Aka-z3-DND" firstAttribute="bottom" secondItem="5k1-vA-Wlb" secondAttribute="bottom" id="NEc-NZ-Rya"/>
+                                                <constraint firstItem="rmh-Xy-pHi" firstAttribute="trailing" secondItem="5k1-vA-Wlb" secondAttribute="trailing" id="RSK-Yv-Hb1"/>
+                                                <constraint firstItem="5k1-vA-Wlb" firstAttribute="leading" secondItem="Aka-z3-DND" secondAttribute="trailing" constant="8" symbolic="YES" id="T5h-VE-bxn"/>
+                                                <constraint firstItem="rmh-Xy-pHi" firstAttribute="leading" secondItem="5k1-vA-Wlb" secondAttribute="leading" id="WLR-xR-x3e"/>
+                                                <constraint firstItem="wgP-Y9-HUx" firstAttribute="leading" secondItem="cYF-i2-HXu" secondAttribute="trailing" constant="8" symbolic="YES" id="aUy-76-WLQ"/>
+                                                <constraint firstItem="stH-My-67w" firstAttribute="leading" secondItem="Aka-z3-DND" secondAttribute="leading" id="cJA-GA-JoY"/>
+                                                <constraint firstItem="stH-My-67w" firstAttribute="top" secondItem="Aka-z3-DND" secondAttribute="bottom" id="dZ7-t1-IgR"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rmh-Xy-pHi" secondAttribute="trailing" id="eBr-yM-mnM"/>
+                                                <constraint firstItem="stH-My-67w" firstAttribute="trailing" secondItem="Aka-z3-DND" secondAttribute="trailing" id="eWd-eX-EdD"/>
+                                                <constraint firstItem="Aka-z3-DND" firstAttribute="top" secondItem="wgP-Y9-HUx" secondAttribute="bottom" id="ftj-rI-DSs"/>
+                                                <constraint firstItem="Aka-z3-DND" firstAttribute="bottom" secondItem="cYF-i2-HXu" secondAttribute="bottom" id="gb2-u0-u6q"/>
+                                                <constraint firstItem="wgP-Y9-HUx" firstAttribute="top" secondItem="N5n-Kg-qOJ" secondAttribute="topMargin" id="iGr-Bp-pvI"/>
+                                                <constraint firstAttribute="topMargin" secondItem="rmh-Xy-pHi" secondAttribute="top" id="lWS-Uq-DJa"/>
+                                                <constraint firstItem="rmh-Xy-pHi" firstAttribute="leading" secondItem="wgP-Y9-HUx" secondAttribute="trailing" constant="8" symbolic="YES" id="oFX-xJ-U46"/>
+                                                <constraint firstItem="Aka-z3-DND" firstAttribute="leading" secondItem="cYF-i2-HXu" secondAttribute="trailing" constant="8" symbolic="YES" id="tcR-J7-XNF"/>
+                                                <constraint firstItem="wgP-Y9-HUx" firstAttribute="top" secondItem="rmh-Xy-pHi" secondAttribute="top" id="vO7-D4-ump"/>
+                                                <constraint firstItem="5k1-vA-Wlb" firstAttribute="top" secondItem="rmh-Xy-pHi" secondAttribute="bottom" id="xMo-N8-jQ5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="cYF-i2-HXu" firstAttribute="leading" secondItem="9iF-Hj-Sk9" secondAttribute="leading" constant="8" id="ul5-SK-OKw"/>
+                                        </constraints>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="cartPrice" destination="rmh-Xy-pHi" id="VWR-FK-Sw7"/>
+                                            <outlet property="countLabel" destination="5k1-vA-Wlb" id="Wcs-Wq-X95"/>
+                                            <outlet property="logoImage" destination="cYF-i2-HXu" id="TL1-r5-HiT"/>
+                                            <outlet property="studentSelect" destination="stH-My-67w" id="8O7-10-bNB"/>
+                                            <outlet property="titleLabel" destination="Aka-z3-DND" id="j16-GT-dKr"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoPacks" id="iqZ-NS-Ywq">
-                                        <rect key="frame" x="0.0" y="141" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="235" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iqZ-NS-Ywq" id="1wK-BY-EG5">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -2986,68 +3074,15 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <outlet property="delegate" destination="e1u-L7-dxh" id="NdG-s7-L1b"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUg-IO-75J">
-                                <rect key="frame" x="275" y="28" width="50" height="42"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view tag="57" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YQd-Gy-wbe">
-                                <rect key="frame" x="20" y="78" width="560" height="70"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="pLC-89-KIS">
-                                        <rect key="frame" x="0.0" y="20" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="pLC-89-KIS" secondAttribute="height" multiplier="1:1" id="Yi7-XB-XsR"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Added to cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oqc-D5-dL9">
-                                        <rect key="frame" x="38" y="20" width="448" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zb7-HV-dhi">
-                                        <rect key="frame" x="494" y="20" width="66" height="30"/>
-                                        <state key="normal" title="Checkout"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="centerY" secondItem="Oqc-D5-dL9" secondAttribute="centerY" id="0aE-Px-K4j"/>
-                                    <constraint firstItem="pLC-89-KIS" firstAttribute="centerY" secondItem="Oqc-D5-dL9" secondAttribute="centerY" id="2iN-ty-HvA"/>
-                                    <constraint firstItem="pLC-89-KIS" firstAttribute="leading" secondItem="YQd-Gy-wbe" secondAttribute="leading" id="FM2-BW-a2z"/>
-                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="height" secondItem="Oqc-D5-dL9" secondAttribute="height" id="Ul5-gQ-MZA"/>
-                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="leading" secondItem="Oqc-D5-dL9" secondAttribute="trailing" constant="8" symbolic="YES" id="aDh-hE-dJC"/>
-                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="leading" secondItem="pLC-89-KIS" secondAttribute="trailing" constant="8" symbolic="YES" id="btz-rz-EnJ"/>
-                                    <constraint firstAttribute="bottom" secondItem="Oqc-D5-dL9" secondAttribute="bottom" constant="20" symbolic="YES" id="eSM-Qo-xo0"/>
-                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="height" secondItem="pLC-89-KIS" secondAttribute="height" id="k21-Yb-67T"/>
-                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="top" secondItem="YQd-Gy-wbe" secondAttribute="top" constant="20" symbolic="YES" id="rk1-DN-muf"/>
-                                    <constraint firstAttribute="trailing" secondItem="Zb7-HV-dhi" secondAttribute="trailing" id="tSo-Vf-6Tb"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-rO-bAO">
-                                <rect key="frame" x="538" y="28" width="42" height="42"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="QHU-rO-bAO" secondAttribute="height" multiplier="1:1" id="x3O-gg-NaR"/>
-                                </constraints>
-                                <state key="normal" image="store_white"/>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="59" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-Hk-2P2">
-                                <rect key="frame" x="538" y="28" width="42" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="jeM-IJ-evR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjk-Aq-kf8">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jjk-Aq-kf8">
                                 <rect key="frame" x="20" y="435" width="560" height="157"/>
                                 <subviews>
                                     <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uiR-R1-7Lx">
                                         <rect key="frame" x="481" y="107" width="79" height="30"/>
                                         <state key="normal" title="Place order"/>
+                                        <connections>
+                                            <action selector="placeOrderClick:" destination="e1u-L7-dxh" eventType="touchUpInside" id="7Zb-tq-rUu"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtotal (0 items):" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z9u-oP-3Vy">
                                         <rect key="frame" x="366" y="20" width="141" height="21"/>
@@ -3107,47 +3142,135 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <constraint firstItem="8mv-za-oxd" firstAttribute="centerY" secondItem="FEb-on-WfL" secondAttribute="centerY" id="tfC-hO-lg1"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUg-IO-75J">
+                                <rect key="frame" x="275" y="28" width="50" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view hidden="YES" tag="57" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YQd-Gy-wbe">
+                                <rect key="frame" x="20" y="74" width="560" height="70"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="pLC-89-KIS">
+                                        <rect key="frame" x="0.0" y="20" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="pLC-89-KIS" secondAttribute="height" multiplier="1:1" id="Yi7-XB-XsR"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Added to cart" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oqc-D5-dL9">
+                                        <rect key="frame" x="38" y="20" width="448" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zb7-HV-dhi">
+                                        <rect key="frame" x="494" y="20" width="66" height="30"/>
+                                        <state key="normal" title="Checkout"/>
+                                        <connections>
+                                            <segue destination="e1u-L7-dxh" kind="custom" identifier="" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="zjW-15-bXe"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="centerY" secondItem="Oqc-D5-dL9" secondAttribute="centerY" id="0aE-Px-K4j"/>
+                                    <constraint firstItem="pLC-89-KIS" firstAttribute="centerY" secondItem="Oqc-D5-dL9" secondAttribute="centerY" id="2iN-ty-HvA"/>
+                                    <constraint firstItem="pLC-89-KIS" firstAttribute="leading" secondItem="YQd-Gy-wbe" secondAttribute="leading" id="FM2-BW-a2z"/>
+                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="height" secondItem="Oqc-D5-dL9" secondAttribute="height" id="Ul5-gQ-MZA"/>
+                                    <constraint firstItem="Zb7-HV-dhi" firstAttribute="leading" secondItem="Oqc-D5-dL9" secondAttribute="trailing" constant="8" symbolic="YES" id="aDh-hE-dJC"/>
+                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="leading" secondItem="pLC-89-KIS" secondAttribute="trailing" constant="8" symbolic="YES" id="btz-rz-EnJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="Oqc-D5-dL9" secondAttribute="bottom" constant="20" symbolic="YES" id="eSM-Qo-xo0"/>
+                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="height" secondItem="pLC-89-KIS" secondAttribute="height" id="k21-Yb-67T"/>
+                                    <constraint firstItem="Oqc-D5-dL9" firstAttribute="top" secondItem="YQd-Gy-wbe" secondAttribute="top" constant="20" symbolic="YES" id="rk1-DN-muf"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zb7-HV-dhi" secondAttribute="trailing" id="tSo-Vf-6Tb"/>
+                                </constraints>
+                            </view>
+                            <view tag="26" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1qA-rb-ZPM">
+                                <rect key="frame" x="542" y="28" width="38" height="38"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QHU-rO-bAO">
+                                        <rect key="frame" x="0.0" y="0.0" width="38" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="QHU-rO-bAO" secondAttribute="height" multiplier="1:1" id="x3O-gg-NaR"/>
+                                        </constraints>
+                                        <state key="normal" image="store_white"/>
+                                        <connections>
+                                            <segue destination="e1u-L7-dxh" kind="custom" identifier="cart" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Knj-F4-iUa"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="59" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-Hk-2P2">
+                                        <rect key="frame" x="0.0" y="0.0" width="38" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="QHU-rO-bAO" firstAttribute="centerY" secondItem="1qA-rb-ZPM" secondAttribute="centerY" id="06N-mf-Poc"/>
+                                    <constraint firstItem="IyQ-Hk-2P2" firstAttribute="top" secondItem="QHU-rO-bAO" secondAttribute="top" id="1q5-TS-eVA"/>
+                                    <constraint firstItem="IyQ-Hk-2P2" firstAttribute="width" secondItem="QHU-rO-bAO" secondAttribute="width" id="JBj-Uf-H4y"/>
+                                    <constraint firstItem="IyQ-Hk-2P2" firstAttribute="height" secondItem="QHU-rO-bAO" secondAttribute="height" multiplier="0.75" constant="1" id="Jbw-Xl-O1x"/>
+                                    <constraint firstItem="QHU-rO-bAO" firstAttribute="width" secondItem="1qA-rb-ZPM" secondAttribute="width" id="L5U-7E-nTT"/>
+                                    <constraint firstItem="QHU-rO-bAO" firstAttribute="height" secondItem="1qA-rb-ZPM" secondAttribute="height" id="VHB-NO-lBF"/>
+                                    <constraint firstItem="IyQ-Hk-2P2" firstAttribute="centerX" secondItem="QHU-rO-bAO" secondAttribute="centerX" id="v52-Y9-T2Q"/>
+                                    <constraint firstItem="QHU-rO-bAO" firstAttribute="centerX" secondItem="1qA-rb-ZPM" secondAttribute="centerX" id="xDy-q5-yl9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="bottom" constant="8" symbolic="YES" id="1Zw-fQ-EFc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QHU-rO-bAO" secondAttribute="trailing" id="5SP-ue-KiO"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="top" secondItem="Gaa-te-6Wg" secondAttribute="bottom" constant="8" symbolic="YES" id="BZq-XO-2oZ"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="top" secondItem="YQd-Gy-wbe" secondAttribute="bottom" constant="8" id="DWv-3F-3cJ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1qA-rb-ZPM" secondAttribute="trailing" id="EKX-GR-3oB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="YQd-Gy-wbe" secondAttribute="trailing" id="Gr8-vj-jed"/>
                             <constraint firstItem="kQu-fx-aaM" firstAttribute="top" secondItem="Jjk-Aq-kf8" secondAttribute="bottom" constant="8" symbolic="YES" id="HPW-Gy-Jzh"/>
+                            <constraint firstItem="1qA-rb-ZPM" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="top" id="HQ3-ci-H8E"/>
+                            <constraint firstItem="1qA-rb-ZPM" firstAttribute="bottom" secondItem="FUg-IO-75J" secondAttribute="bottom" id="KVC-I3-dp6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Jjk-Aq-kf8" secondAttribute="trailing" id="M5N-On-AP2"/>
                             <constraint firstAttribute="leadingMargin" secondItem="YQd-Gy-wbe" secondAttribute="leading" id="Nia-1i-jmD"/>
-                            <constraint firstItem="QHU-rO-bAO" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="top" id="RQO-hs-KZ4"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="centerX" secondItem="1mD-CX-eQh" secondAttribute="centerX" id="TaX-Gw-z7B"/>
-                            <constraint firstItem="IyQ-Hk-2P2" firstAttribute="height" secondItem="QHU-rO-bAO" secondAttribute="height" multiplier="0.75" id="TyC-Vd-M3j"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="bottom" secondItem="FUg-IO-75J" secondAttribute="bottom" id="ULw-u4-qEZ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Jjk-Aq-kf8" secondAttribute="leading" id="axX-nT-duN"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="top" id="dbB-J1-EZe"/>
-                            <constraint firstItem="IyQ-Hk-2P2" firstAttribute="width" secondItem="QHU-rO-bAO" secondAttribute="width" id="eL6-eE-INI"/>
                             <constraint firstItem="FUg-IO-75J" firstAttribute="centerX" secondItem="1mD-CX-eQh" secondAttribute="centerX" id="gKg-62-DWk"/>
-                            <constraint firstItem="IyQ-Hk-2P2" firstAttribute="centerX" secondItem="QHU-rO-bAO" secondAttribute="centerX" id="ijz-2y-nb5"/>
-                            <constraint firstItem="IyQ-Hk-2P2" firstAttribute="top" secondItem="QHU-rO-bAO" secondAttribute="top" id="mHj-Jw-f26"/>
                             <constraint firstItem="YQd-Gy-wbe" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="bottom" constant="8" symbolic="YES" id="nIG-nz-ZRo"/>
                             <constraint firstAttribute="leadingMargin" secondItem="JrH-D3-Ki6" secondAttribute="leading" id="ngT-Hm-zre"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="width" secondItem="1mD-CX-eQh" secondAttribute="width" id="oiJ-9I-IRk"/>
-                            <constraint firstItem="QHU-rO-bAO" firstAttribute="bottom" secondItem="FUg-IO-75J" secondAttribute="bottom" id="pGn-07-f08"/>
+                            <constraint firstItem="kQu-fx-aaM" firstAttribute="top" secondItem="1fW-dP-gCV" secondAttribute="bottom" constant="8" symbolic="YES" id="r6u-cB-6Wh"/>
                             <constraint firstItem="Jjk-Aq-kf8" firstAttribute="top" secondItem="1fW-dP-gCV" secondAttribute="bottom" constant="8" symbolic="YES" id="utT-VU-WgG"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="1Zw-fQ-EFc"/>
+                                <exclude reference="DWv-3F-3cJ"/>
+                                <exclude reference="utT-VU-WgG"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="cartBottom" destination="r6u-cB-6Wh" id="SYJ-zY-AlZ"/>
+                        <outlet property="cartButton" destination="1qA-rb-ZPM" id="GRu-0z-H3M"/>
+                        <outlet property="cartCount" destination="IyQ-Hk-2P2" id="xTC-f3-tne"/>
+                        <outlet property="cartFooter" destination="Jjk-Aq-kf8" id="knK-if-2AJ"/>
+                        <outlet property="cartFooterBottom" destination="utT-VU-WgG" id="Blq-GL-CKc"/>
+                        <outlet property="placeOrder" destination="uiR-R1-7Lx" id="0e9-Pu-NG6"/>
+                        <outlet property="storeHeader" destination="YQd-Gy-wbe" id="YXj-8R-Qja"/>
+                        <outlet property="storeHeaderTop" destination="DWv-3F-3cJ" id="W5O-xk-NxE"/>
+                        <outlet property="storeTitle" destination="FUg-IO-75J" id="Qhe-Vz-ZLV"/>
+                        <outlet property="storeTop" destination="1Zw-fQ-EFc" id="oAW-Jm-e7e"/>
+                        <outlet property="subTotal" destination="rda-HY-Cte" id="O29-Eb-qI4"/>
                         <outlet property="tableView" destination="1fW-dP-gCV" id="gdQ-9g-iuH"/>
+                        <outlet property="tax" destination="8mv-za-oxd" id="DKN-m6-NHp"/>
+                        <outlet property="total" destination="QbR-6D-Qpj" id="N8j-QU-HYK"/>
+                        <segue destination="s6r-OB-4Gk" kind="unwind" identifier="home" unwindAction="returnToHome:" id="5kX-5H-lji"/>
+                        <segue destination="s6r-OB-4Gk" kind="unwind" identifier="store" unwindAction="returnToStore:" id="OVS-Hb-NnK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKl-Mi-wfX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="s6r-OB-4Gk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1135" y="-4286"/>
+            <point key="canvasLocation" x="1135" y="-4280"/>
         </scene>
     </scenes>
     <resources>

@@ -13,6 +13,7 @@ import SystemConfiguration
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate {
 
+    internal static var cart: Array<String> = []
     var isRotating = false
     var needsUpdating = false
     var timeout = 60.0 * 10
@@ -382,8 +383,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             reset.transitioningDelegate = CardSegue.transitionManager
             reset.token = url.getKeyVals()["token"]!
             reset.mail = url.getKeyVals()["email"]!
-            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
-            self.window?.rootViewController!.presentViewController(reset, animated: true, completion: {})
+            AppDelegate.goHome {home in
+                home.presentViewController(reset, animated: true, completion: {})
+            }
         }
         else if query["_code"] != nil && query["first"] != nil {
             let reg = self.storyboard!.instantiateViewControllerWithIdentifier("UserRegister") as! UserRegisterController
@@ -393,19 +395,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             reg.last = query["last"]!
             reg.mail = query["email"]!
             reg.token = query["csrf_token"]!
-            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
-            self.window?.rootViewController!.presentViewController(reg, animated: true, completion: {})
+            AppDelegate.goHome {home in
+                home.presentViewController(reg, animated: true, completion: {})
+            }
         }
         else if query["_code"] != nil {
             postJson("/register", ["_code": query["_code"]!], redirect: {(path) in
-                    if path == "/home" {
-                        UserLoginController.home({
-                            let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
-                            viewController.transitioningDelegate = CardSegue.transitionManager
-                            self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
-                            self.window?.rootViewController!.presentViewController(viewController, animated: true, completion: {})
-                        })
+                if path == "/home" {
+                    UserLoginController.home {
+                        let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
+                        viewController.transitioningDelegate = CardSegue.transitionManager
+                        self.window?.rootViewController!.dismissViewControllerAnimated(false, completion: nil)
+                        self.window?.rootViewController!.presentViewController(viewController, animated: true, completion: {})
                     }
+                }
             })
         }
         else {

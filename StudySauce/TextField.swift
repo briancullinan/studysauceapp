@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 
 class TextField: UITextField {
+    internal var padding: UIEdgeInsets = UIEdgeInsets(saucyTheme.padding)
+    
     override func textRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, saucyTheme.padding, saucyTheme.padding)
+        return UIEdgeInsetsInsetRect(bounds, self.padding)
     }
     
     override func editingRectForBounds(bounds: CGRect) -> CGRect {
-        return CGRectInset(bounds, saucyTheme.padding, saucyTheme.padding)
+        return UIEdgeInsetsInsetRect(bounds, self.padding)
     }
     
 }

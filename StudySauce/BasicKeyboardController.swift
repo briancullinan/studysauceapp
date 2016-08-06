@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BasicKeyboardController: UIInputViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegate {
 
     var lowercase = false {
         didSet {
@@ -19,6 +19,7 @@ class BasicKeyboardController: UIInputViewController, UIPickerViewDataSource, UI
     }
     
     static var keyboardHeight = CGFloat(0.0)
+    @IBOutlet weak var picker: UIPickerView? = nil
  
     static var _basic: BasicKeyboardController? = nil
     static var _basicNumbers: BasicKeyboardController? = nil
@@ -100,6 +101,10 @@ class BasicKeyboardController: UIInputViewController, UIPickerViewDataSource, UI
         }
         
         return _picker!.view!
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 
     override func updateViewConstraints() {
@@ -244,22 +249,7 @@ class BasicKeyboardController: UIInputViewController, UIPickerViewDataSource, UI
             (parent!.view ~> UIView.self).each {$0.hidden = true}
         }
     }
-    
-    // The number of columns of data
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // The number of rows of data
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData?.count ?? 1
-    }
-    
-    // The data to return for the row and component (column) that's being passed in
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return (pickerData?.count ?? 0) > 0 ? pickerData?[row] as! String : "Select another group"
-    }
-    
+        
     @IBAction func didTapButton(sender: UIButton) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         self.repeatTimer?.invalidate()

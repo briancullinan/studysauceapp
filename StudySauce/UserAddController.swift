@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UserAddController : UIViewController, UITextFieldDelegate {
+class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     internal var childFirstName: String?
     internal var childLastName: String?
     internal var code: String?
@@ -22,14 +22,6 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var schoolSystem: TextField!
     @IBOutlet weak var schoolYear: TextField!
     @IBOutlet weak var schoolName: TextField!
-    
-    @IBAction func backClick(sender: UIButton) {
-        CardSegue.transitionManager.transitioning = true
-        let last = self.presentingViewController
-        last?.dismissViewControllerAnimated(true, completion: {
-            last?.viewDidAppear(true)
-        })
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,22 +45,101 @@ class UserAddController : UIViewController, UITextFieldDelegate {
         self.assignSelectKeyboard(self.schoolYear)
         self.assignSelectKeyboard(self.schoolName)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserAddController.reshowKeyboard), name: UIKeyboardDidHideNotification, object: nil)
+        
+        self.getInvitesFromRemoteStore()
     }
     
+    var invites: NSArray = []
+    
+    // Catpure the picker view selection
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        if row == 0 {
+            return
+        }
+        (self.view ~> TextField.self).each {
+            if $0.isFirstResponder() {
+                $0.text = ((self.invites[row-1] as! NSDictionary)["group"] as! NSDictionary)["name"] as? String
+                $0.resignFirstResponder()
+            }
+        }
+    }
+    
+    // The number of columns of data
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of rows of data
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.invites.count + 1
+    }
+    
+    // The data to return for the row and component (column) that"s being passed in
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if row == 0 {
+            return "Select a school system"
+        }
+        return ((self.invites[row-1] as! NSDictionary)["group"] as! NSDictionary)["name"] as? String
+    }
+    
+    var isHiding = false
     func reshowKeyboard() {
         doMain {
             if self.switched != nil {
                 let switchTo = self.switched!
                 self.switched = nil
                 switchTo.becomeFirstResponder()
-                UIView.setAnimationsEnabled(true)
+            }
+            UIView.setAnimationsEnabled(true)
+            self.isHiding = false
+        }
+    }
+    
+    func getInvitesFromRemoteStore() {
+        let user = AppDelegate.getUser()!
+        getJson("/command/results", [
+        "count-invite" : 1,
+        "count-ss_user" : -1,
+        "invite-1count-invite" : 0,
+        "invite-1new" : false,
+        "invite-1invite-properties" : "s:13:\"public_school\";b:1;",
+        "invite-1ss_group-id" : "!NULL",
+        "invite-1ss_group-deleted" : "!1",
+        "invite-1parent-ss_group-deleted" : "!1",
+        "count-ss_group" : -1,
+        "new" : ["invite"],
+        "edit" : false,
+        "read-only" : false,
+        "tables" : [
+            "invite" : ["idSingleCoupon" : ["id", "first", "last", "user", "invitee", "email", "group", "code"]],
+            "ss_user" : ["id" : ["id", "first", "last", "groups"]],
+            "invite-1" : ["id" : ["id", "code", "group", "properties"]],
+            "ss_group" : ["id" : ["name", "id", "parent", "deleted"]],
+        ],
+        "classes" : [],
+        "headers" : false,
+        "footers" : false,
+        ]) {json in
+            self.invites = (json["results"] as? NSDictionary)?["invite-1"] as! NSArray
+            doMain {
+                (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker?.reloadAllComponents()
             }
         }
     }
 
     var switched: UITextField? = nil
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        return !isHiding
+    }
+    
     @IBAction func textFieldDidBeginEditing(textField: UITextField) {
         doMain {
+            if self.isHiding {
+                self.resignAllResponders()
+            }
             self.switched = textField
         }
     }
@@ -76,9 +147,9 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     @IBAction func textFieldDidEndEditing(textField: UITextField) {
         if textField == self.schoolSystem || textField == self.schoolYear || textField == self.schoolName {
             UIView.setAnimationsEnabled(false)
+            isHiding = true
             doMain {
-                self.childFirst.resignFirstResponder()
-                self.childLast.resignFirstResponder()
+                self.resignAllResponders()
             }
         }
         else {
@@ -89,6 +160,8 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     func assignSelectKeyboard(input: TextField) {
         input.tintColor = UIColor.clearColor()
         input.inputView = BasicKeyboardController.pickerKeyboard
+        (input.inputView!.viewController() as! BasicKeyboardController).picker?.dataSource = self
+        (input.inputView!.viewController() as! BasicKeyboardController).picker?.delegate = self
         BasicKeyboardController.keyboardHeight = 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
         BasicKeyboardController.keyboardSwitch = {
             input.inputView = $0
@@ -105,7 +178,8 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     }
 
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        self.view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
+        self.resignAllResponders()
     }
     
     func done() {
@@ -118,11 +192,7 @@ class UserAddController : UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func addClick(sender: UIButton) {
-        self.childFirst.resignFirstResponder()
-        self.childLast.resignFirstResponder()
-        self.schoolSystem.resignFirstResponder()
-        self.schoolYear.resignFirstResponder()
-        self.schoolName.resignFirstResponder()
+        self.resignAllResponders()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
         self.code = self.inviteCode.text

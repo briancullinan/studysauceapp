@@ -27,6 +27,11 @@ extension UIViewController {
         return name
     }
     
+    func resignAllResponders() {
+        (self.view ~> UITextField.self).each { $0.resignFirstResponder() }
+        self.view.endEditing(true)
+    }
+    
     var orientation: UIInterfaceOrientation? {
         get {
             let result = objc_getAssociatedObject(self, &AssociatedKeys.orientation) as? Int

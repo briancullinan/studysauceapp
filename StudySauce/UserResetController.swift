@@ -28,6 +28,17 @@ class UserResetController: UIViewController, UITextFieldDelegate {
        }
     }
     
+    @IBAction func lastClick() {
+        CardSegue.transitionManager.transitioning = true
+        if self.presentingViewController is UserLoginController {
+            self.performSegueWithIdentifier("login", sender: self)
+        }
+        else {
+            self.performSegueWithIdentifier("home", sender: self)
+        }
+    }
+    
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         doMain {
             self.resetClick(self.resetButton)
@@ -65,14 +76,14 @@ class UserResetController: UIViewController, UITextFieldDelegate {
             self.showNoConnectionDialog {
                 postJson("/reset", ["email": self.mail], error: {_ in
                     self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
+                        doMain(self.done)
                         self.inputText.becomeFirstResponder()
                     }
                 }) {(json) in
                     self.showDialog(NSLocalizedString("Your password has been reset.  Please check your email.", comment: "Password reset confirmation message"), NSLocalizedString("Go home", comment: "Return to the landing page after password is reset")) {
                         doMain(self.done)
-                            // password resets don't change users until code is entered so don't bother refetching
-                            AppDelegate.goHome(self)
-                        
+                        // password resets don't change users until code is entered so don't bother refetching
+                        AppDelegate.goHome(self)
                     }
                 }
             }

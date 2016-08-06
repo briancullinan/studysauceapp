@@ -1529,10 +1529,6 @@
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcD-BI-FKV">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="Cev-RN-sJH" id="4qa-Ii-WNN"/>
-                                    <outlet property="delegate" destination="Cev-RN-sJH" id="mlA-w0-WR6"/>
-                                </connections>
                             </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1545,6 +1541,9 @@
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="300"/>
+                    <connections>
+                        <outlet property="picker" destination="wcD-BI-FKV" id="ncJ-HK-n5j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q40-mb-3wG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
