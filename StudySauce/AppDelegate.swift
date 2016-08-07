@@ -9,9 +9,11 @@
 import UIKit
 import CoreData
 import SystemConfiguration
+import StoreKit
+
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate, SKPaymentTransactionObserver {
 
     internal static var cart: Array<String> = []
     var isRotating = false
@@ -44,6 +46,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
+    static var storeChild: User? = nil
+    static var storeCoupon: String? = ""
+    internal func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])    {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .Purchased, .Restored:
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                if AppDelegate.storeChild == nil || AppDelegate.storeCoupon == nil {
+                    break
+                }
+                postJson("/checkout/pay", ["coupon" : AppDelegate.storeCoupon!,
+                    "child" : [AppDelegate.storeChild!.id! : AppDelegate.storeCoupon!],
+                    "purchase_token" : transaction.transactionIdentifier
+                ]) {_ in
+                    
+                }
+                break
+            case .Failed:
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                break
+            default:
+                break
+            }
+        }
+    }
+
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         if let home = AppDelegate.visibleViewController() as? HomeController {
             doMain(home.homeSync)
@@ -139,7 +167,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static var domain: String {
         #if DEBUG
-            return "staging.studysauce.com"
+            return "test.studysauce.com"
         #else
             let receiptUrl = NSBundle.mainBundle().appStoreReceiptURL?.path
             if receiptUrl?.containsString("sandboxReceipt") == true {
@@ -251,7 +279,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = saucyTheme.textSize + saucyTheme.padding * 3;
         self.setupTheme()
         Harpy.sharedInstance().appID = "1065647027"
-
+        SKPaymentQueue.defaultQueue().addTransactionObserver(self)
 
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout

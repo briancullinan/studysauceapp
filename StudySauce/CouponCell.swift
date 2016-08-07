@@ -11,7 +11,7 @@ import CoreData
 import UIKit
 import StoreKit
 
-public class CouponCell: UITableViewCell, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -64,7 +64,9 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate, SKPaymentTr
         let option = props.allKeys[0] as? String ?? ""
         let price = (props[option] as! NSDictionary)["price"] ?? ""
         if (Double("\(price!)") ?? 0.0).isZero {
-            postJson("/checkout/pay", [:]) {_ in
+            let child = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first!
+            postJson("/checkout/pay", ["coupon" : self.json!["name"] as? String ?? "",
+                "child" : [child.id! : self.json!["name"] as? String ?? ""]]) {_ in
                 
             }
         }
@@ -75,27 +77,7 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate, SKPaymentTr
             productsRequest.start()
         }
     }
-    
-    public func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])    {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case .Purchased:
-                postJson("/checkout/pay", [:]) {_ in 
-                    
-                }
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                break;
-            case .Failed:
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                break;
-                // case .Restored:
-            //[self restoreTransaction:transaction];
-            default:
-                break;
-            }
-        }
-    }
-    
+        
     public func request(request: SKRequest, didFailWithError error: NSError) {
         NSLog(error.description)
     }
@@ -107,7 +89,9 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate, SKPaymentTr
             let validProduct: SKProduct = validProducts[0] as SKProduct
             if validProduct.productIdentifier == (self.json!["options"] as! NSDictionary).allKeys[0] as! String {
                 let payment = SKPayment(product: validProduct)
-                SKPaymentQueue.defaultQueue().addPayment(payment);
+                SKPaymentQueue.defaultQueue().addPayment(payment)
+                AppDelegate.storeChild = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first!
+                AppDelegate.storeCoupon = self.json!["name"] as? String ?? ""
             }
         }
     }
