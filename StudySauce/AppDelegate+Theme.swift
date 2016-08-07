@@ -616,6 +616,12 @@ extension AppDelegate {
             $0.backgroundColor = saucyTheme.primary
         })
         
+        $(UIViewController.self ~> UIButton.self ~* 1330, {
+            $0.setFontColor(saucyTheme.secondary)
+            $0.contentEdgeInsets = UIEdgeInsets(0)
+            $0.titleEdgeInsets = UIEdgeInsets(0)
+        })
+        
         $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.enabled}, {
             $0.backgroundColor = saucyTheme.middle
         })

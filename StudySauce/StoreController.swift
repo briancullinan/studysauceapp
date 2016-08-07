@@ -17,6 +17,7 @@ import Foundation
 
 import UIKit
 import CoreData
+import StoreKit
 
 class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
     
@@ -40,15 +41,10 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var tax: UILabel!
     @IBOutlet weak var total: UILabel!
     @IBOutlet weak var placeOrder: UIButton!
+    @IBOutlet weak var subTotalCount: UILabel!
     
     @IBAction func returnToStore(segue: UIStoryboardSegue) {
         
-    }
-    
-    @IBAction func placeOrderClick(sender: UIButton) {
-        (self.view ~> TextField.self).each {
-            $0.resignFirstResponder()
-        }
     }
     
     @IBAction func lastClick() {
@@ -178,8 +174,9 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         self.subTotal.text = formatter.stringFromNumber(total)
-        self.tax.text = formatter.stringFromNumber(total * 0.0795)
-        self.total.text = formatter.stringFromNumber(total + total * 0.0795)
+        self.subTotalCount.text = "Subtotal (\(AppDelegate.cart.count) items):"
+        self.tax.text = "N/A" //formatter.stringFromNumber(total * 0.0795)
+        self.total.text = formatter.stringFromNumber(total)
         self.updateViewConstraints()
     }
     
@@ -221,9 +218,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        doMain {
-            self.placeOrderClick(self.placeOrder)
-        }
         return true
     }
 

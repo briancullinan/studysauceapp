@@ -9,8 +9,9 @@
 import Foundation
 import CoreData
 import UIKit
+import StoreKit
 
-public class CouponCell: UITableViewCell {
+public class CouponCell: UITableViewCell, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -53,6 +54,60 @@ public class CouponCell: UITableViewCell {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    @IBAction func placeOrderClick(sender: UIButton) {
+        self.studentSelect?.resignFirstResponder()
+        let props = self.json!["options"] as! NSDictionary
+        let option = props.allKeys[0] as? String ?? ""
+        let price = (props[option] as! NSDictionary)["price"] ?? ""
+        if (Double("\(price!)") ?? 0.0).isZero {
+            postJson("/checkout/pay", [:]) {_ in
+                
+            }
+        }
+        else {
+            let productID:NSSet = NSSet(object: option);
+            let productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>);
+            productsRequest.delegate = self
+            productsRequest.start()
+        }
+    }
+    
+    public func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])    {
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .Purchased:
+                postJson("/checkout/pay", [:]) {_ in 
+                    
+                }
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                break;
+            case .Failed:
+                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                break;
+                // case .Restored:
+            //[self restoreTransaction:transaction];
+            default:
+                break;
+            }
+        }
+    }
+    
+    public func request(request: SKRequest, didFailWithError error: NSError) {
+        NSLog(error.description)
+    }
+    
+    public func productsRequest (request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+        let count : Int = response.products.count
+        if (count>0) {
+            var validProducts = response.products
+            let validProduct: SKProduct = validProducts[0] as SKProduct
+            if validProduct.productIdentifier == (self.json!["options"] as! NSDictionary).allKeys[0] as! String {
+                let payment = SKPayment(product: validProduct)
+                SKPaymentQueue.defaultQueue().addPayment(payment);
             }
         }
     }
@@ -125,9 +180,21 @@ public class CouponCell: UITableViewCell {
                 if self.cartPrice != nil {
                     self.cartPrice!.text = (dbl ?? 0.0).isZero ? "Free" : formatter.stringFromNumber(dbl!) ?? ""
                 }
-                buttonTitle = "Remove"
-                self.countLabel.enabled = true
-                self.countLabel.setBackground(saucyTheme.secondary)
+                if (dbl ?? 0.0).isZero || SKPaymentQueue.canMakePayments() {
+                    if (dbl ?? 0.0).isZero {
+                        buttonTitle = "Add"
+                    }
+                    else {
+                        buttonTitle = "Buy"
+                    }
+                    self.countLabel.enabled = true
+                    self.countLabel.setBackground(saucyTheme.primary)
+                }
+                else {
+                    buttonTitle = "Unavailable"
+                    self.countLabel.enabled = false
+                    self.countLabel.setBackground(saucyTheme.middle)
+                }
             }
         } else {
             self.countLabel.enabled = true
