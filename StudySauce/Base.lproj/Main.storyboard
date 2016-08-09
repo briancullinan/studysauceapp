@@ -2894,10 +2894,11 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" tag="1338" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjY-ug-yKg">
-                                        <rect key="frame" x="277" y="196" width="46" height="30"/>
+                                    <button opaque="NO" tag="1338" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjY-ug-yKg">
+                                        <rect key="frame" x="268" y="206" width="65" height="30"/>
                                         <state key="normal" title="Go Home"/>
                                         <connections>
+                                            <action selector="doneClick:" destination="e1u-L7-dxh" eventType="touchUpInside" id="LNm-Ng-tZG"/>
                                             <segue destination="s6r-OB-4Gk" kind="unwind" unwindAction="returnToHome:" id="WMA-yD-gwN"/>
                                         </connections>
                                     </button>

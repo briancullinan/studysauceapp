@@ -132,8 +132,9 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     // check for register child redirect
                     if path == "/register/child" {
                         redirect = true
-                        AppDelegate.goHome(self, true) {_ in
-                            // TODO: go to register child panel immediately
+                        AppDelegate.goHome(self, true) {home in
+                            // go to register child panel immediately
+                            home.performSegueWithIdentifier("addChild", sender: self)
                             doMain (self.done)
                         }
                     }

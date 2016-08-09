@@ -44,6 +44,11 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var subTotalCount: UILabel!
     @IBOutlet weak var thankYou: UIView!
     
+    @IBAction func doneClick(sender: UIButton) {
+        AppDelegate.cart = []
+        AppDelegate.completed = []
+    }
+    
     @IBAction func returnToStore(segue: UIStoryboardSegue) {
         
     }
