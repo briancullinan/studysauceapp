@@ -16,12 +16,14 @@ import StoreKit
 class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate, SKPaymentTransactionObserver {
 
     internal static var cart: Array<String> = []
+    internal static var completed: Array<String> = []
     var isRotating = false
     var needsUpdating = false
     var timeout = 60.0 * 10
     internal var device: String? = nil
     var window: UIWindow?
     var storyboard: UIStoryboard?
+    var transactions: [SKPaymentTransaction] = []
     var user: User? {
         didSet {
             if user == nil {
@@ -52,15 +54,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         for transaction in transactions {
             switch transaction.transactionState {
             case .Purchased, .Restored:
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                 if AppDelegate.storeChild == nil || AppDelegate.storeCoupon == nil {
+                    self.transactions.append(transaction)
                     break
                 }
                 postJson("/checkout/pay", ["coupon" : AppDelegate.storeCoupon!,
                     "child" : [AppDelegate.storeChild!.id! : AppDelegate.storeCoupon!],
                     "purchase_token" : transaction.transactionIdentifier
                 ]) {_ in
-                    
+                    SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                    AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(AppDelegate.storeCoupon!)!)
+                    AppDelegate.completed.append(AppDelegate.storeCoupon!)
+                    (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
+                    (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
                 }
                 break
             case .Failed:

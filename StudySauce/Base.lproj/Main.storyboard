@@ -2879,6 +2879,40 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="lastClick" destination="e1u-L7-dxh" eventType="touchUpInside" id="M1g-dX-j7y"/>
                                 </connections>
                             </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="78g-rK-5di">
+                                <rect key="frame" x="0.0" y="58" width="600" height="407"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zht-ZT-Jmj">
+                                        <rect key="frame" x="260" y="164" width="80" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have added the new study packs to your account" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeA-qd-rDg">
+                                        <rect key="frame" x="0.0" y="193" width="600" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" tag="1338" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PjY-ug-yKg">
+                                        <rect key="frame" x="277" y="196" width="46" height="30"/>
+                                        <state key="normal" title="Go Home"/>
+                                        <connections>
+                                            <segue destination="s6r-OB-4Gk" kind="unwind" unwindAction="returnToHome:" id="WMA-yD-gwN"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="HeA-qd-rDg" firstAttribute="width" secondItem="78g-rK-5di" secondAttribute="width" id="0j3-aT-36f"/>
+                                    <constraint firstItem="PjY-ug-yKg" firstAttribute="centerX" secondItem="78g-rK-5di" secondAttribute="centerX" id="1kc-Rd-YAl"/>
+                                    <constraint firstItem="HeA-qd-rDg" firstAttribute="top" secondItem="zht-ZT-Jmj" secondAttribute="bottom" constant="8" symbolic="YES" id="6Ny-i1-sQI"/>
+                                    <constraint firstItem="HeA-qd-rDg" firstAttribute="centerX" secondItem="78g-rK-5di" secondAttribute="centerX" id="ALl-lJ-QUk"/>
+                                    <constraint firstItem="zht-ZT-Jmj" firstAttribute="centerX" secondItem="78g-rK-5di" secondAttribute="centerX" id="TjR-e8-lMX"/>
+                                    <constraint firstItem="HeA-qd-rDg" firstAttribute="centerY" secondItem="78g-rK-5di" secondAttribute="centerY" id="mf2-UO-Hlm"/>
+                                    <constraint firstItem="HeA-qd-rDg" firstAttribute="bottom" secondItem="PjY-ug-yKg" secondAttribute="top" constant="8" symbolic="YES" id="wBN-cq-2Jk"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1fW-dP-gCV">
                                 <rect key="frame" x="0.0" y="74" width="600" height="518"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2978,7 +3012,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" tag="1339" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="253" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5k1-vA-Wlb">
-                                                    <rect key="frame" x="544" y="54" width="48" height="32"/>
+                                                    <rect key="frame" x="562" y="54" width="30" height="32"/>
                                                     <state key="normal" title="Buy"/>
                                                     <connections>
                                                         <action selector="placeOrderClick:" destination="9iF-Hj-Sk9" eventType="touchUpInside" id="yDH-pV-FZB"/>
@@ -2997,7 +3031,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="746" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Who is this for?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="stH-My-67w" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
-                                                    <rect key="frame" x="108" y="54" width="428" height="32"/>
+                                                    <rect key="frame" x="108" y="54" width="446" height="32"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -3028,7 +3062,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                 <constraint firstItem="stH-My-67w" firstAttribute="leading" secondItem="Aka-z3-DND" secondAttribute="leading" id="cJA-GA-JoY"/>
                                                 <constraint firstItem="stH-My-67w" firstAttribute="top" secondItem="Aka-z3-DND" secondAttribute="bottom" id="dZ7-t1-IgR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="rmh-Xy-pHi" secondAttribute="trailing" id="eBr-yM-mnM"/>
-                                                <constraint firstItem="stH-My-67w" firstAttribute="trailing" secondItem="Aka-z3-DND" secondAttribute="trailing" id="eWd-eX-EdD"/>
                                                 <constraint firstItem="Aka-z3-DND" firstAttribute="top" secondItem="wgP-Y9-HUx" secondAttribute="bottom" id="ftj-rI-DSs"/>
                                                 <constraint firstItem="Aka-z3-DND" firstAttribute="bottom" secondItem="cYF-i2-HXu" secondAttribute="bottom" id="gb2-u0-u6q"/>
                                                 <constraint firstItem="wgP-Y9-HUx" firstAttribute="top" secondItem="N5n-Kg-qOJ" secondAttribute="topMargin" id="iGr-Bp-pvI"/>
@@ -3046,6 +3079,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                         </constraints>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
+                                            <outlet property="cancelButton" destination="XEe-pv-KEr" id="SBs-rs-jjx"/>
                                             <outlet property="cartPrice" destination="rmh-Xy-pHi" id="VWR-FK-Sw7"/>
                                             <outlet property="countLabel" destination="5k1-vA-Wlb" id="Wcs-Wq-X95"/>
                                             <outlet property="logoImage" destination="cYF-i2-HXu" id="TL1-r5-HiT"/>
@@ -3221,6 +3255,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <color key="backgroundColor" red="0.91372549020000005" green="0.91372549020000005" blue="0.91372549020000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="bottom" constant="8" symbolic="YES" id="1Zw-fQ-EFc"/>
+                            <constraint firstItem="Jjk-Aq-kf8" firstAttribute="top" secondItem="78g-rK-5di" secondAttribute="bottom" constant="8" symbolic="YES" id="9Ne-vz-Kug"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="top" secondItem="Gaa-te-6Wg" secondAttribute="bottom" constant="8" symbolic="YES" id="BZq-XO-2oZ"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="top" secondItem="YQd-Gy-wbe" secondAttribute="bottom" constant="8" id="DWv-3F-3cJ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1qA-rb-ZPM" secondAttribute="trailing" id="EKX-GR-3oB"/>
@@ -3232,9 +3267,12 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstAttribute="leadingMargin" secondItem="YQd-Gy-wbe" secondAttribute="leading" id="Nia-1i-jmD"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="centerX" secondItem="1mD-CX-eQh" secondAttribute="centerX" id="TaX-Gw-z7B"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="bottom" secondItem="FUg-IO-75J" secondAttribute="bottom" id="ULw-u4-qEZ"/>
+                            <constraint firstItem="78g-rK-5di" firstAttribute="centerX" secondItem="1mD-CX-eQh" secondAttribute="centerX" id="Yhz-5j-BE2"/>
+                            <constraint firstItem="FUg-IO-75J" firstAttribute="bottom" secondItem="78g-rK-5di" secondAttribute="top" constant="8" symbolic="YES" id="ZhS-b9-VPr"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Jjk-Aq-kf8" secondAttribute="leading" id="axX-nT-duN"/>
                             <constraint firstItem="JrH-D3-Ki6" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="top" id="dbB-J1-EZe"/>
                             <constraint firstItem="FUg-IO-75J" firstAttribute="centerX" secondItem="1mD-CX-eQh" secondAttribute="centerX" id="gKg-62-DWk"/>
+                            <constraint firstItem="78g-rK-5di" firstAttribute="width" secondItem="1mD-CX-eQh" secondAttribute="width" id="jZK-xe-zQu"/>
                             <constraint firstItem="YQd-Gy-wbe" firstAttribute="top" secondItem="FUg-IO-75J" secondAttribute="bottom" constant="8" symbolic="YES" id="nIG-nz-ZRo"/>
                             <constraint firstAttribute="leadingMargin" secondItem="JrH-D3-Ki6" secondAttribute="leading" id="ngT-Hm-zre"/>
                             <constraint firstItem="1fW-dP-gCV" firstAttribute="width" secondItem="1mD-CX-eQh" secondAttribute="width" id="oiJ-9I-IRk"/>
@@ -3262,6 +3300,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="subTotalCount" destination="z9u-oP-3Vy" id="udl-Gf-at5"/>
                         <outlet property="tableView" destination="1fW-dP-gCV" id="gdQ-9g-iuH"/>
                         <outlet property="tax" destination="8mv-za-oxd" id="DKN-m6-NHp"/>
+                        <outlet property="thankYou" destination="78g-rK-5di" id="4yF-i1-OFY"/>
                         <outlet property="total" destination="QbR-6D-Qpj" id="N8j-QU-HYK"/>
                         <segue destination="s6r-OB-4Gk" kind="unwind" identifier="home" unwindAction="returnToHome:" id="5kX-5H-lji"/>
                         <segue destination="s6r-OB-4Gk" kind="unwind" identifier="store" unwindAction="returnToStore:" id="OVS-Hb-NnK"/>

@@ -62,19 +62,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
         (self.view ~> TextField.self).each {
             if $0.isFirstResponder() {
-                if $0 == self.schoolSystem {
-                    $0.text = self.level3[row-1]["name"] as? String
-                }
-                else if $0 == self.schoolYear {
-                    let system = (self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first! as NSDictionary)["name"] as? String
-                    $0.text = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system})[row-1]["name"] as? String
-                }
-                else if $0 == self.schoolName {
-                    let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
-                    $0.text = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year})[row-1]["name"] as? String
-                }
-                
-                $0.resignFirstResponder()
+                $0.text = self.getOptions($0)[row-1]["name"] as? String
             }
         }
     }
@@ -89,20 +77,32 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         var count = 1
         (self.view ~> TextField.self).each {
             if $0.isFirstResponder() {
-                if $0 == self.schoolSystem {
-                    count = self.level3.count + 1
-                }
-                else if $0 == self.schoolYear {
-                    let system = self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first?["name"] as? String
-                    count = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system}).count + 1
-                }
-                else if $0 == self.schoolName {
-                    let year = self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first?["name"] as? String
-                    count = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year}).count + 1
-                }
+                count = self.getOptions($0).count + 1
             }
         }
         return count
+    }
+    
+    func getOptions(field: TextField) -> [NSDictionary] {
+        if field == self.schoolSystem {
+            var top = self.level3
+            if !top.contains({$0["name"] as! String == "Other"}) {
+                top.append(["name" : "Other"])
+            }
+            return top
+        }
+        else if field == self.schoolYear {
+            let system = (self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first)?["name"] as? String
+            return self.level2.filter({
+                let parent = ($0["parent"] as? NSDictionary)?["name"] as? String
+                return parent == system || (parent == nil && system == "Other")
+            })
+        }
+        else if field == self.schoolName {
+            let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
+            return self.level1.filter({($0["parent"] as? NSDictionary)?["name"] as? String == year})
+        }
+        return []
     }
     
     // The data to return for the row and component (column) that"s being passed in
@@ -122,17 +122,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
                     }
                 }
                 else {
-                    if $0 == self.schoolSystem {
-                        text = self.level3[row-1]["name"] as! String
-                    }
-                    else if $0 == self.schoolYear {
-                        let system = (self.level3.filter({$0["name"] as? String == self.schoolSystem.text}).first! as NSDictionary)["name"] as? String
-                        text = self.level2.filter({($0["parent"] as! NSDictionary)["name"] as? String == system})[row-1]["name"] as! String
-                    }
-                    else if $0 == self.schoolName {
-                        let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
-                        text = self.level1.filter({($0["parent"] as! NSDictionary)["name"] as? String == year})[row-1]["name"] as! String
-                    }
+                    text = self.getOptions($0)[row-1]["name"] as! String
                 }
             }
         }
@@ -182,7 +172,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
             self.level1 = sinq(self.level1).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
             self.level2 = self.level1.map({$0["parent"] as! NSDictionary})
             self.level2 = sinq(self.level2).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
-            self.level3 = self.level2.map({$0["parent"] as! NSDictionary})
+            self.level3 = self.level2.map({$0["parent"] as? NSDictionary}).filter({$0 != nil}).map{$0!}
             self.level3 = sinq(self.level3).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
             doMain {
                 (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker?.reloadAllComponents()

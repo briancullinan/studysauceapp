@@ -18,6 +18,7 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
     @IBOutlet weak var countLabel: UIButton!
     @IBOutlet weak var studentSelect: TextField? = nil
     @IBOutlet weak var cartPrice: UILabel? = nil
+    @IBOutlet weak var cancelButton: UIButton? = nil
 
     weak var json: NSDictionary? = nil
     
@@ -59,15 +60,24 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
     }
     
     @IBAction func placeOrderClick(sender: UIButton) {
-        self.studentSelect?.resignFirstResponder()
+        self.studentSelect!.resignFirstResponder()
+        let child = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first
+        if child == nil {
+            self.studentSelect?.becomeFirstResponder()
+            return
+        }
         let props = self.json!["options"] as! NSDictionary
         let option = props.allKeys[0] as? String ?? ""
         let price = (props[option] as! NSDictionary)["price"] ?? ""
         if (Double("\(price!)") ?? 0.0).isZero {
-            let child = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first!
-            postJson("/checkout/pay", ["coupon" : self.json!["name"] as? String ?? "",
-                "child" : [child.id! : self.json!["name"] as? String ?? ""]]) {_ in
-                
+            postJson("/checkout/pay", [
+                "coupon" : self.json!["name"] as? String ?? "",
+                "child" : [child!.id! : self.json!["name"] as? String ?? ""]])
+            {_ in
+                AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(self.json!["name"] as? String ?? "")!)
+                AppDelegate.completed.append(self.json!["name"] as? String ?? "")
+                (self.viewController() as! StoreController).updateCart()
+                (self.viewController() as! StoreController).tableView.reloadData()
             }
         }
         else {
@@ -90,7 +100,7 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
             if validProduct.productIdentifier == (self.json!["options"] as! NSDictionary).allKeys[0] as! String {
                 let payment = SKPayment(product: validProduct)
                 SKPaymentQueue.defaultQueue().addPayment(payment)
-                AppDelegate.storeChild = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first!
+                AppDelegate.storeChild = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first
                 AppDelegate.storeCoupon = self.json!["name"] as? String ?? ""
             }
         }
@@ -154,7 +164,9 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         let buttonTitle:String
-        if AppDelegate.cart.contains(json["name"] as! String) {
+        self.cancelButton?.hidden = false
+        self.studentSelect?.enabled = true
+        if AppDelegate.cart.contains(json["name"] as! String) || AppDelegate.completed.contains(json["name"] as! String) {
             if !(self.viewController() as! StoreController).isCart {
                 buttonTitle = "In cart"
                 self.countLabel.enabled = false
@@ -164,7 +176,14 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
                 if self.cartPrice != nil {
                     self.cartPrice!.text = (dbl ?? 0.0).isZero ? "Free" : formatter.stringFromNumber(dbl!) ?? ""
                 }
-                if (dbl ?? 0.0).isZero || SKPaymentQueue.canMakePayments() {
+                if AppDelegate.completed.contains(json["name"] as! String) {
+                    buttonTitle = "Done"
+                    self.countLabel.enabled = false
+                    self.cancelButton?.hidden = true
+                    self.studentSelect?.enabled = false
+                    self.countLabel.setBackground(saucyTheme.middle)
+                }
+                else if (dbl ?? 0.0).isZero || SKPaymentQueue.canMakePayments() {
                     if (dbl ?? 0.0).isZero {
                         buttonTitle = "Add"
                     }
@@ -189,3 +208,5 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
         self.titleLabel.text = title
     }
 }
+
+

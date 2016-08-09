@@ -42,6 +42,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var total: UILabel!
     @IBOutlet weak var placeOrder: UIButton!
     @IBOutlet weak var subTotalCount: UILabel!
+    @IBOutlet weak var thankYou: UIView!
     
     @IBAction func returnToStore(segue: UIStoryboardSegue) {
         
@@ -93,9 +94,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 .filter{
                     return ($0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()).filter{
                         return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
-            doMain {
-                self.users = users
-            }
+            self.users = users
         }
     }
     
@@ -109,7 +108,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         (self.view ~> TextField.self).each {
             if $0.isFirstResponder() {
                 $0.text = self.users[row-1].first! + " " + self.users[row-1].last!
-                $0.resignFirstResponder()
             }
         }
     }
@@ -142,6 +140,14 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             cartFooter.hidden = false
             cartButton.hidden = true
             storeTitle.text = NSLocalizedString("My cart", comment: "Title for shopping cart")
+            if AppDelegate.cart.count > 0 {
+                tableView.hidden = false
+                thankYou.hidden = true
+            }
+            else if AppDelegate.completed.count > 0 {
+                thankYou.hidden = false
+                tableView.hidden = true
+            }
         }
         else {
             cartBottom.active = true
@@ -160,7 +166,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 storeHeader.hidden = true
             }
         }
-        cartCount.text = "\(AppDelegate.cart.count)"
+        self.cartCount.text = "\(AppDelegate.cart.count + AppDelegate.completed.count)"
         var total = 0.0
         for c in self.coupons ?? [] {
             if AppDelegate.cart.contains((c as! NSDictionary)["name"] as! String) {
@@ -174,7 +180,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         self.subTotal.text = formatter.stringFromNumber(total)
-        self.subTotalCount.text = "Subtotal (\(AppDelegate.cart.count) items):"
+        self.subTotalCount.text = "Subtotal (\(AppDelegate.cart.count + AppDelegate.completed.count) items):"
         self.tax.text = "N/A" //formatter.stringFromNumber(total * 0.0795)
         self.total.text = formatter.stringFromNumber(total)
         self.updateViewConstraints()
@@ -229,7 +235,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         if self.coupons == nil || self.coupons!.count == 0 {
             return 1
         }
-        return self.isCart ? AppDelegate.cart.count : self.coupons!.count
+        return self.isCart ? (AppDelegate.cart.count + AppDelegate.completed.count) : self.coupons!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -250,7 +256,13 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         
         let object: NSDictionary
         if self.isCart {
-            object = self.coupons!.filter({($0 as! NSDictionary)["name"] as! String == AppDelegate.cart[indexPath.row]}).first as! NSDictionary
+            object = self.coupons!.filter({
+                let name = ($0 as! NSDictionary)["name"] as! String
+                if indexPath.row < AppDelegate.cart.count {
+                    return name == AppDelegate.cart[indexPath.row]
+                }
+                return name == AppDelegate.completed[indexPath.row - AppDelegate.cart.count]
+            }).first as! NSDictionary
         }
         else {
             object = self.coupons![indexPath.row] as! NSDictionary
@@ -259,3 +271,5 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return cell
     }
 }
+
+

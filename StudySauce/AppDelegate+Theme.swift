@@ -358,19 +358,22 @@ extension AppDelegate {
             
         })
         
-        $([PackResultsController.self ~>> UILabel.self ~* 1,
+        $([StoreController.self ~> UILabel.self ~* 3,
+            PackResultsController.self ~>> UILabel.self ~* 1,
            PackResultsController.self ~>> UILabel.self ~* 3], {
             $0.setFontSize(30 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
         })
         
-        $(PackResultsController.self ~>> UILabel.self ~* 2, {
+        $([StoreController.self ~> UILabel.self ~* 2,
+          PackResultsController.self ~>> UILabel.self ~* 2], {
             $0.setFontSize(60 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
         
-        $(PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape"), {
+        $([StoreController.self ~> UILabel.self ~* 2,
+            PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape")], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
@@ -400,7 +403,7 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.labelFont)
         })
 
-        $(PackSummaryCell.self ~> UILabel.self ~* 1, {
+        $([CouponCell.self ~> UILabel.self ~* 1, PackSummaryCell.self ~> UILabel.self ~* 1], {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         
