@@ -150,7 +150,13 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         */
         if cartCount != nil {
-            cartCount!.text = "\(AppDelegate.cart.count + AppDelegate.completed.count)"
+            if AppDelegate.cart.count + AppDelegate.completed.count == 0 {
+                cartCount!.hidden = true
+            }
+            else {
+                cartCount!.text = "\(AppDelegate.cart.count + AppDelegate.completed.count)"
+                cartCount?.hidden = false
+            }
         }
         
         self.monkeyButton?.setImage(UIImage(named: "shuffle_gray"), forState: .Disabled)

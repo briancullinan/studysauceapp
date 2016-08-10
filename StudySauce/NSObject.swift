@@ -36,9 +36,11 @@ extension Array {
 
 extension CALayer {
     
+    private static let borderKey = "StudySauceBorder"
+    
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
         
-        let border = CALayer()
+        let border = valueForKey(CALayer.borderKey) as? CALayer ?? CALayer()
         
         switch edge {
         case UIRectEdge.Top:
@@ -57,6 +59,7 @@ extension CALayer {
             break
         }
         
+        self.setValue(border, forKey: CALayer.borderKey)
         border.backgroundColor = color.CGColor;
         
         self.addSublayer(border)

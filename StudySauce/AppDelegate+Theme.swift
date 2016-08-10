@@ -71,9 +71,30 @@ extension AppDelegate {
             attribute: NSLayoutAttribute.Top,
             multiplier: 1,
             constant: 0))
-        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: s, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-        s.addConstraint(NSLayoutConstraint(item: v, attribute: NSLayoutAttribute.BottomMargin, relatedBy: NSLayoutRelation.Equal, toItem: label, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        s.addConstraint(NSLayoutConstraint(
+            item: v,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: s,
+            attribute: NSLayoutAttribute.Width,
+            multiplier: 1,
+            constant: 0))
+        s.addConstraint(NSLayoutConstraint(
+            item: v,
+            attribute: NSLayoutAttribute.CenterX,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: s,
+            attribute: NSLayoutAttribute.CenterX,
+            multiplier: 1,
+            constant: 0))
+        s.addConstraint(NSLayoutConstraint(
+            item: v,
+            attribute: NSLayoutAttribute.BottomMargin,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: label,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1,
+            constant: 0))
         
         // do customization stuff
         v.backgroundColor = saucyTheme.fontColor
@@ -707,6 +728,7 @@ extension AppDelegate {
         $(BasicKeyboardController.self ~>> UIView.self, {
             $0.viewController()?.view.backgroundColor = saucyTheme.middle
         })
+        
         $(BasicKeyboardController.self ~> UIButton.self, {
             $0.setFontName(saucyTheme.textFont)
             $0.setFontSize(saucyTheme.textSize * 1.5)
@@ -720,16 +742,19 @@ extension AppDelegate {
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
         })
+        
         $(BasicKeyboardController.self ~> UIButton.self ~> UILabel.self, {
             $0.setFontName(saucyTheme.textFont)
             $0.setFontSize(saucyTheme.textSize * 1.5)
             $0.setFontColor(saucyTheme.fontColor)
         })
+        
         $([BasicKeyboardController.self ~> UIButton.self ~* 5,
             BasicKeyboardController.self ~> UIButton.self ~* {$0.highlighted}], {
             $0.backgroundColor = saucyTheme.secondary
             $0.setFontColor(saucyTheme.lightColor)
         })
+        
         $(BasicKeyboardController.self ~> UIButton.self ~* 2, {
             if ($0.viewController() as! BasicKeyboardController).lowercase {
                 
@@ -745,7 +770,6 @@ extension AppDelegate {
             v.superview?.bringSubviewToFront(v)
             v.setFontName(saucyTheme.subheadingFont)
         }
-
         
         $(StoreController.self ~> UIView.self ~* 57 ~>> UILabel.self) {
             $0.setFontColor(UIColor(0x44AA44))
@@ -761,8 +785,33 @@ extension AppDelegate {
             $0.layer.addBorder(UIRectEdge.Top, color: saucyTheme.fontColor, thickness: 2)
         }
         
-        $(UserSettingsController.self ~> UIView.self ~* "childLast") {
+        $(UserSettingsController.self ~> UITableViewCell.self ~* "childLast") {
             $0.layer.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 2)
+        }
+        
+        $([StoreController.self ~> CouponCell.self ~> TextField.self,
+            UserAddController.self ~> TextField.self ~* 90])
+        {(v: TextField) in
+            let img = UIImageView(image: UIImage(named: "down_arrow"))
+            img.translatesAutoresizingMaskIntoConstraints = false
+            img.userInteractionEnabled = false
+            v.addSubview(img)
+            v.addConstraint(NSLayoutConstraint(
+                    item: img,
+                    attribute: NSLayoutAttribute.CenterY,
+                    relatedBy: NSLayoutRelation.Equal,
+                    toItem: v,
+                    attribute: NSLayoutAttribute.CenterY,
+                    multiplier: 1,
+                    constant: 0))
+            v.addConstraint(NSLayoutConstraint(
+                item: img,
+                attribute: NSLayoutAttribute.Trailing,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: v,
+                attribute: NSLayoutAttribute.Trailing,
+                multiplier: 1,
+                constant: 0))
         }
         
         // This is the normal way to change appearance on a single type

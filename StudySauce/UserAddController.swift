@@ -62,7 +62,17 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
         (self.view ~> TextField.self).each {
             if $0.isFirstResponder() {
-                $0.text = self.getOptions($0)[row-1]["name"] as? String
+                let option = self.getOptions($0)[row-1]["name"] as? String
+                if option != $0.text {
+                    $0.text = option
+                    if $0 == self.schoolSystem {
+                        self.schoolYear.text = ""
+                        self.schoolName.text = ""
+                    }
+                    if $0 == self.schoolYear {
+                        self.schoolName.text = ""
+                    }
+                }
             }
         }
     }
@@ -99,7 +109,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
             })
         }
         else if field == self.schoolName {
-            let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first! as NSDictionary)["name"] as? String
+            let year = (self.level2.filter({$0["name"] as? String == self.schoolYear.text}).first)?["name"] as? String
             return self.level1.filter({($0["parent"] as? NSDictionary)?["name"] as? String == year})
         }
         return []

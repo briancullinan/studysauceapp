@@ -46,9 +46,9 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
                     self.logoImage.image = UIImage(data: data)
                     self.logoImage.hidden = false
                     
-                    if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
-                        (vc.view ~> PackSummaryCell.self).each {
-                            if $0.pack!.logo == self.json!["logo"] as? String ?? "" && $0.logoImage.hidden {
+                    if let vc = AppDelegate.visibleViewController() as? StoreController {
+                        (vc.view ~> CouponCell.self).each {
+                            if $0.json!["logo"] as? String ?? "" == self.json!["logo"] as? String ?? "" && $0.logoImage.hidden {
                                 $0.logoImage.image = self.logoImage.image
                                 $0.logoImage.hidden = false
                             }

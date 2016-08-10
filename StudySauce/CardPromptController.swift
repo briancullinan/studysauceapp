@@ -191,7 +191,7 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
                 }
                 
                 if self.shouldPlay {
-                    self.player!.play()
+                    self.player?.play()
                     self.timer = NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: #selector(CardPromptController.updateProgress), userInfo: nil, repeats: true)
                     self.shouldPlay = false
                 }
@@ -218,7 +218,9 @@ class CardPromptController: UIViewController, AVAudioPlayerDelegate, UIScrollVie
     }
     
     func updateProgress() {
-        self.playButton.setProgress(CGFloat(self.player!.currentTime) / CGFloat(self.player!.duration), animated: false)
+        if self.player != nil {
+            self.playButton.setProgress(CGFloat(self.player!.currentTime) / CGFloat(self.player!.duration), animated: false)
+        }
     }
     
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
