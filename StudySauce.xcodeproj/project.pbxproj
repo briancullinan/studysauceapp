@@ -178,7 +178,7 @@
 		64C167D51C3F7ECD00ECDFED /* StudySauceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudySauceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C167D71C3F7ECD00ECDFED /* StudySauceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySauceUITests.swift; sourceTree = "<group>"; };
 		64C167D91C3F7ECD00ECDFED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		64C167DF1C456D4000ECDFED /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		64C167DF1C456D4000ECDFED /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		64C167E11C45730200ECDFED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettingsContainerController.swift; sourceTree = "<group>"; };
 		64C2B98A1BFADF440028AD1C /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
@@ -630,6 +630,9 @@
 						DevelopmentTeam = 3MV67NZ3PZ;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.OMC = {
 								enabled = 1;
 							};
 							com.apple.Push = {

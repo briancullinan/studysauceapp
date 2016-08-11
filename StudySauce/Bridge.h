@@ -13,5 +13,7 @@
 #import "DALabeledCircularProgressView.h"
 #import <Google/Analytics.h>
 #import <Harpy.h>
+#import <Stripe/Stripe.h>
+#import <Stripe/Stripe+ApplePay.h>
 
 #endif /* Bridge_h */

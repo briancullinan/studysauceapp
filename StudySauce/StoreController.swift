@@ -17,9 +17,15 @@ import Foundation
 
 import UIKit
 import CoreData
-import StoreKit
+import PassKit
 
-class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate {
+class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, PKPaymentAuthorizationViewControllerDelegate {
+    
+    static let StripeKeys = [
+        "test.studysauce.com" : "pk_test_th5VY2bxRUDSJZ1xCcpJ7CNB",
+        "cerebro.studysauce.com" : "pk_live_3R7ICVYGa9lUxr8tkOILInnI",
+        "staging.studysauce.com" : "pk_test_th5VY2bxRUDSJZ1xCcpJ7CNB"
+    ]
     
     var coupons: NSArray? = nil
     var pack: Pack? = nil
@@ -27,6 +33,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     var isCart = false
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
     var users: [User] = []
+    let SupportedPaymentNetworks = [PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex]
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var storeTop: NSLayoutConstraint!
     @IBOutlet weak var storeHeader: UIView!
@@ -40,13 +47,12 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var subTotal: UILabel!
     @IBOutlet weak var tax: UILabel!
     @IBOutlet weak var total: UILabel!
-    @IBOutlet weak var placeOrder: UIButton!
+    @IBOutlet weak var placeOrder: UIButton? = nil
     @IBOutlet weak var subTotalCount: UILabel!
     @IBOutlet weak var thankYou: UIView!
     
     @IBAction func doneClick(sender: UIButton) {
         AppDelegate.cart = []
-        AppDelegate.completed = []
     }
     
     @IBAction func returnToStore(segue: UIStoryboardSegue) {
@@ -63,12 +69,100 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         }
     }
 
+    @IBAction func placeOrderClick(sender: UIButton) {
+        if let blank = sinq(AppDelegate.cart).except(AppDelegate.cartChildren.keys, key: {$0}).toArray().first {
+            self.tableView.scrollToRowAtIndexPath(
+                NSIndexPath(forRow: AppDelegate.cart.indexOf(blank)!, inSection: 0),
+                atScrollPosition: UITableViewScrollPosition.Top,
+                animated: false)
+                (self.view ~> (CouponCell.self ~* {$0.json!["name"] as! String == blank})).first!.studentSelect!.becomeFirstResponder()
+            return
+        }
+        if !self.placeOrder!.enabled {
+            return
+        }
+        (self.view ~> TextField.self).each {
+            $0.resignFirstResponder()
+        }
+        
+        var summary: [PKPaymentSummaryItem] = []
+        var total = 0.0
+        for c in self.coupons! {
+            if AppDelegate.cart.contains(c["name"] as! String) {
+                let price = StoreController.getPrice(c as! NSDictionary)
+                summary.append(PKPaymentSummaryItem(label: c["description"] as! String, amount: NSDecimalNumber(double: price)))
+                total += price
+            }
+        }
+        
+        if total.isZero {
+            postJson("/checkout/pay", [
+                "coupon" : AppDelegate.cart.joinWithSeparator("n"),
+                "child" : AppDelegate.cartChildren])
+            {_ in
+                self.completed = true
+                self.updateCart()
+                self.tableView.reloadData()
+            }
+        }
+        else {
+            let request = PKPaymentRequest()
+            request.merchantIdentifier = "merchant.\(NSBundle.mainBundle().bundleIdentifier)"
+            request.supportedNetworks = SupportedPaymentNetworks
+            request.merchantCapabilities = PKMerchantCapability.Capability3DS
+            request.countryCode = "US"
+            request.currencyCode = "USD"
+            request.paymentSummaryItems = summary
+            request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(double: total * 0.0795)))
+            request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(double: total + total * 0.0795)))
+            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+            self.presentViewController(applePayController, animated: true, completion: nil)
+            applePayController.delegate = self
+        }
+    }
+    
+    static func getPrice(coupon: NSDictionary) -> Double {
+        let options = coupon["options"] as! NSDictionary
+        let option = coupon["options"]?.allKeys[0] as? String ?? ""
+        let price = (options[option] as! NSDictionary)["price"] ?? ""
+        return Double("\(price!)") ?? 0.0
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let cart = segue.destinationViewController as? StoreController where
             cart.presentingViewController == nil {
             cart.isCart = true
             cart.coupons = self.coupons
         }
+    }
+    
+    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: ((PKPaymentAuthorizationStatus) -> Void)) {
+        
+        Stripe.setDefaultPublishableKey(StoreController.StripeKeys[AppDelegate.studySauceCom("/").host!]!)
+        STPAPIClient.sharedClient().createTokenWithPayment(payment) {
+            (token, error) in
+            if error != nil {
+                completion(PKPaymentAuthorizationStatus.Failure)
+                return
+            }
+            postJson("/checkout/pay", [
+                "purchase_token" : token!.tokenId,
+                "coupon" : AppDelegate.cart.joinWithSeparator("n"),
+                "child" : AppDelegate.cartChildren], error: {_ in 
+                    completion(PKPaymentAuthorizationStatus.Failure)
+                })
+            {_ in
+                self.completed = true
+                self.updateCart()
+                self.tableView.reloadData()
+                completion(PKPaymentAuthorizationStatus.Success)
+            }
+            
+        }
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -83,6 +177,12 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         super.viewDidLoad()
         if self.isCart {
             self.getUsersFromLocalStore()
+            if !PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(SupportedPaymentNetworks) {
+                self.placeOrder!.enabled = false
+            }
+            else {
+                self.placeOrder!.enabled = true
+            }
         }
         else {
             self.getCouponsFromRemoteStore()
@@ -110,9 +210,10 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         if row == 0 {
             return
         }
-        (self.view ~> TextField.self).each {
-            if $0.isFirstResponder() {
-                $0.text = self.users[row-1].first! + " " + self.users[row-1].last!
+        (self.view ~> CouponCell.self).each {
+            if $0.studentSelect!.isFirstResponder() {
+                $0.studentSelect!.text = self.users[row-1].first! + " " + self.users[row-1].last!
+                AppDelegate.cartChildren[$0.json!["name"] as! String] = self.users[row-1].id!
             }
         }
     }
@@ -135,6 +236,8 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return self.users[row-1].first! + " " + self.users[row-1].last!
     }
     
+    var completed = false
+    
     internal func updateCart() {
         if self.isCart {
             storeTop.active = true
@@ -145,13 +248,13 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             cartFooter.hidden = false
             cartButton.hidden = true
             storeTitle.text = NSLocalizedString("My cart", comment: "Title for shopping cart")
-            if AppDelegate.cart.count > 0 {
-                tableView.hidden = false
-                thankYou.hidden = true
-            }
-            else if AppDelegate.completed.count > 0 {
+            if self.completed {
                 thankYou.hidden = false
                 tableView.hidden = true
+            }
+            else {
+                tableView.hidden = false
+                thankYou.hidden = true
             }
         }
         else {
@@ -171,22 +274,18 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 storeHeader.hidden = true
             }
         }
-        self.cartCount.text = "\(AppDelegate.cart.count + AppDelegate.completed.count)"
+        self.cartCount.text = "\(AppDelegate.cart.count)"
         var total = 0.0
         for c in self.coupons ?? [] {
             if AppDelegate.cart.contains((c as! NSDictionary)["name"] as! String) {
-                let coupon = c as! NSDictionary
-                let options = coupon["options"] as! NSDictionary
-                let option = coupon["options"]?.allKeys[0] as? String ?? ""
-                let price = (options[option] as! NSDictionary)["price"] ?? ""
-                total += Double("\(price!)") ?? 0.0
+                total += StoreController.getPrice(c as! NSDictionary)
             }
         }
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         self.subTotal.text = formatter.stringFromNumber(total)
-        self.subTotalCount.text = "Subtotal (\(AppDelegate.cart.count + AppDelegate.completed.count) items):"
-        self.tax.text = "N/A" //formatter.stringFromNumber(total * 0.0795)
+        self.subTotalCount.text = "Subtotal (\(AppDelegate.cart.count) items):"
+        self.tax.text = formatter.stringFromNumber(total * 0.0795)
         self.total.text = formatter.stringFromNumber(total)
         self.updateViewConstraints()
     }
@@ -229,6 +328,9 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     }
 
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        doMain {
+            self.placeOrderClick(self.placeOrder!)
+        }
         return true
     }
 
@@ -240,7 +342,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         if self.coupons == nil || self.coupons!.count == 0 {
             return 1
         }
-        return self.isCart ? (AppDelegate.cart.count + AppDelegate.completed.count) : self.coupons!.count
+        return self.isCart ? (AppDelegate.cart.count) : self.coupons!.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -263,10 +365,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         if self.isCart {
             object = self.coupons!.filter({
                 let name = ($0 as! NSDictionary)["name"] as! String
-                if indexPath.row < AppDelegate.cart.count {
-                    return name == AppDelegate.cart[indexPath.row]
-                }
-                return name == AppDelegate.completed[indexPath.row - AppDelegate.cart.count]
+                return name == AppDelegate.cart[indexPath.row]
             }).first as! NSDictionary
         }
         else {

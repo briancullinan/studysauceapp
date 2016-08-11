@@ -9,21 +9,18 @@
 import UIKit
 import CoreData
 import SystemConfiguration
-import StoreKit
-
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate, SKPaymentTransactionObserver {
+class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDelegate, HarpyDelegate {
 
     internal static var cart: Array<String> = []
-    internal static var completed: Array<String> = []
+    internal static var cartChildren: Dictionary<String, NSNumber> = [:]
     var isRotating = false
     var needsUpdating = false
     var timeout = 60.0 * 10
     internal var device: String? = nil
     var window: UIWindow?
     var storyboard: UIStoryboard?
-    var transactions: [SKPaymentTransaction] = []
     var user: User? {
         didSet {
             if user == nil {
@@ -48,36 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         }
     }
     
-    static var storeChild: User? = nil
-    static var storeCoupon: String? = ""
-    internal func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])    {
-        for transaction in transactions {
-            switch transaction.transactionState {
-            case .Purchased, .Restored:
-                if AppDelegate.storeChild == nil || AppDelegate.storeCoupon == nil {
-                    self.transactions.append(transaction)
-                    break
-                }
-                postJson("/checkout/pay", ["coupon" : AppDelegate.storeCoupon!,
-                    "child" : [AppDelegate.storeChild!.id! : AppDelegate.storeCoupon!],
-                    "purchase_token" : transaction.transactionIdentifier
-                ]) {_ in
-                    SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                    AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(AppDelegate.storeCoupon!)!)
-                    AppDelegate.completed.append(AppDelegate.storeCoupon!)
-                    (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
-                    (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
-                }
-                break
-            case .Failed:
-                SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                break
-            default:
-                break
-            }
-        }
-    }
-
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         if let home = AppDelegate.visibleViewController() as? HomeController {
             doMain(home.homeSync)
@@ -285,7 +252,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = saucyTheme.textSize + saucyTheme.padding * 3;
         self.setupTheme()
         Harpy.sharedInstance().appID = "1065647027"
-        SKPaymentQueue.defaultQueue().addTransactionObserver(self)
 
         // Override point for customization after application launch.
         // TODO: check the local copy of the session timeout

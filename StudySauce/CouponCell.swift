@@ -9,13 +9,12 @@
 import Foundation
 import CoreData
 import UIKit
-import StoreKit
 
-public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
+public class CouponCell: UITableViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var countLabel: UIButton!
+    @IBOutlet weak var countLabel: UIButton? = nil
     @IBOutlet weak var studentSelect: TextField? = nil
     @IBOutlet weak var cartPrice: UILabel? = nil
     @IBOutlet weak var cancelButton: UIButton? = nil
@@ -59,53 +58,6 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
         }
     }
     
-    @IBAction func placeOrderClick(sender: UIButton) {
-        self.studentSelect!.resignFirstResponder()
-        let child = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first
-        if child == nil {
-            self.studentSelect?.becomeFirstResponder()
-            return
-        }
-        let props = self.json!["options"] as! NSDictionary
-        let option = props.allKeys[0] as? String ?? ""
-        let price = (props[option] as! NSDictionary)["price"] ?? ""
-        if (Double("\(price!)") ?? 0.0).isZero {
-            postJson("/checkout/pay", [
-                "coupon" : self.json!["name"] as? String ?? "",
-                "child" : [child!.id! : self.json!["name"] as? String ?? ""]])
-            {_ in
-                AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(self.json!["name"] as? String ?? "")!)
-                AppDelegate.completed.append(self.json!["name"] as? String ?? "")
-                (self.viewController() as! StoreController).updateCart()
-                (self.viewController() as! StoreController).tableView.reloadData()
-            }
-        }
-        else {
-            let productID:NSSet = NSSet(object: option);
-            let productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>);
-            productsRequest.delegate = self
-            productsRequest.start()
-        }
-    }
-        
-    public func request(request: SKRequest, didFailWithError error: NSError) {
-        NSLog(error.description)
-    }
-    
-    public func productsRequest (request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
-        let count : Int = response.products.count
-        if (count>0) {
-            var validProducts = response.products
-            let validProduct: SKProduct = validProducts[0] as SKProduct
-            if validProduct.productIdentifier == (self.json!["options"] as! NSDictionary).allKeys[0] as! String {
-                let payment = SKPayment(product: validProduct)
-                SKPaymentQueue.defaultQueue().addPayment(payment)
-                AppDelegate.storeChild = (self.viewController() as! StoreController).users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first
-                AppDelegate.storeCoupon = self.json!["name"] as? String ?? ""
-            }
-        }
-    }
-    
     @IBAction func selectStudent(sender: AnyObject) {
         if let picker = (self.studentSelect!.inputView!.viewController() as! BasicKeyboardController).picker {
             picker.dataSource = self.viewController() as! StoreController
@@ -127,7 +79,7 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
     
     internal func configure(json: NSDictionary) {
         if self.studentSelect != nil {
-            self.studentSelect!.addDoneOnKeyboardWithTarget(self.viewController(), action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
+            self.studentSelect!.addDoneOnKeyboardWithTarget(self.viewController(), action: #selector(StoreController.textFieldShouldReturn(_:)))
             self.studentSelect!.delegate = self.viewController() as! StoreController
             CouponCell.assignSelectKeyboard(self.studentSelect!)
         }
@@ -155,56 +107,30 @@ public class CouponCell: UITableViewCell, SKProductsRequestDelegate {
                 self.downloadLogo(url)
             }
         }
-        let count = json["cardCount"] as? Int ?? 0
-        let s = count == 1 ? " card" : " cards"
-        let option = json["options"]?.allKeys[0] as? String ?? ""
-        let props = json["options"] as! NSDictionary
-        let price = (props[option] as! NSDictionary)["price"] ?? ""
-        let dbl = Double("\(price!)")
+        let price = StoreController.getPrice(self.json!)
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         let buttonTitle:String
         self.cancelButton?.hidden = false
         self.studentSelect?.enabled = true
-        if AppDelegate.cart.contains(json["name"] as! String) || AppDelegate.completed.contains(json["name"] as! String) {
+        if AppDelegate.cart.contains(json["name"] as! String) {
             if !(self.viewController() as! StoreController).isCart {
                 buttonTitle = "In cart"
-                self.countLabel.enabled = false
-                self.countLabel.setBackground(saucyTheme.middle)
+                self.countLabel!.enabled = false
+                self.countLabel!.setBackground(saucyTheme.middle)
             }
             else {
+                buttonTitle = ""
                 if self.cartPrice != nil {
-                    self.cartPrice!.text = (dbl ?? 0.0).isZero ? "Free" : formatter.stringFromNumber(dbl!) ?? ""
-                }
-                if AppDelegate.completed.contains(json["name"] as! String) {
-                    buttonTitle = "Done"
-                    self.countLabel.enabled = false
-                    self.cancelButton?.hidden = true
-                    self.studentSelect?.enabled = false
-                    self.countLabel.setBackground(saucyTheme.middle)
-                }
-                else if (dbl ?? 0.0).isZero || SKPaymentQueue.canMakePayments() {
-                    if (dbl ?? 0.0).isZero {
-                        buttonTitle = "Add"
-                    }
-                    else {
-                        buttonTitle = "Buy"
-                    }
-                    self.countLabel.enabled = true
-                    self.countLabel.setBackground(saucyTheme.primary)
-                }
-                else {
-                    buttonTitle = "Unavailable"
-                    self.countLabel.enabled = false
-                    self.countLabel.setBackground(saucyTheme.middle)
+                    self.cartPrice!.text = price.isZero ? "Free" : formatter.stringFromNumber(price) ?? ""
                 }
             }
         } else {
-            self.countLabel.enabled = true
-            self.countLabel.setBackground(saucyTheme.secondary)
-            buttonTitle = (dbl ?? 0.0).isZero ? "Free" : formatter.stringFromNumber(dbl!) ?? ""
+            self.countLabel!.enabled = true
+            self.countLabel!.setBackground(saucyTheme.secondary)
+            buttonTitle = price.isZero ? "Free" : formatter.stringFromNumber(price) ?? ""
         }
-        self.countLabel.setTitle(buttonTitle, forState: UIControlState.Normal)
+        self.countLabel?.setTitle(buttonTitle, forState: UIControlState.Normal)
         self.titleLabel.text = title
     }
 }

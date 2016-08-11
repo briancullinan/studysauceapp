@@ -150,11 +150,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         */
         if cartCount != nil {
-            if AppDelegate.cart.count + AppDelegate.completed.count == 0 {
+            if AppDelegate.cart.count == 0 {
                 cartCount!.hidden = true
             }
             else {
-                cartCount!.text = "\(AppDelegate.cart.count + AppDelegate.completed.count)"
+                cartCount!.text = "\(AppDelegate.cart.count)"
                 cartCount?.hidden = false
             }
         }
