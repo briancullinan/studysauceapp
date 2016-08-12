@@ -641,6 +641,9 @@
 							com.apple.SafariKeychain = {
 								enabled = 1;
 							};
+							com.apple.Wallet = {
+								enabled = 0;
+							};
 						};
 					};
 					845052651BA4AA3C005377D9 = {
