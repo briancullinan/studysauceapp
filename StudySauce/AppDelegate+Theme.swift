@@ -792,7 +792,10 @@ extension AppDelegate {
         $([StoreController.self ~> CouponCell.self ~> TextField.self,
             UserAddController.self ~> TextField.self ~* 90])
         {(v: TextField) in
+            if (v ~> (UIImageView.self ~* 50)).count == 0 {
             let img = UIImageView(image: UIImage(named: "down_arrow"))
+            img.tag = 50
+            img.contentMode = UIViewContentMode.ScaleAspectFit
             img.translatesAutoresizingMaskIntoConstraints = false
             img.userInteractionEnabled = false
             v.addSubview(img)
@@ -805,13 +808,22 @@ extension AppDelegate {
                     multiplier: 1,
                     constant: 0))
             v.addConstraint(NSLayoutConstraint(
-                item: img,
+                item: v,
                 attribute: NSLayoutAttribute.Trailing,
                 relatedBy: NSLayoutRelation.Equal,
-                toItem: v,
+                toItem: img,
                 attribute: NSLayoutAttribute.Trailing,
                 multiplier: 1,
-                constant: 0))
+                constant: 10))
+            img.addConstraint(NSLayoutConstraint(
+                item: img,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 1,
+                constant: saucyTheme.textSize))
+            }
         }
         
         // This is the normal way to change appearance on a single type

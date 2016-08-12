@@ -367,15 +367,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaP-jp-FHw">
-                                                    <rect key="frame" x="122" y="8" width="470" height="23"/>
+                                                    <rect key="frame" x="69" y="8" width="523" height="23"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="v1A-O5-iPD">
-                                                    <rect key="frame" x="8" y="8" width="106" height="53"/>
+                                                    <rect key="frame" x="8" y="8" width="53" height="53"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" secondItem="v1A-O5-iPD" secondAttribute="width" multiplier="1:2" id="sjz-8w-CzJ"/>
+                                                        <constraint firstAttribute="height" secondItem="v1A-O5-iPD" secondAttribute="width" multiplier="1:1" id="sjz-8w-CzJ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -3337,9 +3337,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="store_white" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="692-BS-YUp"/>
-        <segue reference="GGa-Jv-qkY"/>
+        <segue reference="aNX-LU-Mfo"/>
         <segue reference="tJI-7X-Pui"/>
+        <segue reference="HGq-4F-7mi"/>
         <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
