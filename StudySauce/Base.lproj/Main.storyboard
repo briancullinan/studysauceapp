@@ -2954,12 +2954,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="69"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvs-7y-aag">
-                                                    <rect key="frame" x="69" y="8" width="523" height="23"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="R7M-Oc-aql">
                                                     <rect key="frame" x="8" y="8" width="53" height="53"/>
                                                     <constraints>
@@ -2967,7 +2961,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" tag="1338" contentMode="scaleToFill" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSy-LZ-Ozi">
-                                                    <rect key="frame" x="291" y="31" width="80" height="30"/>
+                                                    <rect key="frame" x="512" y="20" width="80" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="oMg-Wu-rOu"/>
                                                     </constraints>
@@ -2976,22 +2970,28 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                         <action selector="addCart:" destination="cTM-1w-X49" eventType="touchUpInside" id="Gnf-BE-aNe"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvs-7y-aag">
+                                                    <rect key="frame" x="69" y="8" width="435" height="53"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="Fvs-7y-aag" firstAttribute="leading" secondItem="R7M-Oc-aql" secondAttribute="trailing" constant="8" symbolic="YES" id="5lT-tm-v3h"/>
+                                                <constraint firstItem="TSy-LZ-Ozi" firstAttribute="leading" secondItem="Fvs-7y-aag" secondAttribute="trailing" constant="8" symbolic="YES" id="ELF-qz-QXN"/>
                                                 <constraint firstItem="Fvs-7y-aag" firstAttribute="top" secondItem="bHT-Ed-q7W" secondAttribute="topMargin" id="Vbs-zE-IWw"/>
                                                 <constraint firstItem="R7M-Oc-aql" firstAttribute="top" secondItem="Fvs-7y-aag" secondAttribute="top" id="h8e-TF-xHp"/>
-                                                <constraint firstItem="TSy-LZ-Ozi" firstAttribute="centerX" secondItem="Fvs-7y-aag" secondAttribute="centerX" id="hq2-mR-3ce"/>
-                                                <constraint firstItem="R7M-Oc-aql" firstAttribute="bottom" secondItem="TSy-LZ-Ozi" secondAttribute="bottom" id="kkK-xg-Nvx"/>
-                                                <constraint firstItem="TSy-LZ-Ozi" firstAttribute="top" secondItem="Fvs-7y-aag" secondAttribute="bottom" id="qKS-Tc-QFr"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="TSy-LZ-Ozi" secondAttribute="bottom" id="uab-2Z-K4d"/>
+                                                <constraint firstItem="Fvs-7y-aag" firstAttribute="bottom" secondItem="R7M-Oc-aql" secondAttribute="bottom" id="jea-pW-sSf"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="TSy-LZ-Ozi" secondAttribute="trailing" id="qfx-EG-hzb"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Fvs-7y-aag" secondAttribute="bottom" id="x9q-zg-y8n"/>
+                                                <constraint firstItem="TSy-LZ-Ozi" firstAttribute="centerY" secondItem="bHT-Ed-q7W" secondAttribute="centerY" id="ypf-07-SOx"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="R7M-Oc-aql" firstAttribute="leading" secondItem="cTM-1w-X49" secondAttribute="leading" constant="8" id="H1g-Yz-7QV"/>
-                                            <constraint firstAttribute="trailing" secondItem="Fvs-7y-aag" secondAttribute="trailing" constant="8" id="ZTg-Ek-nyn"/>
                                         </constraints>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
