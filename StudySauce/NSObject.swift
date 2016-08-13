@@ -34,20 +34,53 @@ extension Array {
     }
 }
 
-extension CALayer {
+extension UIView {
     
     private static let borderKey = "StudySauceBorder"
     
     func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
         
-        let border = valueForKey(CALayer.borderKey) as? CALayer ?? CALayer()
+        let border = self.layer.valueForKey(CALayer.borderKey) as? CALayer ?? CALayer()
         
         switch edge {
         case UIRectEdge.Top:
             border.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, thickness)
             break
         case UIRectEdge.Bottom:
-            border.frame = CGRectMake(0, CGRectGetHeight(self.frame) - thickness, UIScreen.mainScreen().bounds.width, thickness)
+            border.frame = CGRectMake(0, self.frame.height - thickness + self.layoutMargins.bottom + self.layoutMargins.top, UIScreen.mainScreen().bounds.width, thickness)
+            break
+        case UIRectEdge.Left:
+            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))
+            break
+        case UIRectEdge.Right:
+            border.frame = CGRectMake(CGRectGetWidth(self.frame) - thickness, 0, thickness, CGRectGetHeight(self.frame))
+            break
+        default:
+            break
+        }
+        
+        self.layer.setValue(border, forKey: CALayer.borderKey)
+        border.backgroundColor = color.CGColor;
+        
+        self.layer.addSublayer(border)
+    }
+    
+}
+
+extension CALayer {
+    
+    private static let borderKey = "StudySauceBorder"
+    
+    func addBorder(edge: UIRectEdge, color: UIColor, thickness: CGFloat) {
+        
+        let border = self.valueForKey(CALayer.borderKey) as? CALayer ?? CALayer()
+        
+        switch edge {
+        case UIRectEdge.Top:
+            border.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.width, thickness)
+            break
+        case UIRectEdge.Bottom:
+            border.frame = CGRectMake(0, self.frame.height - thickness, UIScreen.mainScreen().bounds.width, thickness)
             break
         case UIRectEdge.Left:
             border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(self.frame))

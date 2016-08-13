@@ -411,7 +411,8 @@ extension AppDelegate {
                 $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
-        $([PackSummaryController.self ~> UITableView.self,
+        $([StoreController.self ~> UITableView.self,
+           PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
             v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
@@ -424,7 +425,7 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.labelFont)
         })
 
-        $([CouponCell.self ~> UILabel.self ~* 1, PackSummaryCell.self ~> UILabel.self ~* 1], {
+        $([PackSummaryCell.self ~> UILabel.self ~* 1], {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         
@@ -642,8 +643,6 @@ extension AppDelegate {
         
         $(UIViewController.self ~> UIButton.self ~* 1330, {
             $0.setFontColor(saucyTheme.secondary)
-            $0.contentEdgeInsets = UIEdgeInsets(0)
-            $0.titleEdgeInsets = UIEdgeInsets(0)
         })
         
         $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.enabled}, {
@@ -789,6 +788,10 @@ extension AppDelegate {
             $0.layer.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 2)
         }
         
+        $(StoreController.self ~> UIView.self ~* 57) {
+            $0.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 1)
+        }
+
         $([StoreController.self ~> CouponCell.self ~> TextField.self,
             UserAddController.self ~> TextField.self ~* 90])
         {(v: TextField) in
