@@ -246,20 +246,23 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             storeTop.active = true
             storeHeaderTop.active = false
             storeHeader.hidden = true
-            cartBottom.active = false
-            cartFooterBottom.active = true
-            cartFooter.hidden = false
             cartButton.hidden = true
             storeTitle.text = NSLocalizedString("My cart", comment: "Title for shopping cart")
             if self.completed {
                 self.view.bringSubviewToFront(thankYou)
                 thankYou.hidden = false
                 tableView.hidden = true
+                cartBottom.active = true
+                cartFooterBottom.active = false
+                cartFooter.hidden = true
             }
             else {
                 self.view.sendSubviewToBack(thankYou)
                 tableView.hidden = false
                 thankYou.hidden = true
+                cartBottom.active = false
+                cartFooterBottom.active = true
+                cartFooter.hidden = false
             }
             if !PKPaymentAuthorizationViewController.canMakePayments() && !total.isZero {
                 self.placeOrder!.enabled = false
