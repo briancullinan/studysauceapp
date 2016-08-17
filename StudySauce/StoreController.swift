@@ -140,7 +140,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: ((PKPaymentAuthorizationStatus) -> Void)) {
         
-        Stripe.setDefaultPublishableKey(StoreController.StripeKeys[AppDelegate.studySauceCom("/").host!]!)
+        Stripe.setDefaultPublishableKey(StoreController.StripeKeys[AppDelegate.domain]!)
         STPAPIClient.sharedClient().createTokenWithPayment(payment) {
             (token, error) in
             if error != nil {

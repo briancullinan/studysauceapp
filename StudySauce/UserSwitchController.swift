@@ -53,8 +53,10 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
         AppDelegate.performContext({
             let users = AppDelegate.list(User.self)
                 .filter{
-                    return ($0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()).filter{
-                        return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
+                    let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+                    return cookies.filter{
+                        return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0
+            }
             doMain {
                 self.users = users
                 done()
