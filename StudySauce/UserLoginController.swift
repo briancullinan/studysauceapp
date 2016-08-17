@@ -197,7 +197,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     static func getUserByEmail(email: String) -> User {
         var user: User? = nil
         for u in AppDelegate.list(User.self) {
-            if u.email == email {
+            if u.email == email && (u.getProperty("session") as? [[String : AnyObject]])?[0]["Host"] as? String == AppDelegate.studySauceCom("/").host {
                 user = u
                 break
             }
