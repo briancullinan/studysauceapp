@@ -277,7 +277,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
                     if code == 404 {
                         self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
                     }
-                    }, redirect: {(path) in
+                    }, redirect: {(path: String) in
                         self.done()
                     if path == "/home" {
                         UserLoginController.home { () -> Void in

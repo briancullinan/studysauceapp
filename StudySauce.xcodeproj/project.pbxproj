@@ -632,6 +632,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Keychain = {
+								enabled = 0;
+							};
 							com.apple.OMC = {
 								enabled = 1;
 							};

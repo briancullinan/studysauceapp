@@ -90,7 +90,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
             if code == 404 {
                 self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
             }
-            }, redirect: {(path) in
+            }, redirect: {(path: String) in
                 doMain(self.done)
                 if path == "/home" {
                     AppDelegate.goHome(self, true)

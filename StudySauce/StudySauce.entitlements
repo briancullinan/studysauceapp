@@ -12,6 +12,8 @@
 		<string>applinks:staging.studysauce.com</string>
 		<string>webcredentials:www.studysauce.com</string>
 		<string>applinks:www.studysauce.com</string>
+		<string>webcredentials:test.studysauce.com</string>
+		<string>applinks:test.studysauce.com</string>
 	</array>
 	<key>com.apple.developer.in-app-payments</key>
 	<array>

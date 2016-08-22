@@ -64,7 +64,7 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         if self.token != nil {
             self.password = self.inputText.text
             self.showNoConnectionDialog({
-                postJson("/reset", ["email": self.mail, "token": self.token, "newPass": self.password], redirect: {(path) in
+                postJson("/reset", ["email": self.mail, "token": self.token, "newPass": self.password], redirect: {(path: String) in
                     if path == "/home" {
                         AppDelegate.goHome(self)
                     }

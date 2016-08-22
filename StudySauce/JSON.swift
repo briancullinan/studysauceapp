@@ -13,7 +13,9 @@ func getJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary
     for (k, v) in params {
         postData += (postData == "" ? "" : "&") + stringify("\(k)", v)
     }
-    let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom("\(url)?\(postData)"))
+    let absolute = AppDelegate.studySauceCom("\(url)?\(postData)")
+    let request = NSMutableURLRequest(URL: absolute)
+    //NSLog("Downloading from \(absolute.absoluteString)")
     request.HTTPMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     let ses = NSURLSession.sharedSession()
@@ -71,6 +73,15 @@ private func stringify(key: String, _ val: AnyObject?) -> String {
 }
 
 func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}, _ done: (json: AnyObject) -> Void = {(json) in}){
+    postJson(url, params, error: error, redirect: {(json: AnyObject) in
+        if json["redirect"] as? String != nil {
+            let url = NSURL(string: json["redirect"] as! String)
+            redirect(path: url!.path!)
+        }
+    }, done)
+}
+
+func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (json: AnyObject) -> Void, _ done: (json: AnyObject) -> Void = {(json) in}){
     var postData = ""
     for (k, v) in params {
         if v == nil {
@@ -102,8 +113,7 @@ func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionar
                 doMain {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
-                        let url = NSURL(string: json["redirect"] as! String)
-                        redirect(path: url!.path!)
+                        redirect(json: json)
                     }
                     if !hadError {
                         done(json: json)
@@ -117,5 +127,4 @@ func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionar
         }
     })
     task.resume()
-    
 }

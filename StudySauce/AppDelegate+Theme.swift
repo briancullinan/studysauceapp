@@ -621,7 +621,7 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.headingSize)
         })
         
-        $([UIViewController.self ~> UIButton.self ~* 1338, UIViewController.self ~> UIButton.self ~* 1339], {(v: UIButton) in
+        $(UIViewController.self ~> UIButton.self ~* 1338, {(v: UIButton) in
             v.backgroundColor = saucyTheme.secondary
             v.setFontName(saucyTheme.textFont)
             v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
@@ -637,8 +637,11 @@ extension AppDelegate {
             $0.padding = UIEdgeInsets(saucyTheme.padding * 0.5)
         }
         
-        $(UIViewController.self ~> UIButton.self ~* 1339, {
-            $0.backgroundColor = saucyTheme.primary
+        $(UIViewController.self ~> UIButton.self ~* 1339, {(v: UIButton) in
+            v.backgroundColor = saucyTheme.primary
+            v.setFontName(saucyTheme.textFont)
+            v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
+            v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
         
         $(UIViewController.self ~> UIButton.self ~* 1330, {
@@ -775,8 +778,14 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.subheadingFont)
         }
         
-        $([StoreController.self ~> UIView.self ~* 57 ~> UIButton.self, StoreController.self ~> UILabel.self ~* 56 ~+ UIButton.self]) {
+        $(StoreController.self ~> UIView.self ~* 57 ~> UIButton.self) {
             $0.setBackground(saucyTheme.primary)
+        }
+        
+        $(StoreController.self ~> UILabel.self ~* 56 ~+ UIButton.self) {
+            $0.setBackground(UIColor(0x1d1c1b))
+            $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 0.5)
+            $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 0.5)
         }
         
         $(StoreController.self ~> UILabel.self ~* 56) {

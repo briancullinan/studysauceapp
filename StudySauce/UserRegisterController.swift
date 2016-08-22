@@ -128,7 +128,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
             var redirect = false
             postJson("/account/create", registrationInfo, error: {_ in
                 doMain(self.done)
-                }, redirect: {(path) in
+                }, redirect: {(path: String) in
                     // check for register child redirect
                     if path == "/register/child" {
                         redirect = true

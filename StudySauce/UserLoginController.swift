@@ -234,14 +234,20 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             , error: {_ in
                 
                 doMain(self.done)
-            }, redirect: {(path) in
-                if path == "/login" {
+            }, redirect: {(json: AnyObject) in
+                if json["redirect"] as? String == "/login" && (json["exception"] as? String)?.containsString("does not exist") == true {
+                    redirect = true
+                    self.showDialog(NSLocalizedString("User does not exist", comment: "When user log in fails because account does not exist."), NSLocalizedString("Try again", comment: "Option to try again when user does not exist")) {
+                        doMain(self.done)
+                    }
+                }
+                else if json["redirect"] as? String == "/login" {
                     redirect = true
                     self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
                         doMain(self.done)
                     }
                 }
-                else if path == "/home" {
+                else if json["redirect"] as? String == "/home" {
                     redirect = true
                     AppDelegate.goHome(self, true) {_ in
                         doMain(self.done)

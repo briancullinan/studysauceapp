@@ -111,7 +111,11 @@ public class CouponCell: UITableViewCell {
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         let buttonTitle:String
-        self.cancelButton?.hidden = false
+        self.contentView.userInteractionEnabled = true
+        if self.cancelButton != nil {
+            self.cancelButton!.hidden = false
+            self.bringSubviewToFront(self.cancelButton!)
+        }
         self.studentSelect?.enabled = true
         if AppDelegate.cart.contains(json["name"] as! String) {
             if !(self.viewController() as! StoreController).isCart {

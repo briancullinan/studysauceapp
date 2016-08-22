@@ -33,7 +33,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     var isCart = false
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
     var users: [User] = []
-    let SupportedPaymentNetworks = [PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex]
+    let SupportedPaymentNetworks = [PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex, PKPaymentNetworkDiscover, ""]
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var storeTop: NSLayoutConstraint!
     @IBOutlet weak var storeHeader: UIView!
@@ -108,7 +108,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         else {
             let request = PKPaymentRequest()
             NSLog("merchant.\(NSBundle.mainBundle().bundleIdentifier!)")
-            request.merchantIdentifier = "merchant.\(NSBundle.mainBundle().bundleIdentifier!)"
+            request.merchantIdentifier = "merchant.com.studysauce.companyapp"
             request.supportedNetworks = SupportedPaymentNetworks
             request.merchantCapabilities = PKMerchantCapability.Capability3DS
             request.countryCode = "US"
@@ -116,10 +116,16 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             request.paymentSummaryItems = summary
             request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(double: total * 0.0795)))
             request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(double: total + total * 0.0795)))
-            let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-            self.presentViewController(applePayController, animated: true, completion: nil)
-            applePayController.delegate = self
-            
+            if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(SupportedPaymentNetworks, capabilities: PKMerchantCapability.Capability3DS) {
+                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
+                applePayController.delegate = self
+                self.presentViewController(applePayController, animated: true, completion: nil)
+            }
+            else {
+                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+                //let rememberMe = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.filter({$0.name == "REMEMBERME"}).first!.value
+                //UIApplication.sharedApplication().openURL(AppDelegate.studySauceCom("/cart?pay=\(rememberMe!)&coupon=\(AppDelegate.cart.joinWithSeparator(","))"))
+            }
         }
     }
     
@@ -263,14 +269,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 cartBottom.active = false
                 cartFooterBottom.active = true
                 cartFooter.hidden = false
-            }
-            if !PKPaymentAuthorizationViewController.canMakePayments() && !total.isZero {
-                self.placeOrder!.enabled = false
-                self.placeOrder!.backgroundColor = saucyTheme.middle
-            }
-            else {
-                self.placeOrder!.enabled = true
-                self.placeOrder!.backgroundColor = saucyTheme.primary
             }
         }
         else {

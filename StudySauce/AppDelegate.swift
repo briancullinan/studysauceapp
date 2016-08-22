@@ -400,7 +400,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             }
         }
         else if query["_code"] != nil {
-            postJson("/register", ["_code": query["_code"]!], redirect: {(path) in
+            postJson("/register", ["_code": query["_code"]!], redirect: {(path: String) in
                 if path == "/home" {
                     UserLoginController.home {
                         let viewController = self.storyboard!.instantiateViewControllerWithIdentifier("Home")
