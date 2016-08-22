@@ -91,6 +91,8 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.firstName!.delegate = self
         self.email!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.email!.delegate = self
+        self.password!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
+        self.password!.delegate = self
         IQKeyboardManager.sharedManager().enable = true
     }
     
@@ -132,9 +134,8 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     // check for register child redirect
                     if path == "/register/child" {
                         redirect = true
-                        AppDelegate.goHome(self, true) {home in
-                            // go to register child panel immediately
-                            home.performSegueWithIdentifier("addChild", sender: self)
+                        UserLoginController.home {
+                            self.performSegueWithIdentifier("addChild", sender: self)
                             doMain (self.done)
                         }
                     }

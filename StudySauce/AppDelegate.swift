@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static var domain: String {
         #if DEBUG
-            return "staging.studysauce.com"
+            return "test.studysauce.com"
         #else
             let receiptUrl = NSBundle.mainBundle().appStoreReceiptURL?.path
             if receiptUrl?.containsString("sandboxReceipt") == true {
@@ -240,9 +240,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             handleUser()
         }
         else {
-            UserLoginController.home({
+            UserLoginController.home {
                 handleUser()
-            })
+            }
         }
     }
     

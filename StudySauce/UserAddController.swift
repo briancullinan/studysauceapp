@@ -22,6 +22,21 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBOutlet weak var schoolYear: TextField!
     @IBOutlet weak var schoolName: TextField!
     
+    
+    @IBAction func lastClick(sender: UIButton) {
+        CardSegue.transitionManager.transitioning = true
+        if self.presentingViewController is UserRegisterController {
+            self.presentingViewController?.dismissViewControllerAnimated(true, completion: {
+                AppDelegate.goHome(self.presentingViewController, true) {_ in
+                    doMain (self.done)
+                }
+            })
+        }
+        else {
+            self.performSegueWithIdentifier("home", sender: sender)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))

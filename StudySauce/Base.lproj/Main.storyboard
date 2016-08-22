@@ -1367,6 +1367,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="password" destination="teK-Wh-Efb" id="mtY-M9-umn"/>
                         <outlet property="registerButton" destination="EJy-2L-83Z" id="8m9-JG-8PF"/>
                         <segue destination="JIk-eY-fER" kind="custom" identifier="login" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Edk-H5-39l"/>
+                        <segue destination="FRY-M3-qZh" kind="custom" identifier="addChild" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Sbf-gW-rk8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="82F-yE-qnP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1601,7 +1602,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </constraints>
                                 <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
                                 <connections>
-                                    <segue destination="X5k-KK-RVh" kind="unwind" unwindAction="returnToHome:" id="n2D-Na-nbH"/>
+                                    <action selector="lastClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="gYM-Y8-t2f"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Child last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-8x-auy" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
@@ -1675,6 +1676,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="schoolName" destination="Peg-v3-XKz" id="qik-ht-l49"/>
                         <outlet property="schoolSystem" destination="MG9-jv-G3h" id="lwO-Hu-YCE"/>
                         <outlet property="schoolYear" destination="LuW-eo-a6c" id="9WI-lG-CfO"/>
+                        <segue destination="X5k-KK-RVh" kind="unwind" identifier="home" unwindAction="returnToHome:" id="hd5-pE-vQ6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fe-8i-ZCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1888,42 +1890,37 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="MeY-QX-QZ3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="My packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-K6-zQf">
-                                <rect key="frame" x="84" y="571" width="73" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="755" verticalHuggingPriority="751" horizontalCompressionResistancePriority="756" verticalCompressionResistancePriority="751" misplaced="YES" text="My packs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WDU-K6-zQf">
+                                <rect key="frame" x="52" y="571" width="135" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="1337" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
-                                <rect key="frame" x="84" y="519" width="73" height="73"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
-                                <state key="normal" image="gray Study packs icon with clear center"/>
-                                <connections>
-                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcP-Bk-ocL">
-                                <rect key="frame" x="264" y="571" width="73" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="755" verticalHuggingPriority="751" horizontalCompressionResistancePriority="756" text="Store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OcP-Bk-ocL">
+                                <rect key="frame" x="279" y="571" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="1337" contentMode="scaleAspectFit" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3z1-DL-dHY" userLabel="store">
-                                <rect key="frame" x="264" y="519" width="73" height="73"/>
+                                <rect key="frame" x="260" y="512" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="3z1-DL-dHY" secondAttribute="height" multiplier="1:1" id="wN4-Bb-chf"/>
+                                </constraints>
                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
                                 <state key="normal" image="store"/>
                                 <connections>
                                     <segue destination="e1u-L7-dxh" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="692-BS-YUp"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-wr-jnt">
-                                <rect key="frame" x="444" y="571" width="73" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="251" horizontalCompressionResistancePriority="756" verticalCompressionResistancePriority="751" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-wr-jnt">
+                                <rect key="frame" x="440" y="571" width="80" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.066666666669999999" green="0.53333333329999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="1337" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bjU-dT-1wv" userLabel="settings">
-                                <rect key="frame" x="444" y="519" width="73" height="73"/>
+                                <rect key="frame" x="440" y="512" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bjU-dT-1wv" secondAttribute="height" multiplier="1:1" id="1nG-0L-fjf"/>
                                 </constraints>
@@ -1955,7 +1952,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" tag="59" contentMode="left" horizontalHuggingPriority="243" verticalHuggingPriority="245" horizontalCompressionResistancePriority="745" verticalCompressionResistancePriority="745" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mz-gx-SwT">
-                                <rect key="frame" x="268" y="519" width="69" height="37"/>
+                                <rect key="frame" x="264" y="512" width="76" height="40"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1971,12 +1968,23 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="monkeyClick:" destination="Sib-XO-0qJ" eventType="touchUpInside" id="wBA-cG-BGf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="1337" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O7-ka-miD" userLabel="mypacks">
+                                <rect key="frame" x="80" y="512" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4O7-ka-miD" secondAttribute="height" multiplier="1:1" id="4Tg-Zj-Ii0"/>
+                                    <constraint firstAttribute="height" constant="80" id="vD8-JG-FYf"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="30"/>
+                                <state key="normal" image="gray Study packs icon with clear center"/>
+                                <connections>
+                                    <segue destination="Iuf-Sd-aQs" kind="custom" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="cSc-m2-Bp3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.45" id="1nq-T2-NvI"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="width" secondItem="Cle-N8-wnH" secondAttribute="width" id="1sm-hQ-hfH"/>
-                            <constraint firstItem="bjU-dT-1wv" firstAttribute="width" secondItem="4O7-ka-miD" secondAttribute="width" id="34H-0a-X8b"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="height" secondItem="Cle-N8-wnH" secondAttribute="height" id="7Sv-vQ-tX4"/>
                             <constraint firstItem="2Mz-gx-SwT" firstAttribute="width" secondItem="3z1-DL-dHY" secondAttribute="width" multiplier="0.95" id="7k8-YT-OGF"/>
                             <constraint firstItem="WDU-K6-zQf" firstAttribute="bottom" secondItem="4O7-ka-miD" secondAttribute="bottom" id="9JL-VI-YLx"/>
@@ -1992,23 +2000,20 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="Avt-4M-VMm" firstAttribute="leading" secondItem="JoE-dv-RIT" secondAttribute="trailing" constant="8" symbolic="YES" id="Pqd-DX-8bw"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="bottom" secondItem="Avt-4M-VMm" secondAttribute="bottom" id="RAR-je-vA7"/>
                             <constraint firstItem="4O7-ka-miD" firstAttribute="top" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.8" id="RBW-l7-EI5"/>
-                            <constraint firstItem="4O7-ka-miD" firstAttribute="width" secondItem="WDU-K6-zQf" secondAttribute="width" id="RNd-DA-C5s"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="TDv-uM-367"/>
                             <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="bottom" constant="8" symbolic="YES" id="VXb-aR-zw2"/>
                             <constraint firstItem="3z1-DL-dHY" firstAttribute="top" secondItem="4O7-ka-miD" secondAttribute="top" id="Xmg-Km-WYo"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="height" secondItem="4O7-ka-miD" secondAttribute="height" id="Z5l-HB-Mta"/>
                             <constraint firstItem="ErB-X0-qh7" firstAttribute="top" secondItem="bjU-dT-1wv" secondAttribute="bottom" constant="8" symbolic="YES" id="ZmY-9A-jZL"/>
-                            <constraint firstItem="4O7-ka-miD" firstAttribute="width" secondItem="3z1-DL-dHY" secondAttribute="width" id="a9X-30-xt7"/>
                             <constraint firstItem="JoE-dv-RIT" firstAttribute="leading" secondItem="Hsw-He-5Sh" secondAttribute="leading" id="al7-f6-RQa"/>
                             <constraint firstItem="bjU-dT-1wv" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" multiplier="1.6" id="bXN-64-tQU"/>
                             <constraint firstItem="81B-wr-jnt" firstAttribute="centerX" secondItem="bjU-dT-1wv" secondAttribute="centerX" id="fUn-HD-kzP"/>
-                            <constraint firstItem="WDU-K6-zQf" firstAttribute="width" secondItem="81B-wr-jnt" secondAttribute="width" priority="750" id="iRy-af-d3l"/>
+                            <constraint firstItem="bjU-dT-1wv" firstAttribute="width" secondItem="81B-wr-jnt" secondAttribute="width" id="gNg-l1-j2p"/>
                             <constraint firstItem="4O7-ka-miD" firstAttribute="height" secondItem="3z1-DL-dHY" secondAttribute="height" id="iz1-Q2-syC"/>
                             <constraint firstItem="OcP-Bk-ocL" firstAttribute="bottom" secondItem="3z1-DL-dHY" secondAttribute="bottom" id="kYh-G2-pkt"/>
                             <constraint firstItem="VuU-ca-cmN" firstAttribute="bottom" secondItem="ErB-X0-qh7" secondAttribute="top" multiplier="0.78" id="nFt-Sw-nHc"/>
                             <constraint firstItem="2Mz-gx-SwT" firstAttribute="trailing" secondItem="3z1-DL-dHY" secondAttribute="trailing" id="oKz-TW-Fqn"/>
                             <constraint firstItem="MeY-QX-QZ3" firstAttribute="centerX" secondItem="Cle-N8-wnH" secondAttribute="centerX" id="p88-ZB-uKr"/>
-                            <constraint firstItem="3z1-DL-dHY" firstAttribute="width" secondItem="OcP-Bk-ocL" secondAttribute="width" id="pwT-8u-OPY"/>
                             <constraint firstItem="WDU-K6-zQf" firstAttribute="centerX" secondItem="4O7-ka-miD" secondAttribute="centerX" id="scZ-9e-f6d"/>
                             <constraint firstItem="2Mz-gx-SwT" firstAttribute="top" secondItem="3z1-DL-dHY" secondAttribute="top" id="tPj-Dj-Akv"/>
                             <constraint firstItem="Avt-4M-VMm" firstAttribute="trailing" secondItem="Hsw-He-5Sh" secondAttribute="trailing" id="wmD-i4-r8p"/>
@@ -3333,9 +3338,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="store_white" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Edk-H5-39l"/>
+        <segue reference="GGa-Jv-qkY"/>
+        <segue reference="692-BS-YUp"/>
         <segue reference="mZN-Ns-J7P"/>
-        <segue reference="HGq-4F-7mi"/>
-        <segue reference="aNX-LU-Mfo"/>
+        <segue reference="Edk-H5-39l"/>
     </inferredMetricsTieBreakers>
 </document>
