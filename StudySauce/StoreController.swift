@@ -309,10 +309,11 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             "count-ss_group" : -1,
             "count-ss_user" : 1,
             "count-user_pack" : -1,
+            "coupon-deleted" : "!1",
             "read-only" : false,
             "tables" : [
                 "file" : ["id", "url"],
-                "coupon" : ["idTilesSummary" : ["id", "name", "description", "packs", "options", "cardCount"]],
+                "coupon" : ["idTilesSummary" : ["id", "name", "description", "packs", "options", "cardCount", "deleted"]],
                 "ss_group" : ["id", "name", "users", "deleted"],
                 "ss_user" : ["id" : ["id", "first", "last", "userPacks"]],
                 "user_pack" : ["pack", "removed", "downloaded"],
