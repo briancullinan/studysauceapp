@@ -572,12 +572,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     "purchase_token" : transaction.transactionIdentifier
                 ]) {_ in
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
-                    AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(AppDelegate.storeCoupon!)!)
                     //AppDelegate.completed.append(AppDelegate.storeCoupon!)
                     (AppDelegate.visibleViewController() as? UserSelectController)?.dismissViewControllerAnimated(true, completion: {
-                        (AppDelegate.visibleViewController() as? StoreController)?.completed = true
-                        (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
-                        (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
+                        doMain {
+                            (AppDelegate.visibleViewController() as? StoreController)?.completed = true
+                            (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
+                            (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
+                        }
                     })
                 }
                 break

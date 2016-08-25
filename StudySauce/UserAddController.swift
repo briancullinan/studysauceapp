@@ -243,6 +243,9 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
             input.inputView = $0
             input.reloadInputViews()
         }
+        let inputAssistantItem = input.inputAssistantItem
+        inputAssistantItem.leadingBarButtonGroups = []
+        inputAssistantItem.trailingBarButtonGroups = []
         input.reloadInputViews()
     }
     

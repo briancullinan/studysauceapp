@@ -34,6 +34,9 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
             self.studentSelect.inputView = $0
             self.studentSelect.reloadInputViews()
         }
+        let inputAssistantItem = self.studentSelect!.inputAssistantItem
+        inputAssistantItem.leadingBarButtonGroups = []
+        inputAssistantItem.trailingBarButtonGroups = []
         self.studentSelect.reloadInputViews()
         let price = StoreController.getPrice(self.json!)
         let formatter = NSNumberFormatter()
@@ -87,7 +90,9 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
     }
 
     @IBAction func placeOrderClick(sender: UIButton) {
-        
+        if !self.placeOrder.enabled {
+            return
+        }
         let child = self.users.filter({$0.first! + " " + $0.last! == self.studentSelect!.text!}).first
         if child == nil {
             self.studentSelect?.becomeFirstResponder()
@@ -96,6 +101,7 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
         else {
             self.studentSelect!.resignFirstResponder()
         }
+        self.placeOrder.enabled = false
         let props = self.json!["options"] as! NSDictionary
         let option = props.allKeys[0] as? String ?? ""
         let price = (props[option] as! NSDictionary)["price"] ?? ""
