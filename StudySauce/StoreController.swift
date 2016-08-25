@@ -17,9 +17,8 @@ import Foundation
 
 import UIKit
 import CoreData
-import PassKit
 
-class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, PKPaymentAuthorizationViewControllerDelegate {
+class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     
     static let StripeKeys = [
         "test.studysauce.com" : "pk_test_th5VY2bxRUDSJZ1xCcpJ7CNB",
@@ -32,8 +31,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     var couponsLoaded = false
     var isCart = false
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
-    var users: [User] = []
-    let SupportedPaymentNetworks = [PKPaymentNetworkVisa, PKPaymentNetworkMasterCard, PKPaymentNetworkAmex, PKPaymentNetworkDiscover, ""]
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var storeTop: NSLayoutConstraint!
     @IBOutlet weak var storeHeader: UIView!
@@ -47,7 +44,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     @IBOutlet weak var subTotal: UILabel!
     @IBOutlet weak var tax: UILabel!
     @IBOutlet weak var total: UILabel!
-    @IBOutlet weak var placeOrder: UIButton? = nil
     @IBOutlet weak var subTotalCount: UILabel!
     @IBOutlet weak var thankYou: UIView!
     
@@ -68,66 +64,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             self.performSegueWithIdentifier("home", sender: self)
         }
     }
-
-    @IBAction func placeOrderClick(sender: UIButton) {
-        if let blank = sinq(AppDelegate.cart).except(AppDelegate.cartChildren.keys, key: {$0}).toArray().first {
-            self.tableView.scrollToRowAtIndexPath(
-                NSIndexPath(forRow: AppDelegate.cart.indexOf(blank)!, inSection: 0),
-                atScrollPosition: UITableViewScrollPosition.Top,
-                animated: false)
-                (self.view ~> (CouponCell.self ~* {$0.json!["name"] as! String == blank})).first!.studentSelect!.becomeFirstResponder()
-            return
-        }
-        if !self.placeOrder!.enabled {
-            return
-        }
-        (self.view ~> TextField.self).each {
-            $0.resignFirstResponder()
-        }
-        
-        var summary: [PKPaymentSummaryItem] = []
-        var total = 0.0
-        for c in self.coupons! {
-            if AppDelegate.cart.contains(c["name"] as! String) {
-                let price = StoreController.getPrice(c as! NSDictionary)
-                summary.append(PKPaymentSummaryItem(label: c["description"] as! String, amount: NSDecimalNumber(double: price)))
-                total += price
-            }
-        }
-        
-        if total.isZero {
-            postJson("/checkout/pay", [
-                "coupon" : AppDelegate.cart.joinWithSeparator("n"),
-                "child" : AppDelegate.cartChildren])
-            {_ in
-                self.completed = true
-                self.updateCart()
-                self.tableView.reloadData()
-            }
-        }
-        else {
-            let request = PKPaymentRequest()
-            NSLog("merchant.\(NSBundle.mainBundle().bundleIdentifier!)")
-            request.merchantIdentifier = "merchant.com.studysauce.companyapp"
-            request.supportedNetworks = SupportedPaymentNetworks
-            request.merchantCapabilities = PKMerchantCapability.Capability3DS
-            request.countryCode = "US"
-            request.currencyCode = "USD"
-            request.paymentSummaryItems = summary
-            request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Tax", amount: NSDecimalNumber(double: total * 0.0795)))
-            request.paymentSummaryItems.append(PKPaymentSummaryItem(label: "Total", amount: NSDecimalNumber(double: total + total * 0.0795)))
-            if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(SupportedPaymentNetworks, capabilities: PKMerchantCapability.Capability3DS) {
-                let applePayController = PKPaymentAuthorizationViewController(paymentRequest: request)
-                applePayController.delegate = self
-                self.presentViewController(applePayController, animated: true, completion: nil)
-            }
-            else {
-                UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
-                //let rememberMe = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.filter({$0.name == "REMEMBERME"}).first!.value
-                //UIApplication.sharedApplication().openURL(AppDelegate.studySauceCom("/cart?pay=\(rememberMe!)&coupon=\(AppDelegate.cart.joinWithSeparator(","))"))
-            }
-        }
-    }
     
     static func getPrice(coupon: NSDictionary) -> Double {
         let options = coupon["options"] as! NSDictionary
@@ -136,11 +72,16 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         return Double("\(price!)") ?? 0.0
     }
     
+    weak var lastJson: NSDictionary? = nil
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let cart = segue.destinationViewController as? StoreController where
             cart.presentingViewController == nil {
             cart.isCart = true
             cart.coupons = self.coupons
+        }
+        
+        if let select = segue.destinationViewController as? UserSelectController {
+            select.json = lastJson
         }
     }
     
@@ -184,7 +125,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         if self.isCart {
-            self.getUsersFromLocalStore()
         }
         else {
             self.getCouponsFromRemoteStore()
@@ -194,50 +134,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
         }
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
     }
-    
-    func getUsersFromLocalStore() {
-        AppDelegate.performContext {
-            let users = AppDelegate.list(User.self)
-                .filter{
-                    return ($0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()).filter{
-                        return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
-            self.users = users
-        }
-    }
-    
-    // Catpure the picker view selection
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // This method is triggered whenever the user makes a change to the picker selection.
-        // The parameter named row and component represents what was selected.
-        if row == 0 {
-            return
-        }
-        (self.view ~> CouponCell.self).each {
-            if $0.studentSelect!.isFirstResponder() {
-                $0.studentSelect!.text = self.users[row-1].first! + " " + self.users[row-1].last!
-                AppDelegate.cartChildren[$0.json!["name"] as! String] = self.users[row-1].id!
-            }
-        }
-    }
-    
-    // The number of columns of data
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    // The number of rows of data
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.users.count + 1
-    }
-    
-    // The data to return for the row and component (column) that's being passed in
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {
-            return "Select a student"
-        }
-        return self.users[row-1].first! + " " + self.users[row-1].last!
-    }
-    
+        
     var completed = false
     
     internal func updateCart() {
@@ -252,7 +149,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             storeTop.active = true
             storeHeaderTop.active = false
             storeHeader.hidden = true
-            cartButton.hidden = true
+            //cartButton.hidden = true
             storeTitle.text = NSLocalizedString("My cart", comment: "Title for shopping cart")
             if self.completed {
                 self.view.bringSubviewToFront(thankYou)
@@ -276,7 +173,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
             cartBottom.active = true
             cartFooterBottom.active = false
             cartFooter.hidden = true
-            cartButton.hidden = false
             storeTitle.text = NSLocalizedString("Store", comment: "Title for store")
             if AppDelegate.cart.count > 0 {
                 storeTop.active = false
@@ -289,6 +185,7 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
                 storeHeader.hidden = true
             }
         }
+        cartButton.hidden = true
         self.cartCount.text = "\(AppDelegate.cart.count)"
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
@@ -335,13 +232,6 @@ class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegat
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         super.touchesBegan(touches, withEvent: event)
         self.view.endEditing(true)
-    }
-
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        doMain {
-            self.placeOrderClick(self.placeOrder!)
-        }
-        return true
     }
 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {

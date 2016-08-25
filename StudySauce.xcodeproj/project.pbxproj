@@ -10,6 +10,8 @@
 		6401F49A1BB52A78004E0163 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4941BB52A78004E0163 /* Response.swift */; };
 		6401F49C1BB52A78004E0163 /* Pack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4961BB52A78004E0163 /* Pack.swift */; };
 		6401F49E1BB52A78004E0163 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6401F4981BB52A78004E0163 /* Card.swift */; };
+		640DD05D1D6E169F0013BEB2 /* UserSelectController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640DD05C1D6E169F0013BEB2 /* UserSelectController.swift */; };
+		640DD05F1D6E6B210013BEB2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 640DD05E1D6E6B210013BEB2 /* StoreKit.framework */; };
 		641E66EE1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 641E66ED1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift */; };
 		642290BD1BCDC4ED00CD7898 /* NSUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642290BC1BCDC4ED00CD7898 /* NSUrl.swift */; };
 		642354161BBDFDD800B068DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 642354141BBDFDD800B068DB /* Main.storyboard */; };
@@ -132,6 +134,8 @@
 		6401F4941BB52A78004E0163 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		6401F4961BB52A78004E0163 /* Pack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pack.swift; sourceTree = "<group>"; };
 		6401F4981BB52A78004E0163 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		640DD05C1D6E169F0013BEB2 /* UserSelectController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSelectController.swift; sourceTree = "<group>"; };
+		640DD05E1D6E6B210013BEB2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		641E66ED1BF6517F00BAAD6C /* UITableViewHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableViewHeaderFooterView.swift; sourceTree = "<group>"; };
 		642290BC1BCDC4ED00CD7898 /* NSUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUrl.swift; sourceTree = "<group>"; };
 		642354151BBDFDD800B068DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -256,6 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				640DD05F1D6E6B210013BEB2 /* StoreKit.framework in Frameworks */,
 				6450FB4B1C473805009D12D4 /* libPods.a in Frameworks */,
 				6450FB491C473802009D12D4 /* libHarpy.a in Frameworks */,
 			);
@@ -274,6 +279,7 @@
 		1DCB0FA70823FA024F25C707 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				640DD05E1D6E6B210013BEB2 /* StoreKit.framework */,
 				6450FB4A1C473805009D12D4 /* libPods.a */,
 				6450FB481C473802009D12D4 /* libHarpy.a */,
 				EB2FBD5F9C2E4BAC991118A6 /* libPods.a */,
@@ -327,6 +333,7 @@
 				64C2F4AC1C24655700F7C854 /* UserSwitchController.swift */,
 				64291C5E1BC595EB005AA348 /* UserResetController.swift */,
 				64C221451BC5CE4700069B10 /* UserSettingsContainerController.swift */,
+				640DD05C1D6E169F0013BEB2 /* UserSelectController.swift */,
 				9D99FF071C235931002857FD /* TutorialPageViewController.swift */,
 				9D99FF031C2326BB002857FD /* TutorialContentViewController.swift */,
 				647139301D539662001A679B /* StoreController.swift */,
@@ -632,6 +639,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
@@ -854,6 +864,7 @@
 				845052571BA4AA3B005377D9 /* PackSummaryController.swift in Sources */,
 				845052551BA4AA3B005377D9 /* AppDelegate.swift in Sources */,
 				64ED1DB11BEB10AD00A9E2A2 /* HomeController.swift in Sources */,
+				640DD05D1D6E169F0013BEB2 /* UserSelectController.swift in Sources */,
 				64D219E41BBB0CCB005F9094 /* Card+CoreDataProperties.swift in Sources */,
 				64C2B98B1BFADF440028AD1C /* NSManagedObjectContext.swift in Sources */,
 			);

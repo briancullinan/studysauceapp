@@ -2972,7 +2972,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                                     </constraints>
                                                     <state key="normal" title="Free"/>
                                                     <connections>
-                                                        <action selector="addCart:" destination="cTM-1w-X49" eventType="touchUpInside" id="Gnf-BE-aNe"/>
+                                                        <action selector="placeOrderClick:" destination="cTM-1w-X49" eventType="touchUpInside" id="Hvu-hy-sxe"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="US History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fvs-7y-aag">
@@ -3075,7 +3075,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <outlet property="cancelButton" destination="XEe-pv-KEr" id="SBs-rs-jjx"/>
                                             <outlet property="cartPrice" destination="rmh-Xy-pHi" id="VWR-FK-Sw7"/>
                                             <outlet property="logoImage" destination="cYF-i2-HXu" id="TL1-r5-HiT"/>
-                                            <outlet property="studentSelect" destination="stH-My-67w" id="8O7-10-bNB"/>
                                             <outlet property="titleLabel" destination="Aka-z3-DND" id="j16-GT-dKr"/>
                                         </connections>
                                     </tableViewCell>
@@ -3154,9 +3153,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <constraint firstAttribute="width" secondItem="STF-qt-fwj" secondAttribute="height" multiplier="4:1" id="Mv5-LL-QKe"/>
                                         </constraints>
                                         <state key="normal" image="pay"/>
-                                        <connections>
-                                            <action selector="placeOrderClick:" destination="e1u-L7-dxh" eventType="touchUpInside" id="UNk-Z3-SAz"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -3239,7 +3235,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                             <segue destination="e1u-L7-dxh" kind="custom" identifier="cart" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="Knj-F4-iUa"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" tag="59" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-Hk-2P2">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="59" contentMode="left" horizontalHuggingPriority="248" verticalHuggingPriority="248" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-Hk-2P2">
                                         <rect key="frame" x="2" y="0.0" width="36" height="28"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -3299,7 +3295,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="cartCount" destination="IyQ-Hk-2P2" id="xTC-f3-tne"/>
                         <outlet property="cartFooter" destination="Jjk-Aq-kf8" id="knK-if-2AJ"/>
                         <outlet property="cartFooterBottom" destination="utT-VU-WgG" id="Blq-GL-CKc"/>
-                        <outlet property="placeOrder" destination="STF-qt-fwj" id="HKp-eb-dwh"/>
                         <outlet property="storeHeader" destination="YQd-Gy-wbe" id="YXj-8R-Qja"/>
                         <outlet property="storeHeaderTop" destination="DWv-3F-3cJ" id="W5O-xk-NxE"/>
                         <outlet property="storeTitle" destination="FUg-IO-75J" id="Qhe-Vz-ZLV"/>
@@ -3312,12 +3307,108 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="total" destination="QbR-6D-Qpj" id="N8j-QU-HYK"/>
                         <segue destination="s6r-OB-4Gk" kind="unwind" identifier="home" unwindAction="returnToHome:" id="5kX-5H-lji"/>
                         <segue destination="s6r-OB-4Gk" kind="unwind" identifier="store" unwindAction="returnToStore:" id="OVS-Hb-NnK"/>
+                        <segue destination="nAO-XX-kpK" kind="custom" identifier="selectUser" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="w4U-FM-PTR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eKl-Mi-wfX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="s6r-OB-4Gk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1135" y="-4280"/>
+        </scene>
+        <!--User Select Controller-->
+        <scene sceneID="2ev-Tf-vNJ">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="nAO-XX-kpK" customClass="UserSelectController" customModule="StudySauce" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1Z7-pw-NMe"/>
+                        <viewControllerLayoutGuide type="bottom" id="sAf-Lf-MXt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VpH-sn-HP8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="746" verticalCompressionResistancePriority="746" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Who is this for?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lGd-yj-Kux" customClass="TextField" customModule="StudySauce" customModuleProvider="target">
+                                <rect key="frame" x="20" y="289" width="560" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="selectStudent:" destination="nAO-XX-kpK" eventType="editingDidBegin" id="GZ8-ID-rOT"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" tag="1339" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9g-tt-Cqi">
+                                <rect key="frame" x="232" y="351" width="136" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="F9g-tt-Cqi" secondAttribute="height" multiplier="4:1" id="94U-fp-s5R"/>
+                                </constraints>
+                                <state key="normal" title="Place order"/>
+                                <connections>
+                                    <action selector="placeOrderClick:" destination="nAO-XX-kpK" eventType="touchUpInside" id="UWq-Cs-K2j"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDD-Jh-Xm4">
+                                <rect key="frame" x="20" y="260" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71D-dt-RgJ">
+                                <rect key="frame" x="20" y="231" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="26" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dl9-hc-BaY">
+                                <rect key="frame" x="20" y="28" width="57" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="38" id="HGB-Ka-7ic"/>
+                                    <constraint firstAttribute="width" secondItem="dl9-hc-BaY" secondAttribute="height" multiplier="3:2" id="Tvw-ni-mKd"/>
+                                </constraints>
+                                <state key="normal" title="BackButton" image="StudySauceBackArrow"/>
+                                <connections>
+                                    <action selector="lastClick" destination="e1u-L7-dxh" eventType="touchUpInside" id="x0J-9o-UyO"/>
+                                    <segue destination="WAW-f4-kub" kind="unwind" identifier="last" unwindAction="returnToStore:" id="04Q-rE-Dn5"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aY-K0-rwq">
+                                <rect key="frame" x="300" y="28" width="0.0" height="38"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="lGd-yj-Kux" secondAttribute="trailing" id="1Ac-6A-cDs"/>
+                            <constraint firstItem="dl9-hc-BaY" firstAttribute="top" secondItem="1Z7-pw-NMe" secondAttribute="bottom" constant="8" symbolic="YES" id="2LT-BI-COx"/>
+                            <constraint firstItem="lGd-yj-Kux" firstAttribute="centerY" secondItem="VpH-sn-HP8" secondAttribute="centerY" id="50E-NI-usr"/>
+                            <constraint firstItem="CDD-Jh-Xm4" firstAttribute="top" secondItem="71D-dt-RgJ" secondAttribute="bottom" constant="8" symbolic="YES" id="9Bt-8d-1EW"/>
+                            <constraint firstItem="F9g-tt-Cqi" firstAttribute="width" secondItem="F9g-tt-Cqi" secondAttribute="height" multiplier="4:1" id="Bcc-46-Rks"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="dl9-hc-BaY" secondAttribute="leading" id="Bpo-vG-JwV"/>
+                            <constraint firstItem="CDD-Jh-Xm4" firstAttribute="leading" secondItem="VpH-sn-HP8" secondAttribute="leadingMargin" id="DPo-EG-TPl"/>
+                            <constraint firstItem="F9g-tt-Cqi" firstAttribute="top" secondItem="lGd-yj-Kux" secondAttribute="bottom" constant="40" id="LCj-cf-T1s"/>
+                            <constraint firstItem="9aY-K0-rwq" firstAttribute="centerX" secondItem="VpH-sn-HP8" secondAttribute="centerX" id="Ulv-k1-aaC"/>
+                            <constraint firstItem="F9g-tt-Cqi" firstAttribute="centerX" secondItem="VpH-sn-HP8" secondAttribute="centerX" id="Y4X-CG-Zkl"/>
+                            <constraint firstItem="71D-dt-RgJ" firstAttribute="leading" secondItem="VpH-sn-HP8" secondAttribute="leadingMargin" id="c1E-JJ-0vH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="71D-dt-RgJ" secondAttribute="trailing" id="lNq-dN-tYP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CDD-Jh-Xm4" secondAttribute="trailing" id="miy-Ia-kW1"/>
+                            <constraint firstItem="dl9-hc-BaY" firstAttribute="width" secondItem="dl9-hc-BaY" secondAttribute="height" multiplier="3:2" id="sMo-13-9lb"/>
+                            <constraint firstItem="lGd-yj-Kux" firstAttribute="leading" secondItem="VpH-sn-HP8" secondAttribute="leadingMargin" id="v7v-67-sgG"/>
+                            <constraint firstItem="dl9-hc-BaY" firstAttribute="bottom" secondItem="9aY-K0-rwq" secondAttribute="bottom" id="w5X-G0-U4p"/>
+                            <constraint firstItem="lGd-yj-Kux" firstAttribute="top" secondItem="CDD-Jh-Xm4" secondAttribute="bottom" constant="8" symbolic="YES" id="wNR-za-CO8"/>
+                            <constraint firstItem="dl9-hc-BaY" firstAttribute="top" secondItem="9aY-K0-rwq" secondAttribute="top" id="yva-UC-GOz"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="placeOrder" destination="F9g-tt-Cqi" id="BYi-Ze-moO"/>
+                        <outlet property="priceLabel" destination="CDD-Jh-Xm4" id="bPt-wd-YEj"/>
+                        <outlet property="studentSelect" destination="lGd-yj-Kux" id="YGt-RP-xDW"/>
+                        <outlet property="titleLabel" destination="71D-dt-RgJ" id="mUA-dB-Ckz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ynw-WK-rJP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WAW-f4-kub" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1135" y="-3464"/>
         </scene>
     </scenes>
     <resources>

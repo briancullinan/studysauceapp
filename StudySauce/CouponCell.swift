@@ -58,31 +58,12 @@ public class CouponCell: UITableViewCell {
         }
     }
     
-    @IBAction func selectStudent(sender: AnyObject) {
-        if let picker = (self.studentSelect!.inputView!.viewController() as! BasicKeyboardController).picker {
-            picker.dataSource = self.viewController() as! StoreController
-            picker.delegate = self.viewController() as! StoreController
-            picker.reloadAllComponents()
-        }
-    }
-    
-    static func assignSelectKeyboard(input: TextField) {
-        input.tintColor = UIColor.clearColor()
-        input.inputView = BasicKeyboardController.pickerKeyboard
-        BasicKeyboardController.keyboardHeight = 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
-        BasicKeyboardController.keyboardSwitch = {
-            input.inputView = $0
-            input.reloadInputViews()
-        }
-        input.reloadInputViews()
+    @IBAction func placeOrderClick(sender: UIButton) {
+        (self.viewController() as! StoreController).lastJson = self.json
+        (self.viewController() as! StoreController).performSegueWithIdentifier("selectUser", sender: sender)
     }
     
     internal func configure(json: NSDictionary) {
-        if self.studentSelect != nil {
-            self.studentSelect!.addDoneOnKeyboardWithTarget(self.viewController(), action: #selector(StoreController.textFieldShouldReturn(_:)))
-            self.studentSelect!.delegate = self.viewController() as! StoreController
-            CouponCell.assignSelectKeyboard(self.studentSelect!)
-        }
         self.json = json
         let title = json["description"] as? String ?? ""
         var url = json["logo"] as? String ?? ""

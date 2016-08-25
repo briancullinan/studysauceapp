@@ -411,12 +411,14 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     
                     transitionContext.completeTransition(false)
                     if self.presenting {
-                        if next.modalPresentationStyle != .OverCurrentContext {
+                        if last.modalPresentationStyle != .OverCurrentContext {
                             next.view.hidden = true
                         }
                     }
                     else {
-                        last.view.hidden = true
+                        if next.modalPresentationStyle != .OverCurrentContext {
+                            last.view.hidden = true
+                        }
                     }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.from.view)
@@ -431,7 +433,9 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                         }
                     }
                     else {
-                        next.view.hidden = true
+                        if last.modalPresentationStyle != .OverCurrentContext {
+                            next.view.hidden = true
+                        }
                     }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
                     UIApplication.sharedApplication().keyWindow!.addSubview(screens.to.view)

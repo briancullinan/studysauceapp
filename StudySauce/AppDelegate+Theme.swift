@@ -548,7 +548,8 @@ extension AppDelegate {
             }
         })
         
-        $([StoreController.self ~> UITextField.self ~>> UILabel.self,
+        $([UserSelectController.self ~> UITextField.self ~>> UILabel.self,
+            StoreController.self ~> UITextField.self ~>> UILabel.self,
             CardBlankController.self ~> UITextField.self ~>> UILabel.self
 //            ContactUsController.self ~> UITextField.self ~>> UILabel.self  Contact us uses labels instead of placeholders
             ], {(v: UILabel) in
@@ -557,7 +558,8 @@ extension AppDelegate {
             }
         })
         
-        $([StoreController.self ~> UITextField.self,
+        $([UserSelectController.self ~> UITextField.self,
+            StoreController.self ~> UITextField.self,
             CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
             v.backgroundColor = UIColor.whiteColor()
@@ -611,7 +613,7 @@ extension AppDelegate {
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
 
-        $([CardPromptController.self ~> UIButton.self ~* {$0.tag == 1},
+        $([CardPromptController.self ~> UIButton.self ~* 1,
             CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
             let image = v.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
             v.setBackgroundImage(image, forState: .Normal)
@@ -778,6 +780,15 @@ extension AppDelegate {
             $0.setFontName(saucyTheme.subheadingFont)
         }
         
+        $(UserSelectController.self ~> UILabel.self ~* 1) {
+            $0.setFontColor(saucyTheme.lightColor)
+        }
+        
+        $(UserSelectController.self ~> UILabel.self ~* 2) {
+            $0.setFontColor(saucyTheme.primary)
+            $0.setFontName(saucyTheme.subheadingFont)
+        }
+
         $(StoreController.self ~> UIView.self ~* 57 ~> UIButton.self) {
             $0.setBackground(saucyTheme.primary)
         }
