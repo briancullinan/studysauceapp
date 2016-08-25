@@ -568,17 +568,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
                     break
                 }
                 postJson("/checkout/pay", ["coupon" : AppDelegate.storeCoupon!,
-                    "child" : [AppDelegate.storeChild!.id! : AppDelegate.storeCoupon!],
+                    "child" : [AppDelegate.storeCoupon! : AppDelegate.storeChild!.id!],
                     "purchase_token" : transaction.transactionIdentifier
                 ]) {_ in
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                     //AppDelegate.completed.append(AppDelegate.storeCoupon!)
                     (AppDelegate.visibleViewController() as? UserSelectController)?.dismissViewControllerAnimated(true, completion: {
-                        doMain {
-                            (AppDelegate.visibleViewController() as? StoreController)?.completed = true
-                            (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
-                            (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
-                        }
+                        (AppDelegate.visibleViewController() as? StoreController)?.completed = true
+                        (AppDelegate.visibleViewController() as? StoreController)?.updateCart()
+                        (AppDelegate.visibleViewController() as? StoreController)?.tableView.reloadData()
                     })
                 }
                 break
