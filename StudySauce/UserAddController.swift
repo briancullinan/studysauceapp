@@ -37,6 +37,11 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.getInvitesFromRemoteStore()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.childFirst!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
@@ -59,8 +64,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.assignSelectKeyboard(self.schoolYear)
         self.assignSelectKeyboard(self.schoolName)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UserAddController.reshowKeyboard), name: UIKeyboardDidHideNotification, object: nil)
-        
-        self.getInvitesFromRemoteStore()
+        //NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.getInvitesFromRemoteStore), userInfo: nil, repeats: false)
     }
     
     var invites: [NSDictionary] = []
@@ -108,6 +112,17 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         return count
     }
     
+    @IBAction func selectStudent(sender: TextField) {
+        doMain {
+            if let picker = (sender.inputView!.viewController() as! BasicKeyboardController).picker {
+                picker.dataSource = self
+                picker.delegate = self
+                picker.reloadAllComponents()
+                picker.selectRow(0, inComponent: 0, animated: false)
+            }
+        }
+    }
+
     func getOptions(field: TextField) -> [NSDictionary] {
         if field == self.schoolSystem {
             var top = self.level3
@@ -167,7 +182,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         }
     }
     
-    func getInvitesFromRemoteStore() {
+    public func getInvitesFromRemoteStore() {
         let user = AppDelegate.getUser()!
         getJson("/command/results", [
         "count-invite" : 1,
@@ -237,16 +252,11 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     func assignSelectKeyboard(input: TextField) {
         input.tintColor = UIColor.clearColor()
         input.inputView = BasicKeyboardController.pickerKeyboard
-        (input.inputView!.viewController() as! BasicKeyboardController).picker?.dataSource = self
-        (input.inputView!.viewController() as! BasicKeyboardController).picker?.delegate = self
         BasicKeyboardController.keyboardHeight = 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
         BasicKeyboardController.keyboardSwitch = {
             input.inputView = $0
             input.reloadInputViews()
         }
-        let inputAssistantItem = input.inputAssistantItem
-        inputAssistantItem.leadingBarButtonGroups = []
-        inputAssistantItem.trailingBarButtonGroups = []
         input.reloadInputViews()
     }
     

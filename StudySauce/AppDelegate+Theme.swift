@@ -747,7 +747,11 @@ extension AppDelegate {
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
         })
         
-        $(BasicKeyboardController.self ~> UIButton.self ~> UILabel.self, {
+        $([BasicKeyboardController.self ~> UILabel.self,
+            BasicKeyboardController.self ~> UIButton.self ~> UILabel.self], {
+                if $0.superview is UIPickerView {
+                    return
+                }
             $0.setFontName(saucyTheme.textFont)
             $0.setFontSize(saucyTheme.textSize * 1.5)
             $0.setFontColor(saucyTheme.fontColor)
@@ -812,7 +816,8 @@ extension AppDelegate {
             $0.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 1)
         }
 
-        $([StoreController.self ~> CouponCell.self ~> TextField.self,
+        $([UserSelectController.self ~> TextField.self,
+            StoreController.self ~> CouponCell.self ~> TextField.self,
             UserAddController.self ~> TextField.self ~* 90])
         {(v: TextField) in
             if (v ~> (UIImageView.self ~* 50)).count == 0 {

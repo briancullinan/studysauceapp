@@ -22,6 +22,11 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
     weak var json: NSDictionary? = nil
     var users: [User] = []
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.getUsersFromLocalStore()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         returnKeyHandler = IQKeyboardReturnKeyHandler(controller: self)
@@ -34,23 +39,20 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
             self.studentSelect.inputView = $0
             self.studentSelect.reloadInputViews()
         }
-        let inputAssistantItem = self.studentSelect!.inputAssistantItem
-        inputAssistantItem.leadingBarButtonGroups = []
-        inputAssistantItem.trailingBarButtonGroups = []
         self.studentSelect.reloadInputViews()
         let price = StoreController.getPrice(self.json!)
         let formatter = NSNumberFormatter()
         formatter.numberStyle = .CurrencyStyle
         self.priceLabel!.text = price.isZero ? "Free" : formatter.stringFromNumber(price) ?? ""
         self.titleLabel!.text = self.json!["description"] as? String ?? ""
-        self.getUsersFromLocalStore()
     }
     
     func getUsersFromLocalStore() {
         AppDelegate.performContext {
             let users = AppDelegate.list(User.self)
                 .filter{
-                    return ($0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()).filter{
+                    let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+                    return cookies.filter{
                         return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
             self.users = users
         }
@@ -64,11 +66,14 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
     }
     
     @IBAction func selectStudent(sender: AnyObject) {
-        if let picker = (self.studentSelect!.inputView!.viewController() as! BasicKeyboardController).picker {
-            picker.dataSource = self
-            picker.delegate = self
-            picker.reloadAllComponents()
-            picker.selectRow(0, inComponent: 0, animated: false)
+        doMain {
+            if let picker = (self.studentSelect!.inputView!.viewController() as! BasicKeyboardController).picker {
+                picker.dataSource = self
+                picker.delegate = self
+                picker.reloadAllComponents()
+                self.lastRow = 0
+                picker.selectRow(0, inComponent: 0, animated: false)
+            }
         }
     }
     
@@ -89,6 +94,15 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
             }
         }
     }
+    
+    func done() {
+        doMain {
+            self.placeOrder.enabled = true
+            self.placeOrder.alpha = 1
+            self.placeOrder.setFontColor(saucyTheme.lightColor)
+            self.placeOrder.setBackground(saucyTheme.secondary)
+        }
+    }
 
     @IBAction func placeOrderClick(sender: UIButton) {
         if !self.placeOrder.enabled {
@@ -101,6 +115,10 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
         }
         else {
             self.studentSelect!.resignFirstResponder()
+            self.placeOrder.enabled = false
+            self.placeOrder.alpha = 0.85
+            self.placeOrder.setFontColor(saucyTheme.fontColor)
+            self.placeOrder.setBackground(saucyTheme.lightColor)
         }
         self.placeOrder.enabled = false
         let props = self.json!["options"] as! NSDictionary
@@ -111,8 +129,14 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
         if (Double("\(price!)") ?? 0.0).isZero {
             postJson("/checkout/pay", [
                 "coupon" : self.json!["name"] as? String ?? "",
-                "child" : [self.json!["name"] as? String ?? "" : child!.id!]])
+                "child" : [self.json!["name"] as? String ?? "" : child!.id!]],
+                error: {code in
+                        self.done()
+                }, redirect: {(code:String) in
+                    self.done()
+                })
             {_ in
+                self.done()
                 let store = self.presentingViewController as! StoreController
                 self.dismissViewControllerAnimated(true, completion: {
                     store.completed = true
@@ -130,13 +154,34 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
 
     }
 
+    var lastRow = 0
     // Catpure the picker view selection
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // This method is triggered whenever the user makes a change to the picker selection.
         // The parameter named row and component represents what was selected.
         if row == 0 {
+            lastRow = row
             return
         }
+        let user = self.users[row-1]
+        let jsonPacks: NSArray = (self.json!["packs"] as! NSArray)
+        var packIds: [NSNumber] = []
+        for p in jsonPacks {
+            packIds.append(p["id"] as! NSNumber)
+        }
+        let matching = NSPredicate(format: "id IN %@ AND ANY user_packs.user==%@", packIds, user)
+        let packs = AppDelegate.getPredicate(Pack.self, matching)
+        let assigned = packs.count > 0
+        if assigned {
+            doMain {
+                pickerView.selectRow(self.lastRow, inComponent: 0, animated: true)
+            }
+            return
+        }
+        else {
+            lastRow = row
+        }
+        
         if self.studentSelect!.isFirstResponder() {
             self.studentSelect!.text = self.users[row-1].first! + " " + self.users[row-1].last!
             AppDelegate.cartChildren[self.json!["name"] as! String] = self.users[row-1].id!
@@ -158,7 +203,16 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
         if row == 0 {
             return "Select a student"
         }
-        return self.users[row-1].first! + " " + self.users[row-1].last!
+        let user = self.users[row-1]
+        let jsonPacks: NSArray = (self.json!["packs"] as! NSArray)
+        var packIds: [NSNumber] = []
+        for p in jsonPacks {
+            packIds.append(p["id"] as! NSNumber)
+        }
+        let matching = NSPredicate(format: "id IN %@ AND ANY user_packs.user==%@", packIds, user)
+        let packs = AppDelegate.getPredicate(Pack.self, matching)
+        let assigned = packs.count > 0 ? " (Already assigned)" : ""
+        return user.first! + " " + user.last! + assigned
     }
  
 }
