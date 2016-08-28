@@ -68,6 +68,7 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
             picker.dataSource = self
             picker.delegate = self
             picker.reloadAllComponents()
+            picker.selectRow(0, inComponent: 0, animated: false)
         }
     }
     
@@ -110,13 +111,14 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
         if (Double("\(price!)") ?? 0.0).isZero {
             postJson("/checkout/pay", [
                 "coupon" : self.json!["name"] as? String ?? "",
-                "child" : [child!.id! : self.json!["name"] as? String ?? ""]])
+                "child" : [self.json!["name"] as? String ?? "" : child!.id!]])
             {_ in
-                AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(self.json!["name"] as? String ?? "")!)
-                //AppDelegate.completed.append(self.json!["name"] as? String ?? "")
-                (self.presentingViewController as! StoreController).completed = true
-                (self.presentingViewController as! StoreController).updateCart()
-                (self.presentingViewController as! StoreController).tableView.reloadData()
+                let store = self.presentingViewController as! StoreController
+                self.dismissViewControllerAnimated(true, completion: {
+                    store.completed = true
+                    store.updateCart()
+                    store.tableView.reloadData()
+                })
             }
         }
         else {

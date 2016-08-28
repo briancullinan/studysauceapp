@@ -28,7 +28,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         if self.presentingViewController is UserRegisterController {
             self.presentingViewController?.dismissViewControllerAnimated(true, completion: {
                 AppDelegate.goHome(self.presentingViewController, true) {_ in
-                    doMain (self.done)
+
                 }
             })
         }
@@ -200,7 +200,8 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
             self.level3 = self.level2.map({$0["parent"] as? NSDictionary}).filter({$0 != nil}).map{$0!}
             self.level3 = sinq(self.level3).distinct({$0["name"] as! String == $1["name"] as! String}).toArray()
             doMain {
-                (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker?.reloadAllComponents()
+                (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker!.reloadAllComponents()
+                (BasicKeyboardController.pickerKeyboard.viewController() as! BasicKeyboardController).picker!.selectRow(0, inComponent: 0, animated: false)
             }
         }
     }
@@ -274,7 +275,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.resignAllResponders()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
-        self.code = self.invites.filter({($0["group"] as? NSDictionary)?["name"] as? String == self.schoolName.text}).first?["code"] as? String
+        self.code = self.invites.filter({($0["group"] as? NSDictionary)?["name"] as? String == self.schoolName.text}).first?["code"] as? String ?? ""
         if self.childFirstName != "" && self.childLastName != "" && self.code != "" {
             let registrationInfo: Dictionary<String,AnyObject?> = [
                 "csrf_token" : self.token,

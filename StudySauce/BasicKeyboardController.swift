@@ -242,6 +242,7 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         }
         
         self.picker?.reloadAllComponents()
+        self.picker?.selectRow(0, inComponent: 0, animated: false)
     }
 
     override func willMoveToParentViewController(parent: UIViewController?) {

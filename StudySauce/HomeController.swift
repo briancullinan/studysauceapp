@@ -100,14 +100,11 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         doMain {
-            if AppDelegate.visibleViewController() != self && AppDelegate.visibleViewController() != self.parentViewController {
-                return
-            }
-            
             self.viewDidLoad()
             
             if self.tableView != nil {
-                self.homeSync()
+                self.packRefresher?.invalidate()
+                self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: false)
             }
         }
     }
@@ -180,6 +177,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var packRefresher: NSTimer? = nil
     
     func homeSync() {
+        if AppDelegate.visibleViewController() != self && AppDelegate.visibleViewController() != self.parentViewController {
+            return
+        }
+        
         let user = AppDelegate.getUser()
         print("Syncing...")
         // Load packs from database
@@ -266,12 +267,18 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func stopTasks() {
         self.taskManager?.invalidate()
         self.taskManager = nil
+        self.packRefresher?.invalidate()
+        self.packRefresher = nil
         for vc in self.childViewControllers {
             (vc as? HomeController)?.taskManager?.invalidate()
             (vc as? HomeController)?.taskManager = nil
+            (vc as? HomeController)?.packRefresher?.invalidate()
+            (vc as? HomeController)?.packRefresher = nil
         }
         (self.parentViewController as? HomeController)?.taskManager?.invalidate()
         (self.parentViewController as? HomeController)?.taskManager = nil
+        (self.parentViewController as? HomeController)?.packRefresher?.invalidate()
+        (self.parentViewController as? HomeController)?.packRefresher = nil
     }
     
     func getPacks() {
