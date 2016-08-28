@@ -190,7 +190,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             HomeController.syncResponses {
                 self.packsLoaded = true
-                self.getPacksFromLocalStore()
+                doMain {
+                    self.packRefresher?.invalidate()
+                    self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+                }
             }
             }, downloadedHandler: {p in
                 doMain {
