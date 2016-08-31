@@ -84,6 +84,13 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    internal static func filterDomain(users: [User]) -> [User] {
+        return users.filter{
+            let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
+            return cookies.filter{
+                return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
+    }
+    
     internal static func processUsers(json: NSDictionary) -> Void {
         if let email = json["email"] as? String {
             let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
@@ -196,10 +203,8 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     
     static func getUserByEmail(email: String) -> User {
         var user: User? = nil
-        for u in AppDelegate.list(User.self) {
-            let cookies = u.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-            let hasCookies = cookies.filter({"\($0["Domain"]!)" == AppDelegate.domain}).count > 0
-            if u.email == email && hasCookies {
+        for u in UserLoginController.filterDomain(AppDelegate.list(User.self)) {
+            if u.email == email {
                 user = u
                 break
             }

@@ -1386,6 +1386,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Ymo-BP-TUU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                             <button opaque="NO" tag="26" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tvO-vb-TdF">
                                 <rect key="frame" x="20" y="28" width="57" height="38"/>
                                 <constraints>
@@ -1420,9 +1423,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="23" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="neural darkened" translatesAutoresizingMaskIntoConstraints="NO" id="Ymo-BP-TUU">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1575,19 +1575,6 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="textFieldDidEndEditing:" destination="FRY-M3-qZh" eventType="editingDidEnd" id="eAC-6n-RQp"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrM-Nu-8oj">
-                                <rect key="frame" x="255" y="345" width="90" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Add child">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="addClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="fHy-aM-60v"/>
-                                    <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="eUv-gc-FLr"/>
-                                </connections>
-                            </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="25" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AS7-RJ-ecv">
                                 <rect key="frame" x="279" y="28" width="42" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1645,27 +1632,68 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="textFieldDidEndEditing:" destination="FRY-M3-qZh" eventType="editingDidEnd" id="KIj-K1-6AC"/>
                                 </connections>
                             </textField>
+                            <switch opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S6n-9g-0AY">
+                                <rect key="frame" x="20" y="357" width="54" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="S6n-9g-0AY" secondAttribute="height" multiplier="5:3" id="3PR-mv-ppi"/>
+                                </constraints>
+                                <color key="onTintColor" red="1" green="0.59999999999999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <variation key="heightClass=compact" misplaced="YES">
+                                    <rect key="frame" x="20" y="143" width="54" height="31"/>
+                                </variation>
+                                <connections>
+                                    <action selector="childSwitchOn:" destination="MV6-Iy-bIY" eventType="valueChanged" id="hB6-jo-7pN"/>
+                                </connections>
+                            </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxw-65-Iq5">
+                                <rect key="frame" x="80" y="349" width="310" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Child account attached">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="switchClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="9GL-vW-J79"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="1338" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZrM-Nu-8oj">
+                                <rect key="frame" x="255" y="405" width="90" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.74509803919999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Add child">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="fHy-aM-60v"/>
+                                    <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="eUv-gc-FLr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="GMT-ss-g2W" secondAttribute="leading" id="0ba-z5-pj0"/>
                             <constraint firstItem="LuW-eo-a6c" firstAttribute="top" secondItem="MG9-jv-G3h" secondAttribute="bottom" constant="8" symbolic="YES" id="23I-At-odQ"/>
-                            <constraint firstItem="ZrM-Nu-8oj" firstAttribute="centerX" secondItem="BL3-gw-0lU" secondAttribute="centerX" id="2fL-PG-OWG"/>
                             <constraint firstItem="GMT-ss-g2W" firstAttribute="top" secondItem="9J1-5d-vSE" secondAttribute="bottom" constant="8" symbolic="YES" id="3HS-AB-7AN"/>
                             <constraint firstItem="xDh-Kk-7NG" firstAttribute="leading" secondItem="BL3-gw-0lU" secondAttribute="leadingMargin" id="3kT-08-KGn"/>
-                            <constraint firstItem="ZrM-Nu-8oj" firstAttribute="top" secondItem="Peg-v3-XKz" secondAttribute="bottom" constant="8" symbolic="YES" id="5X9-EX-eX4"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Peg-v3-XKz" secondAttribute="leading" id="6SQ-7p-RT3"/>
                             <constraint firstItem="LuW-eo-a6c" firstAttribute="bottom" secondItem="BL3-gw-0lU" secondAttribute="centerY" id="6ma-XI-3fk"/>
+                            <constraint firstItem="fxw-65-Iq5" firstAttribute="leading" secondItem="S6n-9g-0AY" secondAttribute="trailing" constant="8" symbolic="YES" id="815-SX-UXI"/>
                             <constraint firstItem="Peg-v3-XKz" firstAttribute="top" secondItem="LuW-eo-a6c" secondAttribute="bottom" constant="8" symbolic="YES" id="AQK-ed-z7f"/>
                             <constraint firstAttribute="leadingMargin" secondItem="LuW-eo-a6c" secondAttribute="leading" id="KY5-VZ-oQK"/>
                             <constraint firstItem="MG9-jv-G3h" firstAttribute="top" secondItem="xDh-Kk-7NG" secondAttribute="bottom" constant="8" symbolic="YES" id="L4y-rU-xPr"/>
                             <constraint firstItem="AS7-RJ-ecv" firstAttribute="centerX" secondItem="BL3-gw-0lU" secondAttribute="centerX" id="OPX-Rm-fB2"/>
+                            <constraint firstItem="S6n-9g-0AY" firstAttribute="width" secondItem="S6n-9g-0AY" secondAttribute="height" multiplier="5:3" id="OXF-ew-0hs"/>
                             <constraint firstAttribute="leadingMargin" secondItem="MG9-jv-G3h" secondAttribute="leading" id="Ov0-1r-12V"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Peg-v3-XKz" secondAttribute="trailing" id="PrK-Wi-vJA"/>
+                            <constraint firstItem="S6n-9g-0AY" firstAttribute="leading" secondItem="BL3-gw-0lU" secondAttribute="leadingMargin" id="V7S-W6-Yfh"/>
                             <constraint firstItem="xDh-Kk-7NG" firstAttribute="width" secondItem="x5I-8x-auy" secondAttribute="width" id="VP4-rW-Kx1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MG9-jv-G3h" secondAttribute="trailing" id="YxR-WC-Had"/>
                             <constraint firstItem="GMT-ss-g2W" firstAttribute="bottom" secondItem="AS7-RJ-ecv" secondAttribute="bottom" id="a07-RC-Pdl"/>
+                            <constraint firstItem="S6n-9g-0AY" firstAttribute="centerY" secondItem="fxw-65-Iq5" secondAttribute="centerY" id="gA4-nM-HjB"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x5I-8x-auy" secondAttribute="trailing" id="ikq-ZD-1vc"/>
+                            <constraint firstItem="ZrM-Nu-8oj" firstAttribute="centerX" secondItem="BL3-gw-0lU" secondAttribute="centerX" id="jW7-qY-eP8"/>
+                            <constraint firstItem="ZrM-Nu-8oj" firstAttribute="top" secondItem="fxw-65-Iq5" secondAttribute="bottom" constant="8" symbolic="YES" id="jgm-4n-9ux"/>
+                            <constraint firstItem="S6n-9g-0AY" firstAttribute="top" secondItem="Peg-v3-XKz" secondAttribute="bottom" constant="20" id="lnF-bH-1pg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="LuW-eo-a6c" secondAttribute="trailing" id="thP-6p-aKh"/>
                             <constraint firstItem="x5I-8x-auy" firstAttribute="leading" secondItem="xDh-Kk-7NG" secondAttribute="trailing" constant="8" symbolic="YES" id="vqS-Ih-Rvf"/>
                             <constraint firstItem="MG9-jv-G3h" firstAttribute="top" secondItem="x5I-8x-auy" secondAttribute="bottom" constant="8" symbolic="YES" id="wbf-00-2DR"/>
@@ -1676,6 +1704,7 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="addButton" destination="ZrM-Nu-8oj" id="5c2-fV-34L"/>
                         <outlet property="childFirst" destination="xDh-Kk-7NG" id="1cz-Yf-mG1"/>
                         <outlet property="childLast" destination="x5I-8x-auy" id="T9B-5F-hzJ"/>
+                        <outlet property="childSwitch" destination="S6n-9g-0AY" id="cbs-Zf-1NB"/>
                         <outlet property="schoolName" destination="Peg-v3-XKz" id="qik-ht-l49"/>
                         <outlet property="schoolSystem" destination="MG9-jv-G3h" id="lwO-Hu-YCE"/>
                         <outlet property="schoolYear" destination="LuW-eo-a6c" id="9WI-lG-CfO"/>
@@ -3433,9 +3462,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="store_white" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mZN-Ns-J7P"/>
         <segue reference="aNX-LU-Mfo"/>
         <segue reference="HGq-4F-7mi"/>
         <segue reference="Edk-H5-39l"/>
+        <segue reference="Sbf-gW-rk8"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -30,6 +30,23 @@ class StudySauceUITests: XCTestCase {
         }
     }
     
+    func testRotation() {
+        
+        let device = XCUIDevice.sharedDevice()
+        device.orientation = UIDeviceOrientation.Portrait
+        
+        self.testPackSummary()
+        device.orientation = UIDeviceOrientation.LandscapeRight
+
+        self.testPackSummary()
+    }
+    
+    func testAllKeys() {
+        self.testReturnToHome()
+        
+        
+    }
+    
     override func setUp() {
         super.setUp()
         
@@ -153,9 +170,14 @@ class StudySauceUITests: XCTestCase {
         
         if app.textFields["fillblank"].exists {
             app.textFields["fillblank"].tap()
-            //expectationForPredicate(NSPredicate(format: "hasKeyboardFocus==1"), evaluatedWithObject: app.textFields["fillblank"], handler: nil)
-            //waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
-            app.textFields["fillblank"].typeText("\n")
+            app.textFields["fillblank"].tap()
+            expectationForPredicate(NSPredicate(format: "hittable==true"), evaluatedWithObject: app.buttons["Done"], handler: nil)
+            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            //UIPasteboard.generalPasteboard().string = "Hello World!"
+            //textField.pressForDuration(1.1)
+            //app.menuItems["Paste"].tap()
+            //app.typeText("\n")
+            app.buttons["Done"].tap()
         }
         else if app.staticTexts["Tap to see answer"].exists {
             app.staticTexts["Tap to see answer"].tap()

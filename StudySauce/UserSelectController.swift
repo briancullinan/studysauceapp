@@ -49,12 +49,7 @@ class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewD
     
     func getUsersFromLocalStore() {
         AppDelegate.performContext {
-            let users = AppDelegate.list(User.self)
-                .filter{
-                    let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-                    return cookies.filter{
-                        return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
-            self.users = users
+            self.users = UserLoginController.filterDomain(AppDelegate.list(User.self))
         }
     }
     

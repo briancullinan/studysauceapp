@@ -51,14 +51,9 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func getUsersFromLocalStore(done: () -> Void = {}) {
         AppDelegate.performContext({
-            let users = AppDelegate.list(User.self)
-                .filter{
-                    let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-                    return cookies.filter{
-                        return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0
-            }
+            self.users = UserLoginController.filterDomain(AppDelegate.list(User.self))
             doMain {
-                self.users = users
+                
                 done()
             }
         })

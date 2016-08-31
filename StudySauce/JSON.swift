@@ -20,6 +20,11 @@ func getJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     let ses = NSURLSession.sharedSession()
     let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+        AppDelegate.performContext {
+            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
+            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies)}
+            AppDelegate.saveContext()
+        }
         var hadError = false
         if (err != nil) {
             hadError = true
@@ -98,6 +103,11 @@ func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionar
     request.setValue("application/json", forHTTPHeaderField: "Accept")
     let ses = NSURLSession.sharedSession()
     let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+        AppDelegate.performContext {
+            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
+            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies)}
+            AppDelegate.saveContext()
+        }
         var hadError = false
         if (err != nil) {
             hadError = true

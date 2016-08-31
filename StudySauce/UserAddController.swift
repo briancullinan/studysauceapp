@@ -12,6 +12,7 @@ import UIKit
 class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     internal var childFirstName: String?
     internal var childLastName: String?
+    internal var child: Bool?
     internal var code: String?
     internal var token: String?
     var returnKeyHandler: IQKeyboardReturnKeyHandler? = nil
@@ -21,6 +22,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     @IBOutlet weak var schoolSystem: TextField!
     @IBOutlet weak var schoolYear: TextField!
     @IBOutlet weak var schoolName: TextField!
+    @IBOutlet weak var childSwitch: UISwitch!
     
     
     @IBAction func lastClick(sender: UIButton) {
@@ -40,6 +42,10 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.getInvitesFromRemoteStore()
+    }
+    
+    @IBAction func switchClick(sender: UIButton) {
+        self.childSwitch.setOn(!self.childSwitch.on, animated: true)
     }
     
     override func viewDidLoad() {
@@ -285,10 +291,12 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.resignAllResponders()
         self.childFirstName = self.childFirst.text
         self.childLastName = self.childLast.text
+        self.child = self.childSwitch.on
         self.code = self.invites.filter({($0["group"] as? NSDictionary)?["name"] as? String == self.schoolName.text}).first?["code"] as? String ?? ""
         if self.childFirstName != "" && self.childLastName != "" && self.code != "" {
             let registrationInfo: Dictionary<String,AnyObject?> = [
                 "csrf_token" : self.token,
+                "hasChild" : self.child == true ? "true" : "false",
                 "childFirst" : self.childFirstName,
                 "childLast" : self.childLastName,
                 "_code" : self.code

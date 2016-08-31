@@ -295,6 +295,7 @@ extension AppDelegate {
                 saucyImage.translatesAutoresizingMaskIntoConstraints = false
                 
                 saucyBackground!.hidden = false
+                self.window!.windowLevel = 1.2;
                 self.window!.makeKeyAndVisible()
                 
                 saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
