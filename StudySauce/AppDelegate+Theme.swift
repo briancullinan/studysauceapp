@@ -331,7 +331,7 @@ extension AppDelegate {
         
 
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self, {(v: UIView) in
+        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self) {(v: UIView) in
             if (v.viewController()!.view! ~> UIVisualEffectView.self).count == 0 {
                 if !UIAccessibilityIsReduceTransparencyEnabled() {
                     v.superview!.backgroundColor = UIColor.clearColor()
@@ -342,7 +342,7 @@ extension AppDelegate {
                     v.superview!.backgroundColor = UIColor.clearColor()
                 }
             }
-        })
+        }
         
         $([DialogController.self ~> UILabel.self,
            UIImageView.self ~* 23 ~+ UILabel.self], {

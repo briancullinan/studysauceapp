@@ -2062,8 +2062,8 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                         <outlet property="monkeyButton" destination="VuU-ca-cmN" id="Q6D-cV-Bs8"/>
                         <outlet property="userButton" destination="Avt-4M-VMm" id="5RX-HL-Xtd"/>
                         <segue destination="RhB-Zp-1b3" kind="custom" identifier="card" customClass="CardSegue" customModule="StudySauce" id="GGa-Jv-qkY"/>
-                        <segue destination="kzq-S3-nGY" kind="popoverPresentation" identifier="switch" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" animates="NO" popoverAnchorView="Avt-4M-VMm" id="s3Q-ny-RjP">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
+                        <segue destination="kzq-S3-nGY" kind="popoverPresentation" identifier="switch" animates="NO" popoverAnchorView="Avt-4M-VMm" id="s3Q-ny-RjP">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="FRY-M3-qZh" kind="custom" identifier="addChild" customClass="CardSegue" customModule="StudySauce" customModuleProvider="target" id="mZN-Ns-J7P"/>
                     </connections>
@@ -3462,9 +3462,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
         <image name="store_white" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aNX-LU-Mfo"/>
-        <segue reference="HGq-4F-7mi"/>
+        <segue reference="GGa-Jv-qkY"/>
+        <segue reference="692-BS-YUp"/>
+        <segue reference="mZN-Ns-J7P"/>
         <segue reference="Edk-H5-39l"/>
-        <segue reference="Sbf-gW-rk8"/>
     </inferredMetricsTieBreakers>
 </document>

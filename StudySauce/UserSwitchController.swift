@@ -52,10 +52,7 @@ class UserSwitchController: UIViewController, UITableViewDelegate, UITableViewDa
     func getUsersFromLocalStore(done: () -> Void = {}) {
         AppDelegate.performContext({
             self.users = UserLoginController.filterDomain(AppDelegate.list(User.self))
-            doMain {
-                
-                done()
-            }
+            doMain { done() }
         })
     }
     

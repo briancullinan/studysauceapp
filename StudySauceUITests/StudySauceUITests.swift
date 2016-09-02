@@ -44,6 +44,67 @@ class StudySauceUITests: XCTestCase {
     func testAllKeys() {
         self.testReturnToHome()
         
+        let app = XCUIApplication()
+        
+        app.buttons["gray Study packs icon with cle"].tap()
+        
+        // wait for loading to disappear
+        expectationForPredicate(NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWithObject: app.staticTexts["Loading..."], handler: nil)
+        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        
+        expectationForPredicate(NSPredicate(format: "count>0"), evaluatedWithObject: app.tables.cells, handler: nil)
+        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        
+        app.tables.elementBoundByIndex(0).scrollToElement(app.staticTexts["Math facts - 1"])
+        expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: app.staticTexts["Math facts - 1"], handler: nil)
+        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        app.staticTexts["Math facts - 1"].tap()
+        
+        // wait for the card to show up
+        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["pageCount"], handler: nil)
+        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        
+        let counts = app.staticTexts["pageCount"].label.componentsSeparatedByString(" of ")
+        let count = Int(counts[1])!
+        let current = Int(counts[0])! - 1
+        while current < count {
+            let page = app.staticTexts["\(current+1) of \(count)"]
+            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: page, handler: nil)
+            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            
+            app.textFields["fillblank"].tap()
+            app.textFields["fillblank"].tap()
+            expectationForPredicate(NSPredicate(format: "hittable==true"), evaluatedWithObject: app.buttons["Done"], handler: nil)
+            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            
+            // tap all number keys
+            app.buttons["0"].tap()
+            app.buttons["1"].tap()
+            app.buttons["2"].tap()
+            app.buttons["3"].tap()
+            app.buttons["4"].tap()
+            app.buttons["5"].tap()
+            app.buttons["6"].tap()
+            app.buttons["7"].tap()
+            app.buttons["8"].tap()
+            app.buttons["9"].tap()
+            app.buttons["Done"].tap()
+            
+            // if it is wrong, click to the next answer
+            expectationForPredicate(NSPredicate(format: "ANY exists=TRUE"), evaluatedWithObject: [
+                app.textViews["response"], app.textViews["prompt"], app.staticTexts["percent"]], handler: nil)
+            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            if app.textViews["response"].exists {
+                app.textViews["response"].tap()
+            }
+            
+            expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: page, handler: nil)
+            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            
+            break
+        }
+        
+        self.testReturnToHome()
         
     }
     
@@ -173,7 +234,7 @@ class StudySauceUITests: XCTestCase {
             app.textFields["fillblank"].tap()
             expectationForPredicate(NSPredicate(format: "hittable==true"), evaluatedWithObject: app.buttons["Done"], handler: nil)
             waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
-            //UIPasteboard.generalPasteboard().string = "Hello World!"
+            //UIPasteb2oard.generalPasteboard().string = "Hello World!"
             //textField.pressForDuration(1.1)
             //app.menuItems["Paste"].tap()
             //app.typeText("\n")

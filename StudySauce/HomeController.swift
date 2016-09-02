@@ -70,16 +70,23 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+        //super.prepareForSegue(segue, sender: sender)
         
         if segue.identifier == "switch" {
-            segue.destinationViewController.popoverPresentationController?.delegate = self
-            segue.destinationViewController.popoverPresentationController?.sourceView = self.userButton!.titleLabel!
-            segue.destinationViewController.popoverPresentationController?.sourceRect = self.userButton!.titleLabel!.bounds
-            let blur = AppDelegate.createBlurView(self.userButton!)
-            blur.alpha = 1
-            blur.superview!.bringSubviewToFront(blur)
-            self.view.bringSubviewToFront(self.userButton!)
+            //if segue.destinationViewController.popoverPresentationController == nil {
+            //    segue.destinationViewController.popoverPresentationController = UIPopoverPresentationController(segue.destinationViewController, self)
+            //}
+            segue.destinationViewController.transitioningDelegate = CardSegue.transitionManager
+            segue.sourceViewController.transitioningDelegate = CardSegue.transitionManager
+            segue.destinationViewController.popoverPresentationController!.delegate = self
+            segue.destinationViewController.popoverPresentationController!.sourceView = self.userButton!.titleLabel!
+            segue.destinationViewController.popoverPresentationController!.sourceRect = self.userButton!.titleLabel!.bounds
+            if (self.view! ~> UIVisualEffectView.self).count == 0 {
+                let blur = AppDelegate.createBlurView(self.userButton!)
+                blur.alpha = 1
+                blur.superview!.bringSubviewToFront(blur)
+                self.view.bringSubviewToFront(self.userButton!)
+            }
         }
         
         if let vc = segue.destinationViewController as? CardController {

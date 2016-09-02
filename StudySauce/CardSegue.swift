@@ -80,6 +80,9 @@ class CardSegue : UIStoryboardSegue {
         // only do transition at this point, no swiping available unless it is set up beforehand
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
+        if next is UserSwitchController {
+            next.modalPresentationStyle = .Popover
+        }
         last.presentViewController(next, animated: true, completion: nil)
     }
 }

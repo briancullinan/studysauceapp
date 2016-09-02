@@ -192,6 +192,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var next = !self.presenting ? screens.from : screens.to 
         var last = !self.presenting ? screens.to : screens.from
         
+        if next is DialogController || next is UserAddController || next is UserSwitchController || next is UserSelectController {
+            next.modalPresentationStyle = .OverCurrentContext
+        }
+        
         // add the both views to our view controller
         if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
             container!.addSubview(last.view)
