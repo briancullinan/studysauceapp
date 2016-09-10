@@ -35,7 +35,9 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
             })
         }
         else {
-            self.performSegueWithIdentifier("home", sender: sender)
+            UserLoginController.home {
+                self.performSegueWithIdentifier("home", sender: sender)
+            }
         }
     }
     
@@ -316,6 +318,16 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
                     }
                     }, redirect: {(path: String) in
                         self.done()
+                        // TODO: add a message here
+                        if path == "/register/child" {
+                            doMain {
+                                self.childFirst.text = ""
+                                self.childLast.text = ""
+                                self.schoolSystem.text = ""
+                                self.schoolName.text = ""
+                                self.schoolYear.text = ""
+                            }
+                        }
                     if path == "/home" {
                         UserLoginController.home { () -> Void in
                             AppDelegate.performContext {

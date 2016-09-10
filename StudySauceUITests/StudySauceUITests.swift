@@ -105,7 +105,6 @@ class StudySauceUITests: XCTestCase {
         }
         
         self.testReturnToHome()
-        
     }
     
     override func setUp() {
@@ -317,9 +316,9 @@ class StudySauceUITests: XCTestCase {
         XCTAssert(correct + wrong == count)
         
         // go back to home screen
-        //let percent = Int32(round(Double(correct) / Double(correct + wrong) * 100.0))
-        //expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["\(percent)%"], handler: nil)
-        //waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        let percent = Int32(round(Double(correct) / Double(correct + wrong) * 100.0))
+        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["\(percent)%"], handler: nil)
+        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
         
         self.testReturnToHome()
     }
@@ -435,7 +434,10 @@ class StudySauceUITests: XCTestCase {
         app.textFields["Email address"].tap()
         app.textFields["Email address"].typeText(email)
         app.secureTextFields["Password"].tap()
-        app.secureTextFields["Password"].typeText(password!)
+        UIPasteboard.generalPasteboard().string = password
+        app.secureTextFields["Password"].pressForDuration(1.1)
+        app.menuItems["Paste"].tap()
+
         
         app.buttons["Log in"].tap()
         
