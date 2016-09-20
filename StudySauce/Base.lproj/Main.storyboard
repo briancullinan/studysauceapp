@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l7P-Ww-wiT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="l7P-Ww-wiT">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1645,10 +1645,10 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                     <action selector="childSwitchOn:" destination="MV6-Iy-bIY" eventType="valueChanged" id="hB6-jo-7pN"/>
                                 </connections>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxw-65-Iq5">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxw-65-Iq5">
                                 <rect key="frame" x="80" y="349" width="310" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Child account attached">
+                                <state key="normal" title="Add another child">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -1666,6 +1666,13 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                                 <connections>
                                     <action selector="addClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="fHy-aM-60v"/>
                                     <action selector="registerClick:" destination="MV6-Iy-bIY" eventType="touchUpInside" id="eUv-gc-FLr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rl0-kd-KYx">
+                                <rect key="frame" x="277" y="449" width="46" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="lastClick:" destination="FRY-M3-qZh" eventType="touchUpInside" id="nST-q9-KNS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1689,7 +1696,9 @@ We wanted to express our gratitude to the dedicated staff of Archway Classical A
                             <constraint firstItem="xDh-Kk-7NG" firstAttribute="width" secondItem="x5I-8x-auy" secondAttribute="width" id="VP4-rW-Kx1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MG9-jv-G3h" secondAttribute="trailing" id="YxR-WC-Had"/>
                             <constraint firstItem="GMT-ss-g2W" firstAttribute="bottom" secondItem="AS7-RJ-ecv" secondAttribute="bottom" id="a07-RC-Pdl"/>
+                            <constraint firstItem="Rl0-kd-KYx" firstAttribute="centerX" secondItem="ZrM-Nu-8oj" secondAttribute="centerX" id="cgr-X5-Rh0"/>
                             <constraint firstItem="S6n-9g-0AY" firstAttribute="centerY" secondItem="fxw-65-Iq5" secondAttribute="centerY" id="gA4-nM-HjB"/>
+                            <constraint firstItem="Rl0-kd-KYx" firstAttribute="top" secondItem="ZrM-Nu-8oj" secondAttribute="bottom" constant="8" symbolic="YES" id="gvB-ay-2GZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="x5I-8x-auy" secondAttribute="trailing" id="ikq-ZD-1vc"/>
                             <constraint firstItem="ZrM-Nu-8oj" firstAttribute="centerX" secondItem="BL3-gw-0lU" secondAttribute="centerX" id="jW7-qY-eP8"/>
                             <constraint firstItem="ZrM-Nu-8oj" firstAttribute="top" secondItem="fxw-65-Iq5" secondAttribute="bottom" constant="8" symbolic="YES" id="jgm-4n-9ux"/>
