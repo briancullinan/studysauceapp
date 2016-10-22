@@ -15,7 +15,7 @@ import CoreData
 extension Response {
 
     @NSManaged var correct: NSNumber?
-    @NSManaged var created: NSDate?
+    @NSManaged var created: Date?
     @NSManaged var file: NSNumber?
     @NSManaged var id: NSNumber?
     @NSManaged var value: String?

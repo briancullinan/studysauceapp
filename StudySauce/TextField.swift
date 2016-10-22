@@ -12,11 +12,11 @@ import UIKit
 class TextField: UITextField {
     internal var padding: UIEdgeInsets = UIEdgeInsets(saucyTheme.padding)
     
-    override func textRectForBounds(bounds: CGRect) -> CGRect {
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, self.padding)
     }
     
-    override func editingRectForBounds(bounds: CGRect) -> CGRect {
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return UIEdgeInsetsInsetRect(bounds, self.padding)
     }
     

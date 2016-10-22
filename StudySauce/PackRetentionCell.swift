@@ -10,8 +10,28 @@
 import Foundation
 import CoreData
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-public class PackRetentionCell: UITableViewCell {
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
+open class PackRetentionCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
@@ -19,7 +39,7 @@ public class PackRetentionCell: UITableViewCell {
     
     weak var pack: Pack? = nil
     
-    internal func configure(pack: Pack) {
+    internal func configure(_ pack: Pack) {
         self.pack = pack
         let title = pack.title
         var creator = pack.creator
@@ -35,14 +55,14 @@ public class PackRetentionCell: UITableViewCell {
         self.countLabel.text = "\(count)";
         self.titleLabel.text = title
         // TODO: check number of responses in pack
-        if up.downloaded == nil || up.created == nil || up.created!.dateByAddingTimeInterval(60*2) > NSDate() || (
+        if up.downloaded == nil || up.created == nil || up.created!.addingTimeInterval(60*2) > Date() || (
             (up.retention as? NSDictionary)?.filter({($0.value as? NSArray)?[0] as? Int > 0}).count == 0 &&
             AppDelegate.getPredicate(Response.self, NSPredicate(format: "user=%@ AND card.pack=%@", AppDelegate.getUser()!, pack)).count == 0) {
-            newLabel.hidden = false
+            newLabel.isHidden = false
             newLabel.text = "New "
         }
         else {
-            newLabel.hidden = true
+            newLabel.isHidden = true
             newLabel.text = ""
         }
     }

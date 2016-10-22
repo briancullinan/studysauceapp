@@ -11,10 +11,10 @@ import CoreData
 import UIKit
 
 class UserSettingsController: UITableViewController {
-    private var users: [User]? = nil
-    private var isChild = false
+    fileprivate var users: [User]? = nil
+    fileprivate var isChild = false
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         self.viewDidLoad()
@@ -34,12 +34,12 @@ class UserSettingsController: UITableViewController {
         }
     }
     
-    private func getUsersFromLocalStore(done: () -> Void) {
+    fileprivate func getUsersFromLocalStore(_ done: @escaping () -> Void) {
         AppDelegate.performContext {
             let currentCookie = (AppDelegate.getUser()?.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
             let users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser() && (
                 $0.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie}
-            if let _ = users.filter({$0.hasRole("ROLE_PARENT")}).first where !AppDelegate.getUser()!.hasRole("ROLE_PARENT") {
+            if let _ = users.filter({$0.hasRole("ROLE_PARENT")}).first , !AppDelegate.getUser()!.hasRole("ROLE_PARENT") {
                 self.isChild = true
             }
             doMain {
@@ -57,72 +57,72 @@ class UserSettingsController: UITableViewController {
     @IBOutlet weak var childLastName: UITextField!
     @IBOutlet weak var privacyCell: UITableViewCell!
     @IBOutlet weak var supportCell: UITableViewCell!
-    private var embeddedViewController: UserSettingsController!
+    fileprivate var embeddedViewController: UserSettingsController!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? UserSettingsController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? UserSettingsController {
             self.embeddedViewController = vc
         }
     }
     
-    @IBAction func returnToSettings(segue: UIStoryboardSegue) {
+    @IBAction func returnToSettings(_ segue: UIStoryboardSegue) {
         self.viewDidAppear(true)
     }
     
-    @IBAction func saveClick(sender: UIButton) {
-        self.editButton.hidden = false
-        self.saveButton.hidden = true
+    @IBAction func saveClick(_ sender: UIButton) {
+        self.editButton.isHidden = false
+        self.saveButton.isHidden = true
         self.embeddedViewController.save()
     }
     
-    @IBAction func editClick(sender: UIButton) {
-        self.editButton.hidden = true
-        self.saveButton.hidden = false
+    @IBAction func editClick(_ sender: UIButton) {
+        self.editButton.isHidden = true
+        self.saveButton.isHidden = false
         self.embeddedViewController.edit()
     }
 
     internal func edit() -> Void {
-        self.firstName.enabled = true
-        self.lastName.enabled = true
-        self.userEmail.enabled = true
-        self.childFirstName.enabled = true
-        self.childLastName.enabled = true
-        self.privacyCell.hidden = true
-        self.supportCell.hidden = true
+        self.firstName.isEnabled = true
+        self.lastName.isEnabled = true
+        self.userEmail.isEnabled = true
+        self.childFirstName.isEnabled = true
+        self.childLastName.isEnabled = true
+        self.privacyCell.isHidden = true
+        self.supportCell.isHidden = true
         self.tableView.allowsSelection = false
         self.tableView.reloadData()
     }
     
     internal func save() -> Void {
-        self.firstName.enabled = false
-        self.lastName.enabled = false
-        self.userEmail.enabled = false
-        self.childFirstName.enabled = false
-        self.childLastName.enabled = false
-        self.privacyCell.hidden = false
-        self.supportCell.hidden = false
+        self.firstName.isEnabled = false
+        self.lastName.isEnabled = false
+        self.userEmail.isEnabled = false
+        self.childFirstName.isEnabled = false
+        self.childLastName.isEnabled = false
+        self.privacyCell.isHidden = false
+        self.supportCell.isHidden = false
         self.tableView.allowsSelection = true
         self.tableView.reloadData()
         if AppDelegate.isConnectedToNetwork() {
         }
         else {
-            self.performSegueWithIdentifier("error503", sender: self)
+            self.performSegue(withIdentifier: "error503", sender: self)
         }
     }
     
-    var cacheResetTime: NSDate? = nil
+    var cacheResetTime: Date? = nil
     var cacheResetCount: Int = 0
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == self.childTable {
             return
         }
-        if indexPath.row == 0 && indexPath.section == 0 {
-            let twoMinutesAgo = NSDate().dateByAddingTimeInterval(-2)
+        if (indexPath as NSIndexPath).row == 0 && (indexPath as NSIndexPath).section == 0 {
+            let twoMinutesAgo = Date().addingTimeInterval(-2)
             if cacheResetTime == nil || cacheResetTime! < twoMinutesAgo {
-                cacheResetTime = NSDate()
+                cacheResetTime = Date()
                 cacheResetCount = 0
             }
             cacheResetCount += 1
@@ -143,14 +143,14 @@ class UserSettingsController: UITableViewController {
         //return super.tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
     
-    override func tableView(tableView: UITableView, sectionForSectionIndexTitle title: String, atIndex index: Int) -> Int {
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         if tableView == self.childTable {
             return 0
         }
-        return super.tableView(tableView, sectionForSectionIndexTitle: title, atIndex: index)
+        return super.tableView(tableView, sectionForSectionIndexTitle: title, at: index)
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == self.childTable {
             if section == 0 {
             if self.users == nil || self.users!.count == 0 {
@@ -171,23 +171,23 @@ class UserSettingsController: UITableViewController {
         return super.tableView(tableView, numberOfRowsInSection: section)
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 && self.users != nil && self.users!.count > 0 {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath as NSIndexPath).section == 1 && self.users != nil && self.users!.count > 0 {
             return (saucyTheme.textSize + saucyTheme.padding * 2) * CGFloat(self.users!.count * 2 + 1)
         }
-        if self.privacyCell.hidden {
-            if indexPath.section >= 2 {
+        if self.privacyCell.isHidden {
+            if (indexPath as NSIndexPath).section >= 2 {
                 return 0
             }
         }
         return (saucyTheme.textSize + saucyTheme.padding * 2)
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.01
     }
         
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if tableView == self.childTable {
             return 0.01
         }
@@ -197,14 +197,14 @@ class UserSettingsController: UITableViewController {
         return saucyTheme.subheadingSize * saucyTheme.lineHeight
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView == self.childTable {
             return nil
         }
         else if self.isChild && section == 1 {
             return nil
         }
-        if self.privacyCell.hidden {
+        if self.privacyCell.isHidden {
             if section >= 2 {
                 return nil
             }
@@ -212,49 +212,49 @@ class UserSettingsController: UITableViewController {
         return super.tableView(tableView, titleForHeaderInSection: section)
     }
     
-    override func tableView(tableView: UITableView, indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
+    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
         return 0
     }
     
-    func addClick(sender: UIButton) {
-        self.performSegueWithIdentifier("switch", sender: self)
+    func addClick(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "switch", sender: self)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell
         if tableView == self.childTable {
-            let userIndex = (indexPath.row - indexPath.row % 2) / 2
+            let userIndex = ((indexPath as NSIndexPath).row - (indexPath as NSIndexPath).row % 2) / 2
             if self.users == nil {
-                cell = tableView.dequeueReusableCellWithIdentifier("loading", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "loading", for: indexPath)
             }
-            else if self.users!.count == 0 || indexPath.row == self.users!.count * 2 {
-                cell = tableView.dequeueReusableCellWithIdentifier("empty", forIndexPath: indexPath)
+            else if self.users!.count == 0 || (indexPath as NSIndexPath).row == self.users!.count * 2 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "empty", for: indexPath)
                 if let add = (cell ~> (UIButton.self ~* {$0.tag == 1})).first {
-                    add.addTarget(self, action: #selector(UserSettingsController.addClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                    add.addTarget(self, action: #selector(UserSettingsController.addClick(_:)), for: UIControlEvents.touchUpInside)
                 }
             }
-            else if indexPath.row % 2 == 0 {
-                cell = tableView.dequeueReusableCellWithIdentifier("childFirst", forIndexPath: indexPath)
+            else if (indexPath as NSIndexPath).row % 2 == 0 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "childFirst", for: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
                     name.text = self.users![userIndex].first
                 }
             }
             else {
-                cell = tableView.dequeueReusableCellWithIdentifier("childLast", forIndexPath: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "childLast", for: indexPath)
                 if let name = (cell ~> (UITextField.self ~* {$0.tag == 1})).first {
                     name.text = self.users![userIndex].last
                 }
             }
         }
         else {
-            cell = super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+            cell = super.tableView(tableView, cellForRowAt: indexPath)
         }
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
 
-        if self.privacyCell.hidden {
-            if indexPath.section >= 2 {
-                cell.hidden = true
+        if self.privacyCell.isHidden {
+            if (indexPath as NSIndexPath).section >= 2 {
+                cell.isHidden = true
             }
         }
         return cell

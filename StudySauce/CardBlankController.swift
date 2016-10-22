@@ -28,34 +28,34 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var inputText: UITextField!
     
-    @IBAction func returnToBlank(segue: UIStoryboardSegue) {
+    @IBAction func returnToBlank(_ segue: UIStoryboardSegue) {
         
     }
     
-    override func canBecomeFirstResponder() -> Bool {
+    override var canBecomeFirstResponder : Bool {
         return !answered && !CardSegue.transitionManager.transitioning
     }
     
     func updateConstraints() {
-        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage
-            && UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeLeft || UIApplication.sharedApplication().statusBarOrientation == UIInterfaceOrientation.LandscapeRight {
-                self.rightMargin.active = false
-                self.verticalSpace.active = false
-                self.leftMargin.active = false
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController , !vc.isImage
+            && UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeLeft || UIApplication.shared.statusBarOrientation == UIInterfaceOrientation.landscapeRight {
+                self.rightMargin.isActive = false
+                self.verticalSpace.isActive = false
+                self.leftMargin.isActive = false
                 
-                self.horizontalSpace.active = true
-                self.alignCenter.active = true
-                self.equalWidths.active = true
+                self.horizontalSpace.isActive = true
+                self.alignCenter.isActive = true
+                self.equalWidths.isActive = true
                 self.bottomHalf.constant = BasicKeyboardController.keyboardHeight - saucyTheme.padding * 3
         }
         else {
-            self.horizontalSpace.active = false
-            self.alignCenter.active = false
-            self.equalWidths.active = false
+            self.horizontalSpace.isActive = false
+            self.alignCenter.isActive = false
+            self.equalWidths.isActive = false
             
-            self.rightMargin.active = true
-            self.verticalSpace.active = true
-            self.leftMargin.active = true
+            self.rightMargin.isActive = true
+            self.verticalSpace.isActive = true
+            self.leftMargin.isActive = true
             
             self.bottomHalf.constant = BasicKeyboardController.keyboardHeight + 20 * saucyTheme.multiplier() + saucyTheme.padding * 2
         }
@@ -68,30 +68,30 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
         super.viewDidLayoutSubviews()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         self.inputText.resignFirstResponder()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController where !vc.isImage && !CardSegue.reassignment {
+        if let vc = self.childViewControllers.filter({$0 is CardPromptController}).first as? CardPromptController , !vc.isImage && !CardSegue.reassignment {
             self.inputText!.becomeFirstResponder()
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         
-        if let pvc = self.parentViewController as? CardController {
+        if let pvc = self.parent as? CardController {
             self.card = pvc.card
-            if let vc = segue.destinationViewController as? CardPromptController {
+            if let vc = segue.destination as? CardPromptController {
                 vc.card = self.card
-                vc.parent = self
+                vc.parentVC = self
             }
-            if let vc = segue.destinationViewController as? CardResponseController {
+            if let vc = segue.destination as? CardResponseController {
                 vc.card = self.card
             }
         }
@@ -100,7 +100,7 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let vc = self.parentViewController as? CardController {
+        if let vc = self.parent as? CardController {
             self.card = vc.card
             IQKeyboardManager.sharedManager().enable = false
             IQKeyboardManager.sharedManager().enableAutoToolbar = false
@@ -112,16 +112,16 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
             
             let keyboard = self.card?.pack?.getProperty("keyboard") as? String
             if keyboard == "default" {
-                self.inputText.keyboardType = UIKeyboardType.Default
+                self.inputText.keyboardType = UIKeyboardType.default
             }
             else if keyboard == "decimal" {
-                self.inputText.keyboardType = UIKeyboardType.DecimalPad
+                self.inputText.keyboardType = UIKeyboardType.decimalPad
             }
             else if keyboard == "ascii" {
-                self.inputText.keyboardType = UIKeyboardType.ASCIICapable
+                self.inputText.keyboardType = UIKeyboardType.asciiCapable
             }
             else if keyboard == "alphabet" {
-                self.inputText.keyboardType = UIKeyboardType.Alphabet
+                self.inputText.keyboardType = UIKeyboardType.alphabet
             }
             else {
                 // use basic keyboard
@@ -144,44 +144,44 @@ class CardBlankController: UIViewController, UITextFieldDelegate {
                 self.inputText.reloadInputViews()
             }
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CardBlankController.updateConstraints), name: UIKeyboardWillChangeFrameNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(CardBlankController.updateConstraints), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.answered = true
         // TODO: check for correctness and continue
         self.saveResponse(self.inputText.text!)
         return true
     }
     
-    func saveResponse(value: String) {
-        if let vc = self.parentViewController as? CardController {
+    func saveResponse(_ value: String) {
+        if let vc = self.parent as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)
                 let answer = self.card!.getCorrect()
                 newResponse.answer = answer
                 let pattern = answer!.value!
-                let ex = try? NSRegularExpression(pattern: pattern, options: [NSRegularExpressionOptions.CaseInsensitive])
-                let match = ex?.firstMatchInString(value, options: [], range:NSMakeRange(0, value.characters.count))
-                newResponse.correct = match != nil
+                let ex = try? NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
+                let match = ex?.firstMatch(in: value, options: [], range:NSMakeRange(0, value.characters.count))
+                newResponse.correct = match != nil ? 1 : 0
                 newResponse.value = value
                 newResponse.card = self.card
-                newResponse.created = NSDate()
+                newResponse.created = Date()
                 newResponse.user = AppDelegate.getUser()
                 AppDelegate.saveContext()
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    self.performSegueWithIdentifier("correct", sender: self)
+                    self.performSegue(withIdentifier: "correct", sender: self)
                 }
                 HomeController.syncResponses(self.card!.pack!)
             }
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         self.inputText?.becomeFirstResponder()
     }
 }

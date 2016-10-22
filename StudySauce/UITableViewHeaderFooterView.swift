@@ -11,7 +11,7 @@ import UIKit
 
 extension UITableViewHeaderFooterView {
     
-    override func setBackground(color: UIColor) {
+    override func setBackground(_ color: UIColor) {
         self.contentView.setValue(color, forKey: "backgroundColor")
     }
 

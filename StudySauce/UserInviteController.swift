@@ -21,15 +21,15 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var registrationCode: UITextField!
     @IBOutlet weak var inviteButton: UIButton!
     
-    @IBAction func returnToInvite(segue: UIStoryboardSegue) {
+    @IBAction func returnToInvite(_ segue: UIStoryboardSegue) {
         
     }
 
-    @IBAction func codeButton(sender: UIButton) {
+    @IBAction func codeButton(_ sender: UIButton) {
         self.showDialog(NSLocalizedString("Ask your sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
     }
     
-    @IBAction func submitCode(sender: UIButton) {
+    @IBAction func submitCode(_ sender: UIButton) {
         self.registrationCode.resignFirstResponder()
         self.regCode = self.registrationCode.text
         if self.regCode == "" {
@@ -48,20 +48,20 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
         self.registrationCode!.delegate = self
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         doMain {
             self.submitCode(self.inviteButton)
         }
         return true
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? UserRegisterController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? UserRegisterController {
             vc.registrationCode = self.regCode
             vc.first = self.first
             vc.last = self.last
@@ -72,7 +72,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     }
 
     func done() {
-        self.inviteButton.enabled = true
+        self.inviteButton.isEnabled = true
         self.inviteButton.alpha = 1
         self.inviteButton.setFontColor(saucyTheme.lightColor)
         self.inviteButton.setBackground(saucyTheme.secondary)
@@ -80,12 +80,14 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     
     func getInvite() -> Void {
         doMain {
-            self.inviteButton.enabled = false
+            self.inviteButton.isEnabled = false
             self.inviteButton.alpha = 0.85
             self.inviteButton.setFontColor(saucyTheme.fontColor)
             self.inviteButton.setBackground(saucyTheme.lightColor)
         }
-        postJson("/register", ["_code": self.regCode], error: {(code) in
+        postJson("/register", [
+            "_code": self.regCode as Optional<AnyObject>
+            ], error: {(code) in
             doMain(self.done)
             if code == 404 {
                 self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
@@ -103,7 +105,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
                 self.token = json["csrf_token"] as? String
                 self.props = json["properties"] as? NSDictionary
                 
-                self.performSegueWithIdentifier("register", sender: self)
+                self.performSegue(withIdentifier: "register", sender: self)
         }
     }
     

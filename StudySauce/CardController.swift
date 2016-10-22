@@ -21,19 +21,19 @@ class CardController: UIViewController {
     internal var subview: UIViewController? = nil {
         didSet {
             self.addChildViewController(self.subview!)
-            self.subview!.didMoveToParentViewController(self)
+            self.subview!.didMove(toParentViewController: self)
         }
     }
     internal var isRetention = false
     internal var selectedPack: Pack? = nil
 
-    @IBAction func backClick(sender: UIButton) {
+    @IBAction func backClick(_ sender: UIButton) {
         CardSegue.transitionManager.transitioning = true
         if self.isRetention {
-            self.performSegueWithIdentifier("home", sender: self)
+            self.performSegue(withIdentifier: "home", sender: self)
         }
         else {
-            self.performSegueWithIdentifier("packs", sender: self)
+            self.performSegue(withIdentifier: "packs", sender: self)
         }
     }
     
@@ -104,35 +104,35 @@ class CardController: UIViewController {
             if CardController.cardTypes == nil {
                 CardController.cardTypes = UIStoryboard(name: "CardTypes", bundle: nil)
             }
-            self.subview = CardController.cardTypes!.instantiateViewControllerWithIdentifier(view)
+            self.subview = CardController.cardTypes!.instantiateViewController(withIdentifier: view)
         }
         self.subview!.view.translatesAutoresizingMaskIntoConstraints = false
         self.embeddedView.addSubview(self.subview!.view)
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
     }
     
     override func getAnalytics() -> String {
         if self.card != nil {
             let process = self.isRetention ? "BigButton" : "PackSummary"
             let pack = self.pack.title!.matchesForRegexInText("\\s[a-z]|[A-Z]").map {
-                return $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())}.joinWithSeparator("").uppercaseStringWithLocale(nil)
+                return $0.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)}.joined(separator: "").uppercased(with: nil)
             let card = (self.view ~> UITextView.self).first!.text
-            let cardShort = card!.substringToIndex(card!.startIndex.advancedBy(min(card!.characters.count, 30)))
+            let cardShort = card!.substring(to: card!.characters.index(card!.startIndex, offsetBy: min(card!.characters.count, 30)))
             return "\(process)/\(self.pack!.id!)-\(pack)/\(self.card!.id!)-\(cardShort)"
         }
         return super.getAnalytics()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? PackResultsController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? PackResultsController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
             vc.selectedPack = self.selectedPack
         }
-        if let vc = segue.destinationViewController as? CardController {
+        if let vc = segue.destination as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
             vc.selectedPack = self.selectedPack
@@ -141,7 +141,7 @@ class CardController: UIViewController {
                 vc.intermediateResponse = self.intermediateResponse
             }
         }
-        if let vc = segue.destinationViewController.parentViewController as? CardController {
+        if let vc = segue.destination.parent as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
             vc.selectedPack = self.selectedPack

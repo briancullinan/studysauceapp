@@ -68,11 +68,11 @@ func ~+ <B: UIView>(v: UIView, b: TQueryable<B>) -> [B] {
 
 infix operator ~* {associativity left precedence 255}
 
-func ~* <B>(b: B.Type, matches: B -> Bool) -> TQueryable<B> {
+func ~* <B>(b: B.Type, matches: @escaping (B) -> Bool) -> TQueryable<B> {
     return TQueryable<B>(b) ~* matches
 }
 
-func ~* <B>(b: TQueryable<B>, matches: B -> Bool) -> TQueryable<B> {
+func ~* <B>(b: TQueryable<B>, matches: @escaping (B) -> Bool) -> TQueryable<B> {
     return TMatching<B>(b, matches)
 }
 
@@ -102,29 +102,29 @@ func ~* <B: UIViewController>(b: TQueryable<B>, id: String) -> TMatching<B> {
 
 // $
 
-func $<B: UIView>(b: B.Type, _ set: B -> Void) {
+func $<B: UIView>(_ b: B.Type, _ set: @escaping (B) -> Void) {
     $(TQueryable<B>(b), set)
 }
 
-func $<B: UIView>(b: TQueryable<B>, _ set: B -> Void) {
+func $<B: UIView>(_ b: TQueryable<B>, _ set: @escaping (B) -> Void) {
     TAppearance(b).appearence(set)
 }
 
-func $<B: UIView>(queries: [IQueryable], _ set: B -> Void) {
+func $<B: UIView>(_ queries: [IQueryable], _ set: @escaping (B) -> Void) {
     $(TCombination<B>(queries: queries), set)
 }
 
-func $(b: [UIView.Type], _ set: UIView -> Void) {
+func $(_ b: [UIView.Type], _ set: @escaping (UIView) -> Void) {
     $(b.map({return TQueryable<UIView>($0)}), set)
 }
 
 // @
 
-prefix operator |^ {}
+prefix operator |^
 
-prefix func |^ (media: UIDevice -> Bool) -> TQueryable<UIDevice> {
+prefix func |^ (media: @escaping (UIDevice) -> Bool) -> TQueryable<UIDevice> {
     return TMatching(TQueryable(UIDevice.self), {(_: UIDevice) in
-        return media(UIDevice.currentDevice())
+        return media(UIDevice.current)
     })
 }
 

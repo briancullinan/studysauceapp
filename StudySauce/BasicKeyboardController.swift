@@ -33,9 +33,9 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
         }
         if _basic == nil {
-            _basic = keyboards!.instantiateViewControllerWithIdentifier("BasicKeyboard") as? BasicKeyboardController
+            _basic = keyboards!.instantiateViewController(withIdentifier: "BasicKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            let size = CGRect(x: 0, y: 0, width: AppDelegate.instance().window!.screen.bounds.width, height: height)
             _basic!.view!.frame = size
             _basic!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -48,9 +48,9 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
         }
         if _symbols1 == nil {
-            _symbols1 = keyboards!.instantiateViewControllerWithIdentifier("Symbols1Keyboard") as? BasicKeyboardController
+            _symbols1 = keyboards!.instantiateViewController(withIdentifier: "Symbols1Keyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            let size = CGRect(x: 0, y: 0, width: AppDelegate.instance().window!.screen.bounds.width, height: height)
             _symbols1!.view!.frame = size
             _symbols1!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -63,9 +63,9 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
         }
         if _symbols2 == nil {
-            _symbols2 = keyboards!.instantiateViewControllerWithIdentifier("Symbols2Keyboard") as? BasicKeyboardController
+            _symbols2 = keyboards!.instantiateViewController(withIdentifier: "Symbols2Keyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            let size = CGRect(x: 0, y: 0, width: AppDelegate.instance().window!.screen.bounds.width, height: height)
             _symbols2!.view!.frame = size
             _symbols2!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -78,9 +78,9 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
         }
         if _basicNumbers == nil {
-            _basicNumbers = keyboards!.instantiateViewControllerWithIdentifier("NumbersKeyboard") as? BasicKeyboardController
+            _basicNumbers = keyboards!.instantiateViewController(withIdentifier: "NumbersKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            let size = CGRect(x: 0, y: 0, width: AppDelegate.instance().window!.screen.bounds.width, height: height)
             _basicNumbers!.view!.frame = size
             _basicNumbers!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -93,9 +93,9 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             keyboards = UIStoryboard(name: "Keyboards", bundle: nil)
         }
         if _picker == nil {
-            _picker = keyboards!.instantiateViewControllerWithIdentifier("EntityPickerKeyboard") as? BasicKeyboardController
+            _picker = keyboards!.instantiateViewController(withIdentifier: "EntityPickerKeyboard") as? BasicKeyboardController
             let height = 4 * saucyTheme.textSize + 8 * saucyTheme.padding
-            let size = CGRectMake(0, 0, AppDelegate.instance().window!.screen.bounds.width, height)
+            let size = CGRect(x: 0, y: 0, width: AppDelegate.instance().window!.screen.bounds.width, height: height)
             _picker!.view!.frame = size
             _picker!.view!.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -103,7 +103,7 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         return _picker!.view!
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 
@@ -113,11 +113,11 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         // Add custom view sizing constraints here
     }
     
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         self.repeatTimer?.invalidate()
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        super.viewWillTransition(to: size, with: coordinator)
         (self.view ~> UIButton.self).each {
-            $0.highlighted = false
+            $0.isHighlighted = false
             $0.backgroundColor = saucyTheme.lightColor
             $0.setFontColor(saucyTheme.fontColor)
         }
@@ -129,27 +129,27 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         super.viewDidLoad()
         
         (self.view ~> UIButton.self).each {
-            $0.removeTarget(nil, action: nil, forControlEvents: .AllTouchEvents)
-            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), forControlEvents: .TouchUpInside)
-            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), forControlEvents: .TouchUpOutside)
-            $0.addTarget(self, action: #selector(BasicKeyboardController.didTapButton(_:)), forControlEvents: .TouchDown)
-            $0.exclusiveTouch = true
+            $0.removeTarget(nil, action: nil, for: .allTouchEvents)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), for: .touchUpInside)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.cancelTimer(_:)), for: .touchUpOutside)
+            $0.addTarget(self, action: #selector(BasicKeyboardController.didTapButton(_:)), for: .touchDown)
+            $0.isExclusiveTouch = true
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BasicKeyboardController.keyboardWillChange(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BasicKeyboardController.keyboardWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
-    func keyboardWillChange(notification: NSNotification) {
+    func keyboardWillChange(_ notification: Notification) {
         
-        let keyboardFrame: CGRect = (notification.userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+        let keyboardFrame: CGRect = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         BasicKeyboardController.keyboardHeight = keyboardFrame.size.height
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let keyboardContainer = self.parentViewController {
-            (keyboardContainer.view ~> UIView.self).each{$0.hidden = true}
+        if let keyboardContainer = self.parent {
+            (keyboardContainer.view ~> UIView.self).each{$0.isHidden = true}
         }
         self.goLowercase()
     }
@@ -159,21 +159,21 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         // Dispose of any resources that can be recreated
     }
 
-    override func textWillChange(textInput: UITextInput?) {
+    override func textWillChange(_ textInput: UITextInput?) {
         super.textWillChange(textInput)
         // The app is about to change the document's contents. Perform any preparation here.
     }
 
-    override func textDidChange(textInput: UITextInput?) {
+    override func textDidChange(_ textInput: UITextInput?) {
         super.textDidChange(textInput)
         // The app has just changed the document's contents, the document context has been updated.
     
     }
     
     static var keyboardSwitch: ((UIView) -> Void)? = nil
-    var repeatTimer: NSTimer? = nil
+    var repeatTimer: Timer? = nil
     
-    @IBAction func cancelTimer(sender: UIButton) {
+    @IBAction func cancelTimer(_ sender: UIButton) {
         self.repeatTimer?.invalidate()
         /*
         if sender.tag != 2 {
@@ -194,14 +194,14 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.insertText(repeatTitle)
         self.repeatTimer?.invalidate()
-        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
+        self.repeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
     }
     
     func repeatDelete() {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         proxy.deleteBackward()
         self.repeatTimer?.invalidate()
-        self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
+        self.repeatTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
     }
 
     var repeatTitle = ""
@@ -209,8 +209,8 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
     func goUppercase() {
         (self.view ~> UIButton.self).each {
             if $0.tag == 0 {
-                let title = $0.titleForState(.Normal)
-                $0.setTitle(title?.uppercaseString, forState: .Normal)
+                let title = $0.title(for: UIControlState())
+                $0.setTitle(title?.uppercased(), for: UIControlState())
             }
         }
         self.lowercase = false
@@ -219,50 +219,50 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
     func goLowercase() {
         (self.view ~> UIButton.self).each {
             if $0.tag == 0 {
-                let title = $0.titleForState(.Normal)
-                $0.setTitle(title?.lowercaseString, forState: .Normal)
+                let title = $0.title(for: UIControlState())
+                $0.setTitle(title?.lowercased(), for: UIControlState())
             }
         }
         self.lowercase = true
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let keyboardContainer = self.parentViewController {
-            (keyboardContainer.view ~> UIView.self).each{$0.hidden = true}
+        if let keyboardContainer = self.parent {
+            (keyboardContainer.view ~> UIView.self).each{$0.isHidden = true}
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let keyboardContainer = self.parentViewController {
-            (keyboardContainer.view ~> UIView.self).each{$0.hidden = false}
+        if let keyboardContainer = self.parent {
+            (keyboardContainer.view ~> UIView.self).each{$0.isHidden = false}
         }
         
         self.picker?.reloadAllComponents()
         self.picker?.selectRow(0, inComponent: 0, animated: false)
     }
 
-    override func willMoveToParentViewController(parent: UIViewController?) {
-        super.willMoveToParentViewController(parent)
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
         
         if parent != nil {
-            (parent!.view ~> UIView.self).each {$0.hidden = true}
+            (parent!.view ~> UIView.self).each {$0.isHidden = true}
         }
     }
         
-    @IBAction func didTapButton(sender: UIButton) {
+    @IBAction func didTapButton(_ sender: UIButton) {
         let proxy = self.textDocumentProxy as UITextDocumentProxy
         self.repeatTimer?.invalidate()
         
-        if let title = sender.titleForState(.Normal) {
+        if let title = sender.title(for: UIControlState()) {
             switch sender.tag {
             case 6 :
                 proxy.deleteBackward()
                 self.repeatTitle = ""
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
+                self.repeatTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BasicKeyboardController.repeatDelete), userInfo: nil, repeats: false)
             case 7 :
                 BasicKeyboardController.keyboardSwitch?(BasicKeyboardController.symbols1Keyboard)
             case 8 :
@@ -282,13 +282,13 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
             case 3 :
                 proxy.insertText(" ")
                 self.repeatTitle = " "
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
+                self.repeatTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
             //case "CHG" :
             //    self.advanceToNextInputMode()
             default :
                 proxy.insertText(title)
                 self.repeatTitle = title
-                self.repeatTimer = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
+                self.repeatTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(BasicKeyboardController.repeatText), userInfo: nil, repeats: false)
 
             }
         }
@@ -296,7 +296,7 @@ class BasicKeyboardController: UIInputViewController, UIGestureRecognizerDelegat
         // TODO: capitalize based on proxy.autocapitalizationType
         if sender.tag != 2 {
             self.goLowercase()
-            self.repeatTitle = self.repeatTitle.lowercaseString
+            self.repeatTitle = self.repeatTitle.lowercased()
         }
         /*
             if proxy.hasText() {

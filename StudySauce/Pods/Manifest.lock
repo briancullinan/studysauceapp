@@ -18,6 +18,7 @@ PODS:
   - GoogleUtilities (1.1.0):
     - GoogleSymbolUtilities (~> 1.0.0)
   - Harpy (3.4.5)
+  - IQKeyboardManagerSwift (4.0.7)
   - Stripe/ApplePay (7.0.1):
     - Stripe/Core
   - Stripe/Core (7.0.1)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - Google
   - Google/Analytics
   - Harpy
+  - IQKeyboardManagerSwift
   - Stripe/ApplePay
 
 SPEC CHECKSUMS:
@@ -36,6 +38,9 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 82ad9f93d3615244b3f4ce440f5ab2515e8b4f56
   GoogleUtilities: 8ed9134debe11719097881711464752900668f10
   Harpy: 2891878e970d5b485ab92ba58ff0dd77af4c5647
+  IQKeyboardManagerSwift: 58bbcf46b5cf9fd4ed625d28a60cb2fbae4ab0f4
   Stripe: b92298b31cf156fb23a029361b57e2fcb6583d57
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 3b828fc4be1466f0302bebe6b57fd45f5849b58a
+
+COCOAPODS: 1.0.0

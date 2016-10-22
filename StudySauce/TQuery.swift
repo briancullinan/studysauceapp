@@ -9,57 +9,57 @@
 import Foundation
 import UIKit
 
-private var queryList: [UIView -> Void] = []
+private var queryList: [(UIView) -> Void] = []
 
 enum T<B: UIView> {
     
-    static func device(d: String) -> (v: B) -> Bool {
+    static func device(_ d: String) -> (_ v: B) -> Bool {
         return {(_: B) -> Bool in
-            let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpressionOptions.CaseInsensitive)
-            let current = UIDevice.currentDevice().modelName
-            let match = ex?.firstMatchInString(current, options: [], range:NSMakeRange(0, current.characters.count))
-            let matched = match?.rangeAtIndex(0)
+            let ex = try? NSRegularExpression(pattern: d, options: NSRegularExpression.Options.caseInsensitive)
+            let current = UIDevice.current.modelName
+            let match = ex?.firstMatch(in: current, options: [], range:NSMakeRange(0, current.characters.count))
+            let matched = match?.rangeAt(0)
             return matched != nil
         }
     }
     
-    static func size(hor: UIUserInterfaceSizeClass, _ ver: UIUserInterfaceSizeClass) -> (v: B) -> Bool {
+    static func size(_ hor: UIUserInterfaceSizeClass, _ ver: UIUserInterfaceSizeClass) -> (_ v: B) -> Bool {
         return {(_: B) -> Bool in
-            return (UIScreen.mainScreen().traitCollection.horizontalSizeClass == hor && ver == .Unspecified) ||
-            (hor == .Unspecified && UIScreen.mainScreen().traitCollection.verticalSizeClass == ver) ||
-            (UIScreen.mainScreen().traitCollection.horizontalSizeClass == hor && UIScreen.mainScreen().traitCollection.verticalSizeClass == ver)
+            return (UIScreen.main.traitCollection.horizontalSizeClass == hor && ver == .unspecified) ||
+            (hor == .unspecified && UIScreen.main.traitCollection.verticalSizeClass == ver) ||
+            (UIScreen.main.traitCollection.horizontalSizeClass == hor && UIScreen.main.traitCollection.verticalSizeClass == ver)
         }
     }
     
-    static func orientation(d: String) -> (v: B) -> Bool {
+    static func orientation(_ d: String) -> (_ v: B) -> Bool {
         return {(_: B) -> Bool in
-            if d.lowercaseString == "landscape" && (UIApplication.sharedApplication().statusBarOrientation == .LandscapeLeft ||
-                UIApplication.sharedApplication().statusBarOrientation == .LandscapeRight) {
+            if d.lowercased() == "landscape" && (UIApplication.shared.statusBarOrientation == .landscapeLeft ||
+                UIApplication.shared.statusBarOrientation == .landscapeRight) {
                     return true
             }
-            if d.lowercaseString == "portrait" && (UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown ||
-                UIApplication.sharedApplication().statusBarOrientation == .Portrait) {
+            if d.lowercased() == "portrait" && (UIApplication.shared.statusBarOrientation == .portraitUpsideDown ||
+                UIApplication.shared.statusBarOrientation == .portrait) {
                     return true
             }
-            if d.lowercaseString == "landscapeleft" && UIApplication.sharedApplication().statusBarOrientation == .LandscapeLeft {
+            if d.lowercased() == "landscapeleft" && UIApplication.shared.statusBarOrientation == .landscapeLeft {
                     return true
             }
-            if d.lowercaseString == "landscaperight" && UIApplication.sharedApplication().statusBarOrientation == .LandscapeRight {
+            if d.lowercased() == "landscaperight" && UIApplication.shared.statusBarOrientation == .landscapeRight {
                 return true
             }
-            if d.lowercaseString == "portrait" && UIApplication.sharedApplication().statusBarOrientation == .Portrait {
+            if d.lowercased() == "portrait" && UIApplication.shared.statusBarOrientation == .portrait {
                 return true
             }
-            if d.lowercaseString == "portraitupsidedown" && UIApplication.sharedApplication().statusBarOrientation == .PortraitUpsideDown {
+            if d.lowercased() == "portraitupsidedown" && UIApplication.shared.statusBarOrientation == .portraitUpsideDown {
                 return true
             }
             return false
         }
     }
     
-    static func orientation(d: UIInterfaceOrientation) -> (v: B) -> Bool {
+    static func orientation(_ d: UIInterfaceOrientation) -> (_ v: B) -> Bool {
         return {(_: B) -> Bool in
-            return UIApplication.sharedApplication().statusBarOrientation == d
+            return UIApplication.shared.statusBarOrientation == d
         }
     }
 
@@ -84,7 +84,7 @@ class TAppearance<B: UIView> {
     
     var q: TQueryable<B>
     
-    func appearence(b: B -> Void) {
+    func appearence(_ b: @escaping (B) -> Void) {
         let i = queryList.count
         queryList.append({
             if self.q.matches($0) {
@@ -98,13 +98,13 @@ class TAppearance<B: UIView> {
 }
 
 protocol IQueryable {
-    func matches(view: AnyObject) -> Bool
+    func matches(_ view: AnyObject) -> Bool
 }
 
 class TQueryable<B: AnyObject>: NSObject, IQueryable {
     
-    func matches(view: AnyObject) -> Bool {
-        if view.isKindOfClass(self.b) {
+    func matches(_ view: AnyObject) -> Bool {
+        if view.isKind(of: self.b) {
             return true
         }
         return false
@@ -130,15 +130,19 @@ class TSibling<B: UIView>: TQueryable<B> {
         self.q = query
         super.init(b)
     }
+
+    required init(_ b: B.Type) {
+        fatalError("init has not been implemented")
+    }
     
-    override func matches(view: AnyObject) -> Bool {
+    override func matches(_ view: AnyObject) -> Bool {
         if let v = view as? UIView {
             return self.matchesView(v)
         }
         return false
     }
     
-    func enumerate(view: UIView) -> [B] {
+    func enumerate(_ view: UIView) -> [B] {
         var result: [B] = []
         if let parent = view.superview {
             let siblings = parent.subviews
@@ -151,9 +155,9 @@ class TSibling<B: UIView>: TQueryable<B> {
         return result
     }
     
-    func matchesView(view: UIView) -> Bool {
+    func matchesView(_ view: UIView) -> Bool {
         // first check to make sure view is of correct type
-        if let parent = view.superview where super.matches(view) {
+        if let parent = view.superview , super.matches(view) {
             let siblings = parent.subviews
             for s in siblings {
                 if self.q.matches(s) {
@@ -178,38 +182,42 @@ class TChild<B: UIView>: TQueryable<B> {
         self.q = query
         super.init(b)
     }
+
+    required init(_ b: B.Type) {
+        fatalError("init has not been implemented")
+    }
     
-    private func getVC(view: UIView) -> UIViewController? {
-        var nextResponder: UIResponder? = view.nextResponder()
+    fileprivate func getVC(_ view: UIView) -> UIViewController? {
+        var nextResponder: UIResponder? = view.next
         while nextResponder != nil {
             if let viewController = nextResponder as? UIViewController {
                 return viewController
             }
-            nextResponder = nextResponder?.nextResponder()
+            nextResponder = nextResponder?.next
         }
         return nil
     }
     
-    func enumerate(view: UIView) -> [B] {
+    func enumerate(_ view: UIView) -> [B] {
         var result: [B] = []
         let children = view.subviews
         for s in children {
             if self.q.matches(s) {
                 result.append(s as! B)
             }
-            result.appendContentsOf(self.enumerate(s))
+            result.append(contentsOf: self.enumerate(s))
         }
         return result
     }
     
-    override func matches(view: AnyObject) -> Bool {
+    override func matches(_ view: AnyObject) -> Bool {
         if let v = view as? UIView {
             return self.matchesView(v)
         }
         return false
     }
     
-    func matchesView(view: UIView) -> Bool {
+    func matchesView(_ view: UIView) -> Bool {
         // first check to make sure view is of correct type
         if super.matches(view) {
             // self.a can be a view controller type or another view type
@@ -245,23 +253,30 @@ class TImmediateChild<B: UIView>: TQueryable<B> {
         self.q = query
         super.init(b)
     }
+
+    required init(_ b: B.Type) {
+        fatalError("init has not been implemented")
+    }
     
-    override func matches(view: AnyObject) -> Bool {
+    override func matches(_ view: AnyObject) -> Bool {
         if let v = view as? UIView {
             return self.matchesView(v)
         }
         return false
     }
     
-    func matchesView(view: AnyObject) -> Bool {
+    func matchesView(_ view: AnyObject) -> Bool {
         // first check to make sure view is of correct type
         if super.matches(view) {
+            let nr = view.next
             // self.a can be a view controller type or another view type
-            if view.nextResponder() != nil && (self.q.matches(view.nextResponder()!) ||
-                view.nextResponder()!.nextResponder() != nil && view.nextResponder()!.nextResponder()! is UIViewController && self.q.matches(view.nextResponder()!.nextResponder()!)) {
+            if nr! != nil && (self.q.matches(nr!!)
+                || nr!!.next != nil
+                && nr!!.next! is UIViewController
+                && self.q.matches(nr!!.next!)) {
                 return true
             }
-            else if let parent = view.superview where parent != nil {
+            else if let parent = view.superview , parent != nil {
                 if self.q.matches(parent!) {
                     return true
                 }
@@ -281,15 +296,19 @@ class TImmediateChild<B: UIView>: TQueryable<B> {
 class TMatching<B: AnyObject>: TQueryable<B> {
     var q: IQueryable
     
-    init(_ query: IQueryable, _ matches: B -> Bool) {
+    init(_ query: IQueryable, _ matches: @escaping (B) -> Bool) {
         self.matching = matches
         self.q = query
         super.init(B.self)
     }
+
+    required init(_ b: B.Type) {
+        fatalError("init has not been implemented")
+    }
     
     var matching: (B) -> Bool
     
-    override func matches(view: AnyObject) -> Bool {
+    override func matches(_ view: AnyObject) -> Bool {
         if super.matches(view) {
             if self.matching(view as! B) && self.q.matches(view) {
                 return true
@@ -311,10 +330,14 @@ class TCombination<B: UIView> :TQueryable<B> {
         self.queries = queries
         super.init(B.self)
     }
+
+    required init(_ b: B.Type) {
+        fatalError("init has not been implemented")
+    }
     
     var queries: [IQueryable]
     
-    override func matches(view: AnyObject) -> Bool {
+    override func matches(_ view: AnyObject) -> Bool {
         if super.matches(view) {
             let match = self.queries.filter({
                 return $0.matches(view)
@@ -328,7 +351,7 @@ class TCombination<B: UIView> :TQueryable<B> {
     
     override var description: String {
         get {
-            let queries = self.queries.map({"\($0)"}).joinWithSeparator(" or ")
+            let queries = self.queries.map({"\($0)"}).joined(separator: " or ")
             return "any of \(queries)"
         }
     }

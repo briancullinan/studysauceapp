@@ -14,18 +14,18 @@ import CoreData
 
 extension User {
 
-    @NSManaged var created: NSDate?
+    @NSManaged var created: Date?
     @NSManaged var email: String?
     @NSManaged var first: String?
     @NSManaged var id: NSNumber?
     @NSManaged var last: String?
-    @NSManaged var last_login: NSDate?
-    @NSManaged var last_visit: NSDate?
+    @NSManaged var last_login: Date?
+    @NSManaged var last_visit: Date?
     @NSManaged var properties: NSObject?
     @NSManaged var retention: String?
-    @NSManaged var retention_to: NSDate?
+    @NSManaged var retention_to: Date?
     @NSManaged var roles: String?
-    @NSManaged var sign_out: NSDate?
+    @NSManaged var sign_out: Date?
     @NSManaged var authored: NSSet?
     @NSManaged var responses: NSSet?
     @NSManaged var user_packs: NSSet?

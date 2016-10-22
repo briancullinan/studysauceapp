@@ -30,11 +30,11 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var childButton: UIButton!
     
     
-    @IBAction func addChild(sender: UIButton) {
+    @IBAction func addChild(_ sender: UIButton) {
         //self.childrenCount++
     }
     
-    @IBAction func registerClick(sender: UIButton) {
+    @IBAction func registerClick(_ sender: UIButton) {
         self.firstName.resignFirstResponder()
         self.lastName.resignFirstResponder()
         self.email.resignFirstResponder()
@@ -43,10 +43,10 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.first = self.firstName.text
         self.last = self.lastName.text
         self.mail = self.email.text
-        self.child = self.childSwitch.on
+        self.child = self.childSwitch.isOn
         self.pass = self.password.text
 
-        if self.first != "" && self.last != "" && self.mail != "" && self.password != "" {
+        if self.first != "" && self.last != "" && self.mail != "" && self.pass != "" {
             if self.isValidEmail(self.mail!) {
                 self.registerUser()
             }
@@ -58,8 +58,8 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func switchClick(sender: UIButton) {
-        self.childSwitch.setOn(!self.childSwitch.on, animated: true)
+    @IBAction func switchClick(_ sender: UIButton) {
+        self.childSwitch.setOn(!self.childSwitch.isOn, animated: true)
     }
     
     override func viewDidLoad() {
@@ -68,21 +68,21 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         self.lastName.text = self.last
         self.firstName.text = self.first
         self.email.text = self.mail
-        self.childSwitch.on = true
-        self.childSwitch.hidden = false
-        self.childButton.hidden = false
+        self.childSwitch.isOn = true
+        self.childSwitch.isHidden = false
+        self.childButton.isHidden = false
         //self.addButton.hidden = false
         if self.props?["child_required"] as? Bool == true {
-            self.childSwitch.on = true
-            self.childSwitch.hidden = true
-            self.childButton.hidden = true
+            self.childSwitch.isOn = true
+            self.childSwitch.isHidden = true
+            self.childButton.isHidden = true
             //self.addButton.hidden = false
         }
         if self.props?["child_disabled"] as? Bool == true {
             self.firstName.placeholder = NSLocalizedString("First name", comment: "Placeholder text for first name registration")
-            self.childSwitch.on = false
-            self.childSwitch.hidden = true
-            self.childButton.hidden = true
+            self.childSwitch.isOn = false
+            self.childSwitch.isHidden = true
+            self.childButton.isHidden = true
             //self.addButton.hidden = true
         }
         self.lastName!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
@@ -96,7 +96,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         IQKeyboardManager.sharedManager().enable = true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         doMain {
             self.registerClick(self.registerButton)
         }
@@ -104,7 +104,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     }
 
     func done() {
-        self.registerButton.enabled = true
+        self.registerButton.isEnabled = true
         self.registerButton.alpha = 1
         self.registerButton.setFontColor(saucyTheme.lightColor)
         self.registerButton.setBackground(saucyTheme.secondary)
@@ -112,16 +112,16 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
     
     func registerUser() {
         let registrationInfo: Dictionary<String,AnyObject?> = [
-            "code" : self.registrationCode,
-            "first" : self.first,
-            "last" : self.last,
-            "email" : self.mail,
-            "password" : self.pass,
-            "hasChild" : self.child == true ? "true" : "false",
-            "csrf_token" : self.token
+            "code" : self.registrationCode as Optional<AnyObject>,
+            "first" : self.first as Optional<AnyObject>,
+            "last" : self.last as Optional<AnyObject>,
+            "email" : self.mail as Optional<AnyObject>,
+            "password" : self.pass as Optional<AnyObject>,
+            "hasChild" : (self.child == true ? "true" : "false") as AnyObject,
+            "csrf_token" : self.token as AnyObject
         ]
         doMain {
-            self.registerButton.enabled = false
+            self.registerButton.isEnabled = false
             self.registerButton.alpha = 0.85
             self.registerButton.setFontColor(saucyTheme.fontColor)
             self.registerButton.setBackground(saucyTheme.lightColor)
@@ -135,7 +135,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     if path == "/register/child" {
                         redirect = true
                         UserLoginController.home {
-                            self.performSegueWithIdentifier("addChild", sender: self)
+                            self.performSegue(withIdentifier: "addChild", sender: self)
                             doMain (self.done)
                         }
                     }
@@ -149,7 +149,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     if path == "/login" {
                         redirect = true
                         self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account")) {
-                            self.performSegueWithIdentifier("login", sender: self)
+                            self.performSegue(withIdentifier: "login", sender: self)
                             doMain (self.done)
                         }
                     }
@@ -161,19 +161,19 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
 }
 
 extension UIViewController {
     
-    func isValidEmail(testStr:String) -> Bool {
+    func isValidEmail(_ testStr:String) -> Bool {
         // println("validate calendar: \(testStr)")
         let emailRegEx = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluateWithObject(testStr)
+        return emailTest.evaluate(with: testStr)
     }
 }

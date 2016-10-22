@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 import CoreData
 
-extension CollectionType where Generator.Element == NSHTTPCookie {
-    func getJSON() -> [Dictionary<String,AnyObject>] {
-        let result = self.map { (c: NSHTTPCookie) -> Dictionary<String,AnyObject> in
+extension Collection where Iterator.Element == HTTPCookie {
+    func getJSON() -> [Dictionary<HTTPCookiePropertyKey, AnyObject>] {
+        let result = self.map { (c: HTTPCookie) -> Dictionary<HTTPCookiePropertyKey, AnyObject> in
             var prop = c.properties
-            prop!["HttpOnly"] = false
-            prop!["Expires"] = (prop!["Expires"] as! NSDate).toRFC()
-            return prop!
+            prop![HTTPCookiePropertyKey(rawValue: "HttpOnly")] = false
+            prop![HTTPCookiePropertyKey(rawValue: "Expires")] = (prop![HTTPCookiePropertyKey(rawValue: "Expires")] as! Date).toRFC()
+            return prop! as! Dictionary<HTTPCookiePropertyKey, AnyObject>
         }
         return result
     }
@@ -32,7 +32,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
-    @IBAction func loginClick(sender: UIButton) {
+    @IBAction func loginClick(_ sender: UIButton) {
         self.email = username.text
         self.pass = password.text
         self.username.resignFirstResponder()
@@ -48,12 +48,12 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func returnToLogin(segue: UIStoryboardSegue) {
+    @IBAction func returnToLogin(_ segue: UIStoryboardSegue) {
         
     }
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
     
@@ -69,14 +69,14 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         IQKeyboardManager.sharedManager().enable = true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         doMain {
             self.loginClick(self.loginButton)
         }
         return true
     }
     
-    internal static func logout(done: () -> Void = {}) {
+    internal static func logout(_ done: @escaping () -> Void = {}) {
         getJson("/logout") {json in
             AppDelegate.instance().user = nil
             AppDelegate.resetLocalStore()
@@ -84,26 +84,26 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    internal static func filterDomain(users: [User]) -> [User] {
+    internal static func filterDomain(_ users: [User]) -> [User] {
         return users.filter{
             let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
             return cookies.filter{
                 return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
     }
     
-    internal static func processUsers(json: NSDictionary) -> Void {
+    internal static func processUsers(_ json: NSDictionary) -> Void {
         if let email = json["email"] as? String {
-            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
+            let cookies = HTTPCookieStorage.shared.cookies?.getJSON()
             let user = UserLoginController.getUserByEmail(email)
             user.id = json["id"] as? NSNumber
             user.first = json["first"] as? String
             user.last = json["last"] as? String
             let properties = json["properties"] as? NSDictionary
-            user.setProperty("session", cookies)
+            user.setProperty("session", cookies as AnyObject?)
             for p in properties?.allKeys ?? [] {
-                user.setProperty("\(p)", properties?.valueForKey("\(p)"))
+                user.setProperty("\(p)", properties?.value(forKey: "\(p)") as AnyObject?)
             }
-            user.created = NSDate.parse(json["created"] as? String)
+            user.created = Date.parse(json["created"] as? String)
             user.roles = json["roles"] as? String
             for c in json["children"] as? [NSDictionary] ?? [] {
                 self.processUsers(c)
@@ -113,7 +113,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         AppDelegate.saveContext()
     }
     
-    internal static func home(done: () -> Void = {}) {
+    internal static func home(_ done: @escaping () -> Void = {}) {
         
         getJson("/home") {
             if let json = $0 as? NSDictionary {
@@ -122,7 +122,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                     AppDelegate.performContext {
                         if let email = json["email"] as? String {
                             
-                            if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last where AppDelegate.instance().user == nil {
+                            if let child = AppDelegate.list(User.self).filter({!$0.hasRole("ROLE_PARENT")}).last , AppDelegate.instance().user == nil {
                                 AppDelegate.instance().user = child
                             }
                             else {
@@ -155,12 +155,12 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    private static func checkForReset(allFinished: () -> Void) -> Bool {
-        let url = AppDelegate.applicationDocumentsDirectory.URLByAppendingPathComponent("StudySauceCache.sqlite") as NSURL
+    fileprivate static func checkForReset(_ allFinished: @escaping () -> Void) -> Bool {
+        let url = AppDelegate.applicationDocumentsDirectory.appendingPathComponent("StudySauceCache.sqlite") as URL
         let users = AppDelegate.list(User.self)
         for u in users {
-            if let resetTime = NSDate.parse(u.getProperty("reset_db") as? String) {
-                if let fileTime = try? NSFileManager.defaultManager().attributesOfItemAtPath(url.path!)[NSFileCreationDate] as? NSDate {
+            if let resetTime = Date.parse(u.getProperty("reset_db") as? String) {
+                if let fileTime = try? FileManager.default.attributesOfItem(atPath: url.path)[FileAttributeKey.creationDate] as? Date {
                     if resetTime > fileTime! {
                         let usersDict: [NSDictionary] = users.map({
                             return [
@@ -189,7 +189,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         return false
     }
     
-    internal static func login(done: () -> Void = {}) {
+    internal static func login(_ done: @escaping () -> Void = {}) {
         getJson("/login") {
             if let json = $0 as? NSDictionary {
                 // TODO: create user entity in database
@@ -201,7 +201,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
         }
     }
     
-    static func getUserByEmail(email: String) -> User {
+    static func getUserByEmail(_ email: String) -> User {
         var user: User? = nil
         for u in UserLoginController.filterDomain(AppDelegate.list(User.self)) {
             if u.email == email {
@@ -217,7 +217,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     }
     
     func done() {
-        self.loginButton.enabled = true
+        self.loginButton.isEnabled = true
         self.loginButton.alpha = 1
         self.loginButton.setFontColor(saucyTheme.lightColor)
         self.loginButton.setBackground(saucyTheme.secondary)
@@ -226,21 +226,21 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     func authenticate() {
         var redirect = false
         doMain {
-            self.loginButton.enabled = false
+            self.loginButton.isEnabled = false
             self.loginButton.alpha = 0.85
             self.loginButton.setFontColor(saucyTheme.fontColor)
             self.loginButton.setBackground(saucyTheme.lightColor)
         }
         postJson("/authenticate", [
-                "email"        : self.email,
-                "pass"         : self.pass,
-                "_remember_me" : "on",
-                "csrf_token"   : UserLoginController.token]
+                "email"        : self.email as Optional<AnyObject>,
+                "pass"         : self.pass as Optional<AnyObject>,
+                "_remember_me" : "on" as Optional<AnyObject>,
+                "csrf_token"   : UserLoginController.token as Optional<AnyObject>]
             , error: {_ in
                 
                 doMain(self.done)
             }, redirect: {(json: AnyObject) in
-                if json["redirect"] as? String == "/login" && (json["exception"] as? String)?.containsString("does not exist") == true {
+                if json["redirect"] as? String == "/login" && (json["exception"] as? String)?.contains("does not exist") == true {
                     redirect = true
                     self.showDialog(NSLocalizedString("User does not exist", comment: "When user log in fails because account does not exist."), NSLocalizedString("Try again", comment: "Option to try again when user does not exist")) {
                         doMain(self.done)

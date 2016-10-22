@@ -11,23 +11,23 @@ import UIKit
 
 extension UIView {
     
-    func setFontName(name: String) {
-        if let font = self.valueForKey("font") as? UIFont {
+    func setFontName(_ name: String) {
+        if let font = self.value(forKey: "font") as? UIFont {
             self.setValue(UIFont(name: name, size: font.pointSize), forKey: "font")
         }
     }
     
-    func setFontSize(size: CGFloat) {
-        if let font = self.valueForKey("font") as? UIFont {
+    func setFontSize(_ size: CGFloat) {
+        if let font = self.value(forKey: "font") as? UIFont {
             self.setValue(UIFont(name: font.familyName, size: round(size)), forKey: "font")
         }
     }
     
-    func setFontColor(color: UIColor) {
+    func setFontColor(_ color: UIColor) {
         self.setValue(color, forKey: "textColor")
     }
     
-    func setBackground(color: UIColor) {
+    func setBackground(_ color: UIColor) {
         self.setValue(color, forKey: "backgroundColor")
     }
 }

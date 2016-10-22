@@ -16,9 +16,9 @@ extension Card {
 
     @NSManaged var content: String?
     @NSManaged var content_type: String?
-    @NSManaged var created: NSDate?
+    @NSManaged var created: Date?
     @NSManaged var id: NSNumber?
-    @NSManaged var modified: NSDate?
+    @NSManaged var modified: Date?
     @NSManaged var recurrence: String?
     @NSManaged var response: String?
     @NSManaged var response_type: String?

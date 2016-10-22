@@ -8,85 +8,99 @@
 
 import Foundation
 
-func getJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}, _ done: (json: AnyObject) -> Void = {(json) in}) {
+func getJson (_ url: String,
+              _ params: Dictionary<String, AnyObject?> = Dictionary(),
+              error: @escaping (_ code: Int) -> Void = {(code) in},
+              redirect: @escaping (_ path: String) -> Void = {(path) in},
+              _ done: @escaping (_ json: AnyObject) -> Void = {(json) in}) {
     var postData = ""
     for (k, v) in params {
         postData += (postData == "" ? "" : "&") + stringify("\(k)", v)
     }
     let absolute = AppDelegate.studySauceCom("\(url)?\(postData)")
-    let request = NSMutableURLRequest(URL: absolute)
+    let request = NSMutableURLRequest(url: absolute!)
     //NSLog("Downloading from \(absolute.absoluteString)")
-    request.HTTPMethod = "GET"
+    request.httpMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Accept")
-    let ses = NSURLSession.sharedSession()
-    let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+    let ses = URLSession.shared
+    let task = ses.dataTask(with: request as URLRequest) {data, response, err in
         AppDelegate.performContext {
-            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
-            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies)}
+            let cookies = HTTPCookieStorage.shared.cookies?.getJSON()
+            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies as AnyObject)}
             AppDelegate.saveContext()
         }
         var hadError = false
         if (err != nil) {
             hadError = true
-            NSLog("\(err?.description)")
+            NSLog("\(err!)")
         }
-        if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
+        if response as? HTTPURLResponse != nil && (response as? HTTPURLResponse)?.statusCode != 200 {
             hadError = true
-            error(code: (response as! NSHTTPURLResponse).statusCode)
+            error((response as! HTTPURLResponse).statusCode)
         }
         if data != nil {
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
+                let json = try JSONSerialization.jsonObject(with: data!, options: [JSONSerialization.ReadingOptions.mutableContainers, JSONSerialization.ReadingOptions.allowFragments]) as! [String:Any]
                 doMain {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
-                        redirect(path: json["redirect"] as! String)
+                        redirect(json["redirect"] as! String)
                     }
                     if !hadError {
-                        done(json: json)
+                        done(json as AnyObject)
                     }
                 }
             }
             catch let e as NSError {
                 NSLog("\(e.description)")
-                error(code: (response as! NSHTTPURLResponse).statusCode)
+                error((response as! HTTPURLResponse).statusCode)
             }
         }
-    })
+    }
     task.resume()
 }
 
-private func stringify(key: String, _ val: AnyObject?) -> String {
+private func stringify(_ key: String, _ val: AnyObject?) -> String {
     var result = ""
     if val is NSArray {
         var count = 0
         for v in val as! NSArray {
-            result += (result == "" ? "" : "&") + stringify(key + "[\(count)]", v)
+            result += (result == "" ? "" : "&") + stringify(key + "[\(count)]", v as AnyObject?)
             count += 1
         }
     }
     else if val is NSDictionary {
         for (k, v) in val as! NSDictionary {
-            result += (result == "" ? "" : "&") + stringify(key + "[\(k)]", v)
+            result += (result == "" ? "" : "&") + stringify(key + "[\(k)]", v as AnyObject?)
         }
     }
     else {
-        let v = "\((val ?? "")!)".stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let v = "\(val!)".addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         result += (result == "" ? "" : "&") + "\(key)=\(v)"
     }
     return result
 }
 
-func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (path: String) -> Void = {(path) in}, _ done: (json: AnyObject) -> Void = {(json) in}){
-    postJson(url, params, error: error, redirect: {(json: AnyObject) in
+func postJson (_ url: String,
+               _ params: Dictionary<String, AnyObject?> = Dictionary(),
+               error: @escaping (_ code: Int) -> Void = {(code) in},
+               redirect: @escaping (_ path: String) -> Void = {(path) in},
+               _ done: @escaping (_ json: AnyObject) -> Void = {(json) in}
+    ){
+    postJson(url, params, error: error, redirect: {(json: AnyObject) -> Void in
         if json["redirect"] as? String != nil {
-            let url = NSURL(string: json["redirect"] as! String)
-            redirect(path: url!.path!)
+            let url = URL(string: json["redirect"] as! String)
+            redirect(url!.path)
         }
     }, done)
 }
 
-func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionary(), error: (code: Int) -> Void = {(code) in}, redirect: (json: AnyObject) -> Void, _ done: (json: AnyObject) -> Void = {(json) in}){
+func postJson (_ url: String,
+               _ params: Dictionary<String, AnyObject?> = Dictionary(),
+               error: @escaping (_ code: Int) -> Void = {(code) in},
+               redirect: @escaping (_ json: AnyObject) -> Void,
+               _ done: @escaping (_ json: AnyObject) -> Void = {(json) in}
+    ){
     var postData = ""
     for (k, v) in params {
         if v == nil {
@@ -94,47 +108,47 @@ func postJson (url: String, _ params: Dictionary<String, AnyObject?> = Dictionar
         }
         postData = postData + (postData == "" ? "" : "&")  + stringify("\(k)", v)
     }
-    let data = postData.dataUsingEncoding(NSUTF8StringEncoding)
-    let request = NSMutableURLRequest(URL: AppDelegate.studySauceCom(url))
-    request.HTTPMethod = "POST"
-    request.HTTPBody = data
-    request.setValue(String(data!.length), forHTTPHeaderField: "Content-Length")
+    let data = postData.data(using: String.Encoding.utf8)
+    let request = NSMutableURLRequest(url: AppDelegate.studySauceCom(url))
+    request.httpMethod = "POST"
+    request.httpBody = data
+    request.setValue(String(data!.count), forHTTPHeaderField: "Content-Length")
     request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
     request.setValue("application/json", forHTTPHeaderField: "Accept")
-    let ses = NSURLSession.sharedSession()
-    let task = ses.dataTaskWithRequest(request, completionHandler: {data, response, err -> Void in
+    let ses = URLSession.shared
+    let task = ses.dataTask(with: request as URLRequest) {data, response, err in
         AppDelegate.performContext {
-            let cookies = NSHTTPCookieStorage.sharedHTTPCookieStorage().cookies?.getJSON()
-            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies)}
+            let cookies = HTTPCookieStorage.shared.cookies?.getJSON()
+            UserLoginController.filterDomain(AppDelegate.list(User.self)).each {$0.setProperty("session", cookies as AnyObject)}
             AppDelegate.saveContext()
         }
         var hadError = false
         if (err != nil) {
             hadError = true
-            NSLog("\(err?.description)")
+            NSLog("\(err!)")
         }
-        if response as? NSHTTPURLResponse != nil && (response as? NSHTTPURLResponse)?.statusCode != 200 {
+        if response as? HTTPURLResponse != nil && (response as? HTTPURLResponse)?.statusCode != 200 {
             hadError = true
-            error(code: (response as! NSHTTPURLResponse).statusCode)
+            error((response as! HTTPURLResponse).statusCode)
         }
         if data != nil {
             do {
-                let json = try NSJSONSerialization.JSONObjectWithData(data!, options: [NSJSONReadingOptions.MutableContainers, NSJSONReadingOptions.AllowFragments])
+                let json = try JSONSerialization.jsonObject(with: data!, options: [JSONSerialization.ReadingOptions.mutableContainers, JSONSerialization.ReadingOptions.allowFragments]) as! [String:Any]
                 doMain {
                     // change this if we want to register without a code
                     if json["redirect"] as? String != nil {
-                        redirect(json: json)
+                        redirect(json as AnyObject)
                     }
                     if !hadError {
-                        done(json: json)
+                        done(json as AnyObject)
                     }
                 }
             }
             catch let e as NSError {
                 NSLog("\(e.description)")
-                error(code: (response as! NSHTTPURLResponse).statusCode)
+                error((response as! HTTPURLResponse).statusCode)
             }
         }
-    })
+    }
     task.resume()
 }

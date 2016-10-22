@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public class CouponCell: UITableViewCell {
+open class CouponCell: UITableViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -21,10 +21,10 @@ public class CouponCell: UITableViewCell {
 
     weak var json: NSDictionary? = nil
     
-    @IBAction func addCart(sender: UIButton) {
+    @IBAction func addCart(_ sender: UIButton) {
         let name = self.json!["name"] as? String ?? ""
         if AppDelegate.cart.contains(name) {
-            AppDelegate.cart.removeAtIndex(AppDelegate.cart.indexOf(name)!)
+            AppDelegate.cart.remove(at: AppDelegate.cart.index(of: name)!)
             (self.viewController() as? StoreController)?.updateCart()
             (self.viewController() as? StoreController)?.tableView.reloadData()
         }
@@ -35,21 +35,21 @@ public class CouponCell: UITableViewCell {
         }
     }
     
-    func downloadLogo(url: String) {
-        self.logoImage.hidden = true
+    func downloadLogo(_ url: String) {
+        self.logoImage.isHidden = true
         File.save(url) {(f :File) in
             let fileName = f.filename!
-            let fileManager = NSFileManager.defaultManager()
-            if let data = fileManager.contentsAtPath(fileName) {
+            let fileManager = FileManager.default
+            if let data = fileManager.contents(atPath: fileName) {
                 doMain {
                     self.logoImage.image = UIImage(data: data)
-                    self.logoImage.hidden = false
+                    self.logoImage.isHidden = false
                     
                     if let vc = AppDelegate.visibleViewController() as? StoreController {
                         (vc.view ~> CouponCell.self).each {
-                            if $0.json!["logo"] as? String ?? "" == self.json!["logo"] as? String ?? "" && $0.logoImage.hidden {
+                            if $0.json!["logo"] as? String ?? "" == self.json!["logo"] as? String ?? "" && $0.logoImage.isHidden {
                                 $0.logoImage.image = self.logoImage.image
-                                $0.logoImage.hidden = false
+                                $0.logoImage.isHidden = false
                             }
                         }
                     }
@@ -58,12 +58,12 @@ public class CouponCell: UITableViewCell {
         }
     }
     
-    @IBAction func placeOrderClick(sender: UIButton) {
+    @IBAction func placeOrderClick(_ sender: UIButton) {
         (self.viewController() as! StoreController).lastJson = self.json
-        (self.viewController() as! StoreController).performSegueWithIdentifier("selectUser", sender: sender)
+        (self.viewController() as! StoreController).performSegue(withIdentifier: "selectUser", sender: sender)
     }
     
-    internal func configure(json: NSDictionary) {
+    internal func configure(_ json: NSDictionary) {
         self.json = json
         let title = json["description"] as? String ?? ""
         var url = json["logo"] as? String ?? ""
@@ -71,13 +71,13 @@ public class CouponCell: UITableViewCell {
             url = AppDelegate.studySauceCom("/bundles/studysauce/images/upload_image.png").absoluteString
         }
         AppDelegate.performContext {
-            if let f = AppDelegate.list(File.self).filter({$0.url! == url}).first where f.filename != nil {
+            if let f = AppDelegate.list(File.self).filter({$0.url! == url}).first , f.filename != nil {
                 let fileName = f.filename!
-                let fileManager = NSFileManager.defaultManager()
-                if let data = fileManager.contentsAtPath(fileName) {
+                let fileManager = FileManager.default
+                if let data = fileManager.contents(atPath: fileName) {
                     doMain {
                         self.logoImage.image = UIImage(data: data)
-                        self.logoImage.hidden = false
+                        self.logoImage.isHidden = false
                     }
                 }
                 else {
@@ -89,33 +89,33 @@ public class CouponCell: UITableViewCell {
             }
         }
         let price = StoreController.getPrice(self.json!)
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         let buttonTitle:String
-        self.contentView.userInteractionEnabled = true
+        self.contentView.isUserInteractionEnabled = true
         if self.cancelButton != nil {
-            self.cancelButton!.hidden = false
-            self.bringSubviewToFront(self.cancelButton!)
+            self.cancelButton!.isHidden = false
+            self.bringSubview(toFront: self.cancelButton!)
         }
-        self.studentSelect?.enabled = true
+        self.studentSelect?.isEnabled = true
         if AppDelegate.cart.contains(json["name"] as! String) {
             if !(self.viewController() as! StoreController).isCart {
                 buttonTitle = "In cart"
-                self.countLabel!.enabled = false
+                self.countLabel!.isEnabled = false
                 self.countLabel!.setBackground(saucyTheme.middle)
             }
             else {
                 buttonTitle = ""
                 if self.cartPrice != nil {
-                    self.cartPrice!.text = price.isZero ? "Free" : formatter.stringFromNumber(price) ?? ""
+                    self.cartPrice!.text = price.isZero ? "Free" : formatter.string(from: price as NSNumber) ?? ""
                 }
             }
         } else {
-            self.countLabel!.enabled = true
+            self.countLabel!.isEnabled = true
             self.countLabel!.setBackground(saucyTheme.secondary)
-            buttonTitle = price.isZero ? "Free" : formatter.stringFromNumber(price) ?? ""
+            buttonTitle = price.isZero ? "Free" : formatter.string(from: price as NSNumber) ?? ""
         }
-        self.countLabel?.setTitle(buttonTitle, forState: UIControlState.Normal)
+        self.countLabel?.setTitle(buttonTitle, for: UIControlState())
         self.titleLabel.text = title
     }
 }

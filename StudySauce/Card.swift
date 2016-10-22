@@ -13,7 +13,7 @@ class Card: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
     
-    func getResponse(user: User?) -> Response? {
+    func getResponse(_ user: User?) -> Response? {
         return AppDelegate.getLast(Response.self, NSPredicate(format: "card==%@ AND user==%@", self, user!));
     }
     

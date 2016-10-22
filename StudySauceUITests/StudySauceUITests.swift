@@ -21,22 +21,22 @@ class StudySauceUITests: XCTestCase {
     static let shortWait = 4.0
     
     func testEverything() {
-        let until = NSDate().dateByAddingTimeInterval(NSTimeInterval(StudySauceUITests.howLong * 60.0))
-        while until.compare(NSDate()) == NSComparisonResult.OrderedDescending {
+        let until = Date().addingTimeInterval(TimeInterval(StudySauceUITests.howLong * 60.0))
+        while until.compare(Date()) == ComparisonResult.orderedDescending {
             let choose = Int(arc4random_uniform(UInt32(StudySauceUITests.functionsInOrder.count)))
-            if self.respondsToSelector(Selector(StudySauceUITests.functionsInOrder[choose])) {
-                self.performSelector(Selector(StudySauceUITests.functionsInOrder[choose]))
+            if self.responds(to: Selector(StudySauceUITests.functionsInOrder[choose])) {
+                self.perform(Selector(StudySauceUITests.functionsInOrder[choose]))
             }
         }
     }
     
     func testRotation() {
         
-        let device = XCUIDevice.sharedDevice()
-        device.orientation = UIDeviceOrientation.Portrait
+        let device = XCUIDevice.shared()
+        device.orientation = UIDeviceOrientation.portrait
         
         self.testPackSummary()
-        device.orientation = UIDeviceOrientation.LandscapeRight
+        device.orientation = UIDeviceOrientation.landscapeRight
 
         self.testPackSummary()
     }
@@ -49,33 +49,33 @@ class StudySauceUITests: XCTestCase {
         app.buttons["gray Study packs icon with cle"].tap()
         
         // wait for loading to disappear
-        expectationForPredicate(NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWithObject: app.staticTexts["Loading..."], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWith: app.staticTexts["Loading..."], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
-        expectationForPredicate(NSPredicate(format: "count>0"), evaluatedWithObject: app.tables.cells, handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "count>0"), evaluatedWith: app.tables.cells, handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
-        app.tables.elementBoundByIndex(0).scrollToElement(app.staticTexts["Math facts - 1"])
-        expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: app.staticTexts["Math facts - 1"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        app.tables.element(boundBy: 0).scrollToElement(app.staticTexts["Math facts - 1"])
+        expectation(for: NSPredicate(format: "hittable=TRUE"), evaluatedWith: app.staticTexts["Math facts - 1"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         app.staticTexts["Math facts - 1"].tap()
         
         // wait for the card to show up
-        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["pageCount"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.staticTexts["pageCount"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
-        let counts = app.staticTexts["pageCount"].label.componentsSeparatedByString(" of ")
+        let counts = app.staticTexts["pageCount"].label.components(separatedBy: " of ")
         let count = Int(counts[1])!
         let current = Int(counts[0])! - 1
         while current < count {
             let page = app.staticTexts["\(current+1) of \(count)"]
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             app.textFields["fillblank"].tap()
             app.textFields["fillblank"].tap()
-            expectationForPredicate(NSPredicate(format: "hittable==true"), evaluatedWithObject: app.buttons["Done"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "hittable==true"), evaluatedWith: app.buttons["Done"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             // tap all number keys
             app.buttons["0"].tap()
@@ -91,15 +91,15 @@ class StudySauceUITests: XCTestCase {
             app.buttons["Done"].tap()
             
             // if it is wrong, click to the next answer
-            expectationForPredicate(NSPredicate(format: "ANY exists=TRUE"), evaluatedWithObject: [
+            expectation(for: NSPredicate(format: "ANY exists=TRUE"), evaluatedWith: [
                 app.textViews["response"], app.textViews["prompt"], app.staticTexts["percent"]], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             if app.textViews["response"].exists {
                 app.textViews["response"].tap()
             }
             
-            expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             break
         }
@@ -127,35 +127,35 @@ class StudySauceUITests: XCTestCase {
         let app = XCUIApplication()
         
         // wait for the homescreen to load
-        expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.activityIndicators.elementBoundByIndex(0), handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.activityIndicators.element(boundBy: 0), handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
         
-        if app.buttons["Log in"].exists && app.buttons["Log in"].hittable {
+        if app.buttons["Log in"].exists && app.buttons["Log in"].isHittable {
             self.testLogin()
         }
         else if app.otherElements["PopoverDismissRegion"].exists {
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.otherElements["users"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.otherElements["users"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             app.buttons["username"].tap()
             
-            expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.otherElements["users"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.otherElements["users"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         }
         else if app.staticTexts["Take the guesswork out of studying!"].exists {
             self.testTutorial()
         }
-        else if app.buttons["shuffle"].exists && app.buttons["shuffle"].hittable  {
+        else if app.buttons["shuffle"].exists && app.buttons["shuffle"].isHittable  {
             // already on home do nothing
-            if app.otherElements["PopoverDismissRegion"].exists && app.otherElements["PopoverDismissRegion"].hittable {
+            if app.otherElements["PopoverDismissRegion"].exists && app.otherElements["PopoverDismissRegion"].isHittable {
                 app.otherElements["PopoverDismissRegion"].tap()
             }
             
         }
-        else if app.buttons["BackButton"].exists && app.buttons["BackButton"].hittable {
-            expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: app.buttons["BackButton"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        else if app.buttons["BackButton"].exists && app.buttons["BackButton"].isHittable {
+            expectation(for: NSPredicate(format: "hittable=TRUE"), evaluatedWith: app.buttons["BackButton"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             app.buttons["BackButton"].tap()
             self.testReturnToHome()
@@ -167,8 +167,8 @@ class StudySauceUITests: XCTestCase {
         }
         
         // wait for loading to disappear
-        expectationForPredicate(NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWithObject: app.staticTexts["Loading..."], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWith: app.staticTexts["Loading..."], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
     }
     
@@ -179,44 +179,44 @@ class StudySauceUITests: XCTestCase {
         app.buttons["gray Study packs icon with cle"].tap()
 
         // wait for loading to disappear
-        expectationForPredicate(NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWithObject: app.staticTexts["Loading..."], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists==0 OR hittable=FALSE"), evaluatedWith: app.staticTexts["Loading..."], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
 
-        expectationForPredicate(NSPredicate(format: "count>0"), evaluatedWithObject: app.tables.cells, handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "count>0"), evaluatedWith: app.tables.cells, handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
 
         let total = app.cells.count
         let choose = UInt(arc4random_uniform(UInt32(total)))
-        let row = app.tables.cells.elementBoundByIndex(choose).staticTexts.element
-        app.tables.elementBoundByIndex(0).scrollToElement(app.tables.cells.elementBoundByIndex(choose))
-        expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: row, handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        let row = app.tables.cells.element(boundBy: choose).staticTexts.element
+        app.tables.element(boundBy: 0).scrollToElement(app.tables.cells.element(boundBy: choose))
+        expectation(for: NSPredicate(format: "hittable=TRUE"), evaluatedWith: row, handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         row.tap()
         
         // wait for the card to show up
-        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["pageCount"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.staticTexts["pageCount"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
-        let counts = app.staticTexts["pageCount"].label.componentsSeparatedByString(" of ")
+        let counts = app.staticTexts["pageCount"].label.components(separatedBy: " of ")
         let count = Int(counts[1])!
         var current = Int(counts[0])! - 1
         while current < count {
             let page = app.staticTexts["\(current+1) of \(count)"]
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             self.testAnswerCard()
             
             // if it is wrong, click to the next answer
-            expectationForPredicate(NSPredicate(format: "ANY exists=TRUE"), evaluatedWithObject: [
+            expectation(for: NSPredicate(format: "ANY exists=TRUE"), evaluatedWith: [
                 app.textViews["response"], app.textViews["prompt"], app.staticTexts["percent"]], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             if app.textViews["response"].exists {
                 app.textViews["response"].tap()
             }
             
-            expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         
             current += 1
         }
@@ -231,8 +231,8 @@ class StudySauceUITests: XCTestCase {
         if app.textFields["fillblank"].exists {
             app.textFields["fillblank"].tap()
             app.textFields["fillblank"].tap()
-            expectationForPredicate(NSPredicate(format: "hittable==true"), evaluatedWithObject: app.buttons["Done"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "hittable==true"), evaluatedWith: app.buttons["Done"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             //UIPasteb2oard.generalPasteboard().string = "Hello World!"
             //textField.pressForDuration(1.1)
             //app.menuItems["Paste"].tap()
@@ -270,9 +270,9 @@ class StudySauceUITests: XCTestCase {
         
         // get the total card count from the screen
         let total = app.staticTexts["totalCount"]
-        expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: total, handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
-        var count = Int(total.label.stringByReplacingOccurrencesOfString(" cards", withString: ""))!
+        expectation(for: NSPredicate(format: "hittable=TRUE"), evaluatedWith: total, handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
+        var count = Int(total.label.replacingOccurrences(of: " cards", with: ""))!
         
         if count == 0 {
             return
@@ -280,26 +280,26 @@ class StudySauceUITests: XCTestCase {
         
         // click big shuffle button
         let shuffle = app.buttons["shuffle"]
-        expectationForPredicate(NSPredicate(format: "hittable=TRUE"), evaluatedWithObject: shuffle, handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        expectation(for: NSPredicate(format: "hittable=TRUE"), evaluatedWith: shuffle, handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         shuffle.tap()
         
-        let counts = app.staticTexts["pageCount"].label.componentsSeparatedByString(" of ")
+        let counts = app.staticTexts["pageCount"].label.components(separatedBy: " of ")
         count = Int(counts[1])!
         var current = Int(counts[0])! - 1
         var correct = 0
         var wrong = 0
         while current < count {
             let page = app.staticTexts["\(current+1) of \(count)"]
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             self.testAnswerCard()
             
             // if it is wrong, click to the next answer
-            expectationForPredicate(NSPredicate(format: "ANY exists=TRUE"), evaluatedWithObject: [
+            expectation(for: NSPredicate(format: "ANY exists=TRUE"), evaluatedWith: [
                 app.textViews["response"], app.textViews["prompt"], app.staticTexts["percent"]], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             if app.textViews["response"].exists {
                 wrong += 1
                 app.textViews["response"].tap()
@@ -308,8 +308,8 @@ class StudySauceUITests: XCTestCase {
                 correct += 1
             }
             
-            expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: page, handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: page, handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             current += 1
         }
@@ -317,8 +317,8 @@ class StudySauceUITests: XCTestCase {
         
         // go back to home screen
         let percent = Int32(round(Double(correct) / Double(correct + wrong) * 100.0))
-        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.staticTexts["\(percent)%"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.staticTexts["\(percent)%"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         
         self.testReturnToHome()
     }
@@ -326,46 +326,46 @@ class StudySauceUITests: XCTestCase {
     func testSwitchUsers() {
         
         let app = XCUIApplication()
-        expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.buttons["username"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.buttons["username"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         app.buttons["username"].forceTapElement()
 
         let children = app.otherElements["users"].cells.count - 2
         let choose = UInt(arc4random_uniform(UInt32(children)) + 1)
-        app.otherElements["users"].cells.elementBoundByIndex(choose).tap()
+        app.otherElements["users"].cells.element(boundBy: choose).tap()
         
-        expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.otherElements["users"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.otherElements["users"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
         
         self.testReturnToHome()
     }
     
-    private static func getTime() -> String {
-        let locale = NSLocale(localeIdentifier: "en_US")
-        let timeZone = NSTimeZone(name: "GMT")
-        let dateFormatter = NSDateFormatter()
+    fileprivate static func getTime() -> String {
+        let locale = Locale(identifier: "en_US")
+        let timeZone = TimeZone(identifier: "GMT")
+        let dateFormatter = DateFormatter()
         dateFormatter.locale = locale //need locale for some iOS 9 verision, will not select correct default locale
         dateFormatter.timeZone = timeZone
         dateFormatter.dateFormat = "ddMMHHmm"
-        return dateFormatter.stringFromDate(NSDate())
+        return dateFormatter.string(from: Date())
     }
     
     func testRegistration() {
         let app = XCUIApplication()
         
         if app.buttons["shuffle"].exists {
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.buttons["username"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.buttons["username"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             app.buttons["username"].forceTapElement()
             
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.otherElements["users"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.otherElements["users"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             app.staticTexts["Logout"].forceTapElement()
         }
         
-        expectationForPredicate(NSPredicate(format: "exists=TRUE AND hittable=TRUE"), evaluatedWithObject: app.buttons["Sign up"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait, handler: nil)
+        expectation(for: NSPredicate(format: "exists=TRUE AND hittable=TRUE"), evaluatedWith: app.buttons["Sign up"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait, handler: nil)
         app.buttons["Sign up"].tap()
         
         let choose = Int(arc4random_uniform(UInt32(StudySauceUITests.registrationCodes.count)))
@@ -373,8 +373,8 @@ class StudySauceUITests: XCTestCase {
         app.textFields["Enter code to continue"].typeText(StudySauceUITests.registrationCodes[choose])
         app.buttons["invite"].tap()
         
-        expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.buttons["Next"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.buttons["Next"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
         app.textFields["Parent first name"].tap()
         app.textFields["Parent first name"].typeText("Test First")
@@ -392,8 +392,8 @@ class StudySauceUITests: XCTestCase {
         
         app.buttons["Register"].tap()
         
-        expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.buttons["Register"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.buttons["Register"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         
         StudySauceUITests.logins["test\(StudySauceUITests.getTime())@studysauce.com"] = "password"
         self.testReturnToHome()
@@ -402,9 +402,9 @@ class StudySauceUITests: XCTestCase {
     func testTutorial() {
         let app = XCUIApplication()
         if app.staticTexts["Take the guesswork out of studying!"].exists {
-            app.pageIndicators.elementBoundByIndex(0).tap()
-            app.pageIndicators.elementBoundByIndex(0).tap()
-            app.pageIndicators.elementBoundByIndex(0).tap()
+            app.pageIndicators.element(boundBy: 0).tap()
+            app.pageIndicators.element(boundBy: 0).tap()
+            app.pageIndicators.element(boundBy: 0).tap()
         }
         self.testReturnToHome()
     }
@@ -413,18 +413,18 @@ class StudySauceUITests: XCTestCase {
         let app = XCUIApplication()
         
         if app.buttons["shuffle"].exists {
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.buttons["username"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.buttons["username"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             app.buttons["username"].forceTapElement()
             
-            expectationForPredicate(NSPredicate(format: "exists=TRUE"), evaluatedWithObject: app.otherElements["users"], handler: nil)
-            waitForExpectationsWithTimeout(StudySauceUITests.shortWait) {_ in}
+            expectation(for: NSPredicate(format: "exists=TRUE"), evaluatedWith: app.otherElements["users"], handler: nil)
+            waitForExpectations(timeout: StudySauceUITests.shortWait) {_ in}
             
             app.staticTexts["Logout"].forceTapElement()
         }
         
-        expectationForPredicate(NSPredicate(format: "exists=TRUE AND hittable=TRUE"), evaluatedWithObject: app.buttons["Log in"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait, handler: nil)
+        expectation(for: NSPredicate(format: "exists=TRUE AND hittable=TRUE"), evaluatedWith: app.buttons["Log in"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait, handler: nil)
         app.buttons["Log in"].tap()
         
         // randomly select an account to use
@@ -434,15 +434,15 @@ class StudySauceUITests: XCTestCase {
         app.textFields["Email address"].tap()
         app.textFields["Email address"].typeText(email)
         app.secureTextFields["Password"].tap()
-        UIPasteboard.generalPasteboard().string = password
-        app.secureTextFields["Password"].pressForDuration(1.1)
+        UIPasteboard.general.string = password
+        app.secureTextFields["Password"].press(forDuration: 1.1)
         app.menuItems["Paste"].tap()
 
         
         app.buttons["Log in"].tap()
         
-        expectationForPredicate(NSPredicate(format: "exists=FALSE"), evaluatedWithObject: app.buttons["Log in"], handler: nil)
-        waitForExpectationsWithTimeout(StudySauceUITests.longWait) {_ in}
+        expectation(for: NSPredicate(format: "exists=FALSE"), evaluatedWith: app.buttons["Log in"], handler: nil)
+        waitForExpectations(timeout: StudySauceUITests.longWait) {_ in}
         self.testReturnToHome()
     }
     
@@ -455,24 +455,24 @@ class StudySauceUITests: XCTestCase {
 /*Sends a tap event to a hittable/unhittable element.*/
 extension XCUIElement {
     func forceTapElement() {
-        if self.hittable {
+        if self.isHittable {
             self.tap()
         }
         else {
-            let coordinate: XCUICoordinate = self.coordinateWithNormalizedOffset(CGVectorMake(0.0, 0.0))
+            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx: 0.0, dy: 0.0))
             coordinate.tap()
         }
     }
     
-    func scrollToElement(element: XCUIElement) {
+    func scrollToElement(_ element: XCUIElement) {
         while !element.visible() {
             swipeUp()
         }
     }
     
     func visible() -> Bool {
-        guard self.exists && !CGRectIsEmpty(self.frame) else { return false }
-        return CGRectContainsRect(XCUIApplication().windows.elementBoundByIndex(0).frame, self.frame)
+        guard self.exists && !self.frame.isEmpty else { return false }
+        return XCUIApplication().windows.element(boundBy: 0).frame.contains(self.frame)
     }
     
 }

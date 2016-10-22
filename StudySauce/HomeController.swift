@@ -22,7 +22,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     var normalImage:UIImage!
     var selectedImage:UIImage!
-    private var taskManager:NSTimer? = nil
+    fileprivate var taskManager:Timer? = nil
     var checking = false
     var selectedPack: Pack? = nil
     
@@ -31,16 +31,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var userButton: UIButton? = nil
     @IBOutlet weak var cartCount: UILabel? = nil
         
-    @IBAction func monkeyClick(sender: UIButton) {
+    @IBAction func monkeyClick(_ sender: UIButton) {
         if self.hasRetention {
-            self.monkeyButton?.highlighted = true
+            self.monkeyButton?.isHighlighted = true
             self.hasRetention = false
             self.selectedPack = nil
-            self.performSegueWithIdentifier("card", sender: self)
+            self.performSegue(withIdentifier: "card", sender: self)
         }
     }
     
-    @IBAction func returnToHome(segue: UIStoryboardSegue) {
+    @IBAction func returnToHome(_ segue: UIStoryboardSegue) {
         self.viewDidAppear(true)
     }
     
@@ -64,42 +64,42 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     */
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         // Return no adaptive presentation style, use default presentation behaviour
-        return .None
+        return .none
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //super.prepareForSegue(segue, sender: sender)
         
         if segue.identifier == "switch" {
             //if segue.destinationViewController.popoverPresentationController == nil {
             //    segue.destinationViewController.popoverPresentationController = UIPopoverPresentationController(segue.destinationViewController, self)
             //}
-            segue.destinationViewController.transitioningDelegate = CardSegue.transitionManager
-            segue.sourceViewController.transitioningDelegate = CardSegue.transitionManager
-            segue.destinationViewController.popoverPresentationController!.delegate = self
-            segue.destinationViewController.popoverPresentationController!.sourceView = self.userButton!.titleLabel!
-            segue.destinationViewController.popoverPresentationController!.sourceRect = self.userButton!.titleLabel!.bounds
+            segue.destination.transitioningDelegate = CardSegue.transitionManager
+            segue.source.transitioningDelegate = CardSegue.transitionManager
+            segue.destination.popoverPresentationController!.delegate = self
+            segue.destination.popoverPresentationController!.sourceView = self.userButton!.titleLabel!
+            segue.destination.popoverPresentationController!.sourceRect = self.userButton!.titleLabel!.bounds
             if (self.view! ~> UIVisualEffectView.self).count == 0 {
                 let blur = AppDelegate.createBlurView(self.userButton!)
                 blur.alpha = 1
-                blur.superview!.bringSubviewToFront(blur)
-                self.view.bringSubviewToFront(self.userButton!)
+                blur.superview!.bringSubview(toFront: blur)
+                self.view.bringSubview(toFront: self.userButton!)
             }
         }
         
-        if let vc = segue.destinationViewController as? CardController {
+        if let vc = segue.destination as? CardController {
             vc.isRetention = true
             vc.selectedPack = self.selectedPack
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if let blur = (self.view ~> UIVisualEffectView.self).first {
-            UIView.animateWithDuration(0.15, animations: {
+            UIView.animate(withDuration: 0.15, animations: {
                 blur.alpha = 0
                 }, completion: {_ in
                     blur.removeFromSuperview()
@@ -111,16 +111,16 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if self.tableView != nil {
                 self.packRefresher?.invalidate()
-                self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: false)
+                self.packRefresher = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: false)
             }
         }
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return self.view.subviews.count > 1
     }
     
-    @IBAction func userClick(sender: UIButton) {
+    @IBAction func userClick(_ sender: UIButton) {
         /*
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         alert.addAction(UIAlertAction(title: "Switch User", style: UIAlertActionStyle.Default, handler: { (a: UIAlertAction) -> Void in
@@ -135,7 +135,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.presentViewController(alert, animated: true) { () -> Void in }
         */
         self.stopTasks()
-        self.performSegueWithIdentifier("switch", sender: self)
+        self.performSegue(withIdentifier: "switch", sender: self)
     }
     
     var packsLoaded = false
@@ -155,36 +155,36 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         */
         if cartCount != nil {
             if AppDelegate.cart.count == 0 {
-                cartCount!.hidden = true
+                cartCount!.isHidden = true
             }
             else {
                 cartCount!.text = "\(AppDelegate.cart.count)"
-                cartCount?.hidden = false
+                cartCount?.isHidden = false
             }
         }
         
-        self.monkeyButton?.setImage(UIImage(named: "shuffle_gray"), forState: .Disabled)
-        self.monkeyButton?.setImage(UIImage(named: "shuffle_depressed"), forState: .Highlighted)
+        self.monkeyButton?.setImage(UIImage(named: "shuffle_gray"), for: .disabled)
+        self.monkeyButton?.setImage(UIImage(named: "shuffle_depressed"), for: .highlighted)
         if AppDelegate.getUser() == nil {
             return
         }
         
         if self.userButton != nil {
-            self.userButton?.setTitle(AppDelegate.getUser()?.first, forState: .Normal)
+            self.userButton?.setTitle(AppDelegate.getUser()?.first, for: UIControlState())
         }
         
         if self.tableView != nil {
             
             if self.taskManager == nil {
-                self.taskManager = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: true)
+                self.taskManager = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(HomeController.homeSync), userInfo: nil, repeats: true)
             }
         }
     }
     
-    var packRefresher: NSTimer? = nil
+    var packRefresher: Timer? = nil
     
     func homeSync() {
-        if AppDelegate.visibleViewController() != self && AppDelegate.visibleViewController() != self.parentViewController {
+        if AppDelegate.visibleViewController() != self && AppDelegate.visibleViewController() != self.parent {
             return
         }
         
@@ -199,32 +199,32 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.packsLoaded = true
                 doMain {
                     self.packRefresher?.invalidate()
-                    self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+                    self.packRefresher = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
                 }
             }
             }, downloadedHandler: {p in
                 doMain {
                     self.packRefresher?.invalidate()
-                    self.packRefresher = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
+                    self.packRefresher = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(HomeController.getPacks), userInfo: nil, repeats: false)
                 }
         })
     }
     
-    internal static func syncResponses(pack: Pack? = nil, _ done: () -> Void = {}) {
+    internal static func syncResponses(_ pack: Pack? = nil, _ done: @escaping () -> Void = {}) {
         let responses = AppDelegate.getPredicate(Response.self, NSPredicate(format: "id==0 AND user==%@", AppDelegate.getUser()!))
         var index = 0
-        var data = Dictionary<String, AnyObject?>()
-        data["version"] = 2
+        var data = Dictionary<String, AnyObject>()
+        data["version"] = 2 as AnyObject
         for response in responses {
             let correct = response.correct != nil && response.correct == 1
             let answer = response.answer != nil ? response.answer!.id! : 0
             let created = response.created!.toRFC()
             let cardId = response.card!.id!
-            data["responses[\(index)][value]"] = response.value
-            data["responses[\(index)][card]"] = cardId
-            data["responses[\(index)][correct]"] = correct
-            data["responses[\(index)][answer]"] = answer
-            data["responses[\(index)][created]"] = created
+            data["responses[\(index)][value]"] = response.value as AnyObject
+            data["responses[\(index)][card]"] = cardId as AnyObject
+            data["responses[\(index)][correct]"] = correct as AnyObject
+            data["responses[\(index)][answer]"] = answer as AnyObject
+            data["responses[\(index)][created]"] = created as AnyObject
             index += 1
         }
         if pack != nil {
@@ -270,7 +270,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.stopTasks()
     }
     
@@ -285,10 +285,10 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             (vc as? HomeController)?.packRefresher?.invalidate()
             (vc as? HomeController)?.packRefresher = nil
         }
-        (self.parentViewController as? HomeController)?.taskManager?.invalidate()
-        (self.parentViewController as? HomeController)?.taskManager = nil
-        (self.parentViewController as? HomeController)?.packRefresher?.invalidate()
-        (self.parentViewController as? HomeController)?.packRefresher = nil
+        (self.parent as? HomeController)?.taskManager?.invalidate()
+        (self.parent as? HomeController)?.taskManager = nil
+        (self.parent as? HomeController)?.packRefresher?.invalidate()
+        (self.parent as? HomeController)?.packRefresher = nil
     }
     
     func getPacks() {
@@ -297,7 +297,7 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    private func getPacksFromLocalStore()
+    fileprivate func getPacksFromLocalStore()
     {
         if AppDelegate.getUser() == nil  || !(AppDelegate.visibleViewController() is HomeController) {
             return
@@ -322,33 +322,33 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.hasDownloading = allPacks.filter({$0.isDownloading}).count > 0
             self.packs = packs
             print("Updating home screen")
-            (self.parentViewController as? HomeController)?.monkeyButton?.enabled = self.hasRetention
+            (self.parent as? HomeController)?.monkeyButton?.isEnabled = self.hasRetention
             self.cardCount!.text = total
             self.tableView!.reloadData()
         }
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if self.packs == nil || self.packs!.count == 0  {
             return saucyTheme.textSize * saucyTheme.lineHeight * 2
         }
         return saucyTheme.textSize * saucyTheme.lineHeight
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.packs == nil || self.packs!.count == 0  {
             return 1
         }
         return self.packs!.count
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if self.packs == nil || self.packs!.count == 0  {
             return
         }
-        if let home = self.parentViewController as? HomeController {
-            home.selectedPack = self.packs![indexPath.row]
-            home.performSegueWithIdentifier("card", sender: self)
+        if let home = self.parent as? HomeController {
+            home.selectedPack = self.packs![(indexPath as NSIndexPath).row]
+            home.performSegue(withIdentifier: "card", sender: self)
             home.checking = false
         }
     }
@@ -356,26 +356,26 @@ class HomeController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var hasPacks = false
     var hasRetention = false {
         didSet {
-            (self.parentViewController as? HomeController)?.hasRetention = self.hasRetention
+            (self.parent as? HomeController)?.hasRetention = self.hasRetention
         }
     }
     var hasDownloading = false
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if self.packs != nil && self.packsLoaded && !self.hasPacks {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoPacks", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoPacks", for: indexPath)
             return cell
         }
         else if self.packs == nil || (self.hasDownloading && self.packs!.count == 0) {
-            return tableView.dequeueReusableCellWithIdentifier("Loading", forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "Loading", for: indexPath)
         }
         else if !self.hasRetention && !self.hasDownloading {
-            let cell = tableView.dequeueReusableCellWithIdentifier("EmptyCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyCell", for: indexPath)
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! PackRetentionCell
-            let object = self.packs![indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! PackRetentionCell
+            let object = self.packs![(indexPath as NSIndexPath).row]
             cell.configure(object)
             return cell
         }

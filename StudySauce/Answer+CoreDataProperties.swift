@@ -16,9 +16,9 @@ extension Answer {
 
     @NSManaged var content: String?
     @NSManaged var correct: NSNumber?
-    @NSManaged var created: NSDate?
+    @NSManaged var created: Date?
     @NSManaged var id: NSNumber?
-    @NSManaged var modified: NSDate?
+    @NSManaged var modified: Date?
     @NSManaged var response: String?
     @NSManaged var value: String?
     @NSManaged var card: Card?

@@ -15,7 +15,7 @@ class CardResponseController : CardPromptController {
     @IBOutlet weak var promptHeight: NSLayoutConstraint!
     @IBOutlet weak var nextLabel: UILabel!
     
-    override func alignPlay(v: UITextView) {
+    override func alignPlay(_ v: UITextView) {
         
         if self.isImage || self.isAudio {
             self.promptHeight.constant = self.view.bounds.height * 0.4
@@ -32,17 +32,17 @@ class CardResponseController : CardPromptController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
-        if self.parentViewController is CardSelfController {
-            self.nextLabel.hidden = true
+    override func viewWillAppear(_ animated: Bool) {
+        if self.parent is CardSelfController {
+            self.nextLabel.isHidden = true
         }
         
-        self.response.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New, context: nil)
+        self.response.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
         
         super.viewWillAppear(animated)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.response.removeObserver(self, forKeyPath: "contentSize")
     }
@@ -67,8 +67,8 @@ class CardResponseController : CardPromptController {
             }
         }
         
-        let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpressionOptions.CaseInsensitive)
-        response = lines!.stringByReplacingMatchesInString(response, options: [], range: NSMakeRange(0, response.characters.count), withTemplate: "\n")
+        let lines = try? NSRegularExpression(pattern: "\\\\n(\\\\r)?", options: NSRegularExpression.Options.caseInsensitive)
+        response = lines!.stringByReplacingMatches(in: response, options: [], range: NSMakeRange(0, response.characters.count), withTemplate: "\n")
         
         self.response!.text = response
     }

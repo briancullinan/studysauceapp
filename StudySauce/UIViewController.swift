@@ -9,6 +9,26 @@
 import Foundation
 import UIKit
 import CoreData
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 private struct AssociatedKeys {
     static var orientation = "UIView_Orientation"
@@ -22,7 +42,7 @@ extension UIViewController {
             name = self.restorationIdentifier!
         }
         else {
-            name = String(self.self)
+            name = String(describing: self.self)
         }
         return name
     }
@@ -50,18 +70,18 @@ extension UIViewController {
         return self.orientation
     }
 
-    func canPerformSegueWithIdentifier(identifier: NSString) -> Bool {
-        let templates = self.valueForKey("storyboardSegueTemplates") as? NSArray
+    func canPerformSegueWithIdentifier(_ identifier: NSString) -> Bool {
+        let templates = self.value(forKey: "storyboardSegueTemplates") as? NSArray
         let predicate:NSPredicate = NSPredicate(format: "identifier=%@", identifier)
         
-        let filteredtemplates = templates?.filteredArrayUsingPredicate(predicate)
+        let filteredtemplates = templates?.filtered(using: predicate)
         return (filteredtemplates?.count>0)
     }
     
     
         
-    func showDialog(message: String?, _ button: String?, click: (() -> Bool)? = nil, _ done: (() -> Void)? = nil) -> DialogController {
-        let dialog = self.storyboard!.instantiateViewControllerWithIdentifier("Dialog") as! DialogController
+    func showDialog(_ message: String?, _ button: String?, click: (() -> Bool)? = nil, _ done: (() -> Void)? = nil) -> DialogController {
+        let dialog = self.storyboard!.instantiateViewController(withIdentifier: "Dialog") as! DialogController
         dialog.message = message
         dialog.button = button
         if click != nil {
@@ -70,21 +90,21 @@ extension UIViewController {
         if done != nil {
             dialog.done = done!
         }
-        dialog.modalPresentationStyle = .OverCurrentContext
+        dialog.modalPresentationStyle = .overCurrentContext
         self.transitioningDelegate = CardSegue.transitionManager
         dialog.transitioningDelegate = CardSegue.transitionManager
         doMain {
-            self.presentViewController(dialog, animated: true, completion: nil)
+            self.present(dialog, animated: true, completion: nil)
         }
         return dialog
     }
     
-    func showNoConnectionDialog(done: () -> Void) {
+    func showNoConnectionDialog(_ done: @escaping () -> Void) {
         if AppDelegate.isConnectedToNetwork() {
             done()
         }
         else {
-            var timer: NSTimer? = nil
+            var timer: Timer? = nil
             let dialog = self.showDialog(NSLocalizedString("No internet connection", comment: "Message when internet connection is needed but not available"), NSLocalizedString("Try again", comment: "Dismiss no internet connection and try again"), click: {
                 let result = AppDelegate.isConnectedToNetwork()
                 if result {
@@ -92,7 +112,7 @@ extension UIViewController {
                 }
                 return result
             }, done)
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: dialog, selector: Selector("done"), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: dialog, selector: #selector(getter: DialogController.done), userInfo: nil, repeats: true)
         }
     }
 }

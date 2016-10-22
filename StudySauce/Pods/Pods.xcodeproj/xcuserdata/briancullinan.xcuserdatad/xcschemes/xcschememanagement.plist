@@ -8,26 +8,62 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>IQKeyboardManagerSwift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-StudySauce.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>Stripe.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1520003FEBEC114D6C84F832AFEDB994</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>60ABC9DC3A70C03EBE1B005B68ACA608</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>74F35DE2DB84A717AD37FC2E878613D2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>82CF2D90F51EE8067A30C6531EDAF598</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9D32BA9C93551E37E9EEE3AD8FB35CF5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C8C1EC5EAD592489B51A6E9023675946</key>
 		<dict>
 			<key>primary</key>
 			<true/>

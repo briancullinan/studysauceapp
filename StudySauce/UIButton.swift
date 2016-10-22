@@ -11,16 +11,16 @@ import UIKit
 
 extension UIButton {
     
-    override func setFontName(name: String) {
+    override func setFontName(_ name: String) {
         self.titleLabel!.font = UIFont(name: name, size: self.titleLabel!.font.pointSize ?? 0.0)
     }
     
-    override func setFontSize(size: CGFloat) {
+    override func setFontSize(_ size: CGFloat) {
         self.titleLabel!.font = UIFont(name: self.titleLabel!.font.familyName ?? "", size: size)
     }
 
-    override func setFontColor(color: UIColor) {
-        self.setTitleColor(color, forState: UIControlState.Normal)
+    override func setFontColor(_ color: UIColor) {
+        self.setTitleColor(color, for: UIControlState())
         self.titleLabel!.textColor = color
     }
     

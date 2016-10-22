@@ -11,9 +11,9 @@ import UIKit
 
 class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, UIViewControllerTransitioningDelegate, UIGestureRecognizerDelegate {
     
-    private var presenting = false
-    private var interactive = false
-    private var flashView: UITextView? = nil
+    fileprivate var presenting = false
+    fileprivate var interactive = false
+    fileprivate var flashView: UITextView? = nil
     var panGesture: UIPanGestureRecognizer? = nil
     var tap: UITapGestureRecognizer? = nil
     
@@ -37,8 +37,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         }
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
-        AppDelegate.lastTouch = NSDate()
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        AppDelegate.lastTouch = Date()
         
         if touch.view is UIButton {
             return false
@@ -50,8 +50,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             || vc.canPerformSegueWithIdentifier("last")
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("next") == true
             || (vc as? CardController)?.subview?.canPerformSegueWithIdentifier("last") == true
-            || vc.respondsToSelector(Selector("lastClick"))
-            || vc.respondsToSelector(Selector("nextClick"))
+            || vc.responds(to: Selector("lastClick"))
+            || vc.responds(to: Selector("nextClick"))
         {
             if !self.transitioning {
                 return true
@@ -60,7 +60,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         return false
     }
     
-    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
@@ -78,8 +78,8 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     */
     
-    func handleOnstageTap(tap: UITapGestureRecognizer) {
-        NSTimer.scheduledTimerWithTimeInterval(0.03, target: self, selector: #selector(CardTransitionManager.doNextTap), userInfo: nil, repeats: false)
+    func handleOnstageTap(_ tap: UITapGestureRecognizer) {
+        Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(CardTransitionManager.doNextTap), userInfo: nil, repeats: false)
     }
     
     func doNextTap() {
@@ -87,61 +87,61 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             let vc = AppDelegate.visibleViewController()
             self.interactive = false
             
-            if vc.respondsToSelector(Selector("nextClick")) {
-                vc.performSelector(Selector("nextClick"))
+            if vc.responds(to: Selector("nextClick")) {
+                vc.perform(Selector("nextClick"))
             }
 
             if let card = vc as? CardController {
                 if card.subview?.canPerformSegueWithIdentifier("next") == true {
                     self.transitioning = true
-                    card.subview?.performSegueWithIdentifier("next", sender: self)
+                    card.subview?.performSegue(withIdentifier: "next", sender: self)
                 }
             }
             else {
                 if vc.canPerformSegueWithIdentifier("next") {
                     self.transitioning = true
-                    vc.performSegueWithIdentifier("next", sender: self)
+                    vc.performSegue(withIdentifier: "next", sender: self)
                 }
             }
         }
     }
     
-    func handleOnstagePan(pan: UIPanGestureRecognizer){
+    func handleOnstagePan(_ pan: UIPanGestureRecognizer){
         
         // how much distance have we panned in reference to the parent view?
-        let translation = pan.translationInView(pan.view!)
+        let translation = pan.translation(in: pan.view!)
         
         // do some math to translate this to a percentage based value
-        let d =  translation.x / CGRectGetWidth(pan.view!.bounds)
+        let d =  translation.x / pan.view!.bounds.width
         
         // now lets deal with different states that the gesture recognizer sends
         switch (pan.state) {
-        case UIGestureRecognizerState.Changed:
+        case UIGestureRecognizerState.changed:
             fallthrough
-        case UIGestureRecognizerState.Began:
+        case UIGestureRecognizerState.began:
             // set our interactive flag to true
             if d != 0 && !self.transitioning {
                 self.interactive = true
                 
                 let vc = AppDelegate.visibleViewController()
                 
-                if d > 0 && vc.respondsToSelector(Selector("lastClick")) {
-                    vc.performSelector(Selector("lastClick"))
+                if d > 0 && vc.responds(to: Selector("lastClick")) {
+                    vc.perform(Selector("lastClick"))
                 }
-                else if vc.respondsToSelector(Selector("nextClick")) {
-                    vc.performSelector(Selector("nextClick"))
+                else if vc.responds(to: Selector("nextClick")) {
+                    vc.perform(Selector("nextClick"))
                 }
 
                 if let card = vc as? CardController {
                     if card.subview?.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") == true {
                         self.transitioning = true
-                        card.subview?.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
+                        card.subview?.performSegue(withIdentifier: d > 0 ? "last" : "next", sender: self)
                     }
                 }
                 else {
                     if vc.canPerformSegueWithIdentifier(d > 0 ? "last" : "next") {
                         self.transitioning = true
-                        vc.performSegueWithIdentifier(d > 0 ? "last" : "next", sender: self)
+                        vc.performSegue(withIdentifier: d > 0 ? "last" : "next", sender: self)
                     }
                 }
                 
@@ -149,10 +149,10 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             // trigger the start of the transition
             else if d < -0.02 {
                 // update progress of the transition
-                self.updateInteractiveTransition(-d)
+                self.update(-d)
             }
             else if d > 0.02 {
-                self.updateInteractiveTransition(d)
+                self.update(d)
             }
             break
             
@@ -163,11 +163,11 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                 self.transitioning = false
                 if d < -0.1 || d > 0.2 {
                     // threshold crossed: finish
-                    self.finishInteractiveTransition()
+                    self.finish()
                 }
                 else {
                     // threshold not met: cancel
-                    self.cancelInteractiveTransition()
+                    self.cancel()
                 }
             }
         }
@@ -176,16 +176,16 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     // MARK: UIViewControllerAnimatedTransitioning protocol methods
     
     // animate a change from one viewcontroller to another
-    func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         self.transitioning = true
 
         // get reference to our fromView, toView and the container view that we should perform the transition in
-        let container = transitionContext.containerView()
+        let container = transitionContext.containerView
         
         // create a tuple of our screens
         let screens : (from:UIViewController, to:UIViewController) = (
-            transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!,
-            transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!)
+            transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!,
+            transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!)
         
         // assign references to our menu view controller and the 'bottom' view controller from the tuple
         // remember that our menuViewController will alternate between the from and to view controller depending if we're presenting or dismissing
@@ -193,13 +193,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         var last = !self.presenting ? screens.to : screens.from
         
         if next is DialogController || next is UserAddController || next is UserSwitchController || next is UserSelectController {
-            next.modalPresentationStyle = .OverCurrentContext
+            next.modalPresentationStyle = .overCurrentContext
         }
         
         // add the both views to our view controller
-        if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
-            container!.addSubview(last.view)
-            container!.addSubview(next.view)
+        if next.modalPresentationStyle == .overCurrentContext && last.modalPresentationStyle != .overCurrentContext {
+            container.addSubview(last.view)
+            container.addSubview(next.view)
             if self.presenting {
                 if !UIAccessibilityIsReduceTransparencyEnabled() {
                     if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
@@ -207,7 +207,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                 }
                 else {
-                    next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                    next.view.backgroundColor = UIColor.black.withAlphaComponent(0)
                 }
             }
             else {
@@ -217,26 +217,26 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
                     }
                 }
                 else {
-                    next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                    next.view.backgroundColor = UIColor.black.withAlphaComponent(0.85)
                 }
             }
         }
         else {
-            container!.addSubview(next.view)
-            container!.addSubview(last.view)
+            container.addSubview(next.view)
+            container.addSubview(last.view)
         }
-        last.view.transform = CGAffineTransformMakeTranslation(0, 0)
-        next.view.transform = CGAffineTransformMakeTranslation(0, 0)
-        next.view.bounds = UIScreen.mainScreen().bounds
-        last.view.bounds = UIScreen.mainScreen().bounds
+        last.view.transform = CGAffineTransform(translationX: 0, y: 0)
+        next.view.transform = CGAffineTransform(translationX: 0, y: 0)
+        next.view.bounds = UIScreen.main.bounds
+        last.view.bounds = UIScreen.main.bounds
         next.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
         last.view.frame = CGRect(x: 0, y: 0, width: next.view.bounds.width, height: next.view.bounds.height)
-        if last.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
-            last.orientation = UIApplication.sharedApplication().statusBarOrientation
+        if last.getOrientation() != UIApplication.shared.statusBarOrientation {
+            last.orientation = UIApplication.shared.statusBarOrientation
             AppDelegate.rerenderView(last.view)
         }
-        if next.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
-            next.orientation = UIApplication.sharedApplication().statusBarOrientation
+        if next.getOrientation() != UIApplication.shared.statusBarOrientation {
+            next.orientation = UIApplication.shared.statusBarOrientation
             AppDelegate.rerenderView(next.view)
         }
 
@@ -245,53 +245,53 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         
         // if both controllers are card controllers translate embeddedView and leave navigation in place
         if last is CardController && next is CardController {
-            origLast.view.backgroundColor = UIColor.clearColor()
+            origLast.view.backgroundColor = UIColor.clear
             last = (last as! CardController).subview!
             next = (next as! CardController).subview!
         }
         
         //self.setupShadow(container)
-        var moveNext = UIScreen.mainScreen().bounds.width
-        var moveLast = -UIScreen.mainScreen().bounds.width
+        var moveNext = UIScreen.main.bounds.width
+        var moveLast = -UIScreen.main.bounds.width
         
-        if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
+        if next.modalPresentationStyle == .overCurrentContext && last.modalPresentationStyle != .overCurrentContext {
             moveLast = 0.0
         }
         
         // if both controllers have nueral dark transition content
         let lastBackground = (last.view ~> (UIVisualEffectView.self ~* {$0.tag == 23})).first
         let nextBackground = (next.view ~> (UIVisualEffectView.self ~* {$0.tag == 23})).first
-        nextBackground?.transform = CGAffineTransformMakeTranslation(0, 0)
-        lastBackground?.transform = CGAffineTransformMakeTranslation(0, 0)
+        nextBackground?.transform = CGAffineTransform(translationX: 0, y: 0)
+        lastBackground?.transform = CGAffineTransform(translationX: 0, y: 0)
         if lastBackground != nil && nextBackground != nil {
             if self.presenting {
-                nextBackground!.hidden = false
-                lastBackground!.hidden = true
-                nextBackground!.transform = CGAffineTransformMakeTranslation(-moveNext, 0)
-                lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                nextBackground!.isHidden = false
+                lastBackground!.isHidden = true
+                nextBackground!.transform = CGAffineTransform(translationX: -moveNext, y: 0)
+                lastBackground!.transform = CGAffineTransform(translationX: 0, y: 0)
             }
             else {
-                nextBackground!.hidden = false
-                lastBackground!.hidden = true
-                nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
-                lastBackground!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
+                nextBackground!.isHidden = false
+                lastBackground!.isHidden = true
+                nextBackground!.transform = CGAffineTransform(translationX: 0, y: 0)
+                lastBackground!.transform = CGAffineTransform(translationX: -moveLast, y: 0)
             }
         }
 
         // prepare menu items to slide in
         if self.presenting {
-            last.view.transform = CGAffineTransformMakeTranslation(0, 0)
-            next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
+            last.view.transform = CGAffineTransform(translationX: 0, y: 0)
+            next.view.transform = CGAffineTransform(translationX: moveNext, y: 0)
         }
         else {
-            last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
-            next.view.transform = CGAffineTransformMakeTranslation(0, 0)
+            last.view.transform = CGAffineTransform(translationX: moveLast, y: 0)
+            next.view.transform = CGAffineTransform(translationX: 0, y: 0)
         }
-        if let vc = origLast as? CardController where vc.intermediateResponse != nil && (vc.subview as? CardResponseController == nil || (vc.subview as? CardSelfController)?.correctButton != nil) {
-            next.view.transform = CGAffineTransformMakeTranslation(0, 0)
-            last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+        if let vc = origLast as? CardController , vc.intermediateResponse != nil && (vc.subview as? CardResponseController == nil || (vc.subview as? CardSelfController)?.correctButton != nil) {
+            next.view.transform = CGAffineTransform(translationX: 0, y: 0)
+            last.view.transform = CGAffineTransform(translationX: moveLast, y: 0)
             moveNext = 0.0
-            self.setupCorrectFlash(vc.intermediateResponse!, container: container!)
+            self.setupCorrectFlash(vc.intermediateResponse!, container: container)
         }
         
         // move titles around
@@ -301,93 +301,93 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
         let nextButton = (next.view ~> (UIView.self ~* {$0.tag == 26}))
 
         var alwaysHidden = false
-        if nextTitle?.hidden == true {
+        if nextTitle?.isHidden == true {
             alwaysHidden = true
         }
         
-        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
-        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+        lastButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
+        nextButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
 
         if self.presenting {
             if lastButton.count > 0 && nextButton.count > 0 {
-                lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
-                nextButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveNext, 0)}
+                lastButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
+                nextButton.each {$0.transform = CGAffineTransform(translationX: -moveNext, y: 0)}
             }
             if lastTitle != nil && nextTitle != nil {
-                lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
+                lastTitle!.transform = CGAffineTransform(translationX: 0, y: 0)
                 lastTitle!.alpha = 1
             }
         }
         else {
             if lastButton.count > 0 && nextButton.count > 0 {
-                lastButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveLast, 0)}
-                nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+                lastButton.each {$0.transform = CGAffineTransform(translationX: -moveLast, y: 0)}
+                nextButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
             }
             if lastTitle != nil && nextTitle != nil {
-                lastTitle!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
+                lastTitle!.transform = CGAffineTransform(translationX: -moveLast, y: 0)
                 lastTitle!.alpha = 0
             }
         }
         
-        let duration = self.transitionDuration(transitionContext)
-        last.view.hidden = false
-        next.view.hidden = false
+        let duration = self.transitionDuration(using: transitionContext)
+        last.view.isHidden = false
+        next.view.isHidden = false
         
         // perform the animation!
-        UIView.animateWithDuration(duration, delay: 0.0, options: [], animations: {
+        UIView.animate(withDuration: duration, delay: 0.0, options: [], animations: {
             if self.flashView != nil {
                 self.flashView!.alpha = 0
             }
             else {
                 if self.presenting {
-                    next.view.transform = CGAffineTransformIdentity
-                    last.view.transform = CGAffineTransformMakeTranslation(moveLast, 0)
-                    if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
+                    next.view.transform = CGAffineTransform.identity
+                    last.view.transform = CGAffineTransform(translationX: moveLast, y: 0)
+                    if next.modalPresentationStyle == .overCurrentContext && last.modalPresentationStyle != .overCurrentContext {
                         if !UIAccessibilityIsReduceTransparencyEnabled() {
                             if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
                                 vis.alpha = 1
                             }
                         }
                         else {
-                            next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.85)
+                            next.view.backgroundColor = UIColor.black.withAlphaComponent(0.85)
                         }
                     }
                     if lastBackground != nil && nextBackground != nil {
-                        nextBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
-                        lastBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
+                        nextBackground!.transform = CGAffineTransform(translationX: 0, y: 0)
+                        lastBackground!.transform = CGAffineTransform(translationX: moveLast, y: 0)
                     }
                     if lastButton.count > 0 && nextButton.count > 0 {
-                        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveLast, 0)}
-                        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
+                        lastButton.each {$0.transform = CGAffineTransform(translationX: -moveLast, y: 0)}
+                        nextButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
                     }
                     if lastTitle != nil && nextTitle != nil {
-                        lastTitle!.transform = CGAffineTransformMakeTranslation(-moveLast, 0)
+                        lastTitle!.transform = CGAffineTransform(translationX: -moveLast, y: 0)
                         lastTitle!.alpha = 0
                     }
                 }
                 else {
-                    last.view.transform = CGAffineTransformMakeTranslation(0, 0)
-                    next.view.transform = CGAffineTransformMakeTranslation(moveNext, 0)
-                    if next.modalPresentationStyle == .OverCurrentContext && last.modalPresentationStyle != .OverCurrentContext {
+                    last.view.transform = CGAffineTransform(translationX: 0, y: 0)
+                    next.view.transform = CGAffineTransform(translationX: moveNext, y: 0)
+                    if next.modalPresentationStyle == .overCurrentContext && last.modalPresentationStyle != .overCurrentContext {
                         if !UIAccessibilityIsReduceTransparencyEnabled() {
                             if let vis = next.view.subviews.filter({$0 is UIVisualEffectView}).first {
                                 vis.alpha = 0
                             }
                         }
                         else {
-                            next.view.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0)
+                            next.view.backgroundColor = UIColor.black.withAlphaComponent(0)
                         }
                     }
                     if lastBackground != nil && nextBackground != nil {
-                        nextBackground!.transform = CGAffineTransformMakeTranslation(moveLast, 0)
-                        lastBackground!.transform = CGAffineTransformMakeTranslation(0, 0)
+                        nextBackground!.transform = CGAffineTransform(translationX: moveLast, y: 0)
+                        lastBackground!.transform = CGAffineTransform(translationX: 0, y: 0)
                     }
                     if lastButton.count > 0 && nextButton.count > 0 {
-                        lastButton.each {$0.transform = CGAffineTransformMakeTranslation(0, 0)}
-                        nextButton.each {$0.transform = CGAffineTransformMakeTranslation(-moveNext, 0)}
+                        lastButton.each {$0.transform = CGAffineTransform(translationX: 0, y: 0)}
+                        nextButton.each {$0.transform = CGAffineTransform(translationX: -moveNext, y: 0)}
                     }
                     if lastTitle != nil && nextTitle != nil {
-                        lastTitle!.transform = CGAffineTransformMakeTranslation(0, 0)
+                        lastTitle!.transform = CGAffineTransform(translationX: 0, y: 0)
                         lastTitle!.alpha = 1
                     }
                 }
@@ -395,54 +395,54 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
             
             }, completion: { finished in
                 self.flashView = nil
-                next.view.transform = CGAffineTransformIdentity
-                last.view.transform = CGAffineTransformIdentity
+                next.view.transform = CGAffineTransform.identity
+                last.view.transform = CGAffineTransform.identity
                 origLast.view.backgroundColor = origColor
                 if !alwaysHidden && nextTitle != nil {
-                    nextTitle!.hidden = false
+                    nextTitle!.isHidden = false
                 }
                 if lastBackground != nil && nextBackground != nil {
                     if self.presenting {
-                        nextBackground!.hidden = false
+                        nextBackground!.isHidden = false
                     }
                     else {
-                        lastBackground!.hidden = false
+                        lastBackground!.isHidden = false
                     }
                 }
                 AppDelegate.instance().window!.rootViewController!.view.layer.mask = nil
                 // tell our transitionContext object that we've finished animating
-                if(transitionContext.transitionWasCancelled()){
+                if(transitionContext.transitionWasCancelled){
                     
                     transitionContext.completeTransition(false)
                     if self.presenting {
-                        if last.modalPresentationStyle != .OverCurrentContext {
-                            next.view.hidden = true
+                        if last.modalPresentationStyle != .overCurrentContext {
+                            next.view.isHidden = true
                         }
                     }
                     else {
-                        if next.modalPresentationStyle != .OverCurrentContext {
-                            last.view.hidden = true
+                        if next.modalPresentationStyle != .overCurrentContext {
+                            last.view.isHidden = true
                         }
                     }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
-                    UIApplication.sharedApplication().keyWindow!.addSubview(screens.from.view)
+                    UIApplication.shared.keyWindow!.addSubview(screens.from.view)
                     
                 }
                 else {
                     
                     transitionContext.completeTransition(true)
                     if self.presenting {
-                        if next.modalPresentationStyle != .OverCurrentContext {
-                            last.view.hidden = true
+                        if next.modalPresentationStyle != .overCurrentContext {
+                            last.view.isHidden = true
                         }
                     }
                     else {
-                        if last.modalPresentationStyle != .OverCurrentContext {
-                            next.view.hidden = true
+                        if last.modalPresentationStyle != .overCurrentContext {
+                            next.view.isHidden = true
                         }
                     }
                     // bug: we have to manually add our 'to view' back http://openradar.appspot.com/radar?id=5320103646199808
-                    UIApplication.sharedApplication().keyWindow!.addSubview(screens.to.view)
+                    UIApplication.shared.keyWindow!.addSubview(screens.to.view)
                     
                 }
                 self.reversed = false
@@ -467,13 +467,13 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
 */
     
-    func setupCorrectFlash(correct: Bool, container: UIView) {
+    func setupCorrectFlash(_ correct: Bool, container: UIView) {
         self.flashView = UITextView()
         container.addSubview(self.flashView!)
         self.flashView!.alpha = 1.0
-        self.flashView!.textColor = UIColor.whiteColor()
-        self.flashView!.textAlignment = NSTextAlignment.Center
-        self.flashView!.font = UIFont.systemFontOfSize(250.0)
+        self.flashView!.textColor = UIColor.white
+        self.flashView!.textAlignment = NSTextAlignment.center
+        self.flashView!.font = UIFont.systemFont(ofSize: 250.0)
         self.flashView!.frame = CGRect(x: 0, y: 0, width: container.frame.width, height: container.frame.height)
         if correct {
             self.flashView!.text = "✔︎"
@@ -489,7 +489,7 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     }
     
     // return how many seconds the transiton animation will take
-    func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+    func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.5
     }
     
@@ -497,24 +497,24 @@ class CardTransitionManager: UIPercentDrivenInteractiveTransition, UIViewControl
     
     // return the animataor when presenting a viewcontroller
     // rememeber that an animator (or animation controller) is any object that aheres to the UIViewControllerAnimatedTransitioning protocol
-    func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = !self.reversed
         return self
     }
     
     // return the animator used when dismissing from a viewcontroller
-    func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         self.presenting = self.reversed
         return self
     }
     
-    func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         // if our interactive flag is true, return the transition manager object
         // otherwise return nil
         return self.interactive ? self : nil
     }
     
-    func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         return self.interactive ? self : nil
     }
     

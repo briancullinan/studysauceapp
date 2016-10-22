@@ -14,17 +14,17 @@ import CoreData
 
 extension Pack {
 
-    @NSManaged var active_from: NSDate?
-    @NSManaged var active_to: NSDate?
+    @NSManaged var active_from: Date?
+    @NSManaged var active_to: Date?
     @NSManaged var count: NSNumber?
-    @NSManaged var created: NSDate?
+    @NSManaged var created: Date?
     @NSManaged var creator: String?
     @NSManaged var desc: String?
     @NSManaged var downloads: NSNumber?
     @NSManaged var group: NSNumber?
     @NSManaged var id: NSNumber?
     @NSManaged var logo: String?
-    @NSManaged var modified: NSDate?
+    @NSManaged var modified: Date?
     @NSManaged var price: NSDecimalNumber?
     @NSManaged var priority: NSDecimalNumber?
     @NSManaged var properties: NSObject?

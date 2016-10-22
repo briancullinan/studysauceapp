@@ -9,6 +9,26 @@
 import Foundation
 import CoreData
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CardMultipleController: UIViewController {
 
@@ -19,18 +39,18 @@ class CardMultipleController: UIViewController {
     @IBOutlet weak var answer4: UIButton? = nil
     weak var card: Card? = nil
     
-    @IBAction func returnToMultiple(segue: UIStoryboardSegue) {
+    @IBAction func returnToMultiple(_ segue: UIStoryboardSegue) {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-        if let pvc = self.parentViewController as? CardController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let pvc = self.parent as? CardController {
             self.card = pvc.card
-            if let vc = segue.destinationViewController as? CardPromptController {
+            if let vc = segue.destination as? CardPromptController {
                 vc.card = self.card
             }
-            if let vc = segue.destinationViewController as? CardResponseController {
+            if let vc = segue.destination as? CardResponseController {
                 vc.card = self.card
             }
         }
@@ -38,33 +58,33 @@ class CardMultipleController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let pvc = self.parentViewController as? CardController {
+        if let pvc = self.parent as? CardController {
             self.card = pvc.card
             if self.answer1 != nil && self.card?.answers?.count > 0 {
                 self.answer1!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer1!.setTitle((self.card?.answers!.allObjects[0] as! Answer).value, forState: .Normal)
+                self.answer1!.setTitle((self.card?.answers!.allObjects[0] as! Answer).value, for: UIControlState())
             }
             if self.answer2 != nil && self.card?.answers?.count > 1 {
                 self.answer2!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer2!.setTitle((self.card?.answers!.allObjects[1] as! Answer).value, forState: .Normal)
+                self.answer2!.setTitle((self.card?.answers!.allObjects[1] as! Answer).value, for: UIControlState())
             }
             if self.answer3 != nil && self.card?.answers?.count > 2 {
                 self.answer3!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer3!.setTitle((self.card?.answers!.allObjects[2] as! Answer).value, forState: .Normal)
+                self.answer3!.setTitle((self.card?.answers!.allObjects[2] as! Answer).value, for: UIControlState())
             }
             if self.answer4 != nil && self.card?.answers?.count > 3 {
                 self.answer4!.titleLabel?.adjustsFontSizeToFitWidth = true
-                self.answer4!.setTitle((self.card?.answers!.allObjects[3] as! Answer).value, forState: .Normal)
+                self.answer4!.setTitle((self.card?.answers!.allObjects[3] as! Answer).value, for: UIControlState())
             }
         }
     }
     
-    func saveResponse(value: String) {
-        self.answer1?.enabled = false
-        self.answer2?.enabled = false
-        self.answer3?.enabled = false
-        self.answer4?.enabled = false
-        if let vc = self.parentViewController as? CardController {
+    func saveResponse(_ value: String) {
+        self.answer1?.isEnabled = false
+        self.answer2?.isEnabled = false
+        self.answer3?.isEnabled = false
+        self.answer4?.isEnabled = false
+        if let vc = self.parent as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)
                 for a in self.card!.answers!.allObjects as! [Answer] {
@@ -76,32 +96,32 @@ class CardMultipleController: UIViewController {
                 }
                 newResponse.value = value
                 newResponse.card = self.card
-                newResponse.created = NSDate()
+                newResponse.created = Date()
                 newResponse.user = AppDelegate.getUser()
                 AppDelegate.saveContext()
                 // store intermediate and don't call this until after the correct answer is shown
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    self.performSegueWithIdentifier("correct", sender: self)
+                    self.performSegue(withIdentifier: "correct", sender: self)
                 }
                 HomeController.syncResponses(self.card!.pack!)
             }
         }
     }
     
-    @IBAction func answer1Click(sender: UIButton) {
-        self.saveResponse(sender.titleForState(.Normal)!)
+    @IBAction func answer1Click(_ sender: UIButton) {
+        self.saveResponse(sender.title(for: UIControlState())!)
     }
     
-    @IBAction func answer2Click(sender: UIButton) {
-        self.saveResponse(sender.titleForState(.Normal)!)
+    @IBAction func answer2Click(_ sender: UIButton) {
+        self.saveResponse(sender.title(for: UIControlState())!)
     }
     
-    @IBAction func answer3Click(sender: UIButton) {
-        self.saveResponse(sender.titleForState(.Normal)!)
+    @IBAction func answer3Click(_ sender: UIButton) {
+        self.saveResponse(sender.title(for: UIControlState())!)
     }
     
-    @IBAction func answer4Click(sender: UIButton) {
-        self.saveResponse(sender.titleForState(.Normal)!)
+    @IBAction func answer4Click(_ sender: UIButton) {
+        self.saveResponse(sender.title(for: UIControlState())!)
     }
 }

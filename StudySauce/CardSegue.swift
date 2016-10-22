@@ -15,15 +15,15 @@ class CardSegue : UIStoryboardSegue {
     static var reassignment = false
     
     override func perform() {
-        var last: UIViewController = self.sourceViewController
-        var next: UIViewController = self.destinationViewController
-        if let parent = last.parentViewController as? CardController {
+        var last: UIViewController = self.source
+        var next: UIViewController = self.destination
+        if let parent = last.parent as? CardController {
             last = parent
             
             // only set subview for displaying response if answer is wrong, otherwise show next card
             if !(next is CardController) && parent.intermediateResponse != true {
                 // answer was wrong so definitely show card
-                let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
+                let card = last.storyboard!.instantiateViewController(withIdentifier: "Card") as! CardController
                 card.subview = next
                 next = card
             }
@@ -33,7 +33,7 @@ class CardSegue : UIStoryboardSegue {
                     ? (parent.selectedPack != nil ? parent.selectedPack!.getUserPack(AppDelegate.getUser()).getRetentionCard() : AppDelegate.getUser()?.getRetentionCard())
                     : parent.pack.getUserPack(AppDelegate.getUser()).getRetryCard()
                 if nextCard == nil {
-                    let results = last.storyboard!.instantiateViewControllerWithIdentifier("Results") as! PackResultsController
+                    let results = last.storyboard!.instantiateViewController(withIdentifier: "Results") as! PackResultsController
                     next = results
                 }
                 else {
@@ -42,13 +42,13 @@ class CardSegue : UIStoryboardSegue {
                         next = card
                     }
                     else {
-                        let card = last.storyboard!.instantiateViewControllerWithIdentifier("Card") as! CardController
+                        let card = last.storyboard!.instantiateViewController(withIdentifier: "Card") as! CardController
                         card.card = nextCard
                         next = card
                     }
                 }
             }
-            parent.prepareForSegue(UIStoryboardSegue(identifier: nil, source: last, destination: next), sender: self)
+            parent.prepare(for: UIStoryboardSegue(identifier: nil, source: last, destination: next), sender: self)
             
             // only ever show (X) number of cards on the stack at a time
             var count = 0
@@ -61,16 +61,16 @@ class CardSegue : UIStoryboardSegue {
                 CardSegue.reassignment = true
                 CardSegue.transitionManager.transitioning = true
                 let root = current.presentingViewController!
-                let snapShotView = last.view.snapshotViewAfterScreenUpdates(false)
-                AppDelegate.instance().window!.addSubview(snapShotView)
-                AppDelegate.instance().window!.bringSubviewToFront(snapShotView)
-                root.dismissViewControllerAnimated(false, completion: {
-                    root.presentViewController(last, animated: false) {
-                        snapShotView.removeFromSuperview()
+                let snapShotView = last.view.snapshotView(afterScreenUpdates: false)
+                AppDelegate.instance().window!.addSubview(snapShotView!)
+                AppDelegate.instance().window!.bringSubview(toFront: snapShotView!)
+                root.dismiss(animated: false, completion: {
+                    root.present(last, animated: false) {
+                        snapShotView?.removeFromSuperview()
                         next.transitioningDelegate = CardSegue.transitionManager
                         last.transitioningDelegate = CardSegue.transitionManager
                         CardSegue.reassignment = false
-                        last.presentViewController(next, animated: true, completion: nil)
+                        last.present(next, animated: true, completion: nil)
                     }
                 })
                 return
@@ -81,9 +81,9 @@ class CardSegue : UIStoryboardSegue {
         next.transitioningDelegate = CardSegue.transitionManager
         last.transitioningDelegate = CardSegue.transitionManager
         if next is UserSwitchController {
-            next.modalPresentationStyle = .Popover
+            next.modalPresentationStyle = .popover
         }
-        last.presentViewController(next, animated: true, completion: nil)
+        last.present(next, animated: true, completion: nil)
     }
 }
 

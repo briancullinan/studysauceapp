@@ -14,14 +14,14 @@ class Pack: NSManagedObject {
 
     var isDownloading = false
     
-    func getProperty(prop: String) -> AnyObject? {
+    func getProperty(_ prop: String) -> AnyObject? {
         if let val = (self.properties as? NSDictionary)?[prop] {
-            return val
+            return val as AnyObject?
         }
         return nil
     }
     
-    func setProperty(prop: String, _ obj: AnyObject?) {
+    func setProperty(_ prop: String, _ obj: AnyObject?) {
         var props: Dictionary<String,AnyObject>
         if let existing = self.properties as? Dictionary<String,AnyObject> {
             props = existing
@@ -30,17 +30,17 @@ class Pack: NSManagedObject {
             props = Dictionary<String,AnyObject>()
         }
         if obj == nil {
-            props.removeValueForKey(prop)
+            props.removeValue(forKey: prop)
         }
         else {
             props[prop] = obj!
         }
         
-        self.properties = props
+        self.properties = props as NSObject?
     }
     
-    func getUserPack(user: User?) -> UserPack {
-        var up = (self.user_packs?.objectsPassingTest({(obj, _) -> Bool in
+    func getUserPack(_ user: User?) -> UserPack {
+        var up = (self.user_packs?.filter({(obj) -> Bool in
             if let up = obj as? UserPack {
                 return up.user == user
             }
@@ -50,13 +50,13 @@ class Pack: NSManagedObject {
             up = AppDelegate.insert(UserPack.self)
             up!.pack = self
             up!.user = user
-            up!.created = NSDate()
+            up!.created = Date()
             AppDelegate.saveContext()
         }
         return up!
     }
     
-    func getCardById(id: NSNumber) -> Card? {
+    func getCardById(_ id: NSNumber) -> Card? {
         for c in self.cards?.allObjects as! [Card] {
             if c.id == id {
                 return c

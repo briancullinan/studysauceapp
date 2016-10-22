@@ -19,7 +19,7 @@ struct saucyTheme {
     static let padding = 10.0 * saucyTheme.multiplier()
     static let vertical: CGFloat = {
         let view = UIView()
-        let sibling = NSLayoutConstraint.constraintsWithVisualFormat("[view]-[view]", options: [], metrics: nil, views: ["view" : view])
+        let sibling = NSLayoutConstraint.constraints(withVisualFormat: "[view]-[view]", options: [], metrics: nil, views: ["view" : view])
         return sibling.first!.constant   // 8.0
         
         //NSView* superview = [NSView new] ;
@@ -41,7 +41,7 @@ struct saucyTheme {
     static let lineHeight = CGFloat(1.8)
     
     static func multiplier () -> CGFloat {
-        let result = min(768.0, min(UIScreen.mainScreen().bounds.height, UIScreen.mainScreen().bounds.width)) / 300.0
+        let result = min(768.0, min(UIScreen.main.bounds.height, UIScreen.main.bounds.width)) / 300.0
         return result
     }
 }
@@ -52,47 +52,47 @@ var saucyBackground: UIWindow? = nil
 
 extension AppDelegate {
     
-    static func createHeading(label: UILabel) {
+    static func createHeading(_ label: UILabel) {
         let s = label.superview!
         let v = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 50)) <| {
             $0.tag = 24
         }
         s.insertSubview(v, belowSubview: label)
-        s.sendSubviewToBack(v)
+        s.sendSubview(toBack: v)
        
         // do constraint stuff
-        v.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
+        v.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         v.translatesAutoresizingMaskIntoConstraints = false
         s.addConstraint(NSLayoutConstraint(
             item: v,
-            attribute: NSLayoutAttribute.Top,
-            relatedBy: NSLayoutRelation.Equal,
+            attribute: NSLayoutAttribute.top,
+            relatedBy: NSLayoutRelation.equal,
             toItem: s,
-            attribute: NSLayoutAttribute.Top,
+            attribute: NSLayoutAttribute.top,
             multiplier: 1,
             constant: 0))
         s.addConstraint(NSLayoutConstraint(
             item: v,
-            attribute: NSLayoutAttribute.Width,
-            relatedBy: NSLayoutRelation.Equal,
+            attribute: NSLayoutAttribute.width,
+            relatedBy: NSLayoutRelation.equal,
             toItem: s,
-            attribute: NSLayoutAttribute.Width,
+            attribute: NSLayoutAttribute.width,
             multiplier: 1,
             constant: 0))
         s.addConstraint(NSLayoutConstraint(
             item: v,
-            attribute: NSLayoutAttribute.CenterX,
-            relatedBy: NSLayoutRelation.Equal,
+            attribute: NSLayoutAttribute.centerX,
+            relatedBy: NSLayoutRelation.equal,
             toItem: s,
-            attribute: NSLayoutAttribute.CenterX,
+            attribute: NSLayoutAttribute.centerX,
             multiplier: 1,
             constant: 0))
         s.addConstraint(NSLayoutConstraint(
             item: v,
-            attribute: NSLayoutAttribute.BottomMargin,
-            relatedBy: NSLayoutRelation.Equal,
+            attribute: NSLayoutAttribute.bottomMargin,
+            relatedBy: NSLayoutRelation.equal,
             toItem: label,
-            attribute: NSLayoutAttribute.Bottom,
+            attribute: NSLayoutAttribute.bottom,
             multiplier: 1,
             constant: 0))
         
@@ -106,21 +106,21 @@ extension AppDelegate {
                 if let image = pack.getProperty("background-image") as? String {
                     File.save(image, done: {(f:File) in
                         doMain {
-                            let fileManager = NSFileManager.defaultManager()
-                            if let data = fileManager.contentsAtPath(f.filename!) {
+                            let fileManager = FileManager.default
+                            if let data = fileManager.contents(atPath: f.filename!) {
                                 let saucyImage = UIImageView(image: UIImage(data: data))
                                 card.view.addSubview(saucyImage)
-                                card.view.sendSubviewToBack(saucyImage)
+                                card.view.sendSubview(toBack: saucyImage)
                                 saucyImage.tag = 26
                                 saucyImage.frame = card.embeddedView.bounds
-                                saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-                                saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+                                saucyImage.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                                saucyImage.contentMode = UIViewContentMode.scaleAspectFill
                                 saucyImage.translatesAutoresizingMaskIntoConstraints = false
                                 
-                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
+                                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: card.embeddedView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
                             }
                         }
                     })
@@ -137,9 +137,9 @@ extension AppDelegate {
                 self.isRotating = true
                 doMain {
                     let vc = AppDelegate.visibleViewController()
-                    if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
-                        vc.orientation = UIApplication.sharedApplication().statusBarOrientation
-                        if !vc.view.hidden {
+                    if vc.getOrientation() != UIApplication.shared.statusBarOrientation {
+                        vc.orientation = UIApplication.shared.statusBarOrientation
+                        if !vc.view.isHidden {
                             AppDelegate.rerenderView(vc.view)
                         }
                     }
@@ -156,9 +156,9 @@ extension AppDelegate {
                 self.isRotating = true
                 doMain {
                     let vc = AppDelegate.visibleViewController()
-                    if vc.getOrientation() != UIApplication.sharedApplication().statusBarOrientation {
-                        vc.orientation = UIApplication.sharedApplication().statusBarOrientation
-                        if !vc.view.hidden {
+                    if vc.getOrientation() != UIApplication.shared.statusBarOrientation {
+                        vc.orientation = UIApplication.shared.statusBarOrientation
+                        if !vc.view.isHidden {
                             AppDelegate.rerenderView(vc.view)
                         }
                     }
@@ -173,42 +173,42 @@ extension AppDelegate {
             let vc = AppDelegate.visibleViewController()
             let tracker = GAI.sharedInstance().defaultTracker
             let name = vc.getAnalytics()
-            if name != tracker.get(kGAIScreenName) {
-                tracker.set(kGAIScreenName, value: name)
+            if name != tracker?.get(kGAIScreenName) {
+                tracker?.set(kGAIScreenName, value: name)
                 let builder = GAIDictionaryBuilder.createScreenView()
-                tracker.send(builder.build() as [NSObject : AnyObject])
+                tracker?.send(builder?.build() as [AnyHashable: Any])
             }
         }
     }
     
-    static func rerenderView(v: UIView) {
+    static func rerenderView(_ v: UIView) {
         v.setAppearanceFunc("")
         for s in v.subviews {
             self.rerenderView(s)
         }
     }
     
-    static func createBlurView(v: UIView) -> UIVisualEffectView {
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+    static func createBlurView(_ v: UIView) -> UIVisualEffectView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         //always fill the view
         blurEffectView.tag = 23
         blurEffectView.frame = v.superview!.bounds
-        blurEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-        blurEffectView.backgroundColor = UIColor.clearColor()
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.backgroundColor = UIColor.clear
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         
         v.superview!.addSubview(blurEffectView) //if you have more UIViews, use an insertSubview API to place it where needed
         
-        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: v.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: v.superview!, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: v.superview!, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: v.superview!, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
+        v.superview!.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: v.superview!, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
         
         return blurEffectView
     }
     
-    func buttonTapped(button: UIButton) {
+    func buttonTapped(_ button: UIButton) {
         doMain {
             AppDelegate.rerenderView(button)
         }
@@ -225,28 +225,28 @@ extension AppDelegate {
         |@  Use device properties to determine if setting should apply
         TODO: Override Tag with string for className matching instead of stupid number
         */
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        UIApplication.shared.statusBarStyle = .lightContent
                     
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.rotated), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.rotated), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.rotated), name: UIDeviceOrientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.rotated), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.keyboard), name: UIKeyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.keyboard), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.keyboard), name: UIKeyboardDidHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.keyboard), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         
         
         if let window = AppDelegate.instance().window {
-            window.backgroundColor = UIColor.clearColor()
-            window.opaque = false
+            window.backgroundColor = UIColor.clear
+            window.isOpaque = false
             window.makeKeyAndVisible();
         }
         
         // set up font names
         $(UIButton.self, {
-            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchDown)
-            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), for: UIControlEvents.touchDown)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+            $0.addTarget(self, action: #selector(AppDelegate.buttonTapped(_:)), for: UIControlEvents.touchUpOutside)
         })
         
         $(UIViewController.self ~>> UIView.self, {_ in
@@ -281,27 +281,27 @@ extension AppDelegate {
         }
         
         $(UIImageView.self ~* 23, {background in
-            background.hidden = true
+            background.isHidden = true
             background.viewController()!.view.clipsToBounds = false
             if saucyBackground == nil {
-                saucyBackground = UIWindow(frame: UIScreen.mainScreen().bounds)
+                saucyBackground = UIWindow(frame: UIScreen.main.bounds)
                 saucyBackground!.windowLevel = -1;
                 saucyBackground!.rootViewController = HomeController()
 
                 let saucyImage = UIImageView(image: background.image)
                 saucyBackground!.rootViewController!.view.addSubview(saucyImage)
                 saucyImage.frame = background.superview!.bounds
-                saucyImage.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-                saucyImage.contentMode = UIViewContentMode.ScaleAspectFill
+                saucyImage.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                saucyImage.contentMode = UIViewContentMode.scaleAspectFill
                 saucyImage.translatesAutoresizingMaskIntoConstraints = false
                 
-                saucyBackground!.hidden = false
+                saucyBackground!.isHidden = false
                 self.window!.makeKeyAndVisible()
                 
-                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
+                saucyImage.superview!.addConstraint(NSLayoutConstraint(item: saucyImage, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: saucyImage.superview!, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
             }
             //if manager.deviceMotionAvailable {
             //    manager.deviceMotionUpdateInterval = 0.01
@@ -315,31 +315,31 @@ extension AppDelegate {
         
         // headings
         $(UITableView.self, {
-            $0.backgroundColor = UIColor.clearColor()
-            $0.separatorStyle = UITableViewCellSeparatorStyle.None
-            $0.separatorColor = UIColor.clearColor()
+            $0.backgroundColor = UIColor.clear
+            $0.separatorStyle = UITableViewCellSeparatorStyle.none
+            $0.separatorColor = UIColor.clear
             $0.preservesSuperviewLayoutMargins = false
-            $0.separatorInset = UIEdgeInsetsZero
-            $0.layoutMargins = UIEdgeInsetsZero
+            $0.separatorInset = UIEdgeInsets.zero
+            $0.layoutMargins = UIEdgeInsets.zero
         })
         
         $(UITableView.self ~> UITableViewCell.self, {
-            $0.selectionStyle = .None
-            $0.separatorInset = UIEdgeInsetsZero
-            $0.layoutMargins = UIEdgeInsetsZero
+            $0.selectionStyle = .none
+            $0.separatorInset = UIEdgeInsets.zero
+            $0.layoutMargins = UIEdgeInsets.zero
         })
         
 
         // nueral background has a tag of 23 and any sibling or sibling child label should be light color
-        $(UIViewController.self ~* {$0.modalPresentationStyle == .OverCurrentContext} ~>> UIView.self) {(v: UIView) in
+        $(UIViewController.self ~* {$0.modalPresentationStyle == .overCurrentContext} ~>> UIView.self) {(v: UIView) in
             if (v.viewController()!.view! ~> UIVisualEffectView.self).count == 0 {
                 if !UIAccessibilityIsReduceTransparencyEnabled() {
-                    v.superview!.backgroundColor = UIColor.clearColor()
+                    v.superview!.backgroundColor = UIColor.clear
                     let blur = AppDelegate.createBlurView(v)
-                    blur.superview!.sendSubviewToBack(blur)
+                    blur.superview!.sendSubview(toBack: blur)
                 }
                 else {
-                    v.superview!.backgroundColor = UIColor.clearColor()
+                    v.superview!.backgroundColor = UIColor.clear
                 }
             }
         }
@@ -360,7 +360,7 @@ extension AppDelegate {
         
         $(UserSwitchController.self ~> UITableView.self, {
             $0.separatorColor = saucyTheme.middle
-            $0.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            $0.separatorStyle = UITableViewCellSeparatorStyle.singleLine
         })
         
         $([DialogController.self ~>> UILabel.self,
@@ -374,7 +374,7 @@ extension AppDelegate {
             v.setFontSize(saucyTheme.headingSize)
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
-            if (v ~+ (UIView.self ~* 24)).count == 0 && !v.hidden {
+            if (v ~+ (UIView.self ~* 24)).count == 0 && !v.isHidden {
                 AppDelegate.createHeading(v)
             }
             
@@ -403,12 +403,12 @@ extension AppDelegate {
             PackResultsController.self ~>> UILabel.self ~* 3 ~* T.orientation("landscape")], {
                 $0.setFontSize(20 * saucyTheme.multiplier())
         })
-        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Unspecified, .Compact),
-            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Unspecified, .Compact)], {
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.unspecified, .compact),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.unspecified, .compact)], {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
-        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.Compact, .Unspecified),
-            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.Compact, .Unspecified)], {
+        $([PackResultsController.self ~>> UILabel.self ~* 1 ~* T.size(.compact, .unspecified),
+            PackResultsController.self ~>> UILabel.self ~* 3 ~* T.size(.compact, .unspecified)], {
                 $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
@@ -416,7 +416,7 @@ extension AppDelegate {
            PackSummaryController.self ~> UITableView.self,
            UserSettingsController.self ~> UITableView.self], {(v: UITableView) in
             v.separatorColor = saucyTheme.middle
-            v.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+            v.separatorStyle = UITableViewCellSeparatorStyle.singleLine
             // this doesn't work in appearence :(
             //v.estimatedRowHeight = 40.0 * saucyTheme.multiplier()
             //v.rowHeight = UITableViewAutomaticDimension
@@ -472,7 +472,7 @@ extension AppDelegate {
         })
 
         $(HomeController.self ~> PackRetentionCell.self ~> UILabel.self ~* 10, {
-            $0.setFontColor(UIColor.redColor())
+            $0.setFontColor(UIColor.red)
             $0.setFontSize(saucyTheme.textSize * 0.75)
             $0.setFontName(saucyTheme.subheadingFont)
         })
@@ -536,8 +536,8 @@ extension AppDelegate {
         })
         
         $(ContactUsController.self ~> UITextView.self, {
-            $0.backgroundColor = UIColor.whiteColor()
-            $0.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            $0.backgroundColor = UIColor.white
+            $0.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 0
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding)
@@ -563,9 +563,9 @@ extension AppDelegate {
             StoreController.self ~> UITextField.self,
             CardBlankController.self ~> UITextField.self,
             ContactUsController.self ~> UITextField.self], {(v: UITextField) in
-            v.backgroundColor = UIColor.whiteColor()
-            v.borderStyle = UITextBorderStyle.None
-            v.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.5).CGColor
+            v.backgroundColor = UIColor.white
+            v.borderStyle = UITextBorderStyle.none
+            v.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             v.layer.borderWidth = 0.5
             v.layer.cornerRadius = 0
         })
@@ -598,12 +598,12 @@ extension AppDelegate {
                 // align listen button to substring
                 let content = v.attributedText.string as NSString
                 let wholeRange = NSMakeRange(0, content.length)
-                let range = content.rangeOfString("P14y", options: [], range: wholeRange)
+                let range = content.range(of: "P14y", options: [], range: wholeRange)
                 
                 if range.length > 0 {
                     let attr = NSMutableAttributedString(attributedString: v.attributedText)
                     attr.addAttribute(NSFontAttributeName, value: UIFont(name: v.font!.fontName, size: 60.0 * saucyTheme.multiplier())!, range: range)
-                    attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clearColor(), range: range)
+                    attr.addAttribute(NSForegroundColorAttributeName, value: UIColor.clear, range: range)
                     v.attributedText = NSAttributedString(attributedString: attr)
                 }
                 
@@ -616,8 +616,8 @@ extension AppDelegate {
 
         $([CardPromptController.self ~> UIButton.self ~* 1,
             CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
-            let image = v.backgroundImageForState(.Normal)?.imageWithAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
-            v.setBackgroundImage(image, forState: .Normal)
+            let image = v.backgroundImage(for: UIControlState())?.withAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
+            v.setBackgroundImage(image, for: UIControlState())
         })
         
         $(CardResponseController.self ~> UILabel.self, {
@@ -651,7 +651,7 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.secondary)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.enabled}, {
+        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.isEnabled}, {
             $0.backgroundColor = saucyTheme.middle
         })
         
@@ -670,7 +670,7 @@ extension AppDelegate {
         })
         
         $(UIViewController.self ~>> UIButton.self ~* 26, {
-            $0.contentMode = .ScaleAspectFit
+            $0.contentMode = .scaleAspectFit
         })
         
         var combos: [Dictionary<String,UIColor>] = []
@@ -740,10 +740,10 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.fontColor)
             //$0.setTitleColor(saucyTheme.lightColor, forState: UIControlState.Highlighted)
             $0.layer.cornerRadius = 0
-            $0.layer.borderColor = saucyTheme.middle.CGColor
+            $0.layer.borderColor = saucyTheme.middle.cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = saucyTheme.lightColor
-            $0.tintColor = UIColor.whiteColor()
+            $0.tintColor = UIColor.white
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding)
         })
@@ -759,7 +759,7 @@ extension AppDelegate {
         })
         
         $([BasicKeyboardController.self ~> UIButton.self ~* 5,
-            BasicKeyboardController.self ~> UIButton.self ~* {$0.highlighted}], {
+            BasicKeyboardController.self ~> UIButton.self ~* {$0.isHighlighted}], {
             $0.backgroundColor = saucyTheme.secondary
             $0.setFontColor(saucyTheme.lightColor)
         })
@@ -776,7 +776,7 @@ extension AppDelegate {
         
         $([UILabel.self ~* 59]) {(v: UILabel) in
             v.setFontColor(saucyTheme.primary)
-            v.superview?.bringSubviewToFront(v)
+            v.superview?.bringSubview(toFront: v)
             v.setFontName(saucyTheme.subheadingFont)
         }
         
@@ -806,15 +806,15 @@ extension AppDelegate {
         
         $(StoreController.self ~> UILabel.self ~* 56) {
             $0.setFontName(saucyTheme.subheadingFont)
-            $0.layer.addBorder(UIRectEdge.Top, color: saucyTheme.fontColor, thickness: 2)
+            $0.layer.addBorder(UIRectEdge.top, color: saucyTheme.fontColor, thickness: 2)
         }
         
         $(UserSettingsController.self ~> UITableViewCell.self ~* "childLast") {
-            $0.layer.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 2)
+            $0.layer.addBorder(UIRectEdge.bottom, color: saucyTheme.fontColor, thickness: 2)
         }
         
         $(StoreController.self ~> UIView.self ~* 57) {
-            $0.addBorder(UIRectEdge.Bottom, color: saucyTheme.fontColor, thickness: 1)
+            $0.addBorder(UIRectEdge.bottom, color: saucyTheme.fontColor, thickness: 1)
         }
 
         $([UserSelectController.self ~> TextField.self,
@@ -824,38 +824,38 @@ extension AppDelegate {
             if (v ~> (UIImageView.self ~* 50)).count == 0 {
             let img = UIImageView(image: UIImage(named: "down_arrow"))
             img.tag = 50
-            img.contentMode = UIViewContentMode.ScaleAspectFit
+            img.contentMode = UIViewContentMode.scaleAspectFit
             img.translatesAutoresizingMaskIntoConstraints = false
-            img.userInteractionEnabled = false
+            img.isUserInteractionEnabled = false
             v.addSubview(img)
             v.addConstraint(NSLayoutConstraint(
                     item: img,
-                    attribute: NSLayoutAttribute.CenterY,
-                    relatedBy: NSLayoutRelation.Equal,
+                    attribute: NSLayoutAttribute.centerY,
+                    relatedBy: NSLayoutRelation.equal,
                     toItem: v,
-                    attribute: NSLayoutAttribute.CenterY,
+                    attribute: NSLayoutAttribute.centerY,
                     multiplier: 1,
                     constant: 0))
             v.addConstraint(NSLayoutConstraint(
                 item: v,
-                attribute: NSLayoutAttribute.Trailing,
-                relatedBy: NSLayoutRelation.Equal,
+                attribute: NSLayoutAttribute.trailing,
+                relatedBy: NSLayoutRelation.equal,
                 toItem: img,
-                attribute: NSLayoutAttribute.Trailing,
+                attribute: NSLayoutAttribute.trailing,
                 multiplier: 1,
                 constant: 10))
             img.addConstraint(NSLayoutConstraint(
                 item: img,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
+                attribute: NSLayoutAttribute.width,
+                relatedBy: NSLayoutRelation.equal,
                 toItem: nil,
-                attribute: NSLayoutAttribute.Width,
+                attribute: NSLayoutAttribute.width,
                 multiplier: 1,
                 constant: saucyTheme.textSize))
             }
         }
         
         // This is the normal way to change appearance on a single type
-        UITableViewCell.appearance().backgroundColor = UIColor.clearColor()
+        UITableViewCell.appearance().backgroundColor = UIColor.clear
     }
 }

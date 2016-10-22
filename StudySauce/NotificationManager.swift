@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class NotificationManager {
-    private var observerTokens: [AnyObject] = []
+    fileprivate var observerTokens: [AnyObject] = []
     
     deinit {
         deregisterAll()
@@ -18,20 +18,20 @@ class NotificationManager {
     
     func deregisterAll() {
         for token in observerTokens {
-            NSNotificationCenter.defaultCenter().removeObserver(token)
+            NotificationCenter.default.removeObserver(token)
         }
         
         observerTokens = []
     }
     
-    func registerObserver(name: String!, block: (NSNotification! -> Void)) {
-        let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: nil, queue: nil, usingBlock: block)
+    func registerObserver(_ name: String!, block: @escaping ((Notification!) -> Void)) {
+        let newToken = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: name), object: nil, queue: nil, using: block)
         
         observerTokens.append(newToken)
     }
     
-    func registerObserver(name: String!, forObject object: AnyObject!, block: (NSNotification! -> Void)) {
-        let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: object, queue: nil, usingBlock: block)
+    func registerObserver(_ name: String!, forObject object: AnyObject!, block: @escaping ((Notification!) -> Void)) {
+        let newToken = NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: name), object: object, queue: nil, using: block)
         
         observerTokens.append(newToken)
     }

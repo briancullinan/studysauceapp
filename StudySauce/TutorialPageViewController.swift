@@ -19,26 +19,26 @@ class TutorialPageViewController: UIViewController {
     internal var subview: UIViewController? = nil {
         didSet {
             self.addChildViewController(self.subview!)
-            self.subview!.didMoveToParentViewController(self)
+            self.subview!.didMove(toParentViewController: self)
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         AppDelegate.performContext {
             if(AppDelegate.getUser() == nil) {
                 return
             }
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            var seen = userDefaults.valueForKey("seen_tutorial") as? String ?? ""
+            let userDefaults = UserDefaults.standard
+            var seen = userDefaults.value(forKey: "seen_tutorial") as? String ?? ""
             seen = "\(seen)\(seen != "" ? "," : "")\(AppDelegate.getUser()!.id!)"
             userDefaults.setValue(seen, forKey: "seen_tutorial")
             userDefaults.synchronize() // don't forget this!!!!
         }
     }
     
-    @IBAction func skipClick(sender: UIButton) {
+    @IBAction func skipClick(_ sender: UIButton) {
         AppDelegate.goHome(self)
     }
     
@@ -49,25 +49,25 @@ class TutorialPageViewController: UIViewController {
         self.subview = self.viewControllerAtIndex(self.index)
         self.subview!.view.translatesAutoresizingMaskIntoConstraints = false
         self.embeddedView.addSubview(self.subview!.view)
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0))
-        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.height, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
+        self.embeddedView.addConstraint(NSLayoutConstraint(item: self.subview!.view, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.embeddedView, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
     }
     
     internal func lastClick() {
         if self.index > 0 {
             CardSegue.transitionManager.transitioning = true
-            self.subview!.dismissViewControllerAnimated(true, completion: nil)
+            self.subview!.dismiss(animated: true, completion: nil)
         }
     }
     
     internal func nextClick() {
         CardSegue.transitionManager.transitioning = true
         if self.index < self.pageTitles.count - 1 {
-            let vc = self.storyboard?.instantiateViewControllerWithIdentifier("Tutorial") as! TutorialPageViewController
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Tutorial") as! TutorialPageViewController
             vc.index = self.index + 1
-            self.subview!.presentViewController(vc, animated: true, completion: nil)
+            self.subview!.present(vc, animated: true, completion: nil)
         }
         else {
             AppDelegate.goHome(self)
@@ -78,9 +78,9 @@ class TutorialPageViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
-    func viewControllerAtIndex(index: Int) -> TutorialContentViewController
+    func viewControllerAtIndex(_ index: Int) -> TutorialContentViewController
     {
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("TutorialContent") as! TutorialContentViewController
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "TutorialContent") as! TutorialContentViewController
         
         vc.imageFile = self.pageImages[index]
         vc.titleText = self.pageTitles[index]

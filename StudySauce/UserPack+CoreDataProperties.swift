@@ -14,11 +14,11 @@ import CoreData
 
 extension UserPack {
 
-    @NSManaged var created: NSDate?
-    @NSManaged var downloaded: NSDate?
+    @NSManaged var created: Date?
+    @NSManaged var downloaded: Date?
     @NSManaged var priority: NSDecimalNumber?
     @NSManaged var retries: String?
-    @NSManaged var retry_to: NSDate?
+    @NSManaged var retry_to: Date?
     @NSManaged var retention: NSObject?
     @NSManaged var pack: Pack?
     @NSManaged var user: User?

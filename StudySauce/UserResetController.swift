@@ -21,7 +21,7 @@ class UserResetController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if token != nil {
-            inputText.secureTextEntry = true
+            inputText.isSecureTextEntry = true
             inputText.placeholder = NSLocalizedString("New password", comment: "Placeholder for reset password after the token has been retrieved from email.")
             self.inputText!.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
             self.inputText!.delegate = self
@@ -31,15 +31,15 @@ class UserResetController: UIViewController, UITextFieldDelegate {
     @IBAction func lastClick() {
         CardSegue.transitionManager.transitioning = true
         if self.presentingViewController is UserLoginController {
-            self.performSegueWithIdentifier("login", sender: self)
+            self.performSegue(withIdentifier: "login", sender: self)
         }
         else {
-            self.performSegueWithIdentifier("home", sender: self)
+            self.performSegue(withIdentifier: "home", sender: self)
         }
     }
     
 
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         doMain {
             self.resetClick(self.resetButton)
         }
@@ -47,16 +47,16 @@ class UserResetController: UIViewController, UITextFieldDelegate {
     }
 
     func done() {
-        self.resetButton.enabled = true
+        self.resetButton.isEnabled = true
         self.resetButton.alpha = 1
         self.resetButton.setFontColor(saucyTheme.lightColor)
         self.resetButton.setBackground(saucyTheme.secondary)
     }
     
-    @IBAction func resetClick(sender: UIButton) {
+    @IBAction func resetClick(_ sender: UIButton) {
         self.inputText.resignFirstResponder()
         doMain {
-            self.resetButton.enabled = false
+            self.resetButton.isEnabled = false
             self.resetButton.alpha = 0.85
             self.resetButton.setFontColor(saucyTheme.fontColor)
             self.resetButton.setBackground(saucyTheme.lightColor)
@@ -64,7 +64,11 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         if self.token != nil {
             self.password = self.inputText.text
             self.showNoConnectionDialog({
-                postJson("/reset", ["email": self.mail, "token": self.token, "newPass": self.password], redirect: {(path: String) in
+                postJson("/reset", [
+                    "email": self.mail as Optional<AnyObject>,
+                    "token": self.token as Optional<AnyObject>,
+                    "newPass": self.password as Optional<AnyObject>
+                    ], redirect: {(path: String) in
                     if path == "/home" {
                         AppDelegate.goHome(self)
                     }
@@ -74,7 +78,7 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         else {
             self.mail = self.inputText.text
             self.showNoConnectionDialog {
-                postJson("/reset", ["email": self.mail], error: {_ in
+                postJson("/reset", ["email": self.mail as Optional<AnyObject>], error: {_ in
                     self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
                         doMain(self.done)
                         self.inputText.becomeFirstResponder()
@@ -90,8 +94,8 @@ class UserResetController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
     }
     

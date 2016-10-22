@@ -22,9 +22,9 @@ class DialogController: UIViewController {
     @IBOutlet weak var primaryButton: UIButton!
     @IBOutlet weak var backgroundButton: UIButton!
     
-    @IBAction func backgroundClick(sender: UIButton) {
+    @IBAction func backgroundClick(_ sender: UIButton) {
         if click() {
-            self.dismissViewControllerAnimated(true, completion: {
+            self.dismiss(animated: true, completion: {
                 
             })
         }
@@ -32,13 +32,13 @@ class DialogController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        primaryButton.setTitle(self.button, forState: .Normal)
+        primaryButton.setTitle(self.button, for: UIControlState())
         messageLabel.text = self.message
     }
     
-    @IBAction func buttonClick(sender: UIButton) {
+    @IBAction func buttonClick(_ sender: UIButton) {
         if click() {
-            self.dismissViewControllerAnimated(true, completion: {
+            self.dismiss(animated: true, completion: {
                 doMain {
                     self.done()
                 }

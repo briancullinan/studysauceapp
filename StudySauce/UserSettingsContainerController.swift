@@ -15,31 +15,31 @@ class UserSettingsContainerController: UIViewController {
     //
     //  It's declared to be an implicitly unwrapped optional
     //  because it doesn't make sense to give it a non-nil initial value.
-    private var embeddedViewController: UserSettingsController!
+    fileprivate var embeddedViewController: UserSettingsController!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? UserSettingsController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? UserSettingsController {
             self.embeddedViewController = vc
         }
     }
     
     //  Now in other methods you can reference `embeddedViewController`.
     //  For example:
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
     
-    @IBAction func saveClick(sender: UIButton) {
-        self.editButton.hidden = false
-        self.saveButton.hidden = true
+    @IBAction func saveClick(_ sender: UIButton) {
+        self.editButton.isHidden = false
+        self.saveButton.isHidden = true
         self.embeddedViewController.save()
     }
     
-    @IBAction func editClick(sender: UIButton) {
-        self.editButton.hidden = true
-        self.saveButton.hidden = false
+    @IBAction func editClick(_ sender: UIButton) {
+        self.editButton.isHidden = true
+        self.saveButton.isHidden = false
         self.embeddedViewController.edit()
     }
 }

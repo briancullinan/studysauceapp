@@ -23,28 +23,28 @@ class PackResultsController: UIViewController {
     internal var isRetention = false
     internal var selectedPack: Pack? = nil
     
-    @IBAction func backClick(sender: UIButton) {
+    @IBAction func backClick(_ sender: UIButton) {
         self.doReset()
         if self.isRetention {
-            self.performSegueWithIdentifier("home", sender: self)
+            self.performSegue(withIdentifier: "home", sender: self)
         }
         else {
-            self.performSegueWithIdentifier("packs", sender: self)
+            self.performSegue(withIdentifier: "packs", sender: self)
         }
     }
     
-    @IBAction func retryClick(sender: AnyObject) {
+    @IBAction func retryClick(_ sender: AnyObject) {
         self.doReset()
         if self.isRetention {
             if self.percent.text == "100%" {
-                self.performSegueWithIdentifier("home", sender: self)
+                self.performSegue(withIdentifier: "home", sender: self)
             }
             else {
-                self.performSegueWithIdentifier("card", sender: self)
+                self.performSegue(withIdentifier: "card", sender: self)
             }
         }
         else {
-            self.performSegueWithIdentifier("card", sender: self)
+            self.performSegue(withIdentifier: "card", sender: self)
         }
     }
     
@@ -73,17 +73,17 @@ class PackResultsController: UIViewController {
                     return response == nil && retention?[2] as? Bool ?? true
                         || response?.correct != 1}
                 retries.shuffleInPlace()
-                up.retries = retries.map { c -> String in return "\(c.id!)" }.joinWithSeparator(",")
-                up.retry_to = NSDate()
+                up.retries = retries.map { c -> String in return "\(c.id!)" }.joined(separator: ",")
+                up.retry_to = Date()
                 AppDelegate.saveContext()
             }
         }
     }
     // TODO: display a summery of the results
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let vc = segue.destinationViewController as? CardController {
+        if let vc = segue.destination as? CardController {
             vc.pack = self.pack
             vc.isRetention = self.isRetention
             vc.selectedPack = self.selectedPack
@@ -118,9 +118,9 @@ class PackResultsController: UIViewController {
         let score = Int32(round(Double(correct) / Double(correct + wrong) * 100.0));
         self.percent.text = "\(score)%"
         
-        self.goHome.hidden = true
-        self.crossButton.hidden = false
-        self.checkButton.hidden = false
+        self.goHome.isHidden = true
+        self.crossButton.isHidden = false
+        self.checkButton.isHidden = false
         
         // set up buttons and text
         if self.isRetention {
@@ -132,9 +132,9 @@ class PackResultsController: UIViewController {
             }
             if score == 100 {
                 self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all of today's questions correctly.", comment: "Big button all correct")
-                self.goHome.hidden = false
-                self.crossButton.hidden = true
-                self.checkButton.hidden = true
+                self.goHome.isHidden = false
+                self.crossButton.isHidden = true
+                self.checkButton.isHidden = true
             }
             else {
                 self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Big button with wrong answers")
@@ -144,9 +144,9 @@ class PackResultsController: UIViewController {
             self.packTitle.text = self.pack.title
             if score == 100 {
                 self.review.text = NSLocalizedString("Congratulations!\r\nYou answered all the questions correctly.", comment: "Pack summary all correct")
-                self.goHome.hidden = false
-                self.crossButton.hidden = true
-                self.checkButton.hidden = true
+                self.goHome.isHidden = false
+                self.crossButton.isHidden = true
+                self.checkButton.isHidden = true
             }
             else {
                 self.review.text = NSLocalizedString("Go back through what you missed?", comment: "Pack summary with wrong answers")

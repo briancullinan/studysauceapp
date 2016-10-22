@@ -12,7 +12,7 @@ import UIKit
 // gets the data for us
 // (so that we can be a generic View component)
 protocol FaceViewDataSource: class {
-    func smilinessForFaceView(sender: FaceView) -> Double?
+    func smilinessForFaceView(_ sender: FaceView) -> Double?
 }
 
 @IBDesignable
@@ -21,18 +21,18 @@ class FaceView: UIView
     @IBInspectable
     var lineWidth: CGFloat = 3 { didSet { setNeedsDisplay() } }
     @IBInspectable
-    var color: UIColor = UIColor.blueColor() { didSet { setNeedsDisplay() } }
+    var color: UIColor = UIColor.blue { didSet { setNeedsDisplay() } }
     @IBInspectable
     var scale: CGFloat = 0.90 { didSet { setNeedsDisplay() } }
     
     var smiliness: Double? = nil
     
     // in demo, this was mistakenly not made private ... fixed
-    private var faceCenter: CGPoint {
-        return convertPoint(center, fromView: superview)
+    fileprivate var faceCenter: CGPoint {
+        return convert(center, from: superview)
     }
     // in demo, this was mistakenly not made private ... fixed
-    private var faceRadius: CGFloat {
+    fileprivate var faceRadius: CGFloat {
         return min(bounds.size.width, bounds.size.height) / 2 * scale
     }
     
@@ -44,8 +44,8 @@ class FaceView: UIView
     // gesture handler for pinching
     // non-private so that Controllers can create a recognizer for pinch
     // and then add it to us if they want us to support pinching
-    func scale(gesture: UIPinchGestureRecognizer) {
-        if gesture.state == .Changed {
+    func scale(_ gesture: UIPinchGestureRecognizer) {
+        if gesture.state == .changed {
             scale *= gesture.scale
             gesture.scale = 1
         }
@@ -53,7 +53,7 @@ class FaceView: UIView
     
     // the rest of this class is the code to draw the face
     
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         let facePath = UIBezierPath(
             arcCenter: faceCenter,
@@ -66,8 +66,8 @@ class FaceView: UIView
         color.set()
         facePath.stroke()
         
-        bezierPathForEye(.Left).stroke()
-        bezierPathForEye(.Right).stroke()
+        bezierPathForEye(.left).stroke()
+        bezierPathForEye(.right).stroke()
         
         // get the smiliness from our dataSource delegate
         // smiliness will default to zero if either the dataSource is nil or the dataSource returns nil
@@ -77,7 +77,7 @@ class FaceView: UIView
         smilePath.stroke()
     }
     
-    private struct Scaling {
+    fileprivate struct Scaling {
         static let FaceRadiusToEyeRadiusRatio: CGFloat = 10
         static let FaceRadiusToEyeOffsetRatio: CGFloat = 3
         static let FaceRadiusToEyeSeparationRatio: CGFloat = 1.5
@@ -86,9 +86,9 @@ class FaceView: UIView
         static let FaceRadiusToMouthOffsetRatio: CGFloat = 3
     }
     
-    private enum Eye { case Left, Right }
+    fileprivate enum Eye { case left, right }
     
-    private func bezierPathForEye(whichEye: Eye) -> UIBezierPath
+    fileprivate func bezierPathForEye(_ whichEye: Eye) -> UIBezierPath
     {
         let eyeRadius = faceRadius / Scaling.FaceRadiusToEyeRadiusRatio
         let eyeVerticalOffset = faceRadius / Scaling.FaceRadiusToEyeOffsetRatio
@@ -97,8 +97,8 @@ class FaceView: UIView
         var eyeCenter = faceCenter
         eyeCenter.y -= eyeVerticalOffset
         switch whichEye {
-        case .Left: eyeCenter.x -= eyeHorizontalSeparation / 2
-        case .Right: eyeCenter.x += eyeHorizontalSeparation / 2
+        case .left: eyeCenter.x -= eyeHorizontalSeparation / 2
+        case .right: eyeCenter.x += eyeHorizontalSeparation / 2
         }
         
         let path = UIBezierPath(
@@ -112,7 +112,7 @@ class FaceView: UIView
         return path
     }
     
-    private func bezierPathForSmile(fractionOfMaxSmile: Double) -> UIBezierPath
+    fileprivate func bezierPathForSmile(_ fractionOfMaxSmile: Double) -> UIBezierPath
     {
         let mouthWidth = faceRadius / Scaling.FaceRadiusToMouthWidthRatio
         let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRatio
@@ -126,8 +126,8 @@ class FaceView: UIView
         let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)
         
         let path = UIBezierPath()
-        path.moveToPoint(start)
-        path.addCurveToPoint(end, controlPoint1: cp1, controlPoint2: cp2)
+        path.move(to: start)
+        path.addCurve(to: end, controlPoint1: cp1, controlPoint2: cp2)
         path.lineWidth = lineWidth
         return path
     }

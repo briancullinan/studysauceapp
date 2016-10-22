@@ -17,7 +17,7 @@ class CardSelfController: UIViewController {
     @IBOutlet weak var wrongButton: UIButton? = nil
     weak var card: Card? = nil
     
-    @IBAction func returnToPrompt(segue: UIStoryboardSegue) {
+    @IBAction func returnToPrompt(_ segue: UIStoryboardSegue) {
         
     }
     
@@ -26,44 +26,44 @@ class CardSelfController: UIViewController {
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        super.prepareForSegue(segue, sender: sender)
-        if let pvc = self.parentViewController as? CardController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        if let pvc = self.parent as? CardController {
             self.card = pvc.card
-            if let vc = segue.destinationViewController as? CardPromptController {
+            if let vc = segue.destination as? CardPromptController {
                 vc.card = self.card
             }
-            if let vc = segue.destinationViewController as? CardResponseController {
+            if let vc = segue.destination as? CardResponseController {
                 vc.card = self.card
             }
         }
     }
     
-    func submitResponse(correct: Bool) {
-        self.correctButton?.enabled = false
-        self.wrongButton?.enabled = false
-        if let vc = self.parentViewController as? CardController {
+    func submitResponse(_ correct: Bool) {
+        self.correctButton?.isEnabled = false
+        self.wrongButton?.isEnabled = false
+        if let vc = self.parent as? CardController {
             AppDelegate.performContext {
                 let newResponse = AppDelegate.insert(Response.self)
-                newResponse.correct = correct
+                newResponse.correct = correct as NSNumber?
                 newResponse.card = self.card
-                newResponse.created = NSDate()
+                newResponse.created = Date()
                 newResponse.user = AppDelegate.getUser()
                 AppDelegate.saveContext()
                 vc.intermediateResponse = newResponse.correct == 1
                 doMain {
-                    self.performSegueWithIdentifier("card", sender: self)
+                    self.performSegue(withIdentifier: "card", sender: self)
                 }
                 HomeController.syncResponses(self.card!.pack!)
             }
         }
     }
         
-    @IBAction func wrongClick(sender: UIButton) {
+    @IBAction func wrongClick(_ sender: UIButton) {
         self.submitResponse(false)
     }
     
-    @IBAction func correctClick(sender: UIButton) {
+    @IBAction func correctClick(_ sender: UIButton) {
         self.submitResponse(true)
     }
 }

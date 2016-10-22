@@ -20,7 +20,7 @@ class UserPack: NSManagedObject {
             if response == nil && (retention == nil || retention![3] as? String == nil) {
                 return c
             }
-            else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.retry_to! {
+            else if response == nil && retention != nil && retention![3] as? String != nil && Date.parse(retention![3] as? String)! < self.retry_to! {
                 return c
             }
             else if response != nil && response!.created! < self.retry_to! {
@@ -30,19 +30,19 @@ class UserPack: NSManagedObject {
         return nil
     }
     
-    func getRetries(refresh: Bool = false) -> [Card] {
+    func getRetries(_ refresh: Bool = false) -> [Card] {
         // if retries is empty generate a list and randomize it
         if self.retries == nil || self.retries == "" || refresh {
             let retries = AppDelegate.getPredicate(Card.self, NSPredicate(format: "pack==%@", self.pack!))
                 self.retries = retries.shuffle().map { c -> String in
                     return "\(c.id!)"
-                    }.joinWithSeparator(",")
-                self.retry_to = NSDate()
+                    }.joined(separator: ",")
+                self.retry_to = Date()
                 // TODO: shouldn't really do database edits in the model
                 AppDelegate.saveContext()
         }
-        return self.retries!.componentsSeparatedByString(",").map{r -> Card? in
-            return self.pack?.getCardById(Int(r)!)
+        return self.retries!.components(separatedBy: ",").map{r -> Card? in
+            return self.pack?.getCardById(NumberFormatter().number(from: r)!)
         }.filter{ x -> Bool in
             return x != nil
         }.map{c -> Card in
@@ -50,16 +50,16 @@ class UserPack: NSManagedObject {
         }
     }
     
-    func getRetryIndex(card: Card) -> Int {
-        return self.getRetries().indexOf(card)!
+    func getRetryIndex(_ card: Card) -> Int {
+        return self.getRetries().index(of: card)!
     }
     
     func getRetryCount() -> Int {
         return self.getRetries().count
     }
     
-    func getRetentionIndex(card: Card) -> Int {
-        return self.getRetention().indexOf(card)!
+    func getRetentionIndex(_ card: Card) -> Int {
+        return self.getRetention().index(of: card)!
     }
     
     func getRetentionCount() -> Int {
@@ -76,7 +76,7 @@ class UserPack: NSManagedObject {
             if response == nil && (retention == nil || retention![3] as? String == nil) {
                 return card
             }
-            else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.user!.retention_to! {
+            else if response == nil && retention != nil && retention![3] as? String != nil && Date.parse(retention![3] as? String)! < self.user!.retention_to! {
                 return card
             }
             else if response != nil && response!.created! < self.user!.retention_to! {
@@ -97,8 +97,8 @@ class UserPack: NSManagedObject {
         for c in cards {
             let responses = responsesUnfiltered.filter({$0.card == c})
             let retention = existing?["\(c.id!)"] as? NSArray
-            var last: NSDate? = NSDate.parse(retention?[1] as? String)
-            var i = intervals.indexOf(retention?[0] as? Int ?? 1) ?? 0
+            var last: Date? = Date.parse(retention?[1] as? String)
+            var i = intervals.index(of: retention?[0] as? Int ?? 1) ?? 0
             var correctAfter = retention?[2] as? Bool == false ?? false
             for r in responses {
                 //  if its correct the first time skip to index 2
@@ -126,7 +126,7 @@ class UserPack: NSManagedObject {
             if i > intervals.count - 1 {
                 i = intervals.count - 1
             }
-            if last == nil || (i == 0 && !correctAfter) || last!.time(3).addDays(intervals[i]) <= NSDate().time(3) {
+            if last == nil || (i == 0 && !correctAfter) || last!.time(3).addDays(intervals[i]) <= Date().time(3) {
                 result.append(Int(c.id!))
             }
         }

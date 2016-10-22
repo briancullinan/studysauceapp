@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 
-public class PackSummaryCell: UITableViewCell {
+open class PackSummaryCell: UITableViewCell {
     
     @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -18,21 +18,21 @@ public class PackSummaryCell: UITableViewCell {
     
     weak var pack: Pack? = nil
     
-    func downloadLogo(url: String) {
-        self.logoImage.hidden = true
+    func downloadLogo(_ url: String) {
+        self.logoImage.isHidden = true
         File.save(url) {(f :File) in
             let fileName = f.filename!
-            let fileManager = NSFileManager.defaultManager()
-            if let data = fileManager.contentsAtPath(fileName) {
+            let fileManager = FileManager.default
+            if let data = fileManager.contents(atPath: fileName) {
                 doMain {
                     self.logoImage.image = UIImage(data: data)
-                    self.logoImage.hidden = false
+                    self.logoImage.isHidden = false
                     
                     if let vc = AppDelegate.visibleViewController() as? PackSummaryController {
                         (vc.view ~> PackSummaryCell.self).each {
-                            if $0.pack!.logo == self.pack!.logo && $0.logoImage.hidden {
+                            if $0.pack!.logo == self.pack!.logo && $0.logoImage.isHidden {
                                 $0.logoImage.image = self.logoImage.image
-                                $0.logoImage.hidden = false
+                                $0.logoImage.isHidden = false
                             }
                         }
                     }
@@ -41,7 +41,7 @@ public class PackSummaryCell: UITableViewCell {
         }
     }
     
-    internal func configure(pack: Pack) {
+    internal func configure(_ pack: Pack) {
         self.pack = pack
         let title = pack.title
         var url = pack.logo ?? ""
@@ -49,13 +49,13 @@ public class PackSummaryCell: UITableViewCell {
             url = AppDelegate.studySauceCom("/bundles/studysauce/images/upload_image.png").absoluteString
         }
         AppDelegate.performContext {
-            if let f = AppDelegate.list(File.self).filter({$0.url! == url}).first where f.filename != nil {
+            if let f = AppDelegate.list(File.self).filter({$0.url! == url}).first , f.filename != nil {
                 let fileName = f.filename!
-                let fileManager = NSFileManager.defaultManager()
-                if let data = fileManager.contentsAtPath(fileName) {
+                let fileManager = FileManager.default
+                if let data = fileManager.contents(atPath: fileName) {
                     doMain {
                         self.logoImage.image = UIImage(data: data)
-                        self.logoImage.hidden = false
+                        self.logoImage.isHidden = false
                     }
                 }
                 else {

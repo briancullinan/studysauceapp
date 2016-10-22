@@ -18,35 +18,35 @@ class User: NSManagedObject {
         return result
     }
     
-    func hasRole(role: String) -> Bool {
-        return self.roles?.componentsSeparatedByString(",").contains(role) == true
+    func hasRole(_ role: String) -> Bool {
+        return self.roles?.components(separatedBy: ",").contains(role) == true
     }
     
     func getAllProperties() -> NSDictionary? {
         return self.properties as? NSDictionary
     }
     
-    func getProperty(prop: String) -> AnyObject? {
-        return (self.properties as? NSDictionary)?[prop]
+    func getProperty(_ prop: String) -> AnyObject? {
+        return (self.properties as? NSDictionary)?[prop] as AnyObject?
     }
     
-    func setProperty(prop: String, _ obj: AnyObject?) {
+    func setProperty(_ prop: String, _ obj: AnyObject?) {
         var props: Dictionary<String,AnyObject> = self.properties as? Dictionary<String,AnyObject> ?? Dictionary<String,AnyObject>()
         if obj == nil {
-            props.removeValueForKey(prop)
+            props.removeValue(forKey: prop)
         }
         else {
             props[prop] = obj!
         }
-        self.properties = props
+        self.properties = props as NSObject?
     }
     
-    func getRetentionIndex(card: Card) -> Int {
-        return self.retention!.componentsSeparatedByString(",").indexOf("\(card.id!)")!
+    func getRetentionIndex(_ card: Card) -> Int {
+        return self.retention!.components(separatedBy: ",").index(of: "\(card.id!)")!
     }
 
     func getRetentionCount() -> Int {
-        return self.retention!.componentsSeparatedByString(",").count
+        return self.retention!.components(separatedBy: ",").count
     }
     
     func getRetentionRemaining() -> Int {
@@ -57,14 +57,14 @@ class User: NSManagedObject {
         let cards = self.getRetention()
         print(self.retention_to)
         for c in cards {
-            if let card = AppDelegate.get(Card.self, c) where card.pack != nil {
+            if let card = AppDelegate.get(Card.self, c) , card.pack != nil {
                 let up = card.pack!.getUserPack(AppDelegate.getUser())
                 let retention = (up.retention as? NSDictionary)?["\(card.id!)"] as? NSArray
                 let response = card.getResponse(self)
                 if (retention == nil || retention![3] as? String == nil) && response == nil {
                     return card
                 }
-                else if response == nil && retention != nil && retention![3] as? String != nil && NSDate.parse(retention![3] as? String)! < self.retention_to! {
+                else if response == nil && retention != nil && retention![3] as? String != nil && Date.parse(retention![3] as? String)! < self.retention_to! {
                     return card
                 }
                 else if response != nil && response!.created! < self.retention_to! {
@@ -77,7 +77,7 @@ class User: NSManagedObject {
     }
     
     func getRetention() -> [NSNumber] {
-        return self.retention!.componentsSeparatedByString(",").filter({$0 != ""}).map({Int($0)!})
+        return self.retention!.components(separatedBy: ",").filter({$0 != ""}).map({NumberFormatter().number(from: $0)!})
     }
     
     func generateRetention() -> [Int] {
@@ -87,7 +87,7 @@ class User: NSManagedObject {
             if up.pack!.isDownloading {
                 continue
             }
-            results.appendContentsOf(up.generateRetention())
+            results.append(contentsOf: up.generateRetention())
         }
         if results.count == 0 {
             self.retention = ""
@@ -95,9 +95,9 @@ class User: NSManagedObject {
         else {
             self.retention = results.shuffle().map { c -> String in
                 return "\(c)"
-                }.joinWithSeparator(",")
+                }.joined(separator: ",")
         }
-        self.retention_to = NSDate()
+        self.retention_to = Date()
         // TODO: shouldn't really do database edits in the model
         AppDelegate.saveContext()
         return results
