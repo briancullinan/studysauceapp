@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 import SystemConfiguration
 import StoreKit
+import IQKeyboardManagerSwift
+
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):

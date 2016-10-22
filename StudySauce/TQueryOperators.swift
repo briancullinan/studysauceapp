@@ -11,7 +11,13 @@ import UIKit
 
 // |>
 
-infix operator ~> {associativity left precedence 255}
+infix operator ~> : MultiplicationPrecedence
+
+infix operator ~>> : MultiplicationPrecedence
+
+infix operator ~+ : MultiplicationPrecedence
+
+infix operator ~* : MultiplicationPrecedence
 
 // TODO: address a view controller directly, instead of UIViewController.view
 // TODO: descendents to allow addressed of views within view controllers of UIView.subviews contains > UIViewController.view
@@ -34,8 +40,6 @@ func ~> <B: UIView>(v: UIView, b: TQueryable<B>) -> [B] {
 
 // |>>
 
-infix operator ~>> {associativity left precedence 255}
-
 func ~>> <A: AnyObject, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
     return TQueryable<A>(a) ~>> b
 }
@@ -45,8 +49,6 @@ func ~>> <A: AnyObject, B: UIView>(q: TQueryable<A>, b: B.Type) -> TQueryable<B>
 }
 
 // |+
-
-infix operator ~+ {associativity left precedence 255}
 
 func ~+ <A: UIView, B: UIView>(a: A.Type, b: B.Type) -> TQueryable<B> {
     return TQueryable<A>(a) ~+ b
@@ -65,8 +67,6 @@ func ~+ <B: UIView>(v: UIView, b: TQueryable<B>) -> [B] {
 }
 
 // |^
-
-infix operator ~* {associativity left precedence 255}
 
 func ~* <B>(b: B.Type, matches: @escaping (B) -> Bool) -> TQueryable<B> {
     return TQueryable<B>(b) ~* matches

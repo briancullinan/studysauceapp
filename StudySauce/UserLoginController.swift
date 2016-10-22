@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
 
 extension Collection where Iterator.Element == HTTPCookie {
     func getJSON() -> [Dictionary<HTTPCookiePropertyKey, AnyObject>] {

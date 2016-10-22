@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 import UIKit
+import IQKeyboardManagerSwift
 
 class CardBlankController: UIViewController, UITextFieldDelegate {
     

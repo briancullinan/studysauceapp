@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import UIKit
 import StoreKit
+import IQKeyboardManagerSwift
 
 class UserSelectController: UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate, SKProductsRequestDelegate {
     

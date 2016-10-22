@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     internal var childFirstName: String?

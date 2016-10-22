@@ -12,6 +12,7 @@ import CoreData
 import UIKit
 import MessageUI
 import QuartzCore
+import IQKeyboardManagerSwift
 
 class ContactUsController: UIViewController, UITextFieldDelegate {
     

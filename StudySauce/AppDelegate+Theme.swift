@@ -176,7 +176,7 @@ extension AppDelegate {
             if name != tracker?.get(kGAIScreenName) {
                 tracker?.set(kGAIScreenName, value: name)
                 let builder = GAIDictionaryBuilder.createScreenView()
-                tracker?.send(builder?.build() as [AnyHashable: Any])
+                tracker?.send(builder!.build() as [NSObject : AnyObject])
             }
         }
     }
@@ -265,7 +265,7 @@ extension AppDelegate {
         })
         
         $([UIViewController.self ~> UIButton.self,
-            UIViewController.self ~> UIButton.self ~> UILabel.self], {
+            (UIViewController.self ~> UIButton.self) ~> UILabel.self], {
                 $0.setFontColor(saucyTheme.lightColor)
         })
         
@@ -277,7 +277,7 @@ extension AppDelegate {
             newPara.firstLineHeadIndent = 0.0
             newPara.headIndent = 10.5
             newPara.lineSpacing = saucyTheme.padding
-            $0.attributedText.replaceAttribute(NSParagraphStyleAttributeName, newPara)
+            $0.attributedText = $0.attributedText.replaceAttribute(NSParagraphStyleAttributeName, newPara)
         }
         
         $(UIImageView.self ~* 23, {background in
@@ -349,12 +349,12 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.lightColor)
         })
         
-        $(UserSwitchController.self ~> UITableViewCell.self ~> UILabel.self, {
+        $((UserSwitchController.self ~> UITableViewCell.self) ~> UILabel.self, {
             $0.setFontName(saucyTheme.labelFont)
             $0.setFontColor(saucyTheme.fontColor)
         })
         
-        $(UserSwitchController.self ~> UILabel.self ~* {$0.text == "✔︎"}, {
+        $((UserSwitchController.self ~> UILabel.self) ~* {$0.text == "✔︎"}, {
             $0.setFontSize(25 * saucyTheme.multiplier())
         })
         
@@ -370,7 +370,7 @@ extension AppDelegate {
             $0.setFontSize(30.0 * saucyTheme.multiplier())
         })
         
-        $(UIViewController.self ~>> UILabel.self ~* 25, {(v: UILabel) -> Void in
+        $((UIViewController.self ~>> UILabel.self) ~* 25, {(v: UILabel) -> Void in
             v.setFontSize(saucyTheme.headingSize)
             v.setFontName(saucyTheme.headingFont)
             v.setFontColor(saucyTheme.lightColor)
@@ -380,21 +380,21 @@ extension AppDelegate {
             
         })
         
-        $([StoreController.self ~> UILabel.self ~* 3,
-            PackResultsController.self ~>> UILabel.self ~* 1,
-           PackResultsController.self ~>> UILabel.self ~* 3], {
+        $([(StoreController.self ~> UILabel.self) ~* 3,
+            (PackResultsController.self ~>> UILabel.self) ~* 1,
+           (PackResultsController.self ~>> UILabel.self) ~* 3], {
             $0.setFontSize(30 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
         })
         
-        $([StoreController.self ~> UILabel.self ~* 2,
+        $([(StoreController.self ~> UILabel.self) ~* 2,
           PackResultsController.self ~>> UILabel.self ~* 2], {
             $0.setFontSize(60 * saucyTheme.multiplier())
             $0.setFontName(saucyTheme.headingFont)
             $0.setFontColor(saucyTheme.primary)
         })
         
-        $([StoreController.self ~> UILabel.self ~* 2,
+        $([(StoreController.self ~> UILabel.self) ~* 2,
             PackResultsController.self ~>> UILabel.self ~* 2 ~* T.orientation("landscape")], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
@@ -422,11 +422,11 @@ extension AppDelegate {
             //v.rowHeight = UITableViewAutomaticDimension
         })
         
-        $(UserSettingsController.self ~> UITableViewCell.self ~>> UILabel.self ~* 1, {
+        $(((UserSettingsController.self ~> UITableViewCell.self) ~>> UILabel.self) ~* 1, {
             $0.setFontName(saucyTheme.labelFont)
         })
 
-        $([PackSummaryCell.self ~> UILabel.self ~* 1], {
+        $([(PackSummaryCell.self ~> UILabel.self) ~* 1], {
             $0.setFontName(saucyTheme.subheadingFont)
         })
         
@@ -440,38 +440,38 @@ extension AppDelegate {
         }
         
         // borders
-        $(HomeController.self ~> UITableView.self ~+ UIView.self ~* 2, {
+        $(((HomeController.self ~> UITableView.self) ~+ UIView.self) ~* 2, {
             $0.setBackground(saucyTheme.fontColor)
         })
         
         // borders
-        $(CardResponseController.self ~> UIView.self ~* 18, {
+        $((CardResponseController.self ~> UIView.self) ~* 18, {
             $0.setBackground(saucyTheme.middle)
         })
         
-        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UIView.self ~* 2, {
+        $((((UserSwitchController.self ~> UITableViewCell.self) ~* "empty") ~> UIView.self) ~* 2, {
             $0.setBackground(saucyTheme.middle)
         })
         
-        $(HomeController.self ~> UITableView.self ~+ UILabel.self, {
+        $((HomeController.self ~> UITableView.self) ~+ UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontSize(saucyTheme.textSize)
             $0.setFontName(saucyTheme.subheadingFont)
         })
 
-        $(HomeController.self ~> UITableView.self ~> UILabel.self, {
+        $((HomeController.self ~> UITableView.self) ~> UILabel.self, {
             $0.setFontColor(saucyTheme.fontColor)
         })
 
-        $(HomeController.self ~> UIButton.self ~* 1, {
+        $((HomeController.self ~> UIButton.self) ~* 1, {
             $0.setFontColor(saucyTheme.primary)
         })
         
-        $(HomeController.self ~> UIButton.self ~* "signup", {
+        $((HomeController.self ~> UIButton.self) ~* "signup", {
             $0.backgroundColor = saucyTheme.primary
         })
 
-        $(HomeController.self ~> PackRetentionCell.self ~> UILabel.self ~* 10, {
+        $(((HomeController.self ~> PackRetentionCell.self) ~> UILabel.self) ~* 10, {
             $0.setFontColor(UIColor.red)
             $0.setFontSize(saucyTheme.textSize * 0.75)
             $0.setFontName(saucyTheme.subheadingFont)
@@ -482,7 +482,7 @@ extension AppDelegate {
             $0.setBackground(saucyTheme.fontColor)
         })
         
-        $(UserSettingsController.self ~> UITableViewHeaderFooterView.self ~> UILabel.self, {
+        $((UserSettingsController.self ~> UITableViewHeaderFooterView.self) ~> UILabel.self, {
             $0.setFontColor(saucyTheme.lightColor)
             $0.setFontName(saucyTheme.subheadingFont)
             $0.setFontSize(saucyTheme.subheadingSize)
@@ -492,27 +492,27 @@ extension AppDelegate {
         // check and x font
         
         $([CardSelfController.self ~> UIButton.self,
-            PackResultsController.self ~> UIButton.self ~* 2], {(v: UIButton) in
+            (PackResultsController.self ~> UIButton.self) ~* 2], {(v: UIButton) in
                 v.setFontSize(40 * saucyTheme.multiplier())
                 v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2)
                 v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2)
         })
 
         $([CardSelfController.self ~> UIButton.self,
-           CardSelfController.self ~> UIButton.self ~> UILabel.self,
-           PackResultsController.self ~> UIButton.self ~* 2,
-           PackResultsController.self ~> UIButton.self ~* 2 ~> UILabel.self], {
+           (CardSelfController.self ~> UIButton.self) ~> UILabel.self,
+           (PackResultsController.self ~> UIButton.self) ~* 2,
+           ((PackResultsController.self ~> UIButton.self) ~* 2) ~> UILabel.self], {
             $0.setFontSize(40 * saucyTheme.multiplier())
         })
         
-        $([CardSelfController.self ~> UILabel.self ~* 5,
-            CardResponseController.self ~> UILabel.self ~* 5,
-            CardResponseController.self ~> UILabel.self ~* 55], {
+        $([(CardSelfController.self ~> UILabel.self) ~* 5,
+            (CardResponseController.self ~> UILabel.self) ~* 5,
+            (CardResponseController.self ~> UILabel.self) ~* 55], {
             $0.setFontColor(saucyTheme.middle)
         })
         
         // true and false button font
-        $(CardTrueFalseController.self ~> UIButton.self ~> UILabel.self, {
+        $((CardTrueFalseController.self ~> UIButton.self) ~> UILabel.self, {
             $0.setFontSize(30 * saucyTheme.multiplier())
         })
 
@@ -524,14 +524,14 @@ extension AppDelegate {
         })
         
         $([CardBlankController.self ~> UITextField.self,
-            CardBlankController.self ~> UITextField.self ~> UILabel.self], {
+            (CardBlankController.self ~> UITextField.self) ~> UILabel.self], {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
-        $([CardBlankController.self ~> UITextField.self ~* T.orientation("landscape"),
-            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.orientation("landscape"),
-            CardBlankController.self ~> UITextField.self ~* T.device("ipad"),
-            CardBlankController.self ~> UITextField.self ~> UILabel.self ~* T.device("ipad")], {
+        $([(CardBlankController.self ~> UITextField.self) ~* T.orientation("landscape"),
+            ((CardBlankController.self ~> UITextField.self) ~> UILabel.self) ~* T.orientation("landscape"),
+            (CardBlankController.self ~> UITextField.self) ~* T.device("ipad"),
+            ((CardBlankController.self ~> UITextField.self) ~> UILabel.self) ~* T.device("ipad")], {
                 $0.setFontSize(saucyTheme.textSize)
         })
         
@@ -549,9 +549,9 @@ extension AppDelegate {
             }
         })
         
-        $([UserSelectController.self ~> UITextField.self ~>> UILabel.self,
-            StoreController.self ~> UITextField.self ~>> UILabel.self,
-            CardBlankController.self ~> UITextField.self ~>> UILabel.self
+        $([(UserSelectController.self ~> UITextField.self) ~>> UILabel.self,
+            (StoreController.self ~> UITextField.self) ~>> UILabel.self,
+            (CardBlankController.self ~> UITextField.self) ~>> UILabel.self
 //            ContactUsController.self ~> UITextField.self ~>> UILabel.self  Contact us uses labels instead of placeholders
             ], {(v: UILabel) in
             if v.text == (v.superview as? UITextField)?.placeholder {
@@ -570,8 +570,8 @@ extension AppDelegate {
             v.layer.cornerRadius = 0
         })
         
-        $([UIViewController.self ~* "Privacy" ~> UITextView.self,
-            UIViewController.self ~* "About" ~> UITextView.self,
+        $([(UIViewController.self ~* "Privacy") ~> UITextView.self,
+            (UIViewController.self ~* "About") ~> UITextView.self,
             CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self], {(v: UITextView) in
                 doMain {
@@ -581,8 +581,8 @@ extension AppDelegate {
         
         $([CardPromptController.self ~> UITextView.self,
             CardResponseController.self ~> UITextView.self,
-            UIViewController.self ~* "Privacy" ~> UITextView.self,
-            UIViewController.self ~* "About" ~> UITextView.self], {(v: UITextView) in
+            (UIViewController.self ~* "Privacy") ~> UITextView.self,
+            (UIViewController.self ~* "About") ~> UITextView.self], {(v: UITextView) in
                 v.textContainerInset = UIEdgeInsets(saucyTheme.padding, 0.0)
         })
 
@@ -610,12 +610,12 @@ extension AppDelegate {
                 (v.viewController() as? CardPromptController)?.alignPlay(v)
         })
         
-        $(CardResponseController.self ~> UITextView.self ~* 450347, {
+        $((CardResponseController.self ~> UITextView.self) ~* 450347, {
             $0.textContainerInset = UIEdgeInsets(saucyTheme.padding * 2)
         })
 
-        $([CardPromptController.self ~> UIButton.self ~* 1,
-            CardResponseController.self ~> UIButton.self ~* {$0.tag == 1}], {(v: UIButton) in
+        $([(CardPromptController.self ~> UIButton.self) ~* 1,
+            (CardResponseController.self ~> UIButton.self) ~* {$0.tag == 1}], {(v: UIButton) in
             let image = v.backgroundImage(for: UIControlState())?.withAlignmentRectInsets(UIEdgeInsets(-saucyTheme.padding))
             v.setBackgroundImage(image, for: UIControlState())
         })
@@ -624,14 +624,14 @@ extension AppDelegate {
             $0.setFontSize(saucyTheme.headingSize)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338, {(v: UIButton) in
+        $((UIViewController.self ~> UIButton.self) ~* 1338, {(v: UIButton) in
             v.backgroundColor = saucyTheme.secondary
             v.setFontName(saucyTheme.textFont)
             v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
             v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
         
-        $(StoreController.self ~> UIButton.self ~* 1338) {
+        $((StoreController.self ~> UIButton.self) ~* 1338) {
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 0.5, saucyTheme.padding)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 0.5, -saucyTheme.padding)
         }
@@ -640,18 +640,18 @@ extension AppDelegate {
             $0.padding = UIEdgeInsets(saucyTheme.padding * 0.5)
         }
         
-        $(UIViewController.self ~> UIButton.self ~* 1339, {(v: UIButton) in
+        $((UIViewController.self ~> UIButton.self) ~* 1339, {(v: UIButton) in
             v.backgroundColor = saucyTheme.primary
             v.setFontName(saucyTheme.textFont)
             v.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 2, saucyTheme.padding)
             v.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 2, -saucyTheme.padding)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1330, {
+        $((UIViewController.self ~> UIButton.self) ~* 1330, {
             $0.setFontColor(saucyTheme.secondary)
         })
         
-        $(UIViewController.self ~> UIButton.self ~* 1338 ~* {!$0.isEnabled}, {
+        $(((UIViewController.self ~> UIButton.self) ~* 1338) ~* {!$0.isEnabled}, {
             $0.backgroundColor = saucyTheme.middle
         })
         
@@ -698,7 +698,7 @@ extension AppDelegate {
             $0.setFontSize(20 * saucyTheme.multiplier())
         })
         
-        $(TutorialContentViewController.self ~> UILabel.self ~* 1, {
+        $((TutorialContentViewController.self ~> UILabel.self) ~* 1, {
             $0.setFontColor(saucyTheme.primary)
             $0.setFontSize(30 * saucyTheme.multiplier())
         })
@@ -716,16 +716,16 @@ extension AppDelegate {
 
         })
         
-        $(PackSummaryController.self ~> UITableViewCell.self ~* "Store" ~> UILabel.self, {
+        $(((PackSummaryController.self ~> UITableViewCell.self) ~* "Store") ~> UILabel.self, {
             $0.setFontColor(saucyTheme.secondary)
         })
         
-        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UILabel.self, {
+        $(((UserSwitchController.self ~> UITableViewCell.self) ~* "empty") ~> UILabel.self, {
             $0.alpha = 0.75
             $0.setFontSize(saucyTheme.textSize * 0.75)
         })
         
-        $(UserSwitchController.self ~> UITableViewCell.self ~* "empty" ~> UIImageView.self, {
+        $(((UserSwitchController.self ~> UITableViewCell.self) ~* "empty") ~> UIImageView.self, {
             $0.alpha = 0.75
         })
         
@@ -749,7 +749,7 @@ extension AppDelegate {
         })
         
         $([BasicKeyboardController.self ~> UILabel.self,
-            BasicKeyboardController.self ~> UIButton.self ~> UILabel.self], {
+            (BasicKeyboardController.self ~> UIButton.self) ~> UILabel.self], {
                 if $0.superview is UIPickerView {
                     return
                 }
@@ -758,13 +758,13 @@ extension AppDelegate {
             $0.setFontColor(saucyTheme.fontColor)
         })
         
-        $([BasicKeyboardController.self ~> UIButton.self ~* 5,
-            BasicKeyboardController.self ~> UIButton.self ~* {$0.isHighlighted}], {
+        $([(BasicKeyboardController.self ~> UIButton.self) ~* 5,
+            (BasicKeyboardController.self ~> UIButton.self) ~* {$0.isHighlighted}], {
             $0.backgroundColor = saucyTheme.secondary
             $0.setFontColor(saucyTheme.lightColor)
         })
         
-        $(BasicKeyboardController.self ~> UIButton.self ~* 2, {
+        $((BasicKeyboardController.self ~> UIButton.self) ~* 2, {
             if ($0.viewController() as! BasicKeyboardController).lowercase {
                 
             }
@@ -780,46 +780,46 @@ extension AppDelegate {
             v.setFontName(saucyTheme.subheadingFont)
         }
         
-        $(StoreController.self ~> UIView.self ~* 57 ~>> UILabel.self) {
+        $(((StoreController.self ~> UIView.self) ~* 57) ~>> UILabel.self) {
             $0.setFontColor(UIColor(0x44AA44))
             $0.setFontName(saucyTheme.subheadingFont)
         }
         
-        $(UserSelectController.self ~> UILabel.self ~* 1) {
+        $((UserSelectController.self ~> UILabel.self) ~* 1) {
             $0.setFontColor(saucyTheme.lightColor)
         }
         
-        $(UserSelectController.self ~> UILabel.self ~* 2) {
+        $((UserSelectController.self ~> UILabel.self) ~* 2) {
             $0.setFontColor(saucyTheme.primary)
             $0.setFontName(saucyTheme.subheadingFont)
         }
 
-        $(StoreController.self ~> UIView.self ~* 57 ~> UIButton.self) {
+        $(((StoreController.self ~> UIView.self) ~* 57) ~> UIButton.self) {
             $0.setBackground(saucyTheme.primary)
         }
         
-        $(StoreController.self ~> UILabel.self ~* 56 ~+ UIButton.self) {
+        $(((StoreController.self ~> UILabel.self) ~* 56) ~+ UIButton.self) {
             $0.setBackground(UIColor(0x1d1c1b))
             $0.contentEdgeInsets = UIEdgeInsets(saucyTheme.padding * 0.5)
             $0.titleEdgeInsets = UIEdgeInsets(-saucyTheme.padding * 0.5)
         }
         
-        $(StoreController.self ~> UILabel.self ~* 56) {
+        $((StoreController.self ~> UILabel.self) ~* 56) {
             $0.setFontName(saucyTheme.subheadingFont)
             $0.layer.addBorder(UIRectEdge.top, color: saucyTheme.fontColor, thickness: 2)
         }
         
-        $(UserSettingsController.self ~> UITableViewCell.self ~* "childLast") {
+        $((UserSettingsController.self ~> UITableViewCell.self) ~* "childLast") {
             $0.layer.addBorder(UIRectEdge.bottom, color: saucyTheme.fontColor, thickness: 2)
         }
         
-        $(StoreController.self ~> UIView.self ~* 57) {
+        $((StoreController.self ~> UIView.self) ~* 57) {
             $0.addBorder(UIRectEdge.bottom, color: saucyTheme.fontColor, thickness: 1)
         }
 
         $([UserSelectController.self ~> TextField.self,
-            StoreController.self ~> CouponCell.self ~> TextField.self,
-            UserAddController.self ~> TextField.self ~* 90])
+            (StoreController.self ~> CouponCell.self) ~> TextField.self,
+            (UserAddController.self ~> TextField.self) ~* 90])
         {(v: TextField) in
             if (v ~> (UIImageView.self ~* 50)).count == 0 {
             let img = UIImageView(image: UIImage(named: "down_arrow"))

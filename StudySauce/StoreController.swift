@@ -17,6 +17,8 @@ import Foundation
 
 import UIKit
 import CoreData
+import IQKeyboardManagerSwift
+import Stripe
 
 class StoreController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITableViewDataSource {
     

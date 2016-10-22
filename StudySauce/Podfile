@@ -1,11 +1,11 @@
 project '../StudySauce.xcodeproj'
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.1'
+use_frameworks!
 target 'StudySauce' do
 pod 'Google'
 pod 'Google/Analytics'
 pod 'Harpy'
 pod 'Stripe/ApplePay'
 pod 'IQKeyboardManagerSwift'
-use_frameworks!
 end
