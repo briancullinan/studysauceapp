@@ -40,11 +40,11 @@ func getJson (_ url: String,
         }
         if data != nil {
             do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: [JSONSerialization.ReadingOptions.mutableContainers, JSONSerialization.ReadingOptions.allowFragments]) as! [String:Any]
+                let json = try JSONSerialization.jsonObject(with: data!, options: [JSONSerialization.ReadingOptions.mutableContainers, JSONSerialization.ReadingOptions.allowFragments])
                 doMain {
                     // change this if we want to register without a code
-                    if json["redirect"] as? String != nil {
-                        redirect(json["redirect"] as! String)
+                    if (json as? [String:Any])?["redirect"] as? String != nil {
+                        redirect((json as? [String:Any])?["redirect"] as! String)
                     }
                     if !hadError {
                         done(json as AnyObject)

@@ -12,12 +12,22 @@ import CoreData
 import IQKeyboardManagerSwift
 
 extension Collection where Iterator.Element == HTTPCookie {
-    func getJSON() -> [Dictionary<HTTPCookiePropertyKey, AnyObject>] {
-        let result = self.map { (c: HTTPCookie) -> Dictionary<HTTPCookiePropertyKey, AnyObject> in
-            var prop = c.properties
-            prop![HTTPCookiePropertyKey(rawValue: "HttpOnly")] = false
-            prop![HTTPCookiePropertyKey(rawValue: "Expires")] = (prop![HTTPCookiePropertyKey(rawValue: "Expires")] as! Date).toRFC()
-            return prop! as! Dictionary<HTTPCookiePropertyKey, AnyObject>
+    func getJSON() -> [Dictionary<String, AnyObject>] {
+        let result = self.map { (c: HTTPCookie) -> Dictionary<String, AnyObject> in
+            let prop = c.properties
+            var saveCookie = [String:Any]()
+            for p in prop! {
+                if p.key == HTTPCookiePropertyKey(rawValue: "HttpOnly") {
+                    saveCookie[p.key.rawValue] = false
+                }
+                else if p.key == HTTPCookiePropertyKey(rawValue: "Expires") {
+                    saveCookie[p.key.rawValue] = (p.value as? Date)?.toRFC()
+                }
+                else {
+                    saveCookie[p.key.rawValue] = "\(p.value)"
+                }
+            }
+            return saveCookie as [String:AnyObject]
         }
         return result
     }

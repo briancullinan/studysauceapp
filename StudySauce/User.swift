@@ -31,12 +31,15 @@ class User: NSManagedObject {
     }
     
     func setProperty(_ prop: String, _ obj: AnyObject?) {
-        var props: Dictionary<String,AnyObject> = self.properties as? Dictionary<String,AnyObject> ?? Dictionary<String,AnyObject>()
+        var props: Dictionary<String,String> = self.properties as? Dictionary<String,String> ?? Dictionary<String,String>()
         if obj == nil {
             props.removeValue(forKey: prop)
         }
+        else if let obj2 = obj as? NSDictionary {
+             props[prop] = NSKeyedArchiver.archivedData(withRootObject: obj2).base64EncodedString()
+        }
         else {
-            props[prop] = obj!
+            props[prop] = "\(obj!)"
         }
         self.properties = props as NSObject?
     }

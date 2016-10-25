@@ -139,7 +139,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                         newPack!.count = pack["count"] as? NSNumber
                         if let properties = pack["properties"] as? [String:Any] {
                             for p in properties.keys {
-                                newPack!.setProperty("\(p)", properties["\(p)"] as AnyObject)
+                                newPack!.setProperty("\(p)", "\(properties["\(p)"])" as AnyObject)
                             }
                         }
                         AppDelegate.saveContext()

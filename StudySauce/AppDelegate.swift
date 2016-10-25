@@ -59,12 +59,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
             userDefaults.synchronize() // don't forget this!!!!
             
             if user != nil {
-                let cookies = user!.getProperty("session") as! [[HTTPCookiePropertyKey : AnyObject]]
-                for var cookie in cookies {
-                    let date = Date.parse(cookie[HTTPCookiePropertyKey(rawValue: "Expires")] as? String)
-                    cookie[HTTPCookiePropertyKey(rawValue: "Expires")] = date as AnyObject
-                    let otherCookie = HTTPCookie(properties: cookie)!
-                    HTTPCookieStorage.shared.setCookie(otherCookie)
+                if let data = Data.init(base64Encoded: user!.getProperty("session") as! String) {
+                    let cookies = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String : AnyObject]]
+                    for cookie in cookies {
+                        var loadedCookie = [HTTPCookiePropertyKey: AnyObject]()
+                        for c in cookie {
+                            if c.key == "Expires" {
+                                let date = Date.parse(c.value as? String)
+                                loadedCookie[HTTPCookiePropertyKey(rawValue: c.key)] = date as AnyObject?
+                            }
+                            else {
+                                loadedCookie[HTTPCookiePropertyKey(rawValue: c.key)] = c.value
+                            }
+                        }
+                        let otherCookie = HTTPCookie(properties: loadedCookie)!
+                        HTTPCookieStorage.shared.setCookie(otherCookie)
+                    }
                 }
             }
         }
