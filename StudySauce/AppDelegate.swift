@@ -11,6 +11,7 @@ import CoreData
 import SystemConfiguration
 import StoreKit
 import IQKeyboardManagerSwift
+import Harpy
 
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
@@ -343,6 +344,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         // Optional: configure GAI options.
         let gai = GAI.sharedInstance()
         gai?.trackUncaughtExceptions = true  // report uncaught exceptions
+        GAI.sharedInstance().defaultTracker?.set(kGAIScreenName, value: "")
         //gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
         return true
     }
@@ -366,11 +368,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         doMain {
             if AppDelegate.visibleViewController() is UserSwitchController {
                 AppDelegate.visibleViewController().dismiss(animated: false, completion: {
-                    completed()
+                    let _ = completed()
                 })
             }
             else {
-                completed()
+                let _ = completed()
             }
         }
     }

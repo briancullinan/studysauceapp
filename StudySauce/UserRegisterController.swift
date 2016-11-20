@@ -52,7 +52,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                 self.registerUser()
             }
             else {
-                self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone registers with invalid email."), NSLocalizedString("Ok", comment: "Button for when users registers with invalid e-mail address")) {
+                let _ = self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone registers with invalid email."), NSLocalizedString("Ok", comment: "Button for when users registers with invalid e-mail address")) {
                     self.email.becomeFirstResponder()
                 }
             }
@@ -149,7 +149,7 @@ class UserRegisterController : UIViewController, UITextFieldDelegate {
                     }
                     if path == "/login" {
                         redirect = true
-                        self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account")) {
+                        let _ = self.showDialog(NSLocalizedString("Existing account found", comment: "Can't create account because same email address is already used"), NSLocalizedString("Log in instead", comment: "Log in instead of registering for a new account")) {
                             self.performSegue(withIdentifier: "login", sender: self)
                             doMain (self.done)
                         }

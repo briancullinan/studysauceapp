@@ -57,13 +57,13 @@ class PackResultsController: UIViewController {
             else {
                 // force homescreen to update with new retention cards
             }
-            AppDelegate.getUser()!.generateRetention()
+            let _ = AppDelegate.getUser()!.generateRetention()
         }
         else {
             // next time card is loaded retries will be repopulated
             let up = self.pack.getUserPack(AppDelegate.getUser())
             if self.percent.text == "100%" {
-                up.getRetries(true)
+                let _ = up.getRetries(true)
             }
             else {
                 // only wrong

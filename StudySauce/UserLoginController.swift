@@ -53,7 +53,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             self.authenticate()
         }
         else {
-            self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
+            let _ = self.showDialog(NSLocalizedString("Invalid e-mail address", comment: "Message for when someone logs in with invalid email."), NSLocalizedString("Ok", comment: "Button for when users log in with invalid e-mail address")) {
                 self.username.becomeFirstResponder()
             }
         }
@@ -90,18 +90,23 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
     internal static func logout(_ done: @escaping () -> Void = {}) {
         getJson("/logout") {json in
             AppDelegate.instance().user = nil
-            AppDelegate.resetLocalStore()
+            let _ = AppDelegate.resetLocalStore()
             done()
         }
     }
     
     internal static func filterDomain(_ users: [User]) -> [User] {
         return users.filter{
-            let cookies = $0.getProperty("session") as? [[String : AnyObject]] ?? [[String : AnyObject]]()
-            return cookies.filter{
-                return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0}
+            if let data = Data.init(base64Encoded: $0.getProperty("session") as! String) {
+                let cookies = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String : AnyObject]]
+
+                return cookies.filter{
+                    return "\($0["Domain"]!)" == AppDelegate.domain}.count > 0
+            }
+            return false
+        }
     }
-    
+
     internal static func processUsers(_ json: NSDictionary) -> Void {
         if let email = json["email"] as? String {
             let cookies = HTTPCookieStorage.shared.cookies?.getJSON()
@@ -110,10 +115,10 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             user.first = json["first"] as? String
             user.last = json["last"] as? String
             let properties = json["properties"] as? NSDictionary
-            user.setProperty("session", cookies as AnyObject?)
             for p in properties?.allKeys ?? [] {
                 user.setProperty("\(p)", properties?.value(forKey: "\(p)") as AnyObject?)
             }
+            user.setProperty("session", cookies as AnyObject?)
             user.created = Date.parse(json["created"] as? String)
             user.roles = json["roles"] as? String
             for c in json["children"] as? [NSDictionary] ?? [] {
@@ -147,7 +152,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                 }
                 
                 
-                AppDelegate.performContext({
+                AppDelegate.performContext {
                     if json["csrf_token"] as? String != nil {
                         self.token = json["csrf_token"] as? String
                     }
@@ -161,7 +166,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                         }
                     }
                     doMain(allFinished)
-                })
+                }
             }
         }
     }
@@ -184,7 +189,7 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
                             ]
                         })
                         
-                        AppDelegate.resetLocalStore()
+                        let _ = AppDelegate.resetLocalStore()
                         
                         AppDelegate.performContext {
                             for u in usersDict {
@@ -253,13 +258,13 @@ class UserLoginController : UIViewController, UITextFieldDelegate {
             }, redirect: {(json: AnyObject) in
                 if json["redirect"] as? String == "/login" && (json["exception"] as? String)?.contains("does not exist") == true {
                     redirect = true
-                    self.showDialog(NSLocalizedString("User does not exist", comment: "When user log in fails because account does not exist."), NSLocalizedString("Try again", comment: "Option to try again when user does not exist")) {
+                    let _ = self.showDialog(NSLocalizedString("User does not exist", comment: "When user log in fails because account does not exist."), NSLocalizedString("Try again", comment: "Option to try again when user does not exist")) {
                         doMain(self.done)
                     }
                 }
                 else if json["redirect"] as? String == "/login" {
                     redirect = true
-                    self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
+                    let _ = self.showDialog(NSLocalizedString("Incorrect password", comment: "When user log in fails because of incorrect password."), NSLocalizedString("Try again", comment: "Option to try again when user log in fails")) {
                         doMain(self.done)
                     }
                 }

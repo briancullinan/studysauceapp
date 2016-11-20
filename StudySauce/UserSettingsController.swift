@@ -36,15 +36,25 @@ class UserSettingsController: UITableViewController {
     
     fileprivate func getUsersFromLocalStore(_ done: @escaping () -> Void) {
         AppDelegate.performContext {
-            let currentCookie = (AppDelegate.getUser()?.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
-            let users = AppDelegate.list(User.self).filter {$0 != AppDelegate.getUser() && (
-                $0.getProperty("session") as? [Dictionary<String,AnyObject>])?.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie}
-            if let _ = users.filter({$0.hasRole("ROLE_PARENT")}).first , !AppDelegate.getUser()!.hasRole("ROLE_PARENT") {
-                self.isChild = true
-            }
-            doMain {
-                self.users = users
-                done()
+            if let data = Data.init(base64Encoded: AppDelegate.getUser()!.getProperty("session") as! String) {
+                let cookies = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String : AnyObject]]
+                
+                let currentCookie = cookies.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String
+                let users = AppDelegate.list(User.self).filter {
+                    if let data = Data.init(base64Encoded: $0.getProperty("session") as! String) {
+                        let cookies = NSKeyedUnarchiver.unarchiveObject(with: data) as! [[String : AnyObject]]
+                        return $0 != AppDelegate.getUser() && (
+                            cookies.filter({$0["Name"] as? String == "PHPSESSID"}).first?["Value"] as? String == currentCookie)
+                    }
+                    return false
+                }
+                if let _ = users.filter({$0.hasRole("ROLE_PARENT")}).first , !AppDelegate.getUser()!.hasRole("ROLE_PARENT") {
+                    self.isChild = true
+                }
+                doMain {
+                    self.users = users
+                    done()
+                }
             }
         }
     }
@@ -129,7 +139,7 @@ class UserSettingsController: UITableViewController {
             if cacheResetCount > 10 {
                 cacheResetCount = 0
                 AppDelegate.performContext {
-                    AppDelegate.resetLocalStore()
+                    let _ = AppDelegate.resetLocalStore()
                     AppDelegate.instance().user = nil
                     UserLoginController.logout({
                         //NSUserDefaults.standardUserDefaults().setValue(nil, forKey: "seen_tutorial")

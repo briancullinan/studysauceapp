@@ -192,7 +192,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
     }
     
     open func getInvitesFromRemoteStore() {
-        let user = AppDelegate.getUser()!
+        let _ = AppDelegate.getUser()!
         getJson("/command/results", [
         "count-invite" : 1 as Optional<AnyObject>,
         "count-ss_user" : -1 as Optional<AnyObject>,
@@ -315,7 +315,7 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
                     error: {code in
                     self.done()
                     if code == 404 {
-                        self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
+                        let _ = self.showDialog(NSLocalizedString("Invite code not found", comment: "Message for invite code not found when adding a child user"), NSLocalizedString("Try again", comment: "Try again button for adding a child when invite code is not found"))
                     }
                     }, redirect: {(path: String) in
                         self.done()

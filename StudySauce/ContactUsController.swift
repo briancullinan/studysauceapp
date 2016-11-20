@@ -70,7 +70,7 @@ class ContactUsController: UIViewController, UITextFieldDelegate {
                 ], error: {_ in
                     doMain(self.done)
                 }) {(json) in
-                    self.showDialog(NSLocalizedString("Thank you!  Someone will be in touch shortly", comment: "Message after user submits a contact us message"), NSLocalizedString("Done", comment: "Button to dismiss the contact us process after submit")) {
+                    let _ = self.showDialog(NSLocalizedString("Thank you!  Someone will be in touch shortly", comment: "Message after user submits a contact us message"), NSLocalizedString("Done", comment: "Button to dismiss the contact us process after submit")) {
                         self.performSegue(withIdentifier: "last", sender: self)
                         doMain(self.done)
                     }

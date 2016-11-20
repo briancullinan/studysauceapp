@@ -26,7 +26,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
     }
 
     @IBAction func codeButton(_ sender: UIButton) {
-        self.showDialog(NSLocalizedString("Ask your sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
+        let _ = self.showDialog(NSLocalizedString("Ask your sponsor for an access code or contact us at admin@studysauce.com", comment: "No code instructions for contacting sponsor"), NSLocalizedString("Ok", comment: "Ok button for no code message"))
     }
     
     @IBAction func submitCode(_ sender: UIButton) {
@@ -90,7 +90,7 @@ class UserInviteController : UIViewController, UITextFieldDelegate {
             ], error: {(code) in
             doMain(self.done)
             if code == 404 {
-                self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
+                let _ = self.showDialog(NSLocalizedString("No matching code found", comment: "Failed to find the invite code"), NSLocalizedString("Try again", comment: "Try to enter a different invite code"))
             }
             }, redirect: {(path: String) in
                 doMain(self.done)

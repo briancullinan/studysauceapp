@@ -35,7 +35,7 @@ class User: NSManagedObject {
         if obj == nil {
             props.removeValue(forKey: prop)
         }
-        else if let obj2 = obj as? NSDictionary {
+        else if let obj2 = obj as? [Dictionary<String, AnyObject>] {
              props[prop] = NSKeyedArchiver.archivedData(withRootObject: obj2).base64EncodedString()
         }
         else {
@@ -45,11 +45,11 @@ class User: NSManagedObject {
     }
     
     func getRetentionIndex(_ card: Card) -> Int {
-        return self.retention!.components(separatedBy: ",").index(of: "\(card.id!)")!
+        return (self.retention ?? "").components(separatedBy: ",").index(of: "\(card.id!)")!
     }
 
     func getRetentionCount() -> Int {
-        return self.retention!.components(separatedBy: ",").count
+        return (self.retention ?? "").components(separatedBy: ",").count
     }
     
     func getRetentionRemaining() -> Int {
@@ -58,7 +58,6 @@ class User: NSManagedObject {
     
     func getRetentionCard() -> Card? {
         let cards = self.getRetention()
-        print(self.retention_to)
         for c in cards {
             if let card = AppDelegate.get(Card.self, c) , card.pack != nil {
                 let up = card.pack!.getUserPack(AppDelegate.getUser())
@@ -80,7 +79,11 @@ class User: NSManagedObject {
     }
     
     func getRetention() -> [NSNumber] {
-        return self.retention!.components(separatedBy: ",").filter({$0 != ""}).map({NumberFormatter().number(from: $0)!})
+        return (self.retention ?? "").components(separatedBy: ",").filter({
+            $0 != ""
+        }).map({
+            NumberFormatter().number(from: $0)!
+        })
     }
     
     func generateRetention() -> [Int] {

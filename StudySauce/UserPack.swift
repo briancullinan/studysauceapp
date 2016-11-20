@@ -99,7 +99,7 @@ class UserPack: NSManagedObject {
             let retention = existing?["\(c.id!)"] as? NSArray
             var last: Date? = Date.parse(retention?[1] as? String)
             var i = intervals.index(of: retention?[0] as? Int ?? 1) ?? 0
-            var correctAfter = retention?[2] as? Bool == false ?? false
+            var correctAfter = retention?[2] as? Bool == false 
             for r in responses {
                 //  if its correct the first time skip to index 2
                 if r.created == nil {

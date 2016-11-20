@@ -179,7 +179,7 @@ open class SinqSequence<T>: Sequence {
         }
         let g = self.makeIterator()
         for _ in 0..<index {
-            g.next()
+            let _ = g.next()
         }
         return g.next()
     }
@@ -671,7 +671,7 @@ open class SinqSequence<T>: Sequence {
         return SinqSequence { () -> AnyIterator<T> in
             let gen = self.makeIterator()
             for _ in 0..<count {
-                gen.next()
+                let _ = gen.next()
             }
             return gen
         }

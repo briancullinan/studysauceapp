@@ -291,7 +291,7 @@ class PackSummaryController: UIViewController, UITableViewDelegate, UITableViewD
                     return
                 }
                 if self.pack!.getUserPack(user).getRetryCard() == nil {
-                    self.pack!.getUserPack(user).getRetries(true)
+                    let _ = self.pack!.getUserPack(user).getRetries(true)
                 }
                 print("Starting \(self.pack!.cards!.count) cards")
                 doMain {

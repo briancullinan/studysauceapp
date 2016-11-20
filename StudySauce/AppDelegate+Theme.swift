@@ -171,7 +171,7 @@ extension AppDelegate {
     static func setAnalytics() {
         if AppDelegate.instance().window != nil {
             let vc = AppDelegate.visibleViewController()
-            /*if let tracker = GAI.sharedInstance().defaultTracker {
+            if let tracker = GAI.sharedInstance().defaultTracker {
                 let name = vc.getAnalytics()
                 if name != tracker.get(kGAIScreenName) {
                     tracker.set(kGAIScreenName, value: name)
@@ -179,7 +179,7 @@ extension AppDelegate {
                         tracker.send(builder.build() as [NSObject : AnyObject])
                     }
                 }
-            }*/
+            }
         }
     }
     
