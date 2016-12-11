@@ -260,6 +260,15 @@ extension AppDelegate {
            UILabel.self,
            UITextView.self,
            UITextField.self], {
+            if ($0 as? UIButton)?.currentTitle == "Select All" ||
+                ($0 as? UIButton)?.currentTitle == "Select" ||
+                ($0 as? UIButton)?.currentTitle == "Cut" ||
+                ($0 as? UIButton)?.currentTitle == "Copy" ||
+                ($0 as? UIButton)?.currentTitle == "Paste" ||
+                ($0 as? UIButton)?.currentTitle == "Share..." ||
+                ($0 as? UIButton)?.currentTitle == "Look Up" {
+                return
+            }
             // TODO: chaining would be nicer syntax here
             $0.setFontColor(saucyTheme.fontColor)
             $0.setFontName(saucyTheme.textFont)
@@ -558,6 +567,17 @@ extension AppDelegate {
             ], {(v: UILabel) in
             if v.text == (v.superview as? UITextField)?.placeholder {
                 v.setFontColor(saucyTheme.middle)
+            }
+        })
+        
+        $(UserAddController.self ~> UILabel.self, {
+            if let text = $0.superview as? UITextField {
+                if text.isEnabled == false {
+                    text.alpha = 0.4
+                }
+                else {
+                    text.alpha = 0.6
+                }
             }
         })
         

@@ -61,8 +61,10 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
         self.schoolSystem.delegate = self
         self.schoolYear.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.schoolYear.delegate = self
+        self.schoolYear.isEnabled = false
         self.schoolName.addDoneOnKeyboardWithTarget(self, action: #selector(UITextFieldDelegate.textFieldShouldReturn(_:)))
         self.schoolName.delegate = self
+        self.schoolName.isEnabled = false
         
         //IQKeyboardManager.sharedManager().enable = false
         //IQKeyboardManager.sharedManager().preventShowingBottomBlankSpace = true
@@ -95,10 +97,16 @@ class UserAddController : UIViewController, UITextFieldDelegate, UIPickerViewDat
                     $0.text = option
                     if $0 == self.schoolSystem {
                         self.schoolYear.text = ""
+                        self.schoolYear.isEnabled = true
+                        AppDelegate.rerenderView(self.schoolYear)
                         self.schoolName.text = ""
+                        self.schoolName.isEnabled = false
+                        AppDelegate.rerenderView(self.schoolName)
                     }
                     if $0 == self.schoolYear {
                         self.schoolName.text = ""
+                        self.schoolName.isEnabled = true
+                        AppDelegate.rerenderView(self.schoolName)
                     }
                 }
             }
