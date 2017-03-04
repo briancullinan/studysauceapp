@@ -184,11 +184,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
     
     static var domain: String {
         #if DEBUG
-            return "test.studysauce.com"
+            return "cerebro.studysauce.com"
         #else
             let receiptUrl = Bundle.main.appStoreReceiptURL?.path
             if receiptUrl?.contains("sandboxReceipt") == true {
-                return "test.studysauce.com"
+                return "cerebro.studysauce.com"
             }
             return "cerebro.studysauce.com"
         #endif
@@ -295,7 +295,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = saucyTheme.textSize + saucyTheme.padding * 3;
         self.setupTheme()
-        Harpy.sharedInstance().appID = "1065647027"
         SKPaymentQueue.default().add(self)
 
         // Override point for customization after application launch.
@@ -360,7 +359,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UINavigationControllerDel
         self.needsUpdating = true
         let completed = {
             AppDelegate.visibleViewController().showDialog(NSLocalizedString("A new version is now available.", comment: "Message text for new version dialog"), NSLocalizedString("Update", comment: "Update button on new version"), click: {
-                let iTunesURL = URL(string: "https://itunes.apple.com/app/id\(Harpy.sharedInstance().appID)")!
+                let iTunesURL = URL(string: "https://itunes.apple.com/app/id1065647027")!
                 UIApplication.shared.openURL(iTunesURL)
                 return false
             })
